@@ -1,0 +1,85 @@
+<!-- REFERENCING METHODS -->
+<!--
+-->
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="description" content="MiBodega.pe - ¡La bodega de tu barrio!">
+    <meta name="keywords" content="MiBodega.pe, Tienda, Tienda online, bodega online, simple, online, comprar, shopping, descuentos, descuento, Alimentos, Comida, delivery, barato, económico, fresco">
+	<meta name="viewport" content = "minimum-scale=1.0, width=device-width, initial-scale=1.0, user-scalable=no" >
+	<meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MiBodega.pe</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/themify-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}" type="text/css">
+	
+	<!-- ICONS (i.e. in the browser tab)-->
+	<link rel="icon" href="{% static 'favicon.ico' %}">
+	<!-- Icon/Tile for windows 8-->
+	<meta name="application-name" content="MiBodega.pe">
+	
+	<!--Schema is used to markup my web page and email messages-->
+	<script type="application/ld+json">
+		{
+		   "@context": "http://schema.org",
+		   "@type": "WebSite",
+		   "url": "https://www.mibodega.pe/",
+		   "potentialAction": {
+			 "@type": "SearchAction",
+			 "target": "https://www.mibodega.pe/search?query={search_term_string}",
+			 "query-input": "required name=search_term_string"
+		   }
+		}
+	</script>
+	<!--BreadcrumbList is an ItemList consisting of a chain of linked Web pages (current page)-->
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [{
+				"@type": "ListItem",
+				"position": 1,
+				"item": {
+					"@id": "https://www.mibodega.pe/",
+					"name": "MiBodega.pe"
+				}
+			}]
+		}
+	</script>
+</head>
+<body>
+    <!-- START SMALL NAVIGATION BAR-->
+    <nav>
+        {% include 'main/includes/navbaritems.html' %}
+    </nav>
+    <!-- START SMALL NAVIGATION BAR-->
+
+    <!-- START ALERT MESSAGES SECTIONS-->
+    {% include 'main/includes/messages.html' %}
+    <!-- ENDS ALERT MESSAGES SECTIONS-->
+
+    {% block content %}
+    {% endblock %}    
+
+    <footer class="footer-section">
+        {% include 'main/includes/footer.html' %}
+    </footer>
+</body>
+
+</html>
