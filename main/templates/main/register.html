@@ -3,12 +3,6 @@
 
 {% block content %}
 <!-- We are gonna accept information from the users (POST)-->
-<form method="POST">
-    {% csrf_token %} <!-- To avoid tricking a user-->
-    {{form.as_p}} <!-- build a form in Django instead of html -->
-    <button class="btn btn-primary btn-lg active" type="submit">REGISTRESE</button>
-</form>
-Si ya tiene una cuenta, <a href="/login"><strong>haga click aquí</strong></a>.
 
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
@@ -16,7 +10,7 @@ Si ya tiene una cuenta, <a href="/login"><strong>haga click aquí</strong></a>.
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-text">
-                    <a href="/"><i class="fa fa-home"></i>Inicio</a>
+                    <a href="/"><i class="fa fa-home"></i> Inicio</a>
                     <span>Registre su bodega</span>
                 </div>
             </div>
@@ -31,20 +25,48 @@ Si ya tiene una cuenta, <a href="/login"><strong>haga click aquí</strong></a>.
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
-                    <h2>Registre su bodega</h2>
-                    <form action="#">
-                        <div class="group-input">
-                            <label for="username">Usuario</label>
-                            <input type="text" id="username">
-                        </div>
-                        <div class="group-input">
-                            <label for="pass">Contraseña</label>
-                            <input type="text" id="pass">
-                        </div>
-                        <div class="group-input">
-                            <label for="con-pass">Confirme su contraseña</label>
-                            <input type="text" id="con-pass">
-                        </div>
+                    <h2>Regístrese</h2>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% load widget_tweaks %}
+
+                        {% for hidden_field in form.hidden_fields %}
+                        {{ hidden_field }}
+                        {% endfor %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in form.non_field_errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% for field in form.visible_fields %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+
+                                {% if form.is_bound %}
+                                {% if field.errors %}
+                                    {% render_field field class="form-control is-invalid" %}
+                                    {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error }}
+                                    </div>
+                                    {% endfor %}
+                                {% else %}
+                                    {% render_field field class="form-control is-valid" %}
+                                {% endif %}
+                                {% else %}
+                                {% render_field field class="form-control" %}
+                                {% endif %}
+
+                                {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                         <button type="submit" class="site-btn register-btn">Registrar</button>
                     </form>
                     <div class="switch-login">
