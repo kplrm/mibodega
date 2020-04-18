@@ -1,0 +1,324 @@
+{% extends 'main/header.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header-section">
+    <!-- MIDDLE BAR -->
+    <div class="container">
+        <div class="inner-header">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="logo">
+                        <!-- <a href="./index.html"> -->
+                            <img src="{% static 'main/img/logo.png' %}" alt="">
+                        <!-- </a> -->
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-7">
+                    <div class="advanced-search">
+                        <!--<button type="button" class="category-btn">All Categories</button>-->
+                        <div class="input-group"> <!--Change width for adding all categories button-->
+                            <input type="text" placeholder="Producto">
+                            <button type="button"><i class="ti-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 text-right col-md-3">
+                    <ul class="nav-right">
+                        <li class="heart-icon">
+                            <a href="#">
+                                <i class="icon_heart_alt"></i>
+                                <span>0</span>
+                            </a>
+                        </li>
+                        <!-- SHOPPING CART -->
+                        <li class="cart-icon">
+                            <a href="#">
+                                <i class="icon_bag_alt"></i>
+                                <span>2</span>
+                            </a>
+                            <div class="cart-hover">
+                                <div class="select-items">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td class="si-pic"><img src="{% static 'main/products/leche-evaporada-gloria-400g.jpg' %}" alt=""></td>
+                                                <td class="si-text">
+                                                    <div class="product-selected">
+                                                        <p>S/.4.00 x 1</p>
+                                                        <h6>Leche evaporada Gloria</h6>
+                                                    </div>
+                                                </td>
+                                                <td class="si-close">
+                                                    <i class="ti-close"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="si-pic"><img src="{% static 'main/products/fideos-molitalia-pasta-corta-250g.jpg' %}" alt=""></td>
+                                                <td class="si-text">
+                                                    <div class="product-selected">
+                                                        <p>S/.2.00 x 1</p>
+                                                        <h6>Fideos Molitalia</h6>
+                                                    </div>
+                                                </td>
+                                                <td class="si-close">
+                                                    <i class="ti-close"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="select-total">
+                                    <span>total:</span>
+                                    <h5>S/.6.00</h5>
+                                </div>
+                                <div class="select-button">
+                                    <a href="#" class="primary-btn view-card">VER CESTA</a>
+                                    <a href="#" class="primary-btn checkout-btn">PAGAR</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="cart-price">S/.6.00</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BOTTOM BAR-->
+    <div class="nav-item">
+        <div class="container">
+            <nav class="nav-menu mobile-menu">
+                <ul>
+                    <li class="active"><a href="./index.html">Ofertas</a></li>
+                    <li><a href="./shop.html">Embutidos</a></li>
+                    <li><a href="#">Lácteos</a></li>
+                    <li><a href="./blog.html">Abarrotes</a></li>
+                    <li><a href="./contact.html">Limpieza</a></li>
+                    <li><a href="#">Licores</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Mobile version-->
+           <div id="mobile-menu-wrap"></div>
+        </div>
+    </div>
+</header>
+<!-- Header End -->
+
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hero-items owl-carousel">
+        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-1.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!--<span>Bag,kids</span>-->
+                        <h1 style="background-color:white; opacity: 0.8">Ahora en La Molina</h1>
+                        <h3 style="background-color:white; opacity: 0.8">La bodega de tu cuadra ahora está en internet</h3>
+                        <a href="#" class="primary-btn">¡Compra!</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Ya abrimos</h2>
+                </div>
+            </div>
+        </div>
+        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-2.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!--<span>Bag,kids</span>-->
+                        <h1 style="background-color:white; opacity: 0.8">Afilia tu bodega gratis</h1>
+                        <h3 style="background-color:white; opacity: 0.8">Ahora puedes vender por internet</h3>
+                        <a href="#" class="primary-btn">¡Únete!</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Ya abrimos</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Women Banner Section Begin -->
+<section class="women-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <!--<div class="col-lg-8 offset-lg-1">-->
+            <div class="col-lg-12">
+                <div class="filter-control">
+                    <ul>
+                        <li class="active">Ofertas</li>
+                        <li>Embutidos</li>
+                        <li>Lácteos</li>
+                        <li>Abarrotes</li>
+                        <li>Limpieza</li>
+                        <li>Licores</li>
+                    </ul>
+                </div>
+                <div class="product-slider owl-carousel">
+                    <!-- FIRST ITEM -->
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="{% static 'main/products/mid_leche-evaporada-gloria-400g.jpg' %}" alt="IMG1">
+                            <div class="sale">-20%</div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">Añadir a la cesta</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Lácteos</div>
+                            <a href="#"><h5>Leche evaporada Gloria</h5></a>
+                            <div class="product-price">
+                                S/.4.00
+                                <span>S/.5.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRODUCT-->
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="{% static 'main/products/mid_fideos-molitalia-pasta-corta-250g.jpg' %}" alt="IMG2">
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">Añadir a la cesta</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Categoría 2</div>
+                            <a href="#">
+                                <h5>Producto 2</h5>
+                            </a>
+                            <div class="product-price">
+                                S/.0.00
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRODUCT-->
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="{% static 'main/products/mid_leche-evaporada-gloria-400g.jpg' %}" alt="IMG1">
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">Añadir a la cesta</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Categoría 2</div>
+                            <a href="#">
+                                <h5>Producto 2</h5>
+                            </a>
+                            <div class="product-price">
+                                S/.0.00
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRODUCT-->
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="{% static 'main/products/mid_fideos-molitalia-pasta-corta-250g.jpg' %}" alt="IMG2">
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">Añadir a la cesta</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Categoría 2</div>
+                            <a href="#">
+                                <h5>Producto 2</h5>
+                            </a>
+                            <div class="product-price">
+                                S/.0.00
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRODUCT-->
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="{% static 'main/products/mid_leche-evaporada-gloria-400g.jpg' %}" alt="IMG1">
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">Añadir a la cesta</a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">Categoría 2</div>
+                            <a href="#">
+                                <h5>Producto 5</h5>
+                            </a>
+                            <div class="product-price">
+                                S/.0.00
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Women Banner Section End -->
+
+<!-- BENEFICIOS -->
+<section class="latest-blog spad">
+    <div class="container">
+        <div class="benefit-items">
+            <div class="row">
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-1.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>Envío económico</h6>
+                            <p>Es la bodega de la cuadra.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-2.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>Rápido envío</h6>
+                            <p>El bodeguero es tu vecino.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-3.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>100% pago seguro</h6>
+                            <p>En efectivo a <b>contraentrega.</b><br>Próximamente con tarjeta via web.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Latest Blog Section End -->
+<!-- Js Plugins -->
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'main/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.zoom.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.dd.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'main/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'main/js/main.js' %}"></script>
+{% endblock %}
