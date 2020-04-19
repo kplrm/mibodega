@@ -5,18 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 #from accounts.models import 
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required = True, max_length=254)
-    first_name = forms.CharField(required = False)
-    last_name = forms.CharField(required = False)
-    
-    is_staff =  forms.BooleanField(required = False, widget=forms.HiddenInput())
-    is_active = forms.BooleanField(initial=True, required = False, widget=forms.HiddenInput())
-    is_bodega = forms.BooleanField(initial=False, required = False, widget=forms.HiddenInput())
-
-    phone = forms.IntegerField(required = True)
-    geolocation = forms.CharField(required = False, widget=forms.HiddenInput())
-    ID_listado = forms.IntegerField(required = False, widget=forms.HiddenInput())
-
     class Meta:
         model = User
         fields = ( # alll field names
@@ -34,6 +22,20 @@ class RegistrationForm(UserCreationForm):
             'ID_listado',
         )
         widgets = {'geolocation': forms.HiddenInput()}
+        
+    email = forms.EmailField(required = True, max_length=254)
+    first_name = forms.CharField(required = False)
+    last_name = forms.CharField(required = False)
+    
+    is_staff =  forms.BooleanField(required = False, widget=forms.HiddenInput())
+    is_active = forms.BooleanField(initial=True, required = False, widget=forms.HiddenInput())
+    is_bodega = forms.BooleanField(initial=False, required = False, widget=forms.HiddenInput())
+
+    phone = forms.IntegerField(required = True)
+    geolocation = forms.CharField(required = False, widget=forms.HiddenInput())
+    ID_listado = forms.IntegerField(required = False, widget=forms.HiddenInput())
+
+
 
     def save(self, commit=True): #commit saves data to database
         user = super(RegistrationForm, self).save(commit=False) # when finish edition, it will store the data

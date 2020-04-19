@@ -46,7 +46,7 @@ class ProductosAprobados(models.Model):
 
     @property
     def ProductosAprobados(self):
-        return self.id
+        return self.pa_ID
 
     # This is to change what is display when self referencing.
     # It displays the product title instead of making a list of objects.
@@ -66,14 +66,14 @@ class ListaDeProductos(models.Model):
 
     @property
     def discount_rate(self):
-        if (self.ldp_regular_price!=0)and(self.ldp_discount_price!=0)and(self.ldp_regular_price!="")and(self.ldp_discount_price!=null):
+        if (self.ldp_regular_price!=0) and (self.ldp_discount_price!=0) and isinstance(self.ldp_discount_price,float):
             return (self.ldp_discount_price-self.ldp_regular_price)/self.ldp_regular_price*100
         else:
             return 0
 
     @property
     def ProductoOfertado(self):
-        return self.id
+        return self.ldp_ID
     
     def __str__(self):
         return str(self.ldp_product)
