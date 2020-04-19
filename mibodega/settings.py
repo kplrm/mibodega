@@ -80,10 +80,25 @@ WSGI_APPLICATION = 'mibodega.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': { # user access and system stuff
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'products.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'default.db'),
+#        'USER': 'default_db',
+#        'PASSWORD': 'color800',
     }
+#    'ProductosAprobados': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': os.path.join(BASE_DIR, 'ProductosAprobados.postgresql'),
+#        'USER': 'ProductosAprobados_db',
+#        'PASSWORD': 'color800',
+#    }
+#    'ListasDeProductos': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': os.path.join(BASE_DIR, 'ListasDeProductos.postgresql'),
+#        'USER': 'ListasDeProductos_db',
+#        'PASSWORD': 'color800',
+#    }
 }
 
 

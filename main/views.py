@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect # to redirect the user
 #from django.http import HttpResponse
-from .models import productos_aprobados
+from .models import ProductosAprobados
 
 from .forms import RegistrationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
@@ -12,7 +12,7 @@ def homepage(request):
     #return HttpResponse("pythonprogramming.net homepage! Wow so #amaze.")
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={"productos_aprobados": productos_aprobados.objects.all()}) # variable name 'pa'
+                  context={"ProductosAprobados": ProductosAprobados.objects.all()}) # variable name 'pa'
 
 def register(request):
     if request.method =='POST':
