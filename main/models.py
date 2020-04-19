@@ -35,7 +35,7 @@ class ProductosAprobados(models.Model):
     pa_introduced = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de introducción")
     pa_description = models.TextField(default='sinDsescripción',verbose_name="Descripción")
     pa_rating = models.IntegerField(default='0',verbose_name="Calificación (0-5)") # 1 low 5 top
-    pa_status = models.BooleanField(null=False,verbose_name="Activo") # if it is currently being offered
+    pa_status = models.BooleanField(default=True,null=False,verbose_name="Activo") # if it is currently being offered
     pa_photo_full = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto grande") # Link to large size photos
     pa_photo_mid = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto mediana") # Link to mid size photos
     pa_photo_small = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto pequeña") # Link to small size photos
@@ -55,13 +55,14 @@ class ProductosAprobados(models.Model):
 
 class ListaDeProductos(models.Model):
     class Meta:
-        verbose_name_plural = "Producto en bodega"
+        verbose_name_plural = "Lista De Productos"
     
     ldp_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Código de listado")
-    ldp_product = models.ForeignKey(ProductosAprobados, on_delete=models.CASCADE) # when deleted, all values will also be deleted
+    ldp_product = models.ForeignKey(ProductosAprobados, on_delete=models.CASCADE,verbose_name="Producto") # when deleted, all values will also be deleted
     ldp_regular_price = models.FloatField(verbose_name="Precio regular")
     ldp_discount_price = models.FloatField(blank=True,null=True,verbose_name="Precio con descuento")
     ldp_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    ldp_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
 
     @property
     def discount_rate(self):
