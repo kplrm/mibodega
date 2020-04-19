@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect # to redirect the user
-#from django.http import HttpResponse
-from .models import ProductosAprobados
+from .models import ProductosAprobados, ListaDeProductos
 
 from .forms import RegistrationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
@@ -9,7 +8,10 @@ from django.contrib import messages # to send unique messages to the users
 
 # Create your views here.
 def homepage(request):
-    #return HttpResponse("pythonprogramming.net homepage! Wow so #amaze.")
+    #DG
+    for product in ListaDeProductos.objects.all():
+        print(product.discount_rate)
+    #
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
                   context={"ProductosAprobados": ProductosAprobados.objects.all()}) # variable name 'pa'
