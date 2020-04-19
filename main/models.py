@@ -79,3 +79,12 @@ class ListaDeProductos(models.Model):
     
     def __str__(self):
         return str(self.ldp_product)
+
+class Item(models.Model):
+    pass
+
+class OrderItem(models.Model):
+    pass
+
+class Order(models.Model):
+    pass
