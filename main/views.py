@@ -6,15 +6,40 @@ from django.contrib.auth import login as auth_login, logout as auth_logout, auth
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages # to send unique messages to the users
 
+from itertools import chain
+
 # Create your views here.
 def homepage(request):
     #DG
-    for product in ListaDeProductos.objects.all():
-        print(product.discount_rate)
-    #
+    # Entry tiene el foreign key de Blog como blog
+    lista_de_productos = ListaDeProductos.objects.all()
+    filtro_ofertas_ldp = lista_de_productos.filter(ldp_discount_rate__lt=0)
+    filtro_ofertas_pa = ProductosAprobados.objects.filter(pk__in=filtro_ofertas_ldp.values('ldp_product'))
+
+    # Order by pk
+    filtro_ofertas_pa = filtro_ofertas_pa.order_by('pk')
+    filtro_ofertas_ldp = filtro_ofertas_ldp.order_by('ldp_product')
+
+    # Join querysets in a list of dictionaries
+    result_list = []
+    for product in filtro_ofertas_pa:
+        result_list.append({'pa_photo_full':product.pa_photo_full,
+                    'pa_category':product.pa_category,
+                    'pa_product':product.pa_product,
+                    'ldp_regular_price':"",
+                    'ldp_discount_price':"",
+                    'ldp_discount_rate':"",
+                    })
+    counter = 0
+    for product in filtro_ofertas_ldp:
+        result_list[counter]['ldp_regular_price'] = str(format(product.ldp_regular_price,'.2f'))
+        result_list[counter]['ldp_discount_price'] = str(format(product.ldp_discount_price,'.2f'))
+        result_list[counter]['ldp_discount_rate'] = int(round(product.ldp_discount_rate))
+        counter = counter+1
+
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={"ProductosAprobados": ProductosAprobados.objects.all()}) # variable name 'pa'
+                  context={'result_list': result_list})
 
 def register(request):
     if request.method =='POST':

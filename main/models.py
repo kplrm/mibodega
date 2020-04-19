@@ -5,13 +5,14 @@ from django.utils import timezone
 # Create your models here.
 #This adds a new table called ProductosAprobados
 class ProductosAprobados(models.Model):
-    EMBUTIDOS = 'EM'
-    LACTEOS = 'LA'
-    ABARROTES = 'AB'
-    LIMPIEZA = 'LI'
-    LICORES = 'LC'
-    VEGETALES = 'VE'
-    OTROS = 'OT'
+    # These are the folders in /media/ and the url address
+    EMBUTIDOS = 'embutidos'
+    LACTEOS = 'lacteos'
+    ABARROTES = 'abarrotes'
+    LIMPIEZA = 'limpieza'
+    LICORES = 'licores'
+    VEGETALES = 'vegetales'
+    OTROS = 'otros'
     CATEGORY_CHOICES = [
         (EMBUTIDOS, 'Embutidos'), #(what does on the db, what it's displayed)
         (LACTEOS, 'Lácteos'),
@@ -21,14 +22,14 @@ class ProductosAprobados(models.Model):
         (VEGETALES, 'Vegetales') ,
         (OTROS, 'Otros'),
     ]
+
+    #ID automatic generated as 'pk'
     pa_category = models.CharField(
         max_length=10,
         choices=CATEGORY_CHOICES,
         default=OTROS,
         verbose_name="Categoría",
     )
-
-    #product_ID  = AutoField() # id automatic gnerated
     pa_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Código de listado")
     pa_product = models.CharField(max_length=100,default="",verbose_name="Producto")
     pa_brand = models.CharField(max_length=100,default="",verbose_name="Marca")
@@ -62,6 +63,7 @@ class ListaDeProductos(models.Model):
     ldp_regular_price = models.FloatField(verbose_name="Precio regular")
     ldp_discount_price = models.FloatField(blank=True,null=True,verbose_name="Precio con descuento")
     ldp_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    ldp_discount_rate = models.FloatField(default=0,editable=True,verbose_name="'%' de descuento")
     ldp_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
 
     @property
