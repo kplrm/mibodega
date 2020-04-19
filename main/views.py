@@ -23,7 +23,7 @@ def homepage(request):
     # Join querysets in a list of dictionaries
     result_list = []
     for product in filtro_ofertas_pa:
-        result_list.append({'pa_photo_full':product.pa_photo_full,
+        result_list.append({'pa_photo_small':product.pa_photo_small,
                     'pa_category':product.pa_category,
                     'pa_product':product.pa_product,
                     'ldp_regular_price':"",
@@ -36,6 +36,8 @@ def homepage(request):
         result_list[counter]['ldp_discount_price'] = str(format(product.ldp_discount_price,'.2f'))
         result_list[counter]['ldp_discount_rate'] = int(round(product.ldp_discount_rate))
         counter = counter+1
+
+    
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template

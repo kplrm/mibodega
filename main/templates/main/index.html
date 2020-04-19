@@ -170,8 +170,7 @@
                     {% for dict_item in result_list %}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <!-- <img src="{% static 'main/products/mid_leche-evaporada-gloria-400g.jpg' %}" alt="IMG1"> -->
-                            <img src="/media/{{dict_item.pa_category}}/{{dict_item.pa_photo_full}}" alt="IMG">
+                            <img src="/media/{{dict_item.pa_category}}/{{dict_item.pa_photo_small}}" alt="IMG">
                             <div class="sale">{{dict_item.ldp_discount_rate}}%</div>
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
