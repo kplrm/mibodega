@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect # to redirect the user
 from .models import ProductosAprobados, ListaDeProductos
 
-from .forms import RegistrationForm
+from .forms import RegistrationForm, ClientForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages # to send unique messages to the users
@@ -46,8 +46,14 @@ def homepage(request):
 def register(request):
     if request.method =='POST':
         form = RegistrationForm(request.POST)
-        if form.is_valid():
+        cl_form = ClientForm(request.POST)
+        if form.is_valid() and cl_form.is_valid:
             user = form.save()
+            client = cl_form.save(commit=False)
+            client.cl_user = user
+            client.cl_first_name = user.first_name
+            client.cl_last_name = user.last_name
+            cl_form.save(commit=True)
             username = user.username # normalize to a standard format
             # Messages are stored only once. When they are delivered, they also are deleted.
             messages.success(request,f"Cuenta creada exitosamente") # (request, exact message)
@@ -59,7 +65,8 @@ def register(request):
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
             
     form = RegistrationForm() # Rerender form
-    return render(request, 'main/register.html', context={"form":form})
+    cl_form = ClientForm() # Rerender form
+    return render(request, 'main/register.html', context={"form":form,"cl_form":cl_form})
 
 def logout_request(request):
     auth_logout(request)

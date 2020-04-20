@@ -1,10 +1,14 @@
 import uuid # universally unique identifiers
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 # Create your models here.
 #This adds a new table called ProductosAprobados
 class ProductosAprobados(models.Model):
+    class Meta:
+        verbose_name_plural = "Productos aceptados"
+
     # These are the folders in /media/ and the url address
     EMBUTIDOS = 'embutidos'
     LACTEOS = 'lacteos'
@@ -24,14 +28,9 @@ class ProductosAprobados(models.Model):
     ]
 
     #ID automatic generated as 'pk'
-    pa_category = models.CharField(
-        max_length=10,
-        choices=CATEGORY_CHOICES,
-        default=OTROS,
-        verbose_name="Categoría",
-    )
-    pa_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Código de listado")
+    pa_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Producto")
     pa_product = models.CharField(max_length=100,default="",verbose_name="Producto")
+    pa_category = models.CharField(max_length=10,choices=CATEGORY_CHOICES,default=OTROS,verbose_name="Categoría")
     pa_brand = models.CharField(max_length=100,default="",verbose_name="Marca")
     pa_introduced = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de introducción")
     pa_description = models.TextField(default='sinDsescripción',verbose_name="Descripción")
@@ -42,24 +41,44 @@ class ProductosAprobados(models.Model):
     pa_photo_small = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto pequeña") # Link to small size photos
     pa_reg_sanitario = models.CharField(max_length=100,blank=True,default="",verbose_name="Registro sanitario")
 
-    class Meta:
-        verbose_name_plural = "Productos aceptados"
-
     @property
     def ProductosAprobados(self):
         return self.pa_ID
 
-    # This is to change what is display when self referencing.
-    # It displays the product title instead of making a list of objects.
     def __str__(self):
         return self.pa_product
+
+class Cliente(models.Model):
+    cl_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cliente")
+    cl_user = models.OneToOneField(User,null=True,on_delete=models.CASCADE,verbose_name="Cliente")
+    cl_first_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Nombre")
+    cl_last_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Apellido")
+    cl_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
+    cl_address = models.CharField(max_length=50,blank=True,null=True,verbose_name="Dirreción")
+    cl_geolocation = models.CharField(max_length=50,blank=True,null=True,verbose_name="Ubicación")
+    cl_date_reg = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de registro")
+
+    def __str__(self):
+        return str(self.cl_user)
+    
+class Bodega(models.Model):
+    bd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Bodega")
+    bd_user = models.ForeignKey(Cliente,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
+    bd_is_active = models.BooleanField(default=True,verbose_name="¿Está activo?")
+    bd_name = models.CharField(max_length=100,blank=True,null=True,verbose_name="Bodega")
+    bd_ruc = models.CharField(max_length=11,blank=True,null=True,verbose_name="Bodega")
+    bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Bodega")
+
+    def __str__(self):
+        return str(self.bd_name)
 
 class ListaDeProductos(models.Model):
     class Meta:
         verbose_name_plural = "Lista De Productos"
     
-    ldp_ID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Código de listado")
-    ldp_product = models.ForeignKey(ProductosAprobados, on_delete=models.CASCADE,verbose_name="Producto") # when deleted, all values will also be deleted
+    lpd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Listado")
+    ldp_cod = models.ForeignKey(Bodega,null=True,on_delete=models.CASCADE,verbose_name="Código de listado")
+    ldp_product = models.ForeignKey(ProductosAprobados,on_delete=models.CASCADE,verbose_name="Producto")
     ldp_regular_price = models.FloatField(verbose_name="Precio regular")
     ldp_discount_price = models.FloatField(blank=True,null=True,verbose_name="Precio con descuento")
     ldp_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
@@ -72,18 +91,21 @@ class ListaDeProductos(models.Model):
             return (self.ldp_discount_price-self.ldp_regular_price)/self.ldp_regular_price*100
         else:
             return 0
-
-    @property
-    def ProductoOfertado(self):
-        return self.ldp_ID
     
     def __str__(self):
         return str(self.ldp_product)
+    
+class Basket(models.Model):
+    bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesto")
+    bkt_cod = models.OneToOneField(Cliente,null=True,on_delete=models.CASCADE,verbose_name="ID Cliente")
+    bkt_product = models.ManyToManyField(ListaDeProductos,verbose_name="Producto")
+    bkt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
 
-class Item(models.Model):
-    pass
+    def __str__(self):
+        return self.bkt_product.ldp_product.pa_product
 
 class OrderItem(models.Model):
+    
     pass
 
 class Order(models.Model):
