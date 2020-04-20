@@ -1,6 +1,7 @@
 import uuid # universally unique identifiers
 from django.db import models
 from django.utils import timezone
+from django.conf import settings # to import global conf for user
 
 # Create your models here.
 #This adds a new table called ProductosAprobados
@@ -66,6 +67,8 @@ class ListaDeProductos(models.Model):
     ldp_discount_rate = models.FloatField(default=0,editable=True,verbose_name="'%' de descuento")
     ldp_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
 
+#    slug = models.SlugField()
+
     @property
     def discount_rate(self):
         if (self.ldp_regular_price!=0) and (self.ldp_discount_price!=0) and isinstance(self.ldp_discount_price,float):
@@ -80,11 +83,30 @@ class ListaDeProductos(models.Model):
     def __str__(self):
         return str(self.ldp_product)
 
+    # This is for redirecting to every product individual page
+#    def get_absolute_url(self):
+#        return reverse("main:product",
+#                       kwargs={'slug': self.slug})
+
 class Item(models.Model):
-    pass
+    def get_add_to_cart_url(self):
+        return reverse("main:add-to-cart",kwags=)
 
-class OrderItem(models.Model):
-    pass
 
-class Order(models.Model):
-    pass
+class OrderItem(models.Model): # items in the basket
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
+    ordered = models.BooleanField(default=False)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+
+class Order(models.Model): # items paid
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                            on_delete=models.CASCADE)
+    items = models.ManyToManyField(OrderItem)
+    start_date = models.DateTimeField(auto_now_add=True)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    ordered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username

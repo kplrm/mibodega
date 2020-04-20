@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect # to redirect the user
-from .models import ProductosAprobados, ListaDeProductos
+from django.shortcuts import render, redirect, get_object_or_404 # to redirect the user
+from .models import ProductosAprobados, ListaDeProductos, Order, OrderItem
+from django.utils import timezone
 
 from .forms import RegistrationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
@@ -10,7 +11,6 @@ from itertools import chain
 
 # Create your views here.
 def homepage(request):
-    #DG
     # Entry tiene el foreign key de Blog como blog
     lista_de_productos = ListaDeProductos.objects.all()
     filtro_ofertas_ldp = lista_de_productos.filter(ldp_discount_rate__lt=0)
@@ -36,7 +36,6 @@ def homepage(request):
         result_list[counter]['ldp_discount_price'] = str(format(product.ldp_discount_price,'.2f'))
         result_list[counter]['ldp_discount_rate'] = int(round(product.ldp_discount_rate))
         counter = counter+1
-
     
 
     return render(request=request, # to reference request
@@ -86,3 +85,20 @@ def login_request(request):
 
     form = AuthenticationForm()
     return render(request, "main/login.html", {"form":form})
+
+def add_to_cart(request, pk):
+    item = get_object_or_404(Item, pk=pk) # or get_list_or_404 -> if there are multiple states for i.e. one disease?
+    order_item = OrderItem.objects.get_or_create(item=item,user=request.user,ordered=False)
+    order_qs = Order.objects.filter(user=request.user,ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(item__slug=item.slug).exists():
+            order_item.quantity+=1
+            order_item.save()
+        else:
+            order.items.add(order_item)
+    else:
+        order = Order.objects.create(user=request.user)
+        order.items.add(order_item)
+    return redirect("main:homepage")
