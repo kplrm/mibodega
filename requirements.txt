@@ -1,2 +1,3 @@
 conda install -c conda-forge postgresql
 conda install -c conda-forge psycopg2
+pip install django-widget-tweaks
