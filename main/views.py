@@ -86,8 +86,13 @@ def login_request(request):
     form = AuthenticationForm()
     return render(request, "main/login.html", {"form":form})
 
+<<<<<<< Updated upstream
 def add_to_cart(request, pk):
     item = get_object_or_404(Item, pk=pk) # or get_list_or_404 -> if there are multiple states for i.e. one disease?
+=======
+def add_to_cart(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+>>>>>>> Stashed changes
     order_item = OrderItem.objects.get_or_create(item=item,user=request.user,ordered=False)
     order_qs = Order.objects.filter(user=request.user,ordered=False)
     if order_qs.exists():
