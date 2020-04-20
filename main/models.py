@@ -50,7 +50,7 @@ class ProductosAprobados(models.Model):
 
 class Cliente(models.Model):
     cl_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cliente")
-    cl_user = models.OneToOneField(User,null=True,on_delete=models.CASCADE,verbose_name="Cliente")
+    cl_user = models.OneToOneField(User,null=True,on_delete=models.CASCADE,verbose_name="Cliente (usuario)")
     cl_first_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Nombre")
     cl_last_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Apellido")
     cl_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
@@ -63,40 +63,50 @@ class Cliente(models.Model):
     
 class Bodega(models.Model):
     bd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Bodega")
-    bd_user = models.ForeignKey(Cliente,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
+    bd_user = models.ForeignKey(Cliente,null=True,on_delete=models.CASCADE,verbose_name="Usuario")
     bd_is_active = models.BooleanField(default=True,verbose_name="¿Está activo?")
-    bd_name = models.CharField(max_length=100,blank=True,null=True,verbose_name="Bodega")
-    bd_ruc = models.CharField(max_length=11,blank=True,null=True,verbose_name="Bodega")
-    bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Bodega")
+    bd_name = models.CharField(max_length=100,blank=True,null=True,verbose_name="Nombre comercial")
+    bd_ruc = models.CharField(max_length=11,blank=True,null=True,verbose_name="RUC")
+    bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
 
     def __str__(self):
-        return str(self.bd_name)
+        return str(self.bd_raz_soc)
 
 class ListaDeProductos(models.Model):
     class Meta:
-        verbose_name_plural = "Lista De Productos"
+        verbose_name_plural = "Listas de productos"
     
-    lpd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Listado")
-    ldp_cod = models.ForeignKey(Bodega,null=True,on_delete=models.CASCADE,verbose_name="Código de listado")
-    ldp_product = models.ForeignKey(ProductosAprobados,on_delete=models.CASCADE,verbose_name="Producto")
-    ldp_regular_price = models.FloatField(verbose_name="Precio regular")
-    ldp_discount_price = models.FloatField(blank=True,null=True,verbose_name="Precio con descuento")
-    ldp_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
-    ldp_discount_rate = models.FloatField(default=0,editable=True,verbose_name="'%' de descuento")
-    ldp_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
+    lpd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Lista de productos")
+    ldp_cod = models.ForeignKey(Bodega,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
+
+    def __str__(self):
+        return str(self.lpd_ID)
+
+class Listado(models.Model):
+    class Meta:
+        verbose_name_plural = "Listados"
+    
+    lp_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Listado")
+    ld_cod = models.ForeignKey(ListaDeProductos,null=True,on_delete=models.CASCADE,verbose_name="Código de listado")
+    ld_product = models.ForeignKey(ProductosAprobados,on_delete=models.CASCADE,verbose_name="Producto")
+    ld_regular_price = models.FloatField(verbose_name="Precio regular")
+    ld_discount_price = models.FloatField(blank=True,null=True,verbose_name="Precio con descuento")
+    ld_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    ld_discount_rate = models.FloatField(default=0,editable=True,verbose_name="'%' de descuento")
+    ld_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
 
     @property
     def discount_rate(self):
-        if (self.ldp_regular_price!=0) and (self.ldp_discount_price!=0) and isinstance(self.ldp_discount_price,float):
-            return (self.ldp_discount_price-self.ldp_regular_price)/self.ldp_regular_price*100
+        if (self.ld_regular_price!=0) and (self.ld_discount_price!=0) and isinstance(self.ld_discount_price,float):
+            return (self.ld_discount_price-self.ld_regular_price)/self.ld_regular_price*100
         else:
             return 0
     
     def __str__(self):
-        return str(self.ldp_product)
+        return str(self.ld_product)
     
 class Basket(models.Model):
-    bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesto")
+    bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesta")
     bkt_cod = models.OneToOneField(Cliente,null=True,on_delete=models.CASCADE,verbose_name="ID Cliente")
     bkt_product = models.ManyToManyField(ListaDeProductos,verbose_name="Producto")
     bkt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
@@ -105,7 +115,7 @@ class Basket(models.Model):
         return self.bkt_product.ldp_product.pa_product
 
 class OrderItem(models.Model):
-    
+
     pass
 
 class Order(models.Model):
