@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'django.contrib.humanize',
 #    'main.apps.MainConfig', # to add app called main
 #    'accounts',
     'main',

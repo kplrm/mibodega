@@ -13,8 +13,8 @@ def homepage(request):
     #DG
     # Entry tiene el foreign key de Blog como blog
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    productos_en_oferta = productos_en_bodegas.filter(peb_discount_rate__lt=0)
-#    print(productos_en_oferta)
+    productos_en_oferta = productos_en_bodegas.filter(peb_discount_rate__lt=0)#.order_by('peb_discount_rate')
+    print(len(productos_en_oferta))
 #    filtro_ofertas_ld = lista_de_productos.filter(ld_discount_rate__lt=0)
 #    filtro_ofertas_pa = ProductosAprobados.objects.filter(pk__in=filtro_ofertas_ld.values('ld_product'))
 
@@ -23,7 +23,11 @@ def homepage(request):
 #    filtro_ofertas_ld = filtro_ofertas_ld.order_by('ld_product')
 
     # Join querysets in a list of dictionaries
-    result_list = []
+    
+    result_list = productos_en_oferta
+#    for producto in productos_en_oferta:
+#        producto.peb_regular_price = str(format(peb_regular_price,'.2f'))
+
 #    for product in filtro_ofertas_pa:
 #        result_list.append({'pa_photo_small':product.pa_photo_small,
 #                    'pa_category':product.pa_category,
