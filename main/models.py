@@ -74,10 +74,10 @@ class Bodega(models.Model):
 
 class ProductosEnBodega(models.Model):
     class Meta:
-        verbose_name_plural = "Listas de productos"
+        verbose_name_plural = "Productos en bodegas"
         unique_together = [['peb_bodega', 'peb_product']]
     
-    peb_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Lista de productos")
+    peb_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Productos en bodegas")
     peb_bodega = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
     peb_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
     peb_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
@@ -93,6 +93,16 @@ class ProductosEnBodega(models.Model):
         else:
             return 0
     
+    def save(self,*args,**kwargs):
+        print("discount rate calculating...")
+        if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and isinstance(self.peb_discount_price,float):
+            self.peb_discount_rate = (self.peb_discount_price-self.peb_regular_price)/self.peb_regular_price*100
+        else:
+            self.peb_discount_rate = 0
+        print(self.peb_discount_rate)
+        super(ProductosEnBodega,self).save(self,*args,**kwargs)
+
+
     def __str__(self):
         return str(self.peb_bodega)+str(" || ")+str(self.peb_product)
     
