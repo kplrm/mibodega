@@ -167,22 +167,23 @@
                 </div>
                 <div class="product-slider owl-carousel">
                     <!-- FIRST ITEM -->
-                    {% for dict_item in result_list %}
+                    {% load humanize %}
+                    {% for product in result_list %}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="/media/{{dict_item.pa_category}}/{{dict_item.pa_photo_small}}" alt="IMG">
-                            <div class="sale">{{dict_item.ld_discount_rate}}%</div>
+                            <img src="/media/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
+                            <div class="sale">{{ product.peb_discount_rate|floatformat:2|intcomma }} %</div>
                             <ul>
                                 <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
                                 <li class="quick-view"><a href="#">Añadir a la cesta</a></li>
                             </ul>
                         </div>
                         <div class="pi-text">
-                            <div class="catagory-name">{{dict_item.pa_category}}</div>
-                            <a href="#"><h5>{{dict_item.pa_product}}</h5></a>
+                            <div class="catagory-name">{{product.peb_product.pa_category}}</div>
+                            <a href="#"><h5>{{product.peb_product.pa_product}}</h5></a>
                             <div class="product-price">
-                                S/.{{dict_item.ld_regular_price}}
-                                <span>S/.{{dict_item.ld_discount_price}}</span>
+                                S/.{{product.peb_regular_price|floatformat:2|intcomma}}
+                                <span>S/.{{product.peb_discount_price|floatformat:2|intcomma}}</span>
                             </div>
                         </div>
                     </div>
