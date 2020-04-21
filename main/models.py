@@ -1,10 +1,10 @@
 import uuid # universally unique identifiers
+from random import seed, randint
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
 # Create your models here.
-#This adds a new table called ProductosAprobados
 class ProductosAprobados(models.Model):
     class Meta:
         verbose_name_plural = "Productos aceptados"
@@ -66,46 +66,46 @@ class Bodega(models.Model):
     bd_user = models.ForeignKey(Cliente,null=True,on_delete=models.CASCADE,verbose_name="Usuario")
     bd_is_active = models.BooleanField(default=True,verbose_name="¿Está activo?")
     bd_name = models.CharField(max_length=100,blank=True,null=True,verbose_name="Nombre comercial")
-    bd_ruc = models.CharField(max_length=11,blank=True,null=True,verbose_name="RUC")
+    bd_ruc = models.CharField(max_length=11,unique=True,blank=False,null=False,verbose_name="RUC (o DNI)")
     bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
 
     def __str__(self):
-        return str(self.bd_raz_soc)
+        return str(self.bd_ruc)
 
-class ListaDeProductos(models.Model):
+class ProductosEnBodega(models.Model):
     class Meta:
         verbose_name_plural = "Listas de productos"
+        unique_together = [['peb_bodega', 'peb_product']]
     
-    lpd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Lista de productos")
-    ldp_cod = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
-    ldp_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
-    ldp_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
-    ldp_discount_price = models.FloatField(default="",blank=True,null=False,verbose_name="Precio con descuento")
-    ldp_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
-    ldp_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
-    ldp_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
+    peb_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Lista de productos")
+    peb_bodega = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
+    peb_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
+    peb_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
+    peb_discount_price = models.FloatField(default="",blank=True,null=True,verbose_name="Precio con descuento")
+    peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    peb_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
+    peb_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
 
     @property
     def discount_rate(self):
-        if (self.ldp_regular_price!=0) and (self.ldp_discount_price!=0) and isinstance(self.ldp_discount_price,float):
-            return (self.ldp_discount_price-self.ldp_regular_price)/self.ldp_regular_price*100
+        if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and isinstance(self.peb_discount_price,float):
+            return (self.peb_discount_price-self.peb_regular_price)/self.peb_regular_price*100
         else:
             return 0
     
     def __str__(self):
-        return str(self.lpd_ID)
+        return str(self.peb_cod)+str(" ")+str(self.peb_cod.bd_ruc)
     
 class Basket(models.Model):
     bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesta")
     bkt_cod = models.OneToOneField(Cliente,null=True,on_delete=models.CASCADE,verbose_name="ID Cliente")
-    bkt_product = models.ManyToManyField(ListaDeProductos,verbose_name="Producto")
+    bkt_product = models.ManyToManyField(ProductosEnBodega,verbose_name="Producto")
     bkt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
 
     def __str__(self):
         return self.bkt_product
 
 class OrderItem(models.Model):
-
     pass
 
 class Order(models.Model):
