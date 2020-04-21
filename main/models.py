@@ -77,33 +77,23 @@ class ListaDeProductos(models.Model):
         verbose_name_plural = "Listas de productos"
     
     lpd_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Lista de productos")
-    ldp_cod = models.ForeignKey(Bodega,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
-
-    def __str__(self):
-        return str(self.lpd_ID)
-
-class Listado(models.Model):
-    class Meta:
-        verbose_name_plural = "Listados"
-    
-    lp_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Listado")
-    ld_cod = models.ForeignKey(ListaDeProductos,null=True,on_delete=models.CASCADE,verbose_name="Código de listado")
-    ld_product = models.ForeignKey(ProductosAprobados,on_delete=models.CASCADE,verbose_name="Producto")
-    ld_regular_price = models.FloatField(verbose_name="Precio regular")
-    ld_discount_price = models.FloatField(blank=True,null=True,verbose_name="Precio con descuento")
-    ld_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
-    ld_discount_rate = models.FloatField(default=0,editable=True,verbose_name="'%' de descuento")
-    ld_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
+    ldp_cod = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
+    ldp_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
+    ldp_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
+    ldp_discount_price = models.FloatField(default="",blank=True,null=False,verbose_name="Precio con descuento")
+    ldp_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    ldp_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
+    ldp_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
 
     @property
     def discount_rate(self):
-        if (self.ld_regular_price!=0) and (self.ld_discount_price!=0) and isinstance(self.ld_discount_price,float):
-            return (self.ld_discount_price-self.ld_regular_price)/self.ld_regular_price*100
+        if (self.ldp_regular_price!=0) and (self.ldp_discount_price!=0) and isinstance(self.ldp_discount_price,float):
+            return (self.ldp_discount_price-self.ldp_regular_price)/self.ldp_regular_price*100
         else:
             return 0
     
     def __str__(self):
-        return str(self.ld_product)
+        return str(self.lpd_ID)
     
 class Basket(models.Model):
     bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesta")
@@ -112,7 +102,7 @@ class Basket(models.Model):
     bkt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
 
     def __str__(self):
-        return self.bkt_product.ldp_product.pa_product
+        return self.bkt_product
 
 class OrderItem(models.Model):
 
