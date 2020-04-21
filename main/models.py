@@ -3,6 +3,7 @@ from random import seed, randint
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 # Create your models here.
 class ProductosAprobados(models.Model):
@@ -75,7 +76,7 @@ class Bodega(models.Model):
 class ProductosEnBodega(models.Model):
     class Meta:
         verbose_name_plural = "Productos en bodegas"
-        unique_together = [['peb_bodega', 'peb_product']]
+        unique_together = ['peb_bodega', 'peb_product']
     
     peb_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Productos en bodegas")
     peb_bodega = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
@@ -85,23 +86,21 @@ class ProductosEnBodega(models.Model):
     peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
     peb_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
     peb_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
-
-    @property
-    def discount_rate(self):
-        if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and isinstance(self.peb_discount_price,float):
-            return (self.peb_discount_price-self.peb_regular_price)/self.peb_regular_price*100
-        else:
-            return 0
     
     def save(self,*args,**kwargs):
-        print("discount rate calculating...")
+        try:
+            sav_object = ProductosEnBodega.objects.get(pk=self.pk)
+            print("object exists")
+            self.pk = sav_object.pk
+        except:
+            print("object DO NOT exists")
+
         if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and isinstance(self.peb_discount_price,float):
             self.peb_discount_rate = (self.peb_discount_price-self.peb_regular_price)/self.peb_regular_price*100
         else:
             self.peb_discount_rate = 0
-        print(self.peb_discount_rate)
-        super(ProductosEnBodega,self).save(self,*args,**kwargs)
 
+        super(ProductosEnBodega,self).save(*args,**kwargs)
 
     def __str__(self):
         return str(self.peb_bodega)+str(" || ")+str(self.peb_product)

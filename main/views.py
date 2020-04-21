@@ -13,7 +13,8 @@ def homepage(request):
     #DG
     # Entry tiene el foreign key de Blog como blog
     productos_en_bodegas = ProductosEnBodega.objects.all()
-#    productos_en_oferta = productos_en_bodegas.filter(ld_discount_rate__lt=0)
+    productos_en_oferta = productos_en_bodegas.filter(peb_discount_rate__lt=0)
+#    print(productos_en_oferta)
 #    filtro_ofertas_ld = lista_de_productos.filter(ld_discount_rate__lt=0)
 #    filtro_ofertas_pa = ProductosAprobados.objects.filter(pk__in=filtro_ofertas_ld.values('ld_product'))
 
@@ -81,7 +82,6 @@ def login_request(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                print("exito")
                 auth_login(request, user)
                 messages.info(request,f"Bienvenido: {username}")
                 return redirect('main:homepage')
