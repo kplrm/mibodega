@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect # to redirect the user
-from .models import ProductosAprobados
+from .models import ProductosEnBodega
 
 from .forms import RegistrationForm, ClientForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
@@ -12,7 +12,8 @@ from itertools import chain
 def homepage(request):
     #DG
     # Entry tiene el foreign key de Blog como blog
-#    lista_de_productos = Listado.objects.all()
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+#    productos_en_oferta = productos_en_bodegas.filter(ld_discount_rate__lt=0)
 #    filtro_ofertas_ld = lista_de_productos.filter(ld_discount_rate__lt=0)
 #    filtro_ofertas_pa = ProductosAprobados.objects.filter(pk__in=filtro_ofertas_ld.values('ld_product'))
 
