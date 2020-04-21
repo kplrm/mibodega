@@ -70,7 +70,7 @@ class Bodega(models.Model):
     bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
 
     def __str__(self):
-        return str(self.bd_ruc)
+        return str(self.bd_ruc)+str(" ")+str(self.bd_name)
 
 class ProductosEnBodega(models.Model):
     class Meta:
@@ -94,7 +94,7 @@ class ProductosEnBodega(models.Model):
             return 0
     
     def __str__(self):
-        return str(self.peb_cod)+str(" ")+str(self.peb_cod.bd_ruc)
+        return str(self.peb_bodega)+str(" || ")+str(self.peb_product)
     
 class Basket(models.Model):
     bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesta")
