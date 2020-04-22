@@ -13,35 +13,7 @@ def homepage(request):
     #DG
     # Entry tiene el foreign key de Blog como blog
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    productos_en_oferta = productos_en_bodegas.filter(peb_discount_rate__lt=0)#.order_by('peb_discount_rate')
-    print(len(productos_en_oferta))
-#    filtro_ofertas_ld = lista_de_productos.filter(ld_discount_rate__lt=0)
-#    filtro_ofertas_pa = ProductosAprobados.objects.filter(pk__in=filtro_ofertas_ld.values('ld_product'))
-
-    # Order by pk
-#    filtro_ofertas_pa = filtro_ofertas_pa.order_by('pk')
-#    filtro_ofertas_ld = filtro_ofertas_ld.order_by('ld_product')
-
-    # Join querysets in a list of dictionaries
-    
-    result_list = productos_en_oferta
-#    for producto in productos_en_oferta:
-#        producto.peb_regular_price = str(format(peb_regular_price,'.2f'))
-
-#    for product in filtro_ofertas_pa:
-#        result_list.append({'pa_photo_small':product.pa_photo_small,
-#                    'pa_category':product.pa_category,
-#                    'pa_product':product.pa_product,
-#                    'ld_regular_price':"",
-#                    'ld_discount_price':"",
-#                    'ld_discount_rate':"",
-#                    })
-#    counter = 0
-#    for product in filtro_ofertas_ld:
-#        result_list[counter]['ld_regular_price'] = str(format(product.ld_regular_price,'.2f'))
-#        result_list[counter]['ld_discount_price'] = str(format(product.ld_discount_price,'.2f'))
-#        result_list[counter]['ld_discount_rate'] = int(round(product.ld_discount_rate))
-#        counter = counter+1
+    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0).order_by('peb_discount_rate')[:20]
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
