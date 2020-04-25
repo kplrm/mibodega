@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect # to redirect the user
-from .models import ProductosEnBodega
+from django.shortcuts import render, redirect, get_object_or_404 # to redirect the user
+from .models import ProductosEnBodega, Cart, Cliente
+from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
@@ -68,3 +69,55 @@ def login_request(request):
 
     form = AuthenticationForm()
     return render(request, "main/login.html", {"form":form})
+
+def cart_create(user=None):
+    print("create new cart")
+    cart_obj = Cart.objects.create(crt_user=None)
+    return cart_obj
+
+def add_to_cart(request):
+    print("Getting into cart")
+    cart_id = request.session.get("cart_id", None)
+    qs = Cart.objects.filter(crt_ID=cart_id)
+    if qs.count() == 1:
+        print("Cart ID exists")
+        cart_obj = qs.first()
+    else:
+        cart_obj = cart_create()
+        request.session['cart_id'] = cart_obj.crt_ID
+    
+    print("Cart ID:")
+    print(cart_id)
+    
+    return redirect('main:homepage')
+    #return render(request, "carts/home.html", {})
+
+    # identifies the product where the mouse was clicked on
+    #item = get_object_or_404(ProductosEnBodega,peb_slug=slug)
+    # find the client
+    #cliente = get_object_or_404(Cliente,cl_user=request.user)
+    # searches if this product exists already in the basket
+    #basket_item,created = Basket.objects.get_or_create(bkt_product=item,bkt_user=cliente,bkt_ordered=False)
+    # To make sure not to pass an already completed  order.
+    #order_qs = Order.objects.filter(user=request.user,ordered=False)
+    #if order_qs.exists():
+    #    order = order_qs[0]
+        # check if the basket_item is in the order
+    #    if order.items.filter(item__slug=item.slug).exists():
+    #        basket_item.bkt_quantity += 1
+    #        basket_item.save()
+    #    else:
+    #        order.item.add(basket_item)
+    #else:
+    #    order = Order.objects.create(user=request.user,ordered_date=timezone.now())
+    #    order.items.add(basket_item)
+    #return redirect("main/index.html")
+
+def single(request,slug):
+    print("my slug")
+    print("my slug")
+    print("my slug")
+    print(slug)
+    print("end slug")
+    print("end slug")
+    print("end slug")
