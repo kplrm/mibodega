@@ -82,10 +82,11 @@ class ProductosEnBodega(models.Model):
     peb_bodega = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
     peb_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
     peb_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
-    peb_discount_price = models.FloatField(default="",blank=True,null=True,verbose_name="Precio con descuento")
+    peb_discount_price = models.FloatField(default="",blank=True,null=True,verbose_name="Precio con descuento") # not mandatory to have a discount price
     peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
     peb_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
     peb_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
+    peb_slug = models.SlugField(max_length=100,allow_unicode=True,editable=False,unique=True)
     
     def save(self,*args,**kwargs):
         try:
@@ -100,22 +101,22 @@ class ProductosEnBodega(models.Model):
         else:
             self.peb_discount_rate = 0
 
+        self.peb_slug = str(self.peb_bodega.bd_ruc)+str("-")+str(self.peb_product.pa_product).replace(" ","_")
+
         super(ProductosEnBodega,self).save(*args,**kwargs)
 
     def __str__(self):
         return str(self.peb_bodega)+str(" || ")+str(self.peb_product)
     
-class Basket(models.Model):
-    bkt_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Cesta")
-    bkt_cod = models.OneToOneField(Cliente,null=True,on_delete=models.CASCADE,verbose_name="ID Cliente")
-    bkt_product = models.ManyToManyField(ProductosEnBodega,verbose_name="Producto")
-    bkt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
+class Cart(models.Model):
+    crt_ID = models.AutoField(primary_key=True,editable=False,verbose_name="ID Cart")
+    crt_user = models.ForeignKey(Cliente,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Cliente") # blank=True,null=True for unauthenticated users
+    crt_product = models.ManyToManyField(ProductosEnBodega,blank=True,verbose_name="Producto") # blank=True for having an empty cart
+    crt_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
+    crt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
+    crt_date_updated = models.DateTimeField(auto_now=True) # when was it created
+    crt_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
+    crt_ordered = models.BooleanField(default=False,verbose_name="¿Ordered?") # to be delered?
 
     def __str__(self):
-        return self.bkt_product
-
-class OrderItem(models.Model):
-    pass
-
-class Order(models.Model):
-    pass
+        return str(self.crt_quantity)+str(" of ")+str(self.crt_product)
