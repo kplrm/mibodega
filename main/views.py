@@ -11,16 +11,20 @@ from itertools import chain
 
 # Create your views here.
 def homepage(request):
-    #DG
-    # Entry tiene el foreign key de Blog como blog
+    # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0).order_by('peb_discount_rate')[:20]
+    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0).order_by('peb_discount_rate')[:10]
+
+    # Load or create cart
+    cart_obj = session_cart_load_or_create(request)
+    #print(cart_obj)
+    #add_to_cart = CartForm(request.POST)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
                   context={'result_list': result_list})
 
-def register(request):
+def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
@@ -75,7 +79,7 @@ def cart_create(user=None):
     cart_obj = Cart.objects.create(crt_user=None)
     return cart_obj
 
-def add_to_cart(request):
+def session_cart_load_or_create(request):
     print("Getting into cart")
     cart_id = request.session.get("cart_id", None)
     qs = Cart.objects.filter(crt_ID=cart_id)
@@ -83,14 +87,10 @@ def add_to_cart(request):
         print("Cart ID exists")
         cart_obj = qs.first()
     else:
-        cart_obj = cart_create()
+        print("Cart ID do NOT exists")
+        cart_obj = Cart.objects.new(user=request.user)#cart_create()
         request.session['cart_id'] = cart_obj.crt_ID
-    
-    print("Cart ID:")
-    print(cart_id)
-    
-    return redirect('main:homepage')
-    #return render(request, "carts/home.html", {})
+    return cart_obj
 
     # identifies the product where the mouse was clicked on
     #item = get_object_or_404(ProductosEnBodega,peb_slug=slug)
@@ -112,12 +112,3 @@ def add_to_cart(request):
     #    order = Order.objects.create(user=request.user,ordered_date=timezone.now())
     #    order.items.add(basket_item)
     #return redirect("main/index.html")
-
-def single(request,slug):
-    print("my slug")
-    print("my slug")
-    print("my slug")
-    print(slug)
-    print("end slug")
-    print("end slug")
-    print("end slug")
