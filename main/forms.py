@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Cliente
+from .models import Cliente, Cart
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -47,3 +47,27 @@ class ClientForm(forms.ModelForm):
         if commit:
             client.save() # saves the data
         return client
+
+class CartForm(forms.ModelForm):
+    class Meta:
+        model = Cart
+        fields = (
+#            'crt_ID',
+#            'crt_user',
+#            'crt_product',
+#            'crt_total_price',
+#            'crt_quantity',
+#            'crt_date_updated',
+#            'crt_date_created',
+#            'crt_ordered',
+        )
+
+    #cl_phone = forms.CharField(required=True,max_length=9)
+
+    def save(self, commit): #commit saves data to database
+        cart = super(CartForm, self).save(commit=False) # when finish edition, it will store the data
+        #client.cl_phone = self.cleaned_data['cl_phone']
+
+        if commit:
+            cart.save() # saves the data
+        return cart
