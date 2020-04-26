@@ -112,6 +112,12 @@ class ProductosEnBodega(models.Model):
         return str(self.peb_bodega)+str(" || ")+str(self.peb_product)
     
 class CartManager(models.Manager):
+    # 
+    #def new_or_get(self, request):
+    #    return 
+
+
+
     def new(self, user=None):
         print("Loaded user:")
         print(user)
