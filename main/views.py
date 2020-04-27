@@ -80,8 +80,12 @@ def session_cart_load_or_create(request):
 
 def cart_add(request):
     print("Entrando en el update!")
-    product_obj = ProductosEnBodega.objects.all().filter(peb_ID=request.POST.get('product_id', None)).first()
+    # Retrieve on which object it was clicked
+    product_pk = request.POST.get('product_id', None)
+    product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
+    # Retrieve cart
     cart_obj, new_obj =  Cart.objects.new_or_get(request)
+    # Add to cart
     if product_obj in cart_obj.crt_product.all():
         cart_obj.crt_product.remove(product_obj)
     else:
