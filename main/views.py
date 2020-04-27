@@ -87,17 +87,19 @@ def cart_add(request):
         # Retrieves product and cart, and associates it to a cart_item
         product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
         cart_obj, new_obj =  Cart.objects.new_or_get(request)
-        # Check if the item is already in the cart
+        # Check if the product is already in the cart
+        print(product_obj)
         qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
-        print("QS response")
-        print(qs)
         if qs.count() == 1:
             print("Ya está en el coche")
-            cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj)
+            cart_obj.crt_product.remove(product_obj)
+            cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
             cart_obj.crt_item.remove(cart_item)
+            cart_item.delete()
         else:
             print("Nuevo item en el coche!")
-            cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj)
+            cart_obj.crt_product.add(product_obj) # Add product to the cart
+            cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
             cart_obj.crt_item.add(cart_item)
 
     return redirect('main:homepage')

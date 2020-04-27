@@ -176,7 +176,7 @@ class CartItem(models.Model):
     ci_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
 
     def __str__(self):
-        return str("Cart ID:")+str(self.ci_cart_ID)+str(" || Usuario:")+str(self.ci_user)
+        return str("Cart ID:")+str(self.ci_cart_ID)+str(" || Usuario:")+str(self.ci_product)
 
 class Cart(models.Model):
     crt_ID = models.AutoField(primary_key=True,editable=False,verbose_name="ID Cart")
@@ -192,4 +192,4 @@ class Cart(models.Model):
     objects = CartManager()
 
     def __str__(self):
-        return str("Cart ID:")+str(self.crt_ID)+str(" || Usuario:")+str(self.crt_user)
+        return str("Cart ID:")+str(self.crt_ID)+str(" || Producto:")+str(self.crt_user)
