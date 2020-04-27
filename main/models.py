@@ -167,12 +167,24 @@ class CartManager(models.Manager):
                 user_obj = user
         return self.model.objects.create(crt_user=user_obj)
 
+class CartItem(models.Model):
+    ci_cart_ID = models.IntegerField(default=0,verbose_name="ID Cart ID")
+    ci_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
+    ci_product = models.ForeignKey(ProductosEnBodega,on_delete=models.CASCADE,verbose_name="Producto")
+    ci_quantity = models.IntegerField(default=1)
+    ci_date_updated = models.DateTimeField(auto_now=True) # when was it created
+    ci_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
+
+    def __str__(self):
+        return str("Cart ID:")+str(self.ci_cart_ID)+str(" || Usuario:")+str(self.ci_user)
+
 class Cart(models.Model):
     crt_ID = models.AutoField(primary_key=True,editable=False,verbose_name="ID Cart")
     crt_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
+    crt_item = models.ManyToManyField(CartItem,blank=True,verbose_name="Item") # blank=True for having an empty cart
     crt_product = models.ManyToManyField(ProductosEnBodega,blank=True,verbose_name="Producto") # blank=True for having an empty cart
     crt_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
-    crt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
+    #crt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
     crt_date_updated = models.DateTimeField(auto_now=True) # when was it created
     crt_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
     crt_ordered = models.BooleanField(default=False,verbose_name="¿Ordered?") # to be delered?
@@ -181,5 +193,3 @@ class Cart(models.Model):
 
     def __str__(self):
         return str("Cart ID:")+str(self.crt_ID)+str(" || Usuario:")+str(self.crt_user)
-
-
