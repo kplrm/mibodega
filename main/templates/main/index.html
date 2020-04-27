@@ -175,7 +175,7 @@
                             <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
                             <ul>
                                 <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                                    <input type="hidden" name='product_id' value='{{product.peb_product.pk}}'>
+                                    <input type="hidden" name='product_id' value='{{product.pk}}'>
                                     <li class="w-icon active"><button type='submit'><i class="icon_bag_alt"></i></button></li>
                                     <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
                                 </form>
