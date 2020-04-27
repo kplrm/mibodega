@@ -16,13 +16,13 @@ def homepage(request):
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0).order_by('peb_discount_rate')[:10]
 
     # Load or create cart
-    cart_obj = session_cart_load_or_create(request)
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    cart_obj = cart_obj.crt_product.all()
     #print(cart_obj)
-    #add_to_cart = CartForm(request.POST)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={'result_list': result_list})
+                  context={'result_list': result_list,'cart_obj': cart_obj,})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':

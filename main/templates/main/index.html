@@ -48,30 +48,25 @@
                                 <div class="select-items">
                                     <table>
                                         <tbody>
+                                            {% load humanize %}
+                                            {% for product in cart_obj %}
                                             <tr>
-                                                <td class="si-pic"><img src="{% static 'main/products/leche-evaporada-gloria-400g.jpg' %}" alt=""></td>
+                                                <td class="si-pic"><img src="/media/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt=""></td>
                                                 <td class="si-text">
                                                     <div class="product-selected">
-                                                        <p>S/.4.00 x 1</p>
-                                                        <h6>Leche evaporada Gloria</h6>
+                                                        <p>S/. 
+                                                            {% if product.peb_discount_status == True %}{{product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                                            {% if product.peb_discount_status == False %}{{product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                                            x 1</p>
+                                                        <h6>{{product.peb_product.pa_product}}</h6>
                                                     </div>
                                                 </td>
                                                 <td class="si-close">
                                                     <i class="ti-close"></i>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td class="si-pic"><img src="{% static 'main/products/fideos-molitalia-pasta-corta-250g.jpg' %}" alt=""></td>
-                                                <td class="si-text">
-                                                    <div class="product-selected">
-                                                        <p>S/.2.00 x 1</p>
-                                                        <h6>Fideos Molitalia</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="si-close">
-                                                    <i class="ti-close"></i>
-                                                </td>
-                                            </tr>
+                                            {% endfor %}
+
                                         </tbody>
                                     </table>
                                 </div>
