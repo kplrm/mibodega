@@ -17,12 +17,12 @@ def homepage(request):
 
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
-    cart_obj = cart_obj.crt_product.all()
+    cart_list = cart_obj.crt_product.all()
     #print(cart_obj)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={'result_list': result_list,'cart_obj': cart_obj,})
+                  context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
