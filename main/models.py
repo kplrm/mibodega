@@ -5,13 +5,14 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.db.models import Q
 
 User = settings.AUTH_USER_MODEL
 
 # Create your models here.
 class ProductosAprobados(models.Model):
     class Meta:
-        verbose_name_plural = "Productos aceptados"
+        verbose_name_plural = "Productos aprobados"
 
     # These are the folders in /media/ and the url address
     EMBUTIDOS = 'embutidos'
@@ -81,7 +82,8 @@ class ProductosEnBodega(models.Model):
         verbose_name_plural = "Productos en bodegas"
         unique_together = ['peb_bodega', 'peb_product']
     
-    peb_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False,verbose_name="ID Productos en bodegas")
+    #FORGET NOT TO DEACTIVATE EDITION OF UUIDFIELD!!!!!!!!!!!!!
+    peb_ID = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=True,verbose_name="ID Productos en bodegas")
     peb_bodega = models.ForeignKey(Bodega,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Bodega")
     peb_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
     peb_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
@@ -112,20 +114,56 @@ class ProductosEnBodega(models.Model):
         return str(self.peb_bodega)+str(" || ")+str(self.peb_product)
     
 class CartManager(models.Manager):
-    # 
-    #def new_or_get(self, request):
-    #    return 
-
-
+    # Like get_or_create, but related to our specific use case: Cart
+    def new_or_get(self, request):
+        cart_id = request.session.get("cart_id", None)
+        #Look for the cart ID session
+        qs = self.get_queryset().filter(crt_ID=cart_id)
+        # Check if there is a cart in the session
+        if qs.count() == 1:
+            # Loads the current session cart
+            cart_obj = qs.first()
+            new_obj = False
+            # Verify if user is authenticated and current session's cart has no user
+            if request.user.is_authenticated and cart_obj.crt_user is None:
+                print("Buscando coche de usuario...")
+                # Look for a previous user's Cart
+                qs2 = self.get_queryset().filter(crt_user=request.user)
+                if qs2.exists():
+                    print("El usuario tiene multiples coches...")
+                    previous_cart_obj = qs2.first()
+                    print("Coche previo:")
+                    print(previous_cart_obj)
+                    print("Coche actual:")
+                    print(cart_obj)
+                    for product in previous_cart_obj.crt_product.all():
+                        # Merging previous cart with current cart
+                        print("Buscando objetos...")
+                        if cart_obj.crt_product.filter(pk=product.pk).exists():
+                            print("Product previously found. Do nothing.")
+                        else:
+                            print("Found nothing. Adding previously added product.")
+                            cart_obj.crt_product.add(product)
+                    previous_cart_obj.delete()
+                    print("exit product search")
+                else:
+                    # There is no previous cart, so no item to recover
+                    print("El usuario no tiene coche")
+                
+                cart_obj.crt_user = request.user
+                cart_obj.save()
+        else:
+            cart_obj = self.new(user=request.user)
+            new_obj = True
+            request.session['cart_id'] = cart_obj.crt_ID
+        return cart_obj, new_obj
 
     def new(self, user=None):
-        print("Loaded user:")
-        print(user)
         user_obj = None
         if user is not None:
-            print("There is an user")
+            print("Sin usuario")
             if user.is_authenticated:
-                print("There is authentication")
+                print("Hay una autenticación")
                 user_obj = user
         return self.model.objects.create(crt_user=user_obj)
 
@@ -143,3 +181,5 @@ class Cart(models.Model):
 
     def __str__(self):
         return str("Cart ID:")+str(self.crt_ID)+str(" || Usuario:")+str(self.crt_user)
+
+

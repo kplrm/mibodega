@@ -174,8 +174,11 @@
                             <img src="/media/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
                             <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
                             <ul>
-                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="add-to-cart/{{product.peb_slug}}">Añadir a la cesta</a></li>
+                                <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
+                                    <input type="hidden" name='product_id' value='{{product.peb_product.pk}}'>
+                                    <li class="w-icon active"><button type='submit'><i class="icon_bag_alt"></i></button></li>
+                                    <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
+                                </form>
                             </ul>
                         </div>
                         <div class="pi-text">
