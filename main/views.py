@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404 # to redirect the user
-from .models import ProductosEnBodega, Cart, Cliente
+from .models import ProductosEnBodega, Cart, CartItem, Cliente
 from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm
@@ -17,8 +17,9 @@ def homepage(request):
 
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
-    cart_list = cart_obj.crt_product.all()
-    #print(cart_obj)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID)
+    #print(cart_list)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
@@ -82,33 +83,21 @@ def cart_add(request):
     print("Entrando en el update!")
     # Retrieve on which object it was clicked
     product_pk = request.POST.get('product_id', None)
-    product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
-    # Retrieve cart
-    cart_obj, new_obj =  Cart.objects.new_or_get(request)
-    # Add to cart
-    if product_obj in cart_obj.crt_product.all():
-        cart_obj.crt_product.remove(product_obj)
-    else:
-        cart_obj.crt_product.add(product_obj)
-    return redirect('main:homepage')
+    if product_pk is not None:
+        # Retrieves product and cart, and associates it to a cart_item
+        product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
+        cart_obj, new_obj =  Cart.objects.new_or_get(request)
+        # Check if the item is already in the cart
+        qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
+        print("QS response")
+        print(qs)
+        if qs.count() == 1:
+            print("Ya está en el coche")
+            cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj)
+            cart_obj.crt_item.remove(cart_item)
+        else:
+            print("Nuevo item en el coche!")
+            cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj)
+            cart_obj.crt_item.add(cart_item)
 
-    # identifies the product where the mouse was clicked on
-    #item = get_object_or_404(ProductosEnBodega,peb_slug=slug)
-    # find the client
-    #cliente = get_object_or_404(Cliente,cl_user=request.user)
-    # searches if this product exists already in the basket
-    #basket_item,created = Basket.objects.get_or_create(bkt_product=item,bkt_user=cliente,bkt_ordered=False)
-    # To make sure not to pass an already completed  order.
-    #order_qs = Order.objects.filter(user=request.user,ordered=False)
-    #if order_qs.exists():
-    #    order = order_qs[0]
-        # check if the basket_item is in the order
-    #    if order.items.filter(item__slug=item.slug).exists():
-    #        basket_item.bkt_quantity += 1
-    #        basket_item.save()
-    #    else:
-    #        order.item.add(basket_item)
-    #else:
-    #    order = Order.objects.create(user=request.user,ordered_date=timezone.now())
-    #    order.items.add(basket_item)
-    #return redirect("main/index.html")
+    return redirect('main:homepage')
