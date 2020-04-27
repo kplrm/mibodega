@@ -75,23 +75,18 @@ def login_request(request):
     return render(request, "main/login.html", {"form":form})
 
 def session_cart_load_or_create(request):
-    print("Getting into cart")
-    cart_id = request.session.get("cart_id", None)
-    qs = Cart.objects.filter(crt_ID=cart_id)
-    if qs.count() == 1:
-        print("Cart ID exists")
-        cart_obj = qs.first()
-        # Associate cart without user to user after authentication
-        if request.user.is_authenticated and cart_obj.crt_user is None:
-            print("Searching associating cart with user")
-            # Is it missing any validation for avoiding having a user with multiple carts?
-            cart_obj.crt_user = request.user
-            cart_obj.save()
+    cart_obj, new_obj =  Cart.objects.new_or_get(request)
+    return cart_obj, new_obj
+
+def cart_add(request):
+    print("Entrando en el update!")
+    product_obj = ProductosEnBodega.objects.all().filter(peb_ID=request.POST.get('product_id', None)).first()
+    cart_obj, new_obj =  Cart.objects.new_or_get(request)
+    if product_obj in cart_obj.crt_product.all():
+        cart_obj.crt_product.remove(product_obj)
     else:
-        print("Cart ID do NOT exists")
-        cart_obj = Cart.objects.new(user=request.user)
-        request.session['cart_id'] = cart_obj.crt_ID
-    return cart_obj
+        cart_obj.crt_product.add(product_obj)
+    return redirect('main:homepage')
 
     # identifies the product where the mouse was clicked on
     #item = get_object_or_404(ProductosEnBodega,peb_slug=slug)

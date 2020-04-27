@@ -52,14 +52,6 @@ class CartForm(forms.ModelForm):
     class Meta:
         model = Cart
         fields = (
-#            'crt_ID',
-#            'crt_user',
-#            'crt_product',
-#            'crt_total_price',
-#            'crt_quantity',
-#            'crt_date_updated',
-#            'crt_date_created',
-#            'crt_ordered',
         )
 
     #cl_phone = forms.CharField(required=True,max_length=9)

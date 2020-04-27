@@ -10,5 +10,6 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("login/", views.login_request, name="login_request"),
     path("logout/", views.logout_request, name="logout_request"),
-    #url(r'^add-to-cart/(?P<slug>\d{8,11}[\-].*)/$', views.add_to_cart, name="single"),
+    #url(r'^add-to-cart/(?P<slug>\d{8,11}[\-].*)/$', cart_update, name="single"),
+    url(r'^update/$', views.cart_add, name="cart_add"),
 ]
