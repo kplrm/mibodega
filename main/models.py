@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.db.models import Q
+from django.db.models.aggregates import Count
+from random import randint
 
 User = settings.AUTH_USER_MODEL
 
@@ -136,6 +138,7 @@ class CartManager(models.Manager):
                     print(previous_cart_obj)
                     print("Coche actual:")
                     print(cart_obj)
+                    # Update products
                     for product in previous_cart_obj.crt_product.all():
                         # Merging previous cart with current cart
                         print("Buscando objetos...")
@@ -144,6 +147,15 @@ class CartManager(models.Manager):
                         else:
                             print("Found nothing. Adding previously added product.")
                             cart_obj.crt_product.add(product)
+                    # Update items
+                    for item in CartItem.objects.all():
+                        print("Buscando Items...")
+                        print(item)
+                        print(item.ci_cart_ID)
+                        print(previous_cart_obj.crt_ID)
+                        if item.ci_cart_ID == previous_cart_obj.crt_ID:
+                            item.ci_cart_ID = cart_obj.crt_ID
+                            item.save()
                     previous_cart_obj.delete()
                     print("exit product search")
                 else:
@@ -184,7 +196,6 @@ class Cart(models.Model):
     crt_item = models.ManyToManyField(CartItem,blank=True,verbose_name="Item") # blank=True for having an empty cart
     crt_product = models.ManyToManyField(ProductosEnBodega,blank=True,verbose_name="Producto") # blank=True for having an empty cart
     crt_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
-    #crt_quantity = models.IntegerField(default=1,verbose_name="Cantidad")
     crt_date_updated = models.DateTimeField(auto_now=True) # when was it created
     crt_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
     crt_ordered = models.BooleanField(default=False,verbose_name="¿Ordered?") # to be delered?

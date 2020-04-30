@@ -8,12 +8,17 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages # to send unique messages to the users
 
 from itertools import chain
+from random import shuffle
 
 # Create your views here.
 def homepage(request):
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0).order_by('peb_discount_rate')[:10]
+    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+    # Random shuffle the discount products
+    temp = list(result_list)
+    shuffle(temp)
+    result_list = temp
 
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -78,6 +83,19 @@ def session_cart_load_or_create(request):
     cart_obj, new_obj =  Cart.objects.new_or_get(request)
     return cart_obj, new_obj
 
+def remove_cart(request):
+    print("yeeeee")
+    item_pk = request.POST.get('item_pk', None)
+    item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+    cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+
+    cart_obj.crt_product.remove(item_obj.ci_product)
+    cart_obj.crt_item.remove(item_obj)
+    item_obj.delete()
+
+    update_price(cart_obj)
+    return redirect('main:homepage')
+
 def cart_add(request):
     print("Entrando en el update!")
     # Retrieve on which object it was clicked
@@ -95,28 +113,22 @@ def cart_add(request):
             cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
             cart_item.ci_quantity += 1
             cart_item.save()
-
-            # REMOVE LOGIC
-            #cart_obj.crt_product.remove(product_obj)
-            #cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
-            #cart_obj.crt_item.remove(cart_item)
-            #cart_item.delete()
-            # REMOVE LOGIC
         else:
             print("Nuevo item en el coche!")
             cart_obj.crt_product.add(product_obj) # Add product to the cart
             cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
             cart_obj.crt_item.add(cart_item)
 
-        print("Calculando precio")
-        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-        total_price = 0
-        for item in cart_list:
-            if item.ci_product.peb_discount_status:
-                total_price += item.ci_quantity * item.ci_product.peb_discount_price
-            else:
-                total_price += item.ci_quantity * item.ci_product.peb_regular_price
-        cart_obj.crt_total_price = total_price
-        cart_obj.save()
-        print(cart_obj.crt_total_price)
+        update_price(cart_obj)
     return redirect('main:homepage')
+
+def update_price(cart_obj):
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    total_price = 0
+    for item in cart_list:
+        if item.ci_product.peb_discount_status:
+            total_price += item.ci_quantity * item.ci_product.peb_discount_price
+        else:
+            total_price += item.ci_quantity * item.ci_product.peb_regular_price
+    cart_obj.crt_total_price = total_price
+    cart_obj.save()

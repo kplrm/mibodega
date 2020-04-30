@@ -32,17 +32,11 @@
                 </div>
                 <div class="col-lg-3 text-right col-md-3">
                     <ul class="nav-right">
-                        <li class="heart-icon">
-                            <a href="#">
-                                <i class="icon_heart_alt"></i>
-                                <span>0</span>
-                            </a>
-                        </li>
                         <!-- SHOPPING CART -->
                         <li class="cart-icon">
                             <a href="#">
                                 <i class="icon_bag_alt"></i>
-                                <span>2</span>
+                                <span>{{cart_list|length}}</span>
                             </a>
                             <div class="cart-hover">
                                 <div class="select-items">
@@ -61,9 +55,12 @@
                                                         <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                                                     </div>
                                                 </td>
-                                                <td class="si-close">
-                                                    <i class="ti-close"></i>
-                                                </td>
+                                                <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
+                                                    <td class="si-close">
+                                                        <input type="hidden" name='item_pk' value='{{product.pk}}'>
+                                                        <button type='submit'><i class="ti-close"></i></button>
+                                                    </td>
+                                                </form>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -79,7 +76,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="cart-price">S/.6.00</li>
+                        <li class="cart-price">S/.{{cart_obj.crt_total_price}}</li>
                     </ul>
                 </div>
             </div>
