@@ -26,6 +26,7 @@ SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ["li796-239.members.linode.com"]
 
 
 # Application definition
@@ -140,10 +141,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# DG below
+#STATIC_ROOT = '/var/www/mibodega/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = '/var/www/mibodega/media'
 
 #LOGIN_REDIRECT_URL = '/main/'
 
