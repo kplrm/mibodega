@@ -51,14 +51,14 @@
                                             {% load humanize %}
                                             {% for product in cart_list %}
                                             <tr>
-                                                <td class="si-pic"><img src="/media/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt=""></td>
+                                                <td class="si-pic"><img src="/media/{{product.ci_product.peb_product.pa_category}}/{{product.ci_product.peb_product.pa_photo_small}}" alt=""></td>
                                                 <td class="si-text">
                                                     <div class="product-selected">
                                                         <p>S/. 
-                                                            {% if product.peb_discount_status == True %}{{product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                                            {% if product.peb_discount_status == False %}{{product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
-                                                            x 1</p>
-                                                        <h6>{{product.peb_product.pa_product}}</h6>
+                                                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                                            x {{product.ci_quantity}}</p>
+                                                        <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                                                     </div>
                                                 </td>
                                                 <td class="si-close">
@@ -66,13 +66,12 @@
                                                 </td>
                                             </tr>
                                             {% endfor %}
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="select-total">
                                     <span>total:</span>
-                                    <h5>S/.6.00</h5>
+                                    <h5>S/.{{cart_obj.crt_total_price}}</h5>
                                 </div>
                                 <div class="select-button">
                                     <a href="#" class="primary-btn view-card">VER CESTA</a>

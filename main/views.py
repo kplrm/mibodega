@@ -18,8 +18,7 @@ def homepage(request):
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID)
-    #print(cart_list)
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
@@ -92,14 +91,32 @@ def cart_add(request):
         qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
         if qs.count() == 1:
             print("Ya está en el coche")
-            cart_obj.crt_product.remove(product_obj)
+            # INCREASE QUANTITY BY ONE
             cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
-            cart_obj.crt_item.remove(cart_item)
-            cart_item.delete()
+            cart_item.ci_quantity += 1
+            cart_item.save()
+
+            # REMOVE LOGIC
+            #cart_obj.crt_product.remove(product_obj)
+            #cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
+            #cart_obj.crt_item.remove(cart_item)
+            #cart_item.delete()
+            # REMOVE LOGIC
         else:
             print("Nuevo item en el coche!")
             cart_obj.crt_product.add(product_obj) # Add product to the cart
             cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
             cart_obj.crt_item.add(cart_item)
 
+        print("Calculando precio")
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        total_price = 0
+        for item in cart_list:
+            if item.ci_product.peb_discount_status:
+                total_price += item.ci_quantity * item.ci_product.peb_discount_price
+            else:
+                total_price += item.ci_quantity * item.ci_product.peb_regular_price
+        cart_obj.crt_total_price = total_price
+        cart_obj.save()
+        print(cart_obj.crt_total_price)
     return redirect('main:homepage')
