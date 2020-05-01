@@ -10,8 +10,12 @@ from django.contrib import messages # to send unique messages to the users
 from itertools import chain
 from random import shuffle
 
+from django.conf import settings
+
 # Create your views here.
 def homepage(request):
+    # Loads MEDIA_URL
+    MEDIA_URL = settings.MEDIA_URL
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
@@ -27,7 +31,7 @@ def homepage(request):
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list})
+                  context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list, 'MEDIA_URL': MEDIA_URL})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
