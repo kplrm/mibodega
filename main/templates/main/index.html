@@ -12,6 +12,7 @@
 <header class="header-section">
     <!-- MIDDLE BAR -->
     <div class="container">
+        aa {{ MEDIA_URL }} aa
         <div class="inner-header">
             <div class="row">
                 <div class="col-lg-2 col-md-2">
@@ -45,7 +46,7 @@
                                             {% load humanize %}
                                             {% for product in cart_list %}
                                             <tr>
-                                                <td class="si-pic"><img src="/media/{{product.ci_product.peb_product.pa_category}}/{{product.ci_product.peb_product.pa_photo_small}}" alt=""></td>
+                                                <td class="si-pic"><img src="{{ MEDIA_URL }}{{product.ci_product.peb_product.pa_category}}/{{product.ci_product.peb_product.pa_photo_small}}" alt=""></td>
                                                 <td class="si-text">
                                                     <div class="product-selected">
                                                         <p>S/. 
@@ -162,7 +163,7 @@
                     {% for product in result_list %}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="/media/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
+                            <img src="{{ MEDIA_URL }}{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
                             <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
                             <ul>
                                 <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
