@@ -13,6 +13,7 @@ from random import shuffle
 from django.conf import settings
 
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 
 # Global variable Loads MEDIA_URL
 MEDIA_URL = settings.MEDIA_URL
@@ -36,11 +37,10 @@ def homepage(request):
                   template_name="main/index.html", # where to find the specifix template
                   context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list, 'MEDIA_URL': MEDIA_URL})
 
-# Create your views here.
 def embutidos(request):
+    # Load embutidos
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos").all()
     result_list = productos_en_bodegas
-
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -51,7 +51,6 @@ def embutidos(request):
     except EmptyPage:
         results = paginator.page(paginator.num_pages)
     result_count = paginator.count
-
     # Lookup for all the brands
     brands = []
     for product in result_list:
@@ -61,14 +60,210 @@ def embutidos(request):
         else:
             brands.append(product.peb_product.pa_brand)
     
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
     return render(request=request, # to reference request
                   template_name="main/embutidos.html", # where to find the specifix template
                   context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
                   'MEDIA_URL': MEDIA_URL})
 
+def lacteos(request):
+    # Load lacteos
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos").all()
+    result_list = productos_en_bodegas
+    # Paginator
+    page = request.GET.get('page', 1)
+    paginator = Paginator(result_list, 12) # displayed products per page
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+    result_count = paginator.count
+    # Lookup for all the brands
+    brands = []
+    for product in result_list:
+        # Check if brand already in the list
+        if product.peb_product.pa_brand in brands:
+            print(product.peb_product.pa_brand)
+        else:
+            brands.append(product.peb_product.pa_brand)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    return render(request=request, # to reference request
+                  template_name="main/lacteos.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
+                  'brands': brands,
+                  'results': results,
+                  'result_count': result_count,
+                  'MEDIA_URL': MEDIA_URL})
+
+def abarrotes(request):
+    # Load abarrotes
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes").all()
+    result_list = productos_en_bodegas
+    # Paginator
+    page = request.GET.get('page', 1)
+    paginator = Paginator(result_list, 12) # displayed products per page
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+    result_count = paginator.count
+    # Lookup for all the brands
+    brands = []
+    for product in result_list:
+        # Check if brand already in the list
+        if product.peb_product.pa_brand in brands:
+            print(product.peb_product.pa_brand)
+        else:
+            brands.append(product.peb_product.pa_brand)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    return render(request=request, # to reference request
+                  template_name="main/abarrotes.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
+                  'brands': brands,
+                  'results': results,
+                  'result_count': result_count,
+                  'MEDIA_URL': MEDIA_URL})
+
+def limpieza(request):
+    # Load limpieza
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza").all()
+    result_list = productos_en_bodegas
+    # Paginator
+    page = request.GET.get('page', 1)
+    paginator = Paginator(result_list, 12) # displayed products per page
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+    result_count = paginator.count
+    # Lookup for all the brands
+    brands = []
+    for product in result_list:
+        # Check if brand already in the list
+        if product.peb_product.pa_brand in brands:
+            print(product.peb_product.pa_brand)
+        else:
+            brands.append(product.peb_product.pa_brand)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    return render(request=request, # to reference request
+                  template_name="main/limpieza.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
+                  'brands': brands,
+                  'results': results,
+                  'result_count': result_count,
+                  'MEDIA_URL': MEDIA_URL})
+
+def licores(request):
+    # Load licores
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores").all()
+    result_list = productos_en_bodegas
+    # Paginator
+    page = request.GET.get('page', 1)
+    paginator = Paginator(result_list, 12) # displayed products per page
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+    result_count = paginator.count
+    # Lookup for all the brands
+    brands = []
+    for product in result_list:
+        # Check if brand already in the list
+        if product.peb_product.pa_brand in brands:
+            print(product.peb_product.pa_brand)
+        else:
+            brands.append(product.peb_product.pa_brand)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    return render(request=request, # to reference request
+                  template_name="main/licores.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
+                  'brands': brands,
+                  'results': results,
+                  'result_count': result_count,
+                  'MEDIA_URL': MEDIA_URL})
+
+def vegetales(request):
+    # Load vegetales
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
+    result_list = productos_en_bodegas
+    # Paginator
+    page = request.GET.get('page', 1)
+    paginator = Paginator(result_list, 12) # displayed products per page
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+    result_count = paginator.count
+    # Lookup for all the brands
+    brands = []
+    for product in result_list:
+        # Check if brand already in the list
+        if product.peb_product.pa_brand in brands:
+            print(product.peb_product.pa_brand)
+        else:
+            brands.append(product.peb_product.pa_brand)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    return render(request=request, # to reference request
+                  template_name="main/vegetales.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
+                  'brands': brands,
+                  'results': results,
+                  'result_count': result_count,
+                  'MEDIA_URL': MEDIA_URL})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
@@ -135,7 +330,7 @@ def remove_cart(request):
     item_obj.delete()
 
     update_price(cart_obj)
-    return redirect('main:homepage')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 def cart_add(request):
     print("Entrando en el update!")
@@ -161,7 +356,8 @@ def cart_add(request):
             cart_obj.crt_item.add(cart_item)
 
         update_price(cart_obj)
-    return redirect('main:homepage')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
 
 def update_price(cart_obj):
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
