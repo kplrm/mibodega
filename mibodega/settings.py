@@ -1,8 +1,8 @@
 import os
 import json
 
-with open('/etc/conf.json') as config_file:
-    config = json.load(config_file)
+#with open('/etc/conf.json') as config_file:
+#    config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -12,14 +12,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['SECRET_KEY']
+#SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-
-ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe","104.200.18.239"]
-
+#ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe","104.200.18.239"]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'django.contrib.humanize',
-#    'main.apps.MainConfig', # to add app called main
-#    'accounts',
     'main',
 ]
 

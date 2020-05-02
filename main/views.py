@@ -12,10 +12,13 @@ from random import shuffle
 
 from django.conf import settings
 
+from django.core.paginator import Paginator
+
+# Global variable Loads MEDIA_URL
+MEDIA_URL = settings.MEDIA_URL
+
 # Create your views here.
 def homepage(request):
-    # Loads MEDIA_URL
-    MEDIA_URL = settings.MEDIA_URL
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
@@ -32,6 +35,38 @@ def homepage(request):
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
                   context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list, 'MEDIA_URL': MEDIA_URL})
+
+# Create your views here.
+def embutidos(request):
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos").all()
+    result_list = productos_en_bodegas
+
+    # Paginator
+    page = request.GET.get('page', 1)
+    paginator = Paginator(result_list, 4) # displayed products per page
+    try:
+        results = paginator.page(page)
+    except PageNotAnInteger:
+        results = paginator.page(1)
+    except EmptyPage:
+        results = paginator.page(paginator.num_pages)
+
+    # Lookup for all the brands
+    brands = []
+    for product in result_list:
+        # Check if brand already in the list
+        if product.peb_product.pa_brand in brands:
+            print(product.peb_product.pa_brand)
+        else:
+            brands.append(product.peb_product.pa_brand)
+    
+    return render(request=request, # to reference request
+                  template_name="main/embutidos.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'brands': brands,
+                  'results': results,
+                  'MEDIA_URL': MEDIA_URL})
+
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
