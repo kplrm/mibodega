@@ -68,15 +68,15 @@
                                 </div>
                                 <div class="select-total">
                                     <span>total:</span>
-                                    <h5>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
+                                    <h5>S/.{{cart_obj.crt_total_price}}</h5>
                                 </div>
                                 <div class="select-button">
-                                    <a href="/checkout" class="primary-btn view-card">VER CESTA</a>
+                                    <a href="#" class="primary-btn view-card">VER CESTA</a>
                                     <a href="#" class="primary-btn checkout-btn">PAGAR</a>
                                 </div>
                             </div>
                         </li>
-                        <li class="cart-price">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</li>
+                        <li class="cart-price">S/.{{cart_obj.crt_total_price}}</li>
                     </ul>
                 </div>
             </div>
@@ -88,8 +88,8 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li><a href="/">Ofertas</a></li>
-                    <li><a href="/embutidos">Embutidos</a></li>
-                    <li class="active"><a href="/vegetales">Vegetales</a>
+                    <li class="active"><a href="/embutidos">Embutidos</a></li>
+                    <li><a href="/vegetales">Vegetales</a>
                     <li><a href="/lacteos">Lácteos</a></li>
                     <li><a href="/abarrotes">Abarrotes</a></li>
                     <li><a href="/limpieza">Limpieza</a></li>
@@ -104,107 +104,107 @@
 </header>
 <!-- Header End -->
 
-<!-- Product Shop Section Begin -->
-<section class="product-shop spad">
+<!-- Shopping Cart Section Begin -->
+<section class="checkout-section spad">
     <div class="container">
-        <div class="row">
-            <!-- Brand filter section begin -->
-            <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
-                <div class="filter-widget">
-                    <h4 class="fw-title">Marca</h4>
-                    <div class="fw-brand-check">
-                        {% for brand in brands %}
-                        <div class="bc-item">
-                            <label for="bc-calvin">
-                                {{ brand }}
-                                <input type="checkbox" id="bc-calvin">
-                                <span class="checkmark"></span>
-                            </label>
+        <form action="#" class="checkout-form">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout-content">
+                        <a href="#" class="content-btn">Click Here To Login</a>
+                    </div>
+                    <h4>Biiling Details</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="fir">First Name<span>*</span></label>
+                            <input type="text" id="fir">
                         </div>
-                        {% endfor %}
+                        <div class="col-lg-6">
+                            <label for="last">Last Name<span>*</span></label>
+                            <input type="text" id="last">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun-name">Company Name</label>
+                            <input type="text" id="cun-name">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="cun">Country<span>*</span></label>
+                            <input type="text" id="cun">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="street">Street Address<span>*</span></label>
+                            <input type="text" id="street" class="street-first">
+                            <input type="text">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="zip">Postcode / ZIP (optional)</label>
+                            <input type="text" id="zip">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="town">Town / City<span>*</span></label>
+                            <input type="text" id="town">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="email">Email Address<span>*</span></label>
+                            <input type="text" id="email">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="phone">Phone<span>*</span></label>
+                            <input type="text" id="phone">
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="create-item">
+                                <label for="acc-create">
+                                    Create an account?
+                                    <input type="checkbox" id="acc-create">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout-content">
+                        <input type="text" placeholder="Enter Your Coupon Code">
+                    </div>
+                    <div class="place-order">
+                        <h4>Your Order</h4>
+                        <div class="order-total">
+                            <ul class="order-table">
+                                <li>Product <span>Total</span></li>
+                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
+                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
+                                <li class="fw-normal">Combination x 1 <span>$120.00</span></li>
+                                <li class="fw-normal">Subtotal <span>$240.00</span></li>
+                                <li class="total-price">Total <span>$240.00</span></li>
+                            </ul>
+                            <div class="payment-check">
+                                <div class="pc-item">
+                                    <label for="pc-check">
+                                        Cheque Payment
+                                        <input type="checkbox" id="pc-check">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div class="pc-item">
+                                    <label for="pc-paypal">
+                                        Paypal
+                                        <input type="checkbox" id="pc-paypal">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="order-btn">
+                                <button type="submit" class="site-btn place-btn">Place Order</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Brand filter section end -->
-
-            <!-- Search result area begin -->
-            <div class="col-lg-9 order-1 order-lg-2">
-                <div class="product-show-option">
-                    <div class="row">
-                        <div class="col-lg-7 col-md-7">
-                            <div class="select-option">
-                                <select class="sorting">
-                                    <option value="">Orden</option>
-                                </select>
-                                <!--<select class="p-show">
-                                    <option value="">Show:</option>
-                                </select>-->
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5 text-right">
-                            <p>{{result_count}} productos disponibles</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-list">
-                    <!-- First item-->
-                    {% load humanize %}
-                    <div class="infinite-container">
-                    <div class="row">
-                    {% for product in results %}
-                        <div class="col-lg-3 col-sm-4">
-                            <div class="product-item">
-                                <div class="pi-pic infinite-item">
-                                    <img src="{{ MEDIA_URL }}{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="">
-                                    {% if product.peb_discount_status == True %}
-                                        <div class="sale pp-sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
-                                    {% endif %}
-                                    <ul>
-                                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                                            <input type="hidden" name='product_id' value='{{product.pk}}'>
-                                            <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
-                                        </form>        
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">{{product.peb_product.pa_category}}</div>
-                                    <a href="#">
-                                        <h5>{{product.peb_product.pa_product}}</h5>
-                                    </a>
-                                    {% if product.peb_discount_status == True %}
-                                    <div class="product-price">
-                                        S/.{{product.peb_discount_price|floatformat:2|intcomma}}
-                                        <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
-                                    </div>
-                                    {% else %}
-                                    <div class="product-price">
-                                        S/.{{product.peb_regular_price|floatformat:2|intcomma}}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>
-                    </div>
-                    {% if results.has_next %}
-                        <a class="infinite-more-link" href="?page={{ results.next_page_number }}">Siguiente</a>
-                    {% endif %}
-                </div>
-
-                <div class="loading-more">
-                    <!--<i class="icon_loading"></i>
-                    <a href="#">
-                        Loading More
-                    </a>-->
-                </div>
-            </div>
-            <!-- Search result area end -->
-        </div>
+        </form>
     </div>
 </section>
-<!-- Product Shop Section End -->
+<!-- Shopping Cart Section End -->
 
 <!-- BENEFICIOS -->
 <section class="latest-blog spad">
