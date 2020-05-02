@@ -1,0 +1,7 @@
+sudo chown :www-data mibodega/default.db
+sudo chmod 664 mibodega/default.db
+sudo chown :www-data mibodega/
+ls -la
+sudo chown -R :www-data mibodega/media/
+sudo chmod -R 775 mibodega/media/
+sudo service apache2 restart
