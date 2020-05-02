@@ -20,5 +20,6 @@ urlpatterns = [
     path("licores", views.licores, name="licores"),
     #url(r'^add-to-cart/(?P<slug>\d{8,11}[\-].*)/$', cart_update, name="single"),
     path("update", views.cart_add, name="cart_add"),
-    path("remove", views.remove_cart, name="remove_cart")
+    path("remove", views.remove_cart, name="remove_cart"),
+    path("checkout", views.checkout, name="checkout")
 ]

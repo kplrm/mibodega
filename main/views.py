@@ -265,6 +265,23 @@ def vegetales(request):
                   'result_count': result_count,
                   'MEDIA_URL': MEDIA_URL})
 
+def checkout(request):
+    # Load vegetales
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
+    result_list = productos_en_bodegas
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    return render(request=request, # to reference request
+                  template_name="main/checkout.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                  'cart_obj': cart_obj,
+                  'cart_list': cart_list,
+                  'MEDIA_URL': MEDIA_URL})
+
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
         form = RegistrationForm(request.POST)
