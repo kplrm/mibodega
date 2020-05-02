@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="select-total">
                                     <span>total:</span>
-                                    <h5>S/.{{cart_obj.crt_total_price}}</h5>
+                                    <h5>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
                                 </div>
                                 <div class="select-button">
                                     <a href="#" class="primary-btn view-card">VER CESTA</a>
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="cart-price">S/.{{cart_obj.crt_total_price}}</li>
+                        <li class="cart-price">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</li>
                     </ul>
                 </div>
             </div>
@@ -88,11 +88,11 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li><a href="/">Ofertas</a></li>
-                    <li class="active"><a href="/embutidos">Embutidos</a></li>
+                    <li><a href="/embutidos">Embutidos</a></li>
                     <li><a href="/vegetales">Vegetales</a>
                     <li><a href="/lacteos">Lácteos</a></li>
                     <li><a href="/abarrotes">Abarrotes</a></li>
-                    <li><a href="/limpieza">Limpieza</a></li>
+                    <li class="active"><a href="/limpieza">Limpieza</a></li>
                     <li><a href="/licores">Licores</a>
                     </li>
                 </ul>
@@ -134,27 +134,28 @@
                         <div class="col-lg-7 col-md-7">
                             <div class="select-option">
                                 <select class="sorting">
-                                    <option value="">Default Sorting</option>
+                                    <option value="">Orden</option>
                                 </select>
-                                <select class="p-show">
+                                <!--<select class="p-show">
                                     <option value="">Show:</option>
-                                </select>
+                                </select>-->
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-5 text-right">
-                            <p>Show 01- 09 Of 36 Product</p>
+                            <p>{{result_count}} productos disponibles</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-list">
+                    <!-- First item-->
+                    {% load humanize %}
+                    <div class="infinite-container">
                     <div class="row">
-                        <!-- First item-->
-                        {% load humanize %}
-                        {% for product in result_list %}
+                    {% for product in results %}
                         <div class="col-lg-3 col-sm-4">
                             <div class="product-item">
-                                <div class="pi-pic">
+                                <div class="pi-pic infinite-item">
                                     <img src="{{ MEDIA_URL }}{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="">
                                     {% if product.peb_discount_status == True %}
                                         <div class="sale pp-sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
@@ -167,7 +168,7 @@
                                     </ul>
                                 </div>
                                 <div class="pi-text">
-                                    <div class="catagory-name">Towel</div>
+                                    <div class="catagory-name">{{product.peb_product.pa_category}}</div>
                                     <a href="#">
                                         <h5>{{product.peb_product.pa_product}}</h5>
                                     </a>
@@ -184,9 +185,14 @@
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
+                    {% endfor %}
                     </div>
+                    </div>
+                    {% if results.has_next %}
+                        <a class="infinite-more-link" href="?page={{ results.next_page_number }}">Siguiente</a>
+                    {% endif %}
                 </div>
+
                 <div class="loading-more">
                     <!--<i class="icon_loading"></i>
                     <a href="#">
@@ -257,4 +263,15 @@
 <!-- Infinite scroll -->
 <script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static 'main/js/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+</script>
 {% endblock %}

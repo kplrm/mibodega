@@ -87,13 +87,13 @@
         <div class="container">
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="/index">Ofertas</a></li>
+                    <li><a href="/">Ofertas</a></li>
                     <li><a href="/embutidos">Embutidos</a></li>
                     <li><a href="/vegetales">Vegetales</a>
                     <li><a href="/lacteos">Lácteos</a></li>
                     <li><a href="/abarrotes">Abarrotes</a></li>
                     <li><a href="/limpieza">Limpieza</a></li>
-                    <li><a href="/licores">Licores</a>
+                    <li class="active"><a href="/licores">Licores</a>
                     </li>
                 </ul>
             </nav>
@@ -104,91 +104,107 @@
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section">
-    <div class="hero-items owl-carousel">
-        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-1.jpg' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <!--<span>Bag,kids</span>-->
-                        <h1 style="background-color:white; opacity: 0.8">Ahora en La Molina</h1>
-                        <h3 style="background-color:white; opacity: 0.8">La bodega de tu cuadra ahora está en internet</h3>
-                        <a href="#" class="primary-btn">¡Compra!</a>
-                    </div>
-                </div>
-                <div class="off-card">
-                    <h2>Ya abrimos</h2>
-                </div>
-            </div>
-        </div>
-        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-2.jpg' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <!--<span>Bag,kids</span>-->
-                        <h1 style="background-color:white; opacity: 0.8">Afilia tu bodega gratis</h1>
-                        <h3 style="background-color:white; opacity: 0.8">Ahora puedes vender por internet</h3>
-                        <a href="#" class="primary-btn">¡Únete!</a>
-                    </div>
-                </div>
-                <div class="off-card">
-                    <h2>Ya abrimos</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section End -->
-
-<!-- Women Banner Section Begin -->
-<section class="women-banner spad">
-    <div class="container-fluid">
+<!-- Product Shop Section Begin -->
+<section class="product-shop spad">
+    <div class="container">
         <div class="row">
-            <!--<div class="col-lg-8 offset-lg-1">-->
-            <div class="col-lg-12">
-                <div class="filter-control">
-                    <ul>
-                        <li class="active">Ofertas</li>
-                        <li>Embutidos</li>
-                        <li>Vegetales</li>
-                        <li>Lácteos</li>
-                        <li>Abarrotes</li>
-                        <li>Limpieza</li>
-                        <li>Licores</li>
-                    </ul>
-                </div>
-                <div class="product-slider owl-carousel">
-                    <!-- FIRST ITEM -->
-                    {% load humanize %}
-                    {% for product in result_list %}
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{ MEDIA_URL }}{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
-                            <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
-                            <ul>
-                                <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                                    <input type="hidden" name='product_id' value='{{product.pk}}'>
-                                    <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
-                                </form>
-                            </ul>
+            <!-- Brand filter section begin -->
+            <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                <div class="filter-widget">
+                    <h4 class="fw-title">Marca</h4>
+                    <div class="fw-brand-check">
+                        {% for brand in brands %}
+                        <div class="bc-item">
+                            <label for="bc-calvin">
+                                {{ brand }}
+                                <input type="checkbox" id="bc-calvin">
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">{{product.peb_product.pa_category}}</div>
-                            <a href="#"><h5>{{product.peb_product.pa_product}}</h5></a>
-                            <div class="product-price">
-                                S/.{{product.peb_regular_price|floatformat:2|intcomma}}
-                                <span>S/.{{product.peb_discount_price|floatformat:2|intcomma}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!-- Brand filter section end -->
+
+            <!-- Search result area begin -->
+            <div class="col-lg-9 order-1 order-lg-2">
+                <div class="product-show-option">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7">
+                            <div class="select-option">
+                                <select class="sorting">
+                                    <option value="">Orden</option>
+                                </select>
+                                <!--<select class="p-show">
+                                    <option value="">Show:</option>
+                                </select>-->
                             </div>
                         </div>
+                        <div class="col-lg-5 col-md-5 text-right">
+                            <p>{{result_count}} productos disponibles</p>
+                        </div>
                     </div>
+                </div>
+
+                <div class="product-list">
+                    <!-- First item-->
+                    {% load humanize %}
+                    <div class="infinite-container">
+                    <div class="row">
+                    {% for product in results %}
+                        <div class="col-lg-3 col-sm-4">
+                            <div class="product-item">
+                                <div class="pi-pic infinite-item">
+                                    <img src="{{ MEDIA_URL }}{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="">
+                                    {% if product.peb_discount_status == True %}
+                                        <div class="sale pp-sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
+                                    {% endif %}
+                                    <ul>
+                                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
+                                            <input type="hidden" name='product_id' value='{{product.pk}}'>
+                                            <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
+                                        </form>        
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{product.peb_product.pa_category}}</div>
+                                    <a href="#">
+                                        <h5>{{product.peb_product.pa_product}}</h5>
+                                    </a>
+                                    {% if product.peb_discount_status == True %}
+                                    <div class="product-price">
+                                        S/.{{product.peb_discount_price|floatformat:2|intcomma}}
+                                        <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                                    </div>
+                                    {% else %}
+                                    <div class="product-price">
+                                        S/.{{product.peb_regular_price|floatformat:2|intcomma}}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
+                    </div>
+                    </div>
+                    {% if results.has_next %}
+                        <a class="infinite-more-link" href="?page={{ results.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </div>
+
+                <div class="loading-more">
+                    <!--<i class="icon_loading"></i>
+                    <a href="#">
+                        Loading More
+                    </a>-->
                 </div>
             </div>
+            <!-- Search result area end -->
         </div>
     </div>
 </section>
-<!-- Women Banner Section End -->
+<!-- Product Shop Section End -->
 
 <!-- BENEFICIOS -->
 <section class="latest-blog spad">
@@ -244,4 +260,18 @@
 <script src="{% static 'main/js/jquery.slicknav.js' %}"></script>
 <script src="{% static 'main/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'main/js/main.js' %}"></script>
+<!-- Infinite scroll -->
+<script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'main/js/infinite.min.js' %}"></script>
+<script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+</script>
 {% endblock %}

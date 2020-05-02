@@ -158,6 +158,16 @@ class CartManager(models.Manager):
                             item.save()
                     previous_cart_obj.delete()
                     print("exit product search")
+                    # Update price
+                    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+                    total_price = 0
+                    for item in cart_list:
+                        if item.ci_product.peb_discount_status:
+                            total_price += item.ci_quantity * item.ci_product.peb_discount_price
+                        else:
+                            total_price += item.ci_quantity * item.ci_product.peb_regular_price
+                    cart_obj.crt_total_price = total_price
+                    cart_obj.save()
                 else:
                     # There is no previous cart, so no item to recover
                     print("El usuario no tiene coche")
