@@ -43,13 +43,14 @@ def embutidos(request):
 
     # Paginator
     page = request.GET.get('page', 1)
-    paginator = Paginator(result_list, 4) # displayed products per page
+    paginator = Paginator(result_list, 12) # displayed products per page
     try:
         results = paginator.page(page)
     except PageNotAnInteger:
         results = paginator.page(1)
     except EmptyPage:
         results = paginator.page(paginator.num_pages)
+    result_count = paginator.count
 
     # Lookup for all the brands
     brands = []
@@ -65,6 +66,7 @@ def embutidos(request):
                   context={'result_list': result_list,
                   'brands': brands,
                   'results': results,
+                  'result_count': result_count,
                   'MEDIA_URL': MEDIA_URL})
 
 
