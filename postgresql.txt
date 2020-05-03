@@ -1,13 +1,26 @@
 #Instructions for using
 
-#Install
+#Install apache2
+sudo apt-get install apache2
+sudo /etc/init.d/apache2 start
+sudo /etc/init.d/apache2 stop
+sudo /etc/init.d/apache2 restart
+
+#Install postgre
 sudo apt-get install postgresql postgresql-contrib
 sudo apt-get install postgis
 
 #Service status, default port is 5432
 service postgresql status
-service postgresql start
-service postgresql stop
+sudo service postgresql start
+sudo service postgresql stop
+
+#Install pgadmin4
+sudo nano /etc/apt/sources.list.d/pgdg.list
+deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
+sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt update
+sudo apt install pgadmin4 pgadmin4-apache2
 
 #change new super user password / create new super user / delete user
 sudo su postgres
@@ -15,6 +28,7 @@ psql
 ALTER USER postgres WITH PASSWORD 'password';
 CREATE USER kplrm WITH PASSWORD 'password';
 ALTER USER kplrm WITH SUPERUSER;
+GRANT ALL PRIVILEGES ON DATABASE shop TO shopadmin;
 DROP USER kplrm,
 
 #To administrate PostgreSQL
@@ -37,19 +51,6 @@ sudo -u postgres psql -d myspatialdb
 CREATE EXTENSION postgis;
 #Check installed version
 SELECT PostGIS_version();
-
-#Install apache2
-sudo apt-get install apache2
-sudo /etc/init.d/apache2 start
-sudo /etc/init.d/apache2 stop
-sudo /etc/init.d/apache2 restart
-
-#Install pgadmin4
-sudo nano /etc/apt/sources.list.d/pgdg.list
-deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
-sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo apt update
-sudo apt install pgadmin4 pgadmin4-apache2
 
 #To check login into
 http://localhost/pgadmin4/
