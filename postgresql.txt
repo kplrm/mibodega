@@ -62,4 +62,3 @@ add password
 #To remove a package
 dpkg --list
 sudo apt-get --purge remove package_name
-
