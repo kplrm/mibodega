@@ -17,12 +17,16 @@ CREATE USER kplrm WITH PASSWORD 'password';
 ALTER USER kplrm WITH SUPERUSER;
 DROP USER kplrm,
 
+#To administrate PostgreSQL
+psql postgres
+service postgresql status
+
 #Check databases and users
 \l
 \du
 
 #Exit commands
-control + D
+\d or control+D
 exit
 
 #Create db
@@ -46,3 +50,16 @@ deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
 sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 sudo apt update
 sudo apt install pgadmin4 pgadmin4-apache2
+
+#To check login into
+http://localhost/pgadmin4/
+
+#To Connect
+1-create a new server
+add user kplrm
+add password 
+
+#To remove a package
+dpkg --list
+sudo apt-get --purge remove package_name
+
