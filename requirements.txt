@@ -1,0 +1,10 @@
+pip3 install Django
+conda install -c conda-forge folium
+pip install pandas
+pip install cachetools
+pip install ipregistry
+
+
+pip install wheel
+pip install django-mapbox-location-field
+pip install django-leaflet

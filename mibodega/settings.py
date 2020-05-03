@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'main',
+    'leaflet',
 ]
 
 MIDDLEWARE = [
@@ -73,24 +74,15 @@ WSGI_APPLICATION = 'mibodega.wsgi.application'
 
 DATABASES = {
     'default': { # user access and system stuff
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'default.db'),
-#        'USER': 'default_db',
-#        'PASSWORD': 'color800',
+#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#        'USER': 'postgres',
+#        'HOST': 'localhost',
+#        'PASSWORD': 'postgres',
+#        'PORT': '5432',
     }
-#    'ProductosAprobados': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': os.path.join(BASE_DIR, 'ProductosAprobados.postgresql'),
-#        'USER': 'ProductosAprobados_db',
-#        'PASSWORD': 'color800',
-#    }
-#    'ListasDeProductos': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': os.path.join(BASE_DIR, 'ListasDeProductos.postgresql'),
-#        'USER': 'ListasDeProductos_db',
-#        'PASSWORD': 'color800',
-#    }
 }
 
 
