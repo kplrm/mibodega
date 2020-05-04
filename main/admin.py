@@ -12,7 +12,7 @@ admin.site.register(CartItem)
 
 @admin.register(Cliente)
 class ClienteAdmin(OSMGeoAdmin):
-    list_display = ('cl_user','cl_first_name','cl_last_name','cl_phone','cl_address','cl_geolocation','cl_date_reg','cl_bodega_ID')
+    list_display = ('cl_user','cl_first_name','cl_last_name','cl_phone','cl_address','cl_geolocation')
 @admin.register(Bodega)
 class BodegaAdmin(OSMGeoAdmin):
     list_display = ('bd_ID','bd_user','bd_is_active','bd_name','bd_ruc','bd_raz_soc','bd_geolocation')
