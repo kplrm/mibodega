@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'main',
-    'leaflet',
+#    'leaflet',
 ]
 
 MIDDLEWARE = [
