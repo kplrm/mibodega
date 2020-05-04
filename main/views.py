@@ -15,11 +15,24 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 
+from ipregistry import IpregistryClient, NoCache
+
 # Global variable Loads MEDIA_URL
 MEDIA_URL = settings.MEDIA_URL
 
+def locate_user():
+    client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
+    ipInfo = client.lookup()
+    user_latitude = ipInfo.location['latitude']
+    user_longitude = ipInfo.location['longitude']
+    return user_latitude, user_longitude
+
 # Create your views here.
 def homepage(request):
+    user_latitude, user_longitude = locate_user()
+    print("User location")
+    print(user_latitude)
+    print(user_longitude)
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
