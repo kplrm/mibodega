@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'main',
+    'django.contrib.gis',
 #    'leaflet',
 ]
 
