@@ -77,11 +77,11 @@ DATABASES = {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': os.path.join(BASE_DIR, 'default.db'),
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'shops',
+        'NAME': 'mibodega',
         'USER': 'kplrm',
         'PASSWORD': 'color800',
         'HOST': 'localhost',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
