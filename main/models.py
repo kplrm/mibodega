@@ -63,7 +63,7 @@ class Cliente(models.Model):
     cl_last_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Apellido")
     cl_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
     cl_address = models.CharField(max_length=50,blank=True,null=True,verbose_name="Dirreción")
-    cl_geolocation = models.PointField(verbose_name="Dirección")
+    cl_geolocation = models.PointField(blank=True,null=True,verbose_name="Dirección")
     cl_date_reg = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de registro")
     cl_bodega_ID = models.CharField(max_length=36,default="",blank=True,null=True,verbose_name="ID Bodega")
 
@@ -77,7 +77,7 @@ class Bodega(models.Model):
     bd_name = models.CharField(max_length=100,blank=True,null=True,verbose_name="Nombre comercial")
     bd_ruc = models.CharField(max_length=11,unique=True,blank=False,null=False,verbose_name="RUC (o DNI)")
     bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
-    bd_geolocation = models.PointField(verbose_name="Sede")
+    bd_geolocation = models.PointField(blank=True,null=True,verbose_name="Sede")
 
     def __str__(self):
         return str(self.bd_ruc)+str(" ")+str(self.bd_name)
