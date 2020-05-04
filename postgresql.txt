@@ -26,10 +26,10 @@ sudo apt install pgadmin4 pgadmin4-apache2
 sudo su postgres
 psql
 ALTER USER postgres WITH PASSWORD 'password';
-CREATE USER kplrm WITH PASSWORD 'password';
+CREATE USER kplrm WITH PASSWORD 'color800';
+GRANT ALL PRIVILEGES ON DATABASE mibodega TO kplrm;
 ALTER USER kplrm WITH SUPERUSER;
-GRANT ALL PRIVILEGES ON DATABASE shop TO shopadmin;
-DROP USER kplrm,
+DROP USER kplrm;
 
 #To administrate PostgreSQL
 psql postgres
@@ -52,6 +52,7 @@ sudo -u postgres psql -d myspatialdb
 CREATE EXTENSION postgis;
 #Check installed version
 SELECT PostGIS_version();
+DROP DATABASE mibodega; 
 
 #To check login into
 http://localhost/pgadmin4/
