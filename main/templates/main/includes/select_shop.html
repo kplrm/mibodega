@@ -26,6 +26,6 @@
             }).addTo(map)
                 .bindPopup( "{{ shop.bd_name }}" )
                 .openPopup()
-                .on('click', onMapClick( "{{ shop.bd_name }}" ));
+                .on('click', onMapClick( {{ shop.bd_name }} ));
             {% endfor %}
         </script>
