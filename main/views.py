@@ -33,7 +33,11 @@ def locate_user():
 
 def select_shop(request):
     user_longitude, user_latitude = locate_user()
+    print("In selected shop")
+    print(user_latitude)
     user_location = Point(user_longitude,user_latitude,srid=4326)
+    print("After point")
+    print(user_location.x)
 
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:6]
     return render(request=request,
