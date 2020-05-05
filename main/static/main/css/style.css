@@ -1,6 +1,6 @@
 /******************************************************************
-  Template Name: Alimentos.pe
-  Description: Alimentos.pe
+  Template Name: Fashi
+  Description: Fashi eCommerce HTML Template
   Author: Colorlib
   Author URI: https://colorlib.com/
   Version: 1.0
@@ -430,7 +430,7 @@ ol {
 }
 
 .inner-header .advanced-search .category-btn {
-	max-width: 100%; /*30%*/
+	max-width: 30%;
 	float: left;
 	background: transparent;
 	border: none;
@@ -1170,20 +1170,17 @@ ol {
 }
 
 .product-item .pi-pic img {
-	height: 100%;/*Standard image size*/
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
 	min-width: 100%;
 }
 
 .product-item .pi-pic .sale {
 	color: #ffffff;
-	font-size: 20px;
-	background: red;
+	font-size: 10px;
+	background: #76BC42;
 	position: absolute;
-	left: 10%;
+	left: 0;
 	top: 20px;
+	padding: 5px 10px;
 	text-transform: uppercase;
 }
 
@@ -3914,10 +3911,10 @@ ol {
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.inner-header .advanced-search .category-btn {
-		max-width: 20%;/*36%*/
+		max-width: 36%;
 	}
 	.inner-header .advanced-search .input-group {
-		max-width: 80%;
+		max-width: 100%;
 	}
 	.nav-item .nav-menu li a {
 		padding: 16px 26px 15px;
@@ -4022,7 +4019,7 @@ ol {
 		margin-left: 10px;
 	}
 	.inner-header .advanced-search .category-btn {
-		max-width: 100%; /*40%*/
+		max-width: 40%;
 		padding-right: 25px;
 	}
 	.inner-header .advanced-search .input-group {
