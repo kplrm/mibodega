@@ -19,7 +19,7 @@
             
             {% for shop in shops %}
             function onMapClick( bd_name ) {
-                document.getElementById("bodaga_name").value = bd_name;
+                document.getElementById("bodaga_name").value = "bd_name";
             };
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
