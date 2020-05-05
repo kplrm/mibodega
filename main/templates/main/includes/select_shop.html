@@ -23,7 +23,7 @@
                 icon: customMarkerIcon
             }).addTo(map)
                 .bindPopup( "{{ shop.bd_name }}" )
-                .openPopup()
+                .closePopup()
                 .on('click', function onClick(shop) {
                     document.getElementById("bodaga_name").value = "{{ shop.bd_name }}";
                     document.getElementById("bodaga_id").value = "{{ shop.bd_ID }}";
