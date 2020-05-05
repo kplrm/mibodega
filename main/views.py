@@ -27,7 +27,7 @@ def locate_user():
     ipInfo = client.lookup()
     user_longitude = ipInfo.location['longitude']
     user_latitude = ipInfo.location['latitude']
-    return user_longitude, user_latitude
+    return float(user_longitude), float(user_latitude)
 
 def select_shop(request):
     user_longitude, user_latitude = locate_user()
