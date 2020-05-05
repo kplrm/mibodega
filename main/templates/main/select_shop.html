@@ -51,8 +51,8 @@
                 });	
         
             {% for shop in shops %}
-            function onMapClick( {{shop}} ) {
-                alert("You clicked the map at " + {{shop.bd_name}} );
+            function onMapClick( shop ) {
+                alert("You clicked the map at " + {{shop}} );
             };
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
