@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Nearby Shops</h1>
-        User: {{user_location.y}}, {{user_location.x}}
+        User: {{user_longitude}}, {{user_latitude}}
         {% if shops %}
         <ul>
             {% for shop in shops %}
@@ -31,7 +31,7 @@
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
         
-            L.marker([user_location.y, user_location.x]).addTo(map)
+            L.marker([ {{user_location.y}}, {{user_location.x}} ]).addTo(map)
                 .bindPopup('Hello')
                 .openPopup();
         
