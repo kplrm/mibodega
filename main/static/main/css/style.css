@@ -4022,7 +4022,7 @@ ol {
 		margin-left: 10px;
 	}
 	.inner-header .advanced-search .category-btn {
-		max-width: 40%;
+		max-width: 100%; /*40%*/
 		padding-right: 25px;
 	}
 	.inner-header .advanced-search .input-group {
