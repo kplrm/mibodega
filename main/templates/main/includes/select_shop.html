@@ -1,8 +1,10 @@
 
         <h3>Seleccione su bodega</h3>
         
+        <label for="bodaga_name">Bodega:</label>
         <input type="text" class="form-control" id="bodaga_name">
-        <input class="input-group mb-3" type="text" id="bodaga_id">
+        <label for="bodaga_id">ID:</label>
+        <input type="text" class="form-control" id="bodaga_id">
         <div id="mapid"></div>
         <script>
             var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
