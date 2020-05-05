@@ -40,7 +40,10 @@ def select_shop(request):
                   context={'user_location': user_location, 'shops': shops})
 
 def homepage(request):
-#    user_latitude, user_longitude = locate_user()
+    # Locate user and shops nearby
+    user_longitude, user_latitude = locate_user()
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
@@ -56,7 +59,12 @@ def homepage(request):
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list, 'MEDIA_URL': MEDIA_URL})
+                  context={'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list, 
+                           'user_location': user_location,
+                           'shops': shops,
+                           'MEDIA_URL': MEDIA_URL})
 
 def embutidos(request):
     # Load embutidos
