@@ -1,0 +1,44 @@
+
+        <h1>Nearby Shops</h1>
+        User: {{user_location.y}}, {{user_location.x}}
+        {% if shops %}
+        <ul>
+            {% for shop in shops %}
+            <li>
+                {{ shop.bd_name }}: {{ shop.distance }} [{{ shop.bd_geolocation.y }}, {{ shop.bd_geolocation.x }}]
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div id="mapid"></div>
+        <script>
+            var map = L.map('mapid').setView([ 10, -10], 17);
+        
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        
+            L.marker([ {{user_location.y}}, {{user_location.x}} ]).addTo(map)
+                .bindPopup('Hello')
+                .openPopup();
+        
+            const customMarkerIcon = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0", 
+                "icon": "shopping-cart", 
+                "iconColor": "white", 
+                "markerColor": "orange", 
+                "prefix": "glyphicon"
+                });	
+        
+            {% for shop in shops %}
+            function onMapClick( shop ) {
+                alert("You clicked the map at " + "{{ shop.bd_name }}" );
+            };
+            var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
+                icon: customMarkerIcon
+            }).addTo(map)
+                .bindPopup( "{{ shop.bd_name }}" )
+                .openPopup()
+                .on('click', onMapClick);
+            {% endfor %}
+        </script>
