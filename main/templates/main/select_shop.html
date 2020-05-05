@@ -48,14 +48,19 @@
                 "iconColor": "white", 
                 "markerColor": "orange", 
                 "prefix": "glyphicon"
-                    });	
+                });	
         
+            function onMapClick(shop) {
+                alert("You clicked the map at " + shop.bd_name);
+            }
+
             {% for shop in shops %}
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
             }).addTo(map)
                 .bindPopup( "{{ shop.bd_name }}" )
-                .openPopup();
+                .openPopup()
+                .on('click', onMapClick);;
             {% endfor %}
         </script>
     </body>
