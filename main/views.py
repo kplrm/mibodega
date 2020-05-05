@@ -15,6 +15,8 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 
+from django.contrib.gis.geos import Point
+from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
 # Global variable Loads MEDIA_URL
@@ -25,14 +27,25 @@ def locate_user():
     ipInfo = client.lookup()
     user_latitude = ipInfo.location['latitude']
     user_longitude = ipInfo.location['longitude']
-    return user_latitude, user_longitude
+    return user_longitude, user_latitude
 
-# Create your views here.
-def homepage(request):
-    user_latitude, user_longitude = locate_user()
+def select_shop(request):
+    longitude, latitude = locate_user()
+    user_location = Point(longitude,latitude,srid=4326)
     print("User location")
-    print(user_latitude)
-    print(user_longitude)
+    print(longitude)
+    print(latitude)
+
+#    model = Bodega
+    shops = Bodega.objects.annotate(distance=Distance("location",user_location)).order_by("distance")[0:6]
+    print(shops)
+    return 0
+#    return render(request=request,
+#                  template_name="main/select_shop.html",
+#                  context={'result_list': result_list,'cart_obj': cart_obj,'cart_list': cart_list})
+
+def homepage(request):
+#    user_latitude, user_longitude = locate_user()
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
