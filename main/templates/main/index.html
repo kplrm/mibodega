@@ -68,7 +68,9 @@
                         <script>
                             $(document).ready(function(){
                                 $("#exampleModalCenter").on('shown.bs.modal', function () {
-                                  alert('The modal is displayed completely!');
+                                    setTimeout(function() {
+                                        map.invalidateSize();
+                                    }, 10);
                                 });
                             });
                         </script>
