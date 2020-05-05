@@ -36,7 +36,7 @@ def select_shop(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:6]
     return render(request=request,
                   template_name="main/select_shop.html",
-                  context={'user_location': user_location, 'user_longitude': user_longitude 'user_latitude': user_latitude, 'shops': shops})
+                  context={'user_location': user_location, 'user_longitude': user_longitude, 'user_latitude': user_latitude, 'shops': shops})
 
 def homepage(request):
 #    user_latitude, user_longitude = locate_user()
