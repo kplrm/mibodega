@@ -58,8 +58,8 @@
                                     {% include 'main/includes/select_shop.html' %}
                                 </div>
                                 <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="modal-save">Guardar</button>
                                 </div>
                             </div>
                             </div>
@@ -70,6 +70,9 @@
                                     setTimeout(function() {
                                         map.invalidateSize();
                                     }, 10);
+                                });
+                                $("#modal-save").on("click", function(){
+                                    alert("cerró")
                                 });
                             });
                         </script>
