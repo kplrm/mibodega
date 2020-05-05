@@ -34,6 +34,7 @@ def select_shop(request):
     user_location = Point(user_longitude,user_latitude,srid=4326)
     
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+    print(vars(shops[0]))
     return render(request=request,
                   template_name="main/select_shop.html",
                   context={'user_location': user_location, 'shops': shops})
