@@ -66,12 +66,11 @@
                             </div>
                         </div>
                         <script>
-                            document.getElementById("select_shop_2").onclick = function () {
-                                document.getElementById('exampleModalCenter').style.display = 'block';
+                            $('exampleModalCenter').on('shown.bs.modal', function(){
                                 setTimeout(function() {
-                                    mymap.invalidateSize();
-                                }, 100);
-                            }
+                                    map.invalidateSize();
+                                }, 10);
+                            });
                         </script>
                         <!-- SHOP SELECTION END -->
 
