@@ -18,14 +18,14 @@
                 });	
             
             {% for shop in shops %}
-            function onMapClick( shop ) {
-                document.getElementById("bodaga_name").value = "{{ shop.bd_name }}";
+            function onMapClick( bd_name ) {
+                document.getElementById("bodaga_name").value = bd_name;
             };
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
             }).addTo(map)
                 .bindPopup( "{{ shop.bd_name }}" )
                 .openPopup()
-                .on('click', onMapClick);
+                .on('click', onMapClick( "{{ shop.bd_name }}" ));
             {% endfor %}
         </script>
