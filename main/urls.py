@@ -22,5 +22,4 @@ urlpatterns = [
     path("update", views.cart_add, name="cart_add"),
     path("remove", views.remove_cart, name="remove_cart"),
     path("checkout", views.checkout, name="checkout"),
-    path("select_shop", views.select_shop, name="select_shop")
 ]
