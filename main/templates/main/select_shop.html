@@ -13,12 +13,12 @@
     </head>
     <body>
         <h1>Nearby Shops</h1>
-        User: {{user_longitude}}, {{user_latitude}}
+        User: {{user_location.y}}, {{user_location.x}}
         {% if shops %}
         <ul>
             {% for shop in shops %}
             <li>
-                {{ shop.bd_name }}: {{ shop.distance }}
+                {{ shop.bd_name }}: {{ shop.distance }} [{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}]
             </li>
             {% endfor %}
         </ul>
