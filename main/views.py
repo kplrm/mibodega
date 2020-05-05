@@ -27,22 +27,16 @@ def locate_user():
     ipInfo = client.lookup()
     user_longitude = ipInfo.location['longitude']
     user_latitude = ipInfo.location['latitude']
-    print("Retrieved from ip")
-    print(user_latitude)
     return user_longitude, user_latitude
 
 def select_shop(request):
     user_longitude, user_latitude = locate_user()
-    print("In selected shop")
-    print(user_latitude)
     user_location = Point(user_longitude,user_latitude,srid=4326)
-    print("After point")
-    print(user_location.x)
-
+    
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:6]
     return render(request=request,
                   template_name="main/select_shop.html",
-                  context={'user_location': user_location, 'user_longitude': user_longitude, 'user_latitude': user_latitude, 'shops': shops})
+                  context={'user_location': user_location, 'shops': shops})
 
 def homepage(request):
 #    user_latitude, user_longitude = locate_user()
