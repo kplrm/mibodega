@@ -44,13 +44,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <script>
-                            $('exampleModalCenter').on('shown.bs.modal', function(){
-                                setTimeout(function() {
-                                    map.invalidateSize();
-                                }, 10);
-                            });
-                        </script>
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -72,6 +65,13 @@
                             </div>
                             </div>
                         </div>
+                        <script>
+                            $(document).ready(function(){
+                                $("exampleModalCenter").on('shown.bs.modal', function () {
+                                  alert('The modal is displayed completely!');
+                                });
+                            });
+                        </script>
                         <!-- SHOP SELECTION END -->
 
                         <!-- SHOPPING CART -->
