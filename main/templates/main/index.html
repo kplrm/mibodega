@@ -33,7 +33,7 @@
                     <div class="row">
                         <!-- SHOP SELECTION BEGIN -->
                         <div class="col-lg-5 col-md-5 col-sm-3 align-self-center text-right">
-                            Seleccione su tienda
+                            Seleccione su bodega
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
                             <ul class="nav-right">
@@ -49,13 +49,14 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Seleccione su bodega</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                                 <div class="modal-body">
-                                ...
+                                    ...
+                                    {% include 'main/includes/select_shop.html' %}
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
