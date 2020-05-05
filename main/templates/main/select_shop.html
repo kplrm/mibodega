@@ -51,11 +51,10 @@
                     });	
         
             {% for shop in shops %}
-            console.log(1);
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
-            }).addTo(map);
-            print("marcador")
+            }).addTo(map)
+                .bindPopup({{ shop.bd_name }});
             {% endfor %}
         </script>
     </body>
