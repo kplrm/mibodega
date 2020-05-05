@@ -54,7 +54,7 @@
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
             }).addTo(map)
-                .bindPopup( {{ shop.bd_name }} )
+                .bindPopup( "hola2" )
                 .openPopup();
             {% endfor %}
         </script>
