@@ -16,10 +16,9 @@
                 "iconColor": "white", 
                 "markerColor": "orange", 
                 "prefix": "glyphicon"
-                });	
+            });	
             
             {% for shop in shops %}
-            
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
             }).addTo(map)
