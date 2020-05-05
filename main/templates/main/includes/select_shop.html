@@ -1,10 +1,11 @@
 
         <h3>Seleccione su bodega</h3>
+        <div>
+            <label for="bodaga_name">Bodega:</label>
+            <input type="text" class="form-control" id="bodaga_name">
+            <input type="hidden" class="form-control" id="bodaga_id">
+        </div>
         
-        <label for="bodaga_name">Bodega:</label>
-        <input type="text" class="form-control" id="bodaga_name">
-        <label for="bodaga_id">ID:</label>
-        <input type="text" class="form-control" id="bodaga_id">
         <div id="mapid"></div>
         <script>
             var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
