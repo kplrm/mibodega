@@ -1,6 +1,7 @@
 
         <h3>Seleccione su bodega</h3>
         <input type="text" id="bodaga_name">
+        <input type="text" id="bodaga_id">
         <div id="mapid"></div>
         <script>
             var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
@@ -24,9 +25,9 @@
             }).addTo(map)
                 .bindPopup( "{{ shop.bd_name }}" )
                 .openPopup()
-                .on('mouseover', function onClick(shop) {
-                    alert("You clicked the map at " + "{{ shop.bd_name }}" );
+                .on('click', function onClick(shop) {
                     document.getElementById("bodaga_name").value = "{{ shop.bd_name }}";
+                    document.getElementById("bodaga_id").value = "{{ shop.bd_ID }}";
                 });
             {% endfor %}
         </script>
