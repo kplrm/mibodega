@@ -39,7 +39,7 @@
                             <ul class="nav-right">
                                 <li class="heart-icon">
                                     <a href="#">
-                                        <i class="icon_pin_alt" data-toggle="modal" data-target="#exampleModalCenter"></i>
+                                        <i class="icon_pin_alt" id="select_shop_2" data-toggle="modal" data-target="#exampleModalCenter"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -65,13 +65,14 @@
                             </div>
                             </div>
                         </div>
-                        <!--<script>
-                            $('exampleModalCenter').on('show.bs.modal', function(){
+                        <script>
+                            document.getElementById("select_shop_2").onclick = function () {
+                                document.getElementById('exampleModalCenter').style.display = 'block';
                                 setTimeout(function() {
-                                map.invalidateSize();
-                                }, 10);
-                            });
-                        </script>-->
+                                    mymap.invalidateSize();
+                                }, 100);
+                            }
+                        </script>
                         <!-- SHOP SELECTION END -->
 
                         <!-- SHOPPING CART -->
