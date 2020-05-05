@@ -1,6 +1,6 @@
 /******************************************************************
-  Template Name: MiBodega.pe
-  Description: MiBodega.pe
+  Template Name: Alimentos.pe
+  Description: Alimentos.pe
   Author: Colorlib
   Author URI: https://colorlib.com/
   Version: 1.0
@@ -464,8 +464,8 @@ ol {
 }
 
 .inner-header .advanced-search .input-group {
-    max-width: 100%;
-    height: 100%;
+	max-width: 100%;
+	height: 100%;
 }
 
 .inner-header .advanced-search .input-group input {
@@ -1167,7 +1167,6 @@ ol {
 .product-item .pi-pic {
 	overflow: hidden;
 	position: relative;
-	
 }
 
 .product-item .pi-pic img {
@@ -1175,6 +1174,7 @@ ol {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+	min-width: 100%;
 }
 
 .product-item .pi-pic .sale {
@@ -3894,8 +3894,7 @@ ol {
 
 @media only screen and (min-width: 1200px) and (max-width: 1920px) {
 	.inner-header .advanced-search .input-group button {
-    right: -14px;
-
+		right: -14px;
 	}
 	.product-item .pi-pic ul li a {
 		padding: 16px 12px 12px 11px;
@@ -3918,7 +3917,7 @@ ol {
 		max-width: 36%;
 	}
 	.inner-header .advanced-search .input-group {
-    max-width: 100%;
+		max-width: 100%;
 	}
 	.nav-item .nav-menu li a {
 		padding: 16px 26px 15px;
@@ -4027,7 +4026,7 @@ ol {
 		padding-right: 25px;
 	}
 	.inner-header .advanced-search .input-group {
-    max-width: 100%;
+		max-width: 100%;
 	}
 	.inner-header .nav-right li {
 		margin-left: 8px;
