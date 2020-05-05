@@ -1,5 +1,6 @@
 
         <h3>Seleccione su bodega</h3>
+        <input type="text" id="bodaga_name">
         <div id="mapid"></div>
         <script>
             var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
@@ -20,7 +21,7 @@
             function onMapClick( shop ) {
                 alert("You clicked the map at " + "{{ shop.bd_name }}" );
                 
-                $("#bodaga_name").value = "{{ shop.bd_name }}";
+                document.getElementById("bodaga_name").value = "My value";
             };
             var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
                 icon: customMarkerIcon
