@@ -37,7 +37,7 @@ def select_shop(request):
     print(latitude)
 
 #    model = Bodega
-    shops = Bodega.objects.annotate(distance=Distance("location",user_location)).order_by("distance")[0:6]
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:6]
     print(shops)
     return 0
 #    return render(request=request,
