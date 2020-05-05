@@ -24,9 +24,9 @@
             }).addTo(map)
                 .bindPopup( "{{ shop.bd_name }}" )
                 .openPopup()
-                .on('mouseover', function onClick(bd_name) {
-                    alert("You clicked the map at " + bd_name );
-                    document.getElementById("bodaga_name").value = bd_name;
+                .on('mouseover', function onClick(shop) {
+                    alert("You clicked the map at " + "{{ shop.bd_name }}" );
+                    document.getElementById("bodaga_name").value = "{{ shop.bd_name }}";
                 });
             {% endfor %}
         </script>
