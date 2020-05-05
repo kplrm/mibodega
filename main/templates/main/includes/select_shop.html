@@ -1,7 +1,7 @@
 
         <h3>Seleccione su bodega</h3>
-        <input type="text" id="bodaga_name">
-        <input type="text" id="bodaga_id">
+        <input class="input-group mb-3" type="text" id="bodaga_name">
+        <input class="input-group mb-3" type="text" id="bodaga_id">
         <div id="mapid"></div>
         <script>
             var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
