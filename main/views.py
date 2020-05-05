@@ -25,8 +25,8 @@ MEDIA_URL = settings.MEDIA_URL
 def locate_user():
     client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
     ipInfo = client.lookup()
-    user_latitude = ipInfo.location['latitude']
     user_longitude = ipInfo.location['longitude']
+    user_latitude = ipInfo.location['latitude']
     return user_longitude, user_latitude
 
 def select_shop(request):
@@ -39,7 +39,7 @@ def select_shop(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:6]
     return render(request=request,
                   template_name="main/select_shop.html",
-                  context={'shops': shops})
+                  context={'longitude': longitude, 'latitude': latitude, 'shops': shops})
 
 def homepage(request):
 #    user_latitude, user_longitude = locate_user()
