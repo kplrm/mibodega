@@ -34,6 +34,7 @@ def homepage(request):
     user_longitude, user_latitude = locate_user()
     user_location = Point(user_longitude,user_latitude,srid=4326)
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+    
     # Load current offers
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
@@ -41,6 +42,12 @@ def homepage(request):
     temp = list(result_list)
     shuffle(temp)
     result_list = temp
+
+    # Saves store
+    if request.user.is_authenticated:
+        qs = Cliente.get_queryset().filter(cl_user=request.user)
+        print("qs result")
+        print(qs)
 
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
