@@ -54,6 +54,8 @@ def locate_user():
     return user_longitude, user_latitude
 
 def homepage(request):
+    print("Session variables")
+    print(request.session)
     # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
     # Locate user and shops nearby.
     try:
