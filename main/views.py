@@ -195,9 +195,42 @@ def embutidos(request):
                   'MEDIA_URL': MEDIA_URL})
 
 def lacteos(request):
-    # Load lacteos
+   # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        
+    # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos").all()
-    result_list = productos_en_bodegas
+    try:
+        if request.session['id_bodega'] == "Cercanas":
+            result_list = productos_en_bodegas.all()
+        elif request.session['id_bodega'] != "Cercanas":
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
+        else:
+            pass
+    except:
+        request.session['id_bodega'] = "Cercanas"
+        request.session['bodega_name'] = "Cercanas"
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+
+    # Bodega name to display
+    if request.session['bodega_name'] == "Cercanas":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != "Cercanas":
+        id_bodega_text = request.session['bodega_name']
+    else:
+        print("What is this?")
+   
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -233,9 +266,42 @@ def lacteos(request):
                   'MEDIA_URL': MEDIA_URL})
 
 def abarrotes(request):
-    # Load abarrotes
+    # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        
+    # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes").all()
-    result_list = productos_en_bodegas
+    try:
+        if request.session['id_bodega'] == "Cercanas":
+            result_list = productos_en_bodegas.all()
+        elif request.session['id_bodega'] != "Cercanas":
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
+        else:
+            pass
+    except:
+        request.session['id_bodega'] = "Cercanas"
+        request.session['bodega_name'] = "Cercanas"
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+
+    # Bodega name to display
+    if request.session['bodega_name'] == "Cercanas":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != "Cercanas":
+        id_bodega_text = request.session['bodega_name']
+    else:
+        print("What is this?")
+
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -271,9 +337,42 @@ def abarrotes(request):
                   'MEDIA_URL': MEDIA_URL})
 
 def limpieza(request):
-    # Load limpieza
+    # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        
+    # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza").all()
-    result_list = productos_en_bodegas
+    try:
+        if request.session['id_bodega'] == "Cercanas":
+            result_list = productos_en_bodegas.all()
+        elif request.session['id_bodega'] != "Cercanas":
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
+        else:
+            pass
+    except:
+        request.session['id_bodega'] = "Cercanas"
+        request.session['bodega_name'] = "Cercanas"
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+
+    # Bodega name to display
+    if request.session['bodega_name'] == "Cercanas":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != "Cercanas":
+        id_bodega_text = request.session['bodega_name']
+    else:
+        print("What is this?")
+    
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -309,9 +408,42 @@ def limpieza(request):
                   'MEDIA_URL': MEDIA_URL})
 
 def licores(request):
-    # Load licores
+    # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        
+    # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores").all()
-    result_list = productos_en_bodegas
+    try:
+        if request.session['id_bodega'] == "Cercanas":
+            result_list = productos_en_bodegas.all()
+        elif request.session['id_bodega'] != "Cercanas":
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
+        else:
+            pass
+    except:
+        request.session['id_bodega'] = "Cercanas"
+        request.session['bodega_name'] = "Cercanas"
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+
+    # Bodega name to display
+    if request.session['bodega_name'] == "Cercanas":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != "Cercanas":
+        id_bodega_text = request.session['bodega_name']
+    else:
+        print("What is this?")
+
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -347,9 +479,42 @@ def licores(request):
                   'MEDIA_URL': MEDIA_URL})
 
 def vegetales(request):
-    # Load vegetales
+    # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        
+    # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
-    result_list = productos_en_bodegas
+    try:
+        if request.session['id_bodega'] == "Cercanas":
+            result_list = productos_en_bodegas.all()
+        elif request.session['id_bodega'] != "Cercanas":
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
+        else:
+            pass
+    except:
+        request.session['id_bodega'] = "Cercanas"
+        request.session['bodega_name'] = "Cercanas"
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+
+    # Bodega name to display
+    if request.session['bodega_name'] == "Cercanas":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != "Cercanas":
+        id_bodega_text = request.session['bodega_name']
+    else:
+        print("What is this?")
+
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
