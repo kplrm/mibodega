@@ -29,7 +29,10 @@ def save_store_location(request):
             cliente = Cliente.objects.all().filter(cl_user=request.user).first
             print("Cliente:")
             print(cliente)
-            print(request.body)
+            body_unicode  = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            id_bodega = body['id_bodega']
+            print("id_bodega")
             print("====")
             #cliente.cl_bodega_ID = request.data['id_bodega']
             # missing adding post method on ajax
