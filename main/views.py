@@ -25,12 +25,11 @@ MEDIA_URL = settings.MEDIA_URL
 def save_store_location(request):
     print("hola")
     if request.method== "POST" and request.is_ajax():
-        message = "Yes, AJAX!"
         if request.user.is_authenticated:
             cliente = Cliente.objects.all().filter(cl_user=request.user).first
             print("Cliente:")
             print(cliente)
-            print(request.body['id_bodega'])
+            print(request.body)
             print("====")
             #cliente.cl_bodega_ID = request.data['id_bodega']
             # missing adding post method on ajax
