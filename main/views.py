@@ -19,12 +19,9 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
-from django.views.decorators.csrf import csrf_exempt
-
 # Global variable Loads MEDIA_URL
 MEDIA_URL = settings.MEDIA_URL
 
-@csrf_exempt
 def save_store_location(request):
     if request.is_ajax():
         message = "Yes, AJAX!"
