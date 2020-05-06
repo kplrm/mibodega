@@ -32,7 +32,9 @@ def save_store_location(request):
             print("Cliente:")
             print(cliente)
             body_unicode  = request.body.decode('UTF-8')
+            print(body_unicode)
             body = json.loads(body_unicode)
+            print(body)
             id_bodega = body['id_bodega']
             print(id_bodega)
             #body = json.loads(body_unicode)
