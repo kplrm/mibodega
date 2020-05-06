@@ -48,6 +48,8 @@ def homepage(request):
         qs = Cliente.get_queryset().filter(cl_user=request.user)
         print("qs result")
         print(qs)
+    else:
+        print("usuario no identificado")
 
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
