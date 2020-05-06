@@ -31,22 +31,18 @@ def save_store_location(request):
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             print("Cliente:")
             print(cliente)
-            body_unicode  = request.POST['id_bodega']
-            print(body_unicode)
-            #body = json.loads(body_unicode)
-            #print(body)
-            #id_bodega = body['id_bodega']
-            #print(id_bodega)
-            #body = json.loads(body_unicode)
-            #id_bodega = body['id_bodega']
+            id_bodega  = request.POST['id_bodega']
+            print(id_bodega)
             print("====")
-            #cliente.cl_bodega_ID = request.data['id_bodega']
+            cliente.cl_bodega_ID = id_bodega
+            cliente.save()
+            print("====")
             # missing adding post method on ajax
         else:
             print("usuario no identificado")
     else:
         message = "Not Ajax"
-    return HttpResponse(message)
+    return HttpResponse("")
 
 def locate_user():
     client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
