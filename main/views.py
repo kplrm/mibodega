@@ -70,6 +70,7 @@ def homepage(request):
     except:
         print("id_bodega does not exists in the session")
         request.session['id_bodega'] = ""
+        request.session['bodega_name'] = ""
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         print(result_list)
 
