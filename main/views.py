@@ -26,6 +26,9 @@ MEDIA_URL = settings.MEDIA_URL
 
 def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
+        # Stores variables in session
+        bodega_name = request.POST['bodega_name']
+        request.session['bodega_name'] = bodega_name
         id_bodega = request.POST['id_bodega']
         request.session['id_bodega'] = id_bodega
         if request.user.is_authenticated:
