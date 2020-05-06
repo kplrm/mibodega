@@ -26,15 +26,16 @@ MEDIA_URL = settings.MEDIA_URL
 
 def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
+        id_bodega = request.POST['id_bodega']
+        request.session['id_bodega'] = id_bodega
         if request.user.is_authenticated:
+            print("Cliente identificado")
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
-            id_bodega  = request.POST['id_bodega']
             cliente.cl_bodega_ID = id_bodega
             cliente.save()
-            print("====")
         else:
-            print("usuario no identificado")
-            print(request.session)
+            print("Usuario no identificado")
+            request.session['id_bodega']
     else:
         message = "Not Ajax"
     return HttpResponse("")
