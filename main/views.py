@@ -35,7 +35,7 @@ def save_store_location(request):
             cliente.save()
         else:
             print("Usuario no identificado")
-            request.session['id_bodega']
+            print(request.session['id_bodega'])
     else:
         message = "Not Ajax"
     return HttpResponse("")
