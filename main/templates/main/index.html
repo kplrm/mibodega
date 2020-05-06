@@ -125,7 +125,7 @@
                     {% for product in result_list %}
                     <div class="product-item">
                         <div class="pi-pic">
-                            {% with 'main/img/'|add:product.peb_product.pa_category|add:'/'|add:'product.peb_product.pa_photo_small' as image_static %}
+                            {% with 'main/img/'|add:{{product.peb_product.pa_category}}|add:'/'|add:'product.peb_product.pa_photo_small' as image_static %}
                                 <img src="{% static image_static %}" alt="IMG">
                             {% endwith %}
                             <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
