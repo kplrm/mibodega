@@ -30,7 +30,7 @@ def save_store_location(request):
             cliente = Cliente.objects.all().filter(cl_user=request.user).first
             print("Cliente:")
             print(cliente)
-            print(request.data['id_bodega'])
+            print(request.body.data['id_bodega'])
             #cliente.cl_bodega_ID = request.data['id_bodega']
             # missing adding post method on ajax
         else:
