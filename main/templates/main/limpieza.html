@@ -117,7 +117,7 @@
                         <div class="col-lg-3 col-sm-4">
                             <div class="product-item">
                                 <div class="pi-pic infinite-item">
-                                    <img src="{{ MEDIA_URL }}{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="">
+                                    <img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
                                     {% if product.peb_discount_status == True %}
                                         <div class="sale pp-sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
                                     {% endif %}
