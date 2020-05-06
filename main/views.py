@@ -22,6 +22,13 @@ from ipregistry import IpregistryClient, NoCache
 # Global variable Loads MEDIA_URL
 MEDIA_URL = settings.MEDIA_URL
 
+def save_store_location(request):
+    if request.is_ajax():
+        message = "Yes, AJAX!"
+    else:
+        message = "Not Ajax"
+    return HttpResponse(message)
+
 def locate_user():
     client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
     ipInfo = client.lookup()
@@ -48,6 +55,8 @@ def homepage(request):
         qs = Cliente.objects.all().filter(cl_user=request.user)
         print("qs result")
         print(qs)
+        #cl_bodega_ID
+        # missing adding post method on ajax
     else:
         print("usuario no identificado")
 
