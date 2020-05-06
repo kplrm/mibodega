@@ -21,8 +21,8 @@ from ipregistry import IpregistryClient, NoCache
 
 import json
 
-# Global variable Loads STATIC_URL
-STATIC_URL = settings.STATIC_URL
+# Global variable Loads STATIC_ROOT
+STATIC_URL = settings.STATIC_ROOT
 
 def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
