@@ -75,10 +75,10 @@
                                     $("#exampleModalCenter").modal("hide");
                                     $('.modal-backdrop').hide();
                                     $.ajax({
+                                        url: "/main/embutidos/",
                                         type: "GET",
-                                        url: "/embutidos/",
-                                        success: function(data){
-                                            ;
+                                        success: function(resp){
+                                            console.log("ajax...");
                                         }
                                     });
                                 });
