@@ -76,14 +76,14 @@ def homepage(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     print("Trying...")
     try:
-        if request.session['id_bodega'] is not None and request.session['id_bodega'] != " ":
-            print("There is an id_bodega in session")
-            print(str(":")+str(request.session['id_bodega'])+str(":"))
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
-        elif request.session['id_bodega'] == " ":
+        if request.session['id_bodega'] == " ":
             print("id_bodega is Empty")
             print(str(":")+str(request.session['id_bodega'])+str(":"))
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+        elif request.session['id_bodega'] != " ":
+            print("There is an id_bodega in session")
+            print(str(":")+str(request.session['id_bodega'])+str(":"))
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
             print("id_bodega is None")
     except:
