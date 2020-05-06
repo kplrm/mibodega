@@ -78,9 +78,11 @@ def homepage(request):
     try:
         if request.session['id_bodega'] is not None and request.session['id_bodega'] != " ":
             print("There is an id_bodega in session")
+            print(str(":")+str(request.session['id_bodega'])+str(":"))
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         elif request.session['id_bodega'] == " ":
             print("id_bodega is Empty")
+            print(str(":")+str(request.session['id_bodega'])+str(":"))
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         else:
             print("id_bodega is None")
@@ -89,7 +91,7 @@ def homepage(request):
         request.session['id_bodega'] = " "
         request.session['bodega_name'] = " "
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-    print(str(":")+str(request.session['id_bodega'])+str(":"))
+        print(str(":")+str(request.session['id_bodega'])+str(":"))
 
     # Bodega name to display
     if request.session['bodega_name'] != " ":
