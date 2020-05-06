@@ -58,7 +58,6 @@ def homepage(request):
     
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    request.session['bodega_name'] = ""
     try:
         if request.session['id_bodega'] is not None:
             print("There is an id_bodega in session")
