@@ -54,10 +54,13 @@ def homepage(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     
     # Load current offers
-    if request.session['id_bodega'] is not None:
-        print("There is an id_bodega in session")
-    else:
-        print("id_bodega does not exists in session")
+    try:
+        if request.session['id_bodega'] is not None:
+            print("There is an id_bodega in session")
+        else:
+            print("id_bodega is empty")
+    except:
+        print("id_bodega does not exists in the session")
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
     # Random shuffle the discount products
