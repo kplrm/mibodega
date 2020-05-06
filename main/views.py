@@ -24,7 +24,7 @@ MEDIA_URL = settings.MEDIA_URL
 
 def save_store_location(request):
     print("hola")
-    if request.method== "POST":
+    if request.method== "POST" and request.is_ajax():
         message = "Yes, AJAX!"
     else:
         message = "Not Ajax"
