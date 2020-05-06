@@ -89,10 +89,10 @@ def homepage(request):
         request.session['id_bodega'] = " "
         request.session['bodega_name'] = " "
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-    print(request.session['id_bodega'])
+    print(str(":")+str(request.session['id_bodega'])+str(":"))
 
     # Bodega name to display
-    if request.session['bodega_name'] is not None and request.session['id_bodega'] != " ":
+    if request.session['bodega_name'] != " ":
         id_bodega_text = request.session['bodega_name']
     else:
         id_bodega_text = "Seleccione su bodega"
