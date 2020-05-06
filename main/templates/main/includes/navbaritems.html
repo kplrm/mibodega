@@ -20,12 +20,9 @@
             <div class="ht-right">
                 {% if user.is_authenticated %}
                     <a href="/logout" class="login-panel"><i class="fa fa-user"></i>Salir</a>
-                {% else %}
-                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>Accede</a>
-                {% endif %}
-                {% if user.is_authenticated %}
                     <a href="#" class="login-panel"><i class="fa fa-user"></i>{{user.username}}</a>
                 {% else %}
+                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>Accede</a>
                     <a href="/register" class="login-panel"><i class="fa fa-user"></i>Regrístrate</a>
                 {% endif %}
             </div>
