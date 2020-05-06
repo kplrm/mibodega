@@ -1,10 +1,10 @@
 
         <h3>Seleccione su bodega</h3>
         <p><br></p>
-        <label for="bodaga_name">Bodega:</label>
-        <input type="text" class="form-control" id="bodaga_name">
+        <label for="bodega_name">Bodega:</label>
+        <input type="text" class="form-control" id="bodega_name">
         <p><br></p>
-        <input type="hidden" class="form-control" id="bodaga_id"> <!--change to type hidden to hide-->
+        <input type="hidden" class="form-control" id="bodega_id"> <!--change to type hidden to hide-->
             
         <div id="mapid"></div>
         <script>
@@ -29,8 +29,8 @@
                 .bindPopup( "{{ shop.bd_name }}" )
                 .closePopup()
                 .on('click', function onClick(shop) {
-                    document.getElementById("bodaga_name").value = "{{ shop.bd_name }}";
-                    document.getElementById("bodaga_id").value = "{{ shop.bd_ID }}";
+                    document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
+                    document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
                 });
             {% endfor %}
         </script>
