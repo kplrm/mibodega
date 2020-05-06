@@ -45,7 +45,7 @@ def homepage(request):
 
     # Saves store
     if request.user.is_authenticated:
-        qs = Cliente.get_queryset().filter(cl_user=request.user)
+        qs = Cliente.filter(cl_user=request.user)
         print("qs result")
         print(qs)
     else:
