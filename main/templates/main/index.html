@@ -81,8 +81,8 @@
                                         data:   {
                                                     'id_bodega': $('#bodaga_id').val()
                                                 },
-                                        success: function(){
-                                            console.log("YUPI");
+                                        success: function(resp){
+                                            alert ("resp: "+resp.message);
                                         }
                                     });
                                     $.ajax({
