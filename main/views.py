@@ -51,8 +51,22 @@ def locate_user():
     return user_longitude, user_latitude
 
 def homepage(request):
-    # Locate user and shops nearby
-    user_longitude, user_latitude = locate_user()
+    # Locate user and shops nearby.
+    # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            print("Approx user location is known")
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            print("Approx user location is NOT known")
+            user_longitude, user_latitude = locate_user()
+    except:
+        print("Location does not exist in the session")
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+
     user_location = Point(user_longitude,user_latitude,srid=4326)
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     
@@ -68,7 +82,7 @@ def homepage(request):
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
             print(result_list)
     except:
-        print("id_bodega does not exists in the session")
+        print("id_bodega does not exist in the session")
         request.session['id_bodega'] = ""
         request.session['bodega_name'] = ""
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
