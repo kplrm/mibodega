@@ -65,8 +65,8 @@
                             </div>
                         </div>
                         <script>
-                            var token = '{{csrf_token}}';
-                            
+                            var token = '{% csrf_token %}';
+
                             $(document).ready(function(){
                                 $("#exampleModalCenter").on('shown.bs.modal', function () {
                                     setTimeout(function() {
