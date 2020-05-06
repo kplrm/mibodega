@@ -54,8 +54,6 @@ def locate_user():
     return user_longitude, user_latitude
 
 def homepage(request):
-    print("Session variables")
-    print(request.session)
     # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
     # Locate user and shops nearby.
     try:
@@ -96,10 +94,12 @@ def homepage(request):
         print(str(":")+str(request.session['id_bodega'])+str(":"))
 
     # Bodega name to display
-    if request.session['bodega_name'] != " ":
+    if request.session['bodega_name'] == " ":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != " ":
         id_bodega_text = request.session['bodega_name']
     else:
-        id_bodega_text = "Seleccione su bodega"
+        print("What is this?")
     
     # Random shuffle the discount products
     temp = list(result_list)
