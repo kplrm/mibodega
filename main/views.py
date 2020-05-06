@@ -28,7 +28,7 @@ def save_store_location(request):
     print("hola")
     if request.method== "POST" and request.is_ajax():
         if request.user.is_authenticated:
-            cliente = Cliente.objects.all().filter(cl_user=request.user).first
+            cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             print("Cliente:")
             print(cliente)
             print(request)
