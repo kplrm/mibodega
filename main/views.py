@@ -21,8 +21,8 @@ from ipregistry import IpregistryClient, NoCache
 
 import json
 
-# Global variable Loads MEDIA_URL
-MEDIA_URL = settings.MEDIA_URL
+# Global variable Loads STATIC_URL
+STATIC_URL = settings.STATIC_URL
 
 def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
@@ -118,7 +118,7 @@ def homepage(request):
                            'user_location': user_location,
                            'shops': shops,
                            'id_bodega_text': id_bodega_text,
-                           'MEDIA_URL': MEDIA_URL})
+                           'STATIC_URL': STATIC_URL})
 
 def embutidos(request):
     # Locate user and shops nearby.
@@ -192,7 +192,7 @@ def embutidos(request):
                   'user_location': user_location,
                   'shops': shops,
                   'id_bodega_text': id_bodega_text,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def lacteos(request):
    # Locate user and shops nearby.
@@ -263,7 +263,7 @@ def lacteos(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def abarrotes(request):
     # Locate user and shops nearby.
@@ -334,7 +334,7 @@ def abarrotes(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def limpieza(request):
     # Locate user and shops nearby.
@@ -405,7 +405,7 @@ def limpieza(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def licores(request):
     # Locate user and shops nearby.
@@ -476,7 +476,7 @@ def licores(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def vegetales(request):
     # Locate user and shops nearby.
@@ -547,7 +547,7 @@ def vegetales(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def checkout(request):
     # Load vegetales
@@ -564,7 +564,7 @@ def checkout(request):
                   context={'result_list': result_list,
                   'cart_obj': cart_obj,
                   'cart_list': cart_list,
-                  'MEDIA_URL': MEDIA_URL})
+                  'STATIC_URL': STATIC_URL})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
