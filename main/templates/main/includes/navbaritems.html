@@ -8,13 +8,13 @@
                     <i class=" fa fa-envelope"></i>
                     hola@mibodega.pe
                 </div>
-                <div class="phone-service">
-                {% if user.is_authenticated %}
-                        <a href="#" class="login-panel"><i class="fa fa-user"></i>{{user.username}}</a>
-                {% else %}
-                        <a href="/register" class="login-panel"><i class="fa fa-user"></i>Regrístrate</a>
-                {% endif %}
+                <div class="lan-selector">
+                    <select class="language_drop" name="countries" id="countries" style="width:300px;">
+                        <option value="yt" data-image="{% static 'main/img/flag-1.jpg' %}" data-imagecss="flag yt"
+                            data-title="Peru">Perú</option>
+                    </select>
                 </div>
+                
             </div>
             <div class="ht-right">
                 {% if user.is_authenticated %}
@@ -22,11 +22,12 @@
                 {% else %}
                     <a href="/login" class="login-panel"><i class="fa fa-user"></i>Accede</a>
                 {% endif %}
-                <div class="lan-selector">
-                    <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                        <option value="yt" data-image="{% static 'main/img/flag-1.jpg' %}" data-imagecss="flag yt"
-                            data-title="Peru">Perú</option>
-                    </select>
+                <div class="phone-service">
+                    {% if user.is_authenticated %}
+                            <a href="#" class="login-panel"><i class="fa fa-user"></i>{{user.username}}</a>
+                    {% else %}
+                            <a href="/register" class="login-panel"><i class="fa fa-user"></i>Regrístrate</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
