@@ -65,8 +65,6 @@
                             </div>
                         </div>
                         <script>
-                            var token = {% csrf_token %};
-
                             $(document).ready(function(){
                                 $("#exampleModalCenter").on('shown.bs.modal', function () {
                                     setTimeout(function() {
@@ -77,7 +75,6 @@
                                     $("#exampleModalCenter").modal("hide");
                                     $('.modal-backdrop').hide();
                                     $.ajax({
-                                        headers: { "X-CSRFToken": token },
                                         url: "/save_store_location",
                                         type: "POST",
                                         data:   {

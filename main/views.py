@@ -22,6 +22,7 @@ from ipregistry import IpregistryClient, NoCache
 # Global variable Loads MEDIA_URL
 MEDIA_URL = settings.MEDIA_URL
 
+@csrf_exempt
 def save_store_location(request):
     if request.is_ajax():
         message = "Yes, AJAX!"
