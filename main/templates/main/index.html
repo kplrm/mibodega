@@ -75,6 +75,7 @@
                                     $("#exampleModalCenter").modal("hide");
                                     $('.modal-backdrop').hide();
                                     $.ajax({
+                                        headers:{'api-csrftoken':'{{ csrf_token }}'},
                                         url: "/save_store_location",
                                         type: "POST",
                                         data:   {
