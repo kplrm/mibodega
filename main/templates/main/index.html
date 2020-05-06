@@ -77,8 +77,9 @@
                                     $.ajax({
                                         url: "/embutidos",
                                         type: "GET",
-                                        success: function(resp){
+                                        success: function(){
                                             console.log("ajax...");
+                                            location.reload();
                                         }
                                     });
                                 });
