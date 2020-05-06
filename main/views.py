@@ -30,7 +30,7 @@ def save_store_location(request):
         if request.user.is_authenticated:
             cliente = Cliente.objects.all().filter(cl_user=request.user).first
             print("Cliente:")
-            print(cliente.cl_user)
+            print(cliente)
             print(request)
             body_unicode  = request.content_params
             print(body_unicode)
