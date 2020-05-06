@@ -1,5 +1,5 @@
 <div class="col-lg-5 col-md-5 col-sm-3 align-self-center text-right">
-    {% if id_bodega_text == " " %}Seleccione su bodega{% else %}{{ id_bodega_text }}{% endif %}
+    {% if id_bodega_text == "Cercanas" %}Seleccione su bodega{% else %}{{ id_bodega_text }}{% endif %}
 </div>
 <div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
     <ul class="nav-right">
@@ -39,8 +39,8 @@
             }, 10);
         });
         $("#anular-seleccion").click(function(){
-            $('#bodega_name').val(' ');
-            $('#bodega_id').val(' ');
+            $('#bodega_name').val('Cercanas');
+            $('#bodega_id').val('Cercanas');
         });
         $("#modal-save").click(function(){
             $("#exampleModalCenter").modal("hide");
