@@ -38,10 +38,6 @@ def save_store_location(request):
             cliente.save()
         else:
             print("Usuario no identificado")
-            
-        print("POST .id_bodega .bodega_name:")
-        print(request.session['id_bodega'])
-        print(request.session['bodega_name'])
     else:
         message = "Not Ajax"
     return HttpResponse("")
@@ -75,18 +71,11 @@ def homepage(request):
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
     try:
-        print("Trying...")
-        print(request.session['id_bodega'])
-    except:
-        pass
-    try:
         if request.session['id_bodega'] == "Cercanas":
             print("id_bodega is Empty")
-            print(str(":")+str(request.session['id_bodega'])+str(":"))
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         elif request.session['id_bodega'] != "Cercanas":
             print("There is an id_bodega in session")
-            print(str(":")+str(request.session['id_bodega'])+str(":"))
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
             print("id_bodega is None")
@@ -145,25 +134,28 @@ def embutidos(request):
         request.session['user_latitude'] = user_latitude
     user_location = Point(user_longitude,user_latitude,srid=4326)
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-    
+        
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos").all()
     try:
-        if request.session['id_bodega'] is not None:
+        if request.session['id_bodega'] == "Cercanas":
+            result_list = productos_en_bodegas.all()
+        elif request.session['id_bodega'] != "Cercanas":
             result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
         else:
-            result_list = productos_en_bodegas.all()
+            pass
     except:
-        print("id_bodega does not exist in the session")
         request.session['id_bodega'] = "Cercanas"
         request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.all()
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
 
     # Bodega name to display
-    if request.session['bodega_name'] is not None:
+    if request.session['bodega_name'] == "Cercanas":
+        id_bodega_text = "Seleccione su bodega"
+    elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        id_bodega_text = "Seleccione su bodega"
+        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
