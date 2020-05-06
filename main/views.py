@@ -189,6 +189,9 @@ def embutidos(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'MEDIA_URL': MEDIA_URL})
 
 def lacteos(request):
