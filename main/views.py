@@ -74,7 +74,7 @@ def homepage(request):
         print(result_list)
 
     if request.session['id_bodega'] is not None:
-        id_bodega_text = request.session['id_bodega']
+        id_bodega_text = request.session['bodega_name']
     else:
         id_bodega_text = "Seleccione su bodega"
     
