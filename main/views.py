@@ -74,7 +74,6 @@ def homepage(request):
     
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    
     print("Trying...")
     print(request.session['id_bodega'])
     try:
