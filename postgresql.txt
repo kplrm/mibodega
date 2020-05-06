@@ -1,0 +1,72 @@
+#Instructions for using
+
+#Install apache2
+sudo apt-get install apache2
+sudo /etc/init.d/apache2 start
+sudo /etc/init.d/apache2 stop
+sudo /etc/init.d/apache2 restart
+
+#Install postgre
+sudo apt-get install postgresql postgresql-contrib
+sudo apt-get install postgis
+
+#Service status, default port is 5432
+service postgresql status
+sudo service postgresql start
+sudo service postgresql stop
+
+#Install pgadmin4
+sudo nano /etc/apt/sources.list.d/pgdg.list
+deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
+sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt update
+sudo apt install pgadmin4 pgadmin4-apache2
+
+#change new super user password / create new super user / delete user
+sudo su postgres
+psql
+ALTER USER postgres WITH PASSWORD 'password';
+CREATE USER kplrm WITH PASSWORD 'color800';
+GRANT ALL PRIVILEGES ON DATABASE mibodega TO kplrm;
+ALTER USER kplrm WITH SUPERUSER;
+DROP USER kplrm;
+
+#To administrate PostgreSQL
+psql postgres
+service postgresql status
+sudo service postgresql start
+
+#Check databases and users
+\l
+\du
+
+#Exit commands
+\d or control+D
+exit
+
+#Create db
+sudo -u postgres createdb myspatialdb
+#Connect to the database
+sudo -u postgres psql -d myspatialdb
+#Enable postgis extension
+CREATE EXTENSION postgis;
+#Check installed version
+SELECT PostGIS_version();
+DROP DATABASE mibodega; 
+
+#To check login into
+http://localhost/pgadmin4/
+
+#To Connect
+1-create a new server
+add user kplrm
+add password 
+
+#To remove a package
+dpkg --list
+sudo apt-get --purge remove package_name
+
+# In windows
+net stop apache2.4
+cd apache2\bin\
+httpd.exe -k uninstall

@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'main',
+    'django.contrib.gis',
+#    'leaflet',
 ]
 
 MIDDLEWARE = [
@@ -73,24 +75,15 @@ WSGI_APPLICATION = 'mibodega.wsgi.application'
 
 DATABASES = {
     'default': { # user access and system stuff
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'default.db'),
-#        'USER': 'default_db',
-#        'PASSWORD': 'color800',
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'default.db'),
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'mibodega',
+        'USER': 'kplrm',
+        'PASSWORD': 'color800',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
-#    'ProductosAprobados': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': os.path.join(BASE_DIR, 'ProductosAprobados.postgresql'),
-#        'USER': 'ProductosAprobados_db',
-#        'PASSWORD': 'color800',
-#    }
-#    'ListasDeProductos': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': os.path.join(BASE_DIR, 'ListasDeProductos.postgresql'),
-#        'USER': 'ListasDeProductos_db',
-#        'PASSWORD': 'color800',
-#    }
 }
 
 
@@ -116,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
