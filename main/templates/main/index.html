@@ -74,14 +74,12 @@
                                 $("#modal-save").click(function(){
                                     $("#exampleModalCenter").modal("hide");
                                     $('.modal-backdrop').hide();
-                                    $ajax({
-                                        type: "POST",
-                                        url: "register/",
-                                        data: {csrfmiddlewaretoken: '{{ csrf_token }}',
-                                            text: "this is my test view"},   /* Passing the text data */
-                                        success:  function(response){
-                                            alert(response);
-                                        }
+                                    $.ajax({
+                                        url: '/embutidos',
+                                        //data: {email: 'send'},
+                                        type: 'GET',
+                                        }).done(function() {
+                                        alert('Well done!')
                                     });
                                 });
                             });
