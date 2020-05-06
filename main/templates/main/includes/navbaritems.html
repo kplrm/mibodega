@@ -16,20 +16,16 @@
                 </div>
             </div>
             <div class="ht-right">
-                <div class="phone-service">
-                    {% if user.is_authenticated %}
-                        <a href="/logout" class="login-panel"><i class="fa fa-user"></i>Salir</a>
-                    {% else %}
-                        <a href="/login" class="login-panel"><i class="fa fa-user"></i>Accede</a>
-                    {% endif %}
-                </div>
-                <div class="phone-service"><!--phone-service-->
-                    {% if user.is_authenticated %}
-                        <a href="#" class="login-panel"><i class="fa fa-user"></i>{{user.username}}</a>
-                    {% else %}
-                        <a href="/register" class="login-panel"><i class="fa fa-user"></i>Regrístrate</a>
-                    {% endif %}
-                </div>
+                {% if user.is_authenticated %}
+                    <a href="/logout" class="login-panel"><i class="fa fa-user"></i>Salir</a>
+                {% else %}
+                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>Accede</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <a href="#" class="login-panel"><i class="fa fa-user"></i>{{user.username}}</a>
+                {% else %}
+                    <a href="/register" class="login-panel"><i class="fa fa-user"></i>Regrístrate</a>
+                {% endif %}
             </div>
         </div>
     </div>
