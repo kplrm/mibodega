@@ -75,7 +75,6 @@ def homepage(request):
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
     print("Trying...")
-    print(request.session['id_bodega'])
     try:
         if request.session['id_bodega'] is not None and request.session['id_bodega'] != " ":
             print("There is an id_bodega in session")
@@ -90,6 +89,7 @@ def homepage(request):
         request.session['id_bodega'] = " "
         request.session['bodega_name'] = " "
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+    print(request.session['id_bodega'])
 
     # Bodega name to display
     if request.session['bodega_name'] is not None and request.session['id_bodega'] != " ":
