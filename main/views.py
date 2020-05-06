@@ -74,7 +74,7 @@ def homepage(request):
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         print(result_list)
 
-    if request.session['id_bodega'] is not None:
+    if request.session['bodega_name'] is not None:
         id_bodega_text = request.session['bodega_name']
     else:
         id_bodega_text = "Seleccione su bodega"
