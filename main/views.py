@@ -76,7 +76,7 @@ def homepage(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     try:
         print("Trying...")
-        request.session['id_bodega']
+        print(request.session['id_bodega'])
     except:
         pass
     try:
