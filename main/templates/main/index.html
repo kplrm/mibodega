@@ -81,16 +81,17 @@
                                                     'id_bodega': $('#bodaga_id').val()
                                                 },
                                         success: function(){
+                                            $('#message').html("<h2>Contact Form Submitted!</h2>")
                                             console.log("YUPI");
                                         }
                                     });
-                                    $.ajax({
+                                    /*$.ajax({
                                         url: "/embutidos",
                                         type: "GET",
                                         success: function(){
                                             location.reload();
                                         }
-                                    });
+                                    });*/
                                 });
                             });
                         </script>
