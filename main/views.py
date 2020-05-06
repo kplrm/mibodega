@@ -30,10 +30,12 @@ def save_store_location(request):
         if request.user.is_authenticated:
             cliente = Cliente.objects.all().filter(cl_user=request.user).first
             print("Cliente:")
-            print(cliente)
-            body_unicode  = request.body.decode('utf-8')
-            body = json.loads(body_unicode)
-            id_bodega = body['id_bodega']
+            print(cliente.cl_user)
+            print(request)
+            body_unicode  = request.content_params
+            print(body_unicode)
+            #body = json.loads(body_unicode)
+            #id_bodega = body['id_bodega']
             print("id_bodega")
             print("====")
             #cliente.cl_bodega_ID = request.data['id_bodega']
