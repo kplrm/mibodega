@@ -24,7 +24,7 @@
             {% include 'main/includes/select_shop.html' %}
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-light" id="anular-seleccion" onclick="document.getElementById('bodega_name').value = ''">Anular</button>
+        <button type="button" class="btn btn-light" id="anular-seleccion">Anular</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" id="modal-save">Guardar</button>
         </div>
@@ -61,6 +61,10 @@
                     location.reload();
                 }
             });
+        });
+        $("#anular-seleccion").click(function(){
+            document.getElementById("bodega_name").reset();
+            document.getElementById("bodega_id").reset();
         });
     });
 </script>
