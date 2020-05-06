@@ -31,7 +31,7 @@ def save_store_location(request):
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             print("Cliente:")
             print(cliente)
-            body_unicode  = request.POST
+            body_unicode  = request.POST.get['id_bodega']
             print(body_unicode)
             #body = json.loads(body_unicode)
             #print(body)
