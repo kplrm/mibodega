@@ -25,21 +25,16 @@ import json
 MEDIA_URL = settings.MEDIA_URL
 
 def save_store_location(request):
-    print("hola")
     if request.method== "POST" and request.is_ajax():
         if request.user.is_authenticated:
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
-            print("Cliente:")
-            print(cliente)
             id_bodega  = request.POST['id_bodega']
-            print(id_bodega)
-            print("====")
             cliente.cl_bodega_ID = id_bodega
             cliente.save()
             print("====")
-            # missing adding post method on ajax
         else:
             print("usuario no identificado")
+            print(request.session)
     else:
         message = "Not Ajax"
     return HttpResponse("")
@@ -389,7 +384,6 @@ def session_cart_load_or_create(request):
     return cart_obj, new_obj
 
 def remove_cart(request):
-    print("yeeeee")
     item_pk = request.POST.get('item_pk', None)
     item_obj = CartItem.objects.all().filter(pk=item_pk).first()
     cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
