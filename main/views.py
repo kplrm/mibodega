@@ -13,7 +13,7 @@ from random import shuffle
 from django.conf import settings
 
 from django.core.paginator import Paginator
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
