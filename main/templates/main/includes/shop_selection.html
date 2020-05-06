@@ -38,6 +38,10 @@
                 map.invalidateSize();
             }, 10);
         });
+        $("#anular-seleccion").click(function(){
+            $('#bodega_name').val('');
+            $('#bodega_id').val('');
+        });
         $("#modal-save").click(function(){
             $("#exampleModalCenter").modal("hide");
             $('.modal-backdrop').hide();
@@ -58,13 +62,9 @@
                 url: "/embutidos",
                 type: "GET",
                 success: function(){
-                    location.reload();
+                    document.location.reload();
                 }
             });
-        });
-        $("#anular-seleccion").click(function(){
-            $('#bodega_name').val('');
-            $('#bodega_id').val('');
         });
     });
 </script>
