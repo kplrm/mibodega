@@ -69,6 +69,11 @@ def homepage(request):
         request.session['id_bodega'] = ""
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         print(result_list)
+
+    if request.session['id_bodega'] is not None:
+        id_bodega_text = request.session['id_bodega']
+    else:
+        id_bodega_text = "Seleccione su bodega"
     
     # Random shuffle the discount products
     temp = list(result_list)
@@ -97,6 +102,7 @@ def homepage(request):
                            'cart_list': cart_list, 
                            'user_location': user_location,
                            'shops': shops,
+                           'id_bodega_text': id_bodega_text,
                            'MEDIA_URL': MEDIA_URL})
 
 def embutidos(request):

@@ -33,7 +33,7 @@
                     <div class="row">
                         <!-- SHOP SELECTION BEGIN -->
                         <div class="col-lg-5 col-md-5 col-sm-3 align-self-center text-right" id="seleccione_bodega_text">
-                            Seleccione su bodega
+                            {{ id_bodega_text }}
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
                             <ul class="nav-right">
@@ -86,7 +86,6 @@
                                             alert ("resp: "+response);
                                         }
                                     });
-                                    $('#seleccione_bodega_text').text("new dialog title");
                                     $.ajax({
                                         url: "/embutidos",
                                         type: "GET",
