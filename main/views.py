@@ -28,8 +28,6 @@ def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
         # Stores variables in session
         bodega_name = request.POST['bodega_name']
-        print("POST.bodega_name:")
-        print(bodega_name)
         request.session['bodega_name'] = bodega_name
         id_bodega = request.POST['id_bodega']
         request.session['id_bodega'] = id_bodega
@@ -41,6 +39,9 @@ def save_store_location(request):
         else:
             print("Usuario no identificado")
             print(request.session['id_bodega'])
+        print("POST.bodega_name:")
+        print(request.session['id_bodega'])
+        print(bodega_name)
     else:
         message = "Not Ajax"
     return HttpResponse("")
