@@ -75,6 +75,16 @@
                                     $("#exampleModalCenter").modal("hide");
                                     $('.modal-backdrop').hide();
                                     $.ajax({
+                                        url: "/save_store_location",
+                                        type: "POST",
+                                        data:   {
+                                                    'id_bodega': $('#bodaga_id').val()
+                                                },
+                                        success: function(){
+                                            console.log("YUPI");
+                                        }
+                                    });
+                                    $.ajax({
                                         url: "/embutidos",
                                         type: "GET",
                                         success: function(){
