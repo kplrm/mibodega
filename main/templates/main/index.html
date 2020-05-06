@@ -33,8 +33,7 @@
                     <div class="row">
                         <!-- SHOP SELECTION BEGIN -->
                         <div class="col-lg-5 col-md-5 col-sm-3 align-self-center text-right" id="seleccione_bodega_text">
-                            {% if id_bodega_text == "" %}Seleccione su bodega{% endif %}
-                            {% if id_bodega_text == "" %}{{ id_bodega_text }}{% endif %}
+                            {% if id_bodega_text == "" %}Seleccione su bodega{% else %}{{ id_bodega_text }}{% endif %}
                         </div>
                         <div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
                             <ul class="nav-right">
