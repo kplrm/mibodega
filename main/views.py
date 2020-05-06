@@ -31,12 +31,12 @@ def save_store_location(request):
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             print("Cliente:")
             print(cliente)
-            body_unicode  = request.body.decode('UTF-8')
+            body_unicode  = request.POST.get['id_bodega']
             print(body_unicode)
-            body = json.loads(body_unicode)
-            print(body)
-            id_bodega = body['id_bodega']
-            print(id_bodega)
+            #body = json.loads(body_unicode)
+            #print(body)
+            #id_bodega = body['id_bodega']
+            #print(id_bodega)
             #body = json.loads(body_unicode)
             #id_bodega = body['id_bodega']
             print("====")

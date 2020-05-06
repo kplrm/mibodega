@@ -78,6 +78,7 @@
                                         headers: {'X-CSRFToken': '{{ csrf_token }}'},
                                         url: "/save_store_location",
                                         type: "POST",
+                                        dataType: "json",
                                         data:   {
                                                     'id_bodega': $('#bodaga_id').val()
                                                 },
