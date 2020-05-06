@@ -149,8 +149,8 @@ def embutidos(request):
             result_list = productos_en_bodegas.all()
     except:
         print("id_bodega does not exist in the session")
-        request.session['id_bodega'] = ""
-        request.session['bodega_name'] = ""
+        request.session['id_bodega'] = " "
+        request.session['bodega_name'] = " "
         result_list = productos_en_bodegas.all()
 
     # Bodega name to display
