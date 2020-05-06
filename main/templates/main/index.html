@@ -75,11 +75,11 @@
                                     $("#exampleModalCenter").modal("hide");
                                     $('.modal-backdrop').hide();
                                     $.ajax({
-                                        url: 'main/embutidos/',
-                                        //data: {email: 'send'},
-                                        type: 'GET',
-                                        }).done(function() {
-                                        alert('Well done!')
+                                        type: "GET",
+                                        url: "/embutidos/",
+                                        success: function(data){
+                                            ;
+                                        }
                                     });
                                 });
                             });
