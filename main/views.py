@@ -74,7 +74,11 @@ def homepage(request):
     
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    print("Trying...")
+    try:
+        print("Trying...")
+        request.session['id_bodega']
+    except:
+        pass
     try:
         if request.session['id_bodega'] == " ":
             print("id_bodega is Empty")
