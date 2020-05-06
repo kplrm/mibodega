@@ -87,7 +87,6 @@ def homepage(request):
         request.session['id_bodega'] = " "
         request.session['bodega_name'] = " "
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-        print(result_list)
 
     # Bodega name to display
     if request.session['bodega_name'] is not None and request.session['id_bodega'] != " ":
@@ -103,10 +102,6 @@ def homepage(request):
     # Saves store
     if request.user.is_authenticated:
         qs = Cliente.objects.all().filter(cl_user=request.user)
-        print("qs result")
-        print(qs)
-        #cl_bodega_ID
-        # missing adding post method on ajax
     else:
         print("usuario no identificado")
 
