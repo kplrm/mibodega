@@ -28,6 +28,8 @@ def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
         # Stores variables in session
         bodega_name = request.POST['bodega_name']
+        print("POST.bodega_name:")
+        print(bodega_name)
         request.session['bodega_name'] = bodega_name
         id_bodega = request.POST['id_bodega']
         request.session['id_bodega'] = id_bodega
@@ -72,25 +74,23 @@ def homepage(request):
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
     try:
-        if request.session['id_bodega'] != " " and request.session['id_bodega'] is not None:
+        if request.session['id_bodega'] is not None:
             print("There is an id_bodega in session")
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
             print(result_list)
-        elif request.session['id_bodega'] == " ":
-            print("id_bodega is empty")
+        else:
+            print("id_bodega is None")
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
             print(result_list)
-        else:
-            print("What is id_bodega?")
     except:
         print("id_bodega does not exist in the session")
-        request.session['id_bodega'] = " "
-        request.session['bodega_name'] = " "
+        request.session['id_bodega'] = ""
+        request.session['bodega_name'] = ""
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         print(result_list)
 
     # Bodega name to display
-    if request.session['bodega_name'] != " ":
+    if request.session['bodega_name'] is not None:
         id_bodega_text = request.session['bodega_name']
     else:
         id_bodega_text = "Seleccione su bodega"
