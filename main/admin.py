@@ -10,10 +10,12 @@ admin.site.register(ProductosEnBodega)
 admin.site.register(Cart)
 admin.site.register(CartItem)
 
+@admin.register(ProductosEnBodega)
+class ProductosEnBodegaAdmin(OSMGeoAdmin):
+    list_display = ('peb_bodega','peb_product','peb_status')
 @admin.register(ProductosAprobados)
 class ProductosAprobadosAdmin(OSMGeoAdmin):
     list_display = ('pa_product','pa_category','pa_brand')
-
 @admin.register(Cliente)
 class ClienteAdmin(OSMGeoAdmin):
     list_display = ('cl_user','cl_first_name','cl_last_name','cl_phone','cl_address','cl_geolocation')
