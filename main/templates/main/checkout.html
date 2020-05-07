@@ -123,7 +123,7 @@
                                                '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
                                                '&mode=retrieveAddresses'+
                                                '&prox='
-                                               +String(position.lng)+','+String(position.lat)+',250';
+                                               +position.lng+','+position.lat+',250';
                                     Http.open("GET", url);
                                     Http.send();
                                     console.log("Hola");
