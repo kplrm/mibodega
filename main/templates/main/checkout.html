@@ -35,7 +35,7 @@
                         <!-- SHOP SELECTION END -->
 
                         <!-- SHOPPING CART -->
-                        {% include 'main/includes/shopping_cart.html' %}
+                        
                         <!-- SHOPPING CART -->
                     </div>
                 </div>
@@ -132,9 +132,16 @@
                         <div class="order-total">
                             <ul class="order-table">
                                 <li>Product <span>Total</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$60.00</span></li>
-                                <li class="fw-normal">Combination x 1 <span>$120.00</span></li>
+                                {% load humanize %}
+                                {% for product in cart_list %}
+                                    <li class="fw-normal">
+                                        {{product.ci_product.peb_product.pa_product}} x {{product.ci_quantity}}
+                                        <span>S/.
+                                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                        </span>
+                                    </li>
+                                {% endfor %}
                                 <li class="fw-normal">Subtotal <span>$240.00</span></li>
                                 <li class="total-price">Total <span>$240.00</span></li>
                             </ul>
