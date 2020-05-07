@@ -67,6 +67,7 @@ def homepage(request):
         request.session['user_latitude'] = user_latitude
     user_location = Point(user_longitude,user_latitude,srid=4326)
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+    print(shops.first().bd_geolocation)
     
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
