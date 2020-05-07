@@ -94,7 +94,7 @@ class ProductosEnBodega(models.Model):
     peb_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
     peb_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
     peb_discount_price = models.FloatField(default="",blank=True,null=True,verbose_name="Precio con descuento") # not mandatory to have a discount price
-    peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con descuento") # if it is currently being offered
     peb_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
     peb_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
     peb_slug = models.SlugField(max_length=100,allow_unicode=True,editable=False,unique=True)
