@@ -140,7 +140,8 @@
                                             <script>
                                                 var p_price = {{ product.ci_product.peb_discount_price }};
                                                 var p_quantity = {{product.ci_quantity}};
-                                                alert(p_price);
+
+                                                document.getElementById("calculate_product_price").textContent = p_price * p_quantity;
                                             </script>
                                         </span>
                                     </li>
