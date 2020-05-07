@@ -106,6 +106,8 @@
                                 
                                 var marker;
                                 map.on('click', function (e) {
+                                    console.log("Laika");
+                                    console.log(e.latlng);
                                     if (marker) { // check if marker already exists
                                         map.removeLayer(marker); // remove existing marker
                                     }
@@ -115,25 +117,22 @@
                                         var position = marker.getLatLng();
                                         marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
                                         map.panTo(new L.LatLng(position.lat, position.lng))
-
-                                        // Get address
-                                        const Http = new XMLHttpRequest();
-                                        const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
-                                                '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
-                                                '&mode=retrieveAddresses'+
-                                                '&prox='
-                                                +position.lng+','+position.lat+',250';
-                                        Http.open("GET", url);
-                                        Http.send();
-                                        console.log("Hola");
-
-                                        Http.onreadystatechange = (e) => {
-                                            console.log(Http.responseText)
-                                        }
-                                        alert("Yupo");
-
                                     });
                                     map.addLayer(marker);
+                                    // Get address
+                                    const Http = new XMLHttpRequest();
+                                    const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
+                                            '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
+                                            '&mode=retrieveAddresses'+
+                                            '&prox='
+                                            +position.lng+','+position.lat+',250';
+                                    Http.open("GET", url);
+                                    Http.send();
+                                    
+                                    Http.onreadystatechange = (e) => {
+                                        console.log(Http.responseText)
+                                    }
+                                    alert("Yupo");
                                 });
 
                                 map.on('click', onMapClick);
