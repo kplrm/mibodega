@@ -10,7 +10,6 @@
 
 <!-- Header Section Begin -->
 <header class="header-section">
-    <!-- MIDDLE BAR -->
     <div class="container">
         <div class="inner-header">
             <div class="row">
@@ -21,63 +20,24 @@
                         <!-- </a> -->
                     </div>
                 </div>
-                <div class="col-lg-7 col-md-7">
+                <div class="col-lg-6 col-md-6">
                     <div class="advanced-search">
-                        <!--<button type="button" class="category-btn">All Categories</button>-->
-                        <div class="input-group"> <!--Change width for adding all categories button-->
+                        <form action="#" class="input-group">
                             <input type="text" placeholder="Producto">
                             <button type="button"><i class="ti-search"></i></button>
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-lg-3 text-right col-md-3">
-                    <ul class="nav-right">
+                <div class="col-lg-4 text-right col-md-4">
+                    <div class="row">
+                        <!-- SHOP SELECTION BEGIN -->
+                        {% include 'main/includes/shop_selection.html' %}
+                        <!-- SHOP SELECTION END -->
+
                         <!-- SHOPPING CART -->
-                        <li class="cart-icon">
-                            <a href="#">
-                                <i class="icon_bag_alt"></i>
-                                <span>{{cart_list|length}}</span>
-                            </a>
-                            <div class="cart-hover">
-                                <div class="select-items">
-                                    <table>
-                                        <tbody>
-                                            {% load humanize %}
-                                            {% for product in cart_list %}
-                                            <tr>
-                                                <td class="si-pic"><img src="{{ MEDIA_URL }}{{product.ci_product.peb_product.pa_category}}/{{product.ci_product.peb_product.pa_photo_small}}" alt=""></td>
-                                                <td class="si-text">
-                                                    <div class="product-selected">
-                                                        <p>S/. 
-                                                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
-                                                            x {{product.ci_quantity}}</p>
-                                                        <h6>{{product.ci_product.peb_product.pa_product}}</h6>
-                                                    </div>
-                                                </td>
-                                                <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
-                                                    <td class="si-close">
-                                                        <input type="hidden" name='item_pk' value='{{product.pk}}'>
-                                                        <button type='submit'><i class="ti-close"></i></button>
-                                                    </td>
-                                                </form>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="select-total">
-                                    <span>total:</span>
-                                    <h5>S/.{{cart_obj.crt_total_price}}</h5>
-                                </div>
-                                <div class="select-button">
-                                    <a href="#" class="primary-btn view-card">VER CESTA</a>
-                                    <a href="#" class="primary-btn checkout-btn">PAGAR</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="cart-price">S/.{{cart_obj.crt_total_price}}</li>
-                    </ul>
+                        {% include 'main/includes/shopping_cart.html' %}
+                        <!-- SHOPPING CART -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,7 +48,7 @@
             <nav class="nav-menu mobile-menu">
                 <ul>
                     <li><a href="/">Ofertas</a></li>
-                    <li class="active"><a href="/embutidos">Embutidos</a></li>
+                    <li><a href="/embutidos">Embutidos</a></li>
                     <li><a href="/vegetales">Vegetales</a>
                     <li><a href="/lacteos">Lácteos</a></li>
                     <li><a href="/abarrotes">Abarrotes</a></li>
