@@ -99,12 +99,6 @@ def homepage(request):
     shuffle(temp)
     result_list = temp
 
-    # Saves store
-    if request.user.is_authenticated:
-        qs = Cliente.objects.all().filter(cl_user=request.user)
-    else:
-        print("usuario no identificado")
-
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
@@ -567,7 +561,9 @@ def vegetales(request):
 def checkout(request):
     if request.user.is_authenticated:
         print("Cliente identificado")
-        cliente = Cliente.objects.all().filter(cl_user=request.user).first()    
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+    else:
+        cliente = Cliente
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
