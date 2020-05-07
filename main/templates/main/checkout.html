@@ -71,43 +71,30 @@
                     <div class="checkout-content">
                         <a href="/login" class="content-btn">Inicie sesión</a>
                     </div>
-                    <h4>Biiling Details</h4>
+                    <h4>Sus datos</h4>
                     <div class="row">
                         <div class="col-lg-6">
-                            <label for="fir">First Name<span>*</span></label>
-                            <input type="text" id="fir">
+                            <label for="fir">Nombre<span>*</span></label>
+                            <input type="text" id="fir" value="{{cliente.cl_first_name}}">
                         </div>
                         <div class="col-lg-6">
-                            <label for="last">Last Name<span>*</span></label>
+                            <label for="last">Apellido<span>*</span></label>
                             <input type="text" id="last">
                         </div>
                         <div class="col-lg-12">
-                            <label for="cun-name">Company Name</label>
-                            <input type="text" id="cun-name">
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="cun">Country<span>*</span></label>
-                            <input type="text" id="cun">
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="street">Street Address<span>*</span></label>
+                            <label for="street">Dirección<span>*</span></label>
                             <input type="text" id="street" class="street-first">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="street">Dirección en mapa<span>*</span></label>
                             <input type="text">
                         </div>
-                        <div class="col-lg-12">
-                            <label for="zip">Postcode / ZIP (optional)</label>
-                            <input type="text" id="zip">
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="town">Town / City<span>*</span></label>
-                            <input type="text" id="town">
-                        </div>
                         <div class="col-lg-6">
-                            <label for="email">Email Address<span>*</span></label>
+                            <label for="email">Email<span>*</span></label>
                             <input type="text" id="email">
                         </div>
                         <div class="col-lg-6">
-                            <label for="phone">Phone<span>*</span></label>
+                            <label for="phone">Teléfono<span>*</span></label>
                             <input type="text" id="phone">
                         </div>
                         <div class="col-lg-12">
@@ -121,16 +108,15 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="checkout-content">
                         <a href="/register" class="content-btn">Regístrese</a>
                     </div>
-                    <!--
-                    <div class="checkout-content">
-                        <input type="text" placeholder="Enter Your Coupon Code">
-                    </div>-->
+
+                    <!-- CHECKOUT CART SECTION BEGIN -->
                     <div class="place-order">
-                        <h4>Your Order</h4>
+                        <h4>Su pedido</h4>
                         <div class="order-total">
                             <ul class="order-table">
                                 <li>Product <span>Total</span></li>
@@ -160,6 +146,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- CHECKOUT CART SECTION END -->
+
                 </div>
             </div>
         </form>
