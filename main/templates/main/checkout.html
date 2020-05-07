@@ -86,8 +86,7 @@
                             <input type="text" id="street" class="street-first" value="{{cliente.cl_address}}">
                         </div>
                         <div class="col-lg-12">
-                            <label for="street">Dirección en mapa<span>*</span></label>
-                            <input type="text" value="{{cliente.cl_geolocation}}">
+                            <input type="text" id="geolocation" value="{{cliente.cl_geolocation}}">
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -113,6 +112,7 @@
                                     marker.on('dragend', function(event){
                                         var marker = event.target;
                                         var position = marker.getLatLng();
+                                        document.getElementById("street").value = String(position);
                                         marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
                                         map.panTo(new L.LatLng(position.lat, position.lng))
                                     });
@@ -128,7 +128,6 @@
                                     Http.send();
                                     Http.onreadystatechange = (e) => {
                                         var address_json = JSON.parse( Http.responseText );
-                                        console.log(address_json.Response.View[0].Result[0].Location.Address.Label)
                                         document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                     }
                                 });
