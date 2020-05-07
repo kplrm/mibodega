@@ -126,6 +126,7 @@
                                                +String(position.lng)+','+String(position.lat)+',250';
                                     Http.open("GET", url);
                                     Http.send();
+                                    console.log("Hola");
 
                                     Http.onreadystatechange = (e) => {
                                         console.log(Http.responseText)
