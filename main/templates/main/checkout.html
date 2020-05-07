@@ -106,8 +106,8 @@
                                 
                                 var marker;
                                 map.on('click', function (e) {
-                                    if (marker) { // check
-                                        map.removeLayer(marker); // remove
+                                    if (marker) { // check if marker already exists
+                                        map.removeLayer(marker); // remove existing marker
                                     }
                                     marker = new L.marker(e.latlng, {draggable:'true'});
                                     marker.on('dragend', function(event){
