@@ -4,11 +4,15 @@ from django.contrib.gis.admin import OSMGeoAdmin
 
 # Register your models here.
 admin.site.register(ProductosEnBodega)
-admin.site.register(ProductosAprobados)
+#admin.site.register(ProductosAprobados)
 #admin.site.register(Cliente)
 #admin.site.register(Bodega)
 admin.site.register(Cart)
 admin.site.register(CartItem)
+
+@admin.register(ProductosAprobados)
+class ProductosAprobadosAdmin(OSMGeoAdmin):
+    list_display = ('pa_product','pa_category','pa_brand')
 
 @admin.register(Cliente)
 class ClienteAdmin(OSMGeoAdmin):
