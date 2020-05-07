@@ -138,12 +138,15 @@
                                             {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
                                             {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                                             <script type="text/javascript">
-                                                //function calculate_product_price(){
+                                                var p_quantity = {{product.ci_quantity}};
+                                                
+                                                if ( {{product.ci_product.peb_discount_status}} === True ){
                                                     var p_price = {{ product.ci_product.peb_discount_price }};
-                                                    var p_quantity = {{product.ci_quantity}};
-                                                    document.write(p_price*p_quantity);
-                                                    alert(p_price*p_quantity);
-                                                //}
+                                                } else {
+                                                    var p_price = {{ product.ci_product.peb_discount_price }};
+                                                }
+                                                document.write(p_price*p_quantity);
+                                                document.write("a");
                                             </script>
                                         </span>
                                     </li>
