@@ -230,7 +230,7 @@ def lacteos(request):
         id_bodega_text = request.session['bodega_name']
     else:
         print("What is this?")
-   
+
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -263,6 +263,9 @@ def lacteos(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def abarrotes(request):
@@ -334,6 +337,9 @@ def abarrotes(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def limpieza(request):
@@ -405,6 +411,9 @@ def limpieza(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def licores(request):
@@ -476,6 +485,9 @@ def licores(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def vegetales(request):
@@ -547,6 +559,9 @@ def vegetales(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def checkout(request):
