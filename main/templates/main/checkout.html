@@ -127,7 +127,7 @@
                                     Http.open("GET", url);
                                     Http.send();
                                     Http.onreadystatechange = (e) => {
-                                        address_json = Http.responseText;
+                                        var address_json = JSON.parse( Http.responseText );
                                         console.log(address_json.Response)
                                         document.getElementById("street").value = String(address_json.Response);
                                     }
