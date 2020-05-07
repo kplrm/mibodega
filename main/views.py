@@ -576,6 +576,7 @@ def register(request): # CHANGE TO FORMVIEW BASED CLASS?
             client.cl_user = user
             client.cl_first_name = user.first_name
             client.cl_last_name = user.last_name
+            client.cl_email = user.email
             cl_form.save(commit=True)
             username = user.username # normalize to a standard format
             # Messages are stored only once. When they are delivered, they also are deleted.
