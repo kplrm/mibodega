@@ -550,9 +550,9 @@ def vegetales(request):
                   'STATIC_URL': STATIC_URL})
 
 def checkout(request):
-    # Load vegetales
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
-    result_list = productos_en_bodegas
+    if request.user.is_authenticated:
+        print("Cliente identificado")
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()    
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -561,7 +561,7 @@ def checkout(request):
 
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
-                  context={'result_list': result_list,
+                  context={'cliente': cliente,
                   'cart_obj': cart_obj,
                   'cart_list': cart_list,
                   'STATIC_URL': STATIC_URL})
