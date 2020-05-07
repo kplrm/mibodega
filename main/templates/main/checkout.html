@@ -125,7 +125,7 @@
                                             '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
                                             '&mode=retrieveAddresses'+
                                             '&prox='
-                                            +position.lng+','+position.lat+',250';
+                                            +e.latlng.lat+','+e.latlng.lng+',250';
                                     Http.open("GET", url);
                                     Http.send();
                                     
