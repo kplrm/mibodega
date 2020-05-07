@@ -140,7 +140,7 @@
                                             <script type="text/javascript">
                                                 var p_quantity = {{product.ci_quantity}};
                                                 
-                                                if ( {{product.ci_product.peb_discount_status}} === True ){
+                                                if ( {{product.ci_product.peb_discount_status}} == true ){
                                                     var p_price = {{ product.ci_product.peb_discount_price }};
                                                 } else {
                                                     var p_price = {{ product.ci_product.peb_discount_price }};
