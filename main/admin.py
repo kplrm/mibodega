@@ -3,7 +3,7 @@ from .models import ProductosAprobados,Cliente,Bodega,ProductosEnBodega,Cart,Car
 from django.contrib.gis.admin import OSMGeoAdmin
 
 # Register your models here.
-admin.site.register(ProductosEnBodega)
+#admin.site.register(ProductosEnBodega)
 #admin.site.register(ProductosAprobados)
 #admin.site.register(Cliente)
 #admin.site.register(Bodega)
