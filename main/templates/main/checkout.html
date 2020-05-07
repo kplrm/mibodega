@@ -88,6 +88,34 @@
                         <div class="col-lg-12">
                             <label for="street">Dirección en mapa<span>*</span></label>
                             <input type="text" value="{{cliente.cl_geolocation}}">
+                            <div id="mapid_checkout"></div>
+                            <script>
+                                var map = L.map('mapid_checkout').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
+                            
+                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                }).addTo(map);
+                            
+                                const customMarkerIcon = L.AwesomeMarkers.icon({
+                                    "extraClasses": "fa-rotate-0", 
+                                    "icon": "shopping-cart", 
+                                    "iconColor": "white", 
+                                    "markerColor": "orange", 
+                                    "prefix": "glyphicon"
+                                });	
+                                
+                                {% for shop in shops %}
+                                var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
+                                    icon: customMarkerIcon
+                                }).addTo(map)
+                                    .bindPopup( "{{ shop.bd_name }}" )
+                                    .closePopup()
+                                    .on('click', function onClick(shop) {
+                                        document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
+                                        document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
+                                    });
+                                {% endfor %}
+                            </script>
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email<span>*</span></label>
