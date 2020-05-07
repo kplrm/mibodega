@@ -128,8 +128,8 @@
                                     Http.send();
                                     Http.onreadystatechange = (e) => {
                                         var address_json = JSON.parse( Http.responseText );
-                                        console.log(address_json.Response.View[0].Result[0])
-                                        document.getElementById("street").value = String(address_json.Response.View[0].Result[0]);
+                                        console.log(address_json.Response.View[0].Result[0].Location.Address.Label)
+                                        document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                     }
                                 });
                                 map.on('click', onMapClick);
