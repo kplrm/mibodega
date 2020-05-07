@@ -103,8 +103,11 @@
                                     "markerColor": "orange", 
                                     "prefix": "glyphicon"
                                 });	
+                                
+                                var marker;
 
                                 function onMapClick(e) {
+                                    map.removeLayer(marker)
                                     marker = new L.marker(e.latlng, {draggable:'true'});
                                     marker.on('dragend', function(event){
                                         var marker = event.target;
