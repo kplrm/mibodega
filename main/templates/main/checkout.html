@@ -31,11 +31,9 @@
                 <div class="col-lg-4 text-right col-md-4">
                     <div class="row">
                         <!-- SHOP SELECTION BEGIN -->
-                        
                         <!-- SHOP SELECTION END -->
 
                         <!-- SHOPPING CART -->
-                        
                         <!-- SHOPPING CART -->
                     </div>
                 </div>
@@ -136,9 +134,14 @@
                                 {% for product in cart_list %}
                                     <li class="fw-normal">
                                         {{product.ci_product.peb_product.pa_product}} x {{product.ci_quantity}}
-                                        <span>S/.
+                                        <span id="calculate_product_price" onload="calculate_product_price()">S/.
                                             {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
                                             {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                            <script>
+                                                var p_price = {{ product.ci_product.peb_discount_price }};
+                                                var p_quantity = {{product.ci_quantity}};
+                                                alert("Image is loaded");
+                                            </script>
                                         </span>
                                     </li>
                                 {% endfor %}
