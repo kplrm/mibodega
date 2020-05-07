@@ -79,23 +79,23 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last">
+                            <input type="text" id="last" value="{{cliente.cl_last_name}}">
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first">
+                            <input type="text" id="street" class="street-first" value="{{cliente.cl_address}}">
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección en mapa<span>*</span></label>
-                            <input type="text">
+                            <input type="text" value="{{cliente.cl_geolocation}}">
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email<span>*</span></label>
-                            <input type="text" id="email">
+                            <input type="text" id="email" value="{{cliente.cl_address}}">
                         </div>
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="text" id="phone">
+                            <input type="text" id="phone" value="{{cliente.cl_phone}}">
                         </div>
                         <div class="col-lg-12">
                             <div class="create-item">

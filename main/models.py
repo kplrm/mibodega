@@ -62,6 +62,7 @@ class Cliente(models.Model):
     cl_first_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Nombre")
     cl_last_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Apellido")
     cl_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
+    cl_email = models.CharField(max_length=50,blank=True,null=True,verbose_name="E-mail")
     cl_address = models.CharField(max_length=50,blank=True,null=True,verbose_name="Dirreción")
     cl_geolocation = models.PointField(blank=True,null=True,verbose_name="Dirección")
     cl_date_reg = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de registro")
