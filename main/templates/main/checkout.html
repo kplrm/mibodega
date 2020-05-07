@@ -117,6 +117,21 @@
                                         map.panTo(new L.LatLng(position.lat, position.lng))
                                     });
                                     map.addLayer(marker);
+                                    var platform = new H.service.Platform({
+                                        'apikey': 'BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'
+                                    });
+                                    // Reverse geocoding
+                                    var service = platform.getSearchService();
+                                    service.reverseGeocode({
+                                        at: String(position.lat+","+position.lng)
+                                    }, (result) => {
+                                        result.items.forEach((item) => {
+                                            ui.addBubble(new H.ui.InfoBubble(item.position, {
+                                            content: item.address.label
+                                            }));
+                                        });
+                                    }, alert);
+
                                 });
 
                                 map.on('click', onMapClick);
