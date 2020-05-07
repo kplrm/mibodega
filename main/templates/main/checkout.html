@@ -138,6 +138,7 @@
                                             {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
                                             {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                                             <script type="text/javascript">
+                                                var True = true, False = false;
                                                 console.log( {{ product.ci_quantity }} );
                                                 console.log( {{ product.ci_product.peb_discount_price }} );
                                                 console.log( {{ product.ci_product.peb_regular_price }} );
