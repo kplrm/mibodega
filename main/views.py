@@ -23,6 +23,7 @@ import json
 
 # Global variable Loads STATIC_URL
 STATIC_URL = settings.STATIC_URL
+print(STATIC_URL)
 
 def save_store_location(request):
     if request.method== "POST" and request.is_ajax():
