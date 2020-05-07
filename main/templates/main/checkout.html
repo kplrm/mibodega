@@ -141,7 +141,8 @@
                                                 console.log( {{ product.ci_quantity }} );
                                                 console.log( {{ product.ci_product.peb_discount_price }} );
                                                 console.log( {{ product.ci_product.peb_regular_price }} );
-                                                
+                                                console.log( {{ product.ci_product.peb_discount_status }} );
+
                                                 var p_quantity = {{ product.ci_quantity }};
                                                 
                                                 if ( {{product.ci_product.peb_discount_status}} === true ){
