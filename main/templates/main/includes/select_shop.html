@@ -2,8 +2,7 @@
         <h3>Seleccione su bodega</h3>
         <p><br></p>
         <label for="bodega_name">Bodega:</label>
-        {% if {{request_session_bodega_name}} == "Cercanas" %}Seleccione su bodega{% else %}{{ id_bodega_text }}{% endif %}
-        <input type="text" class="form-control" id="bodega_name" value="Cercanas">
+        <input type="text" class="form-control" id="bodega_name" value="Cercanas" disabled>
         <p><br></p>
         <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled> <!--change to type hidden to hide-->
             
