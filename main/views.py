@@ -559,6 +559,20 @@ def vegetales(request):
                   'STATIC_URL': STATIC_URL})
 
 def checkout(request):
+    # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+
+    # Check if user is logged in
     if request.user.is_authenticated:
         print("Cliente identificado")
         cliente = Cliente.objects.all().filter(cl_user=request.user).first()
@@ -575,6 +589,7 @@ def checkout(request):
                   context={'cliente': cliente,
                   'cart_obj': cart_obj,
                   'cart_list': cart_list,
+                  'user_location': user_location,
                   'STATIC_URL': STATIC_URL})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
