@@ -106,8 +106,6 @@
                                 
                                 var marker;
                                 map.on('click', function (e) {
-                                    console.log("Laika");
-                                    console.log(e.latlng);
                                     if (marker) { // check if marker already exists
                                         map.removeLayer(marker); // remove existing marker
                                     }
@@ -119,7 +117,7 @@
                                         map.panTo(new L.LatLng(position.lat, position.lng))
                                     });
                                     map.addLayer(marker);
-                                    // Get address
+                                    // Get address with reverse geocoding
                                     const Http = new XMLHttpRequest();
                                     const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
                                             '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
@@ -128,13 +126,11 @@
                                             +e.latlng.lat+','+e.latlng.lng+',250';
                                     Http.open("GET", url);
                                     Http.send();
-                                    
                                     Http.onreadystatechange = (e) => {
-                                        console.log(Http.responseText)
+                                        address_json = Http.responseText;
+                                        document.getElementById("street").value = address_json.Response.View.Result.Location.Address.Label;
                                     }
-                                    alert("Yupo");
                                 });
-
                                 map.on('click', onMapClick);
                             </script>
                         </div>
