@@ -103,18 +103,6 @@
                                     "markerColor": "orange", 
                                     "prefix": "glyphicon"
                                 });	
-                                
-                                {% for shop in shops %}
-                                var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
-                                    icon: customMarkerIcon
-                                }).addTo(map)
-                                    .bindPopup( "{{ shop.bd_name }}" )
-                                    .closePopup()
-                                    .on('click', function onClick(shop) {
-                                        document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
-                                        document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
-                                    });
-                                {% endfor %}
                             </script>
                         </div>
                         <div class="col-lg-6">
