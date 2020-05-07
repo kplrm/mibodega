@@ -135,22 +135,15 @@
                                     <li class="fw-normal">
                                         {{product.ci_product.peb_product.pa_product}} x {{product.ci_quantity}}
                                         <span id="calculate_product_price" onload="calculate_product_price()">S/.
-                                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                                             <script type="text/javascript">
                                                 var True = true, False = false;
-                                                console.log( {{ product.ci_quantity }} );
-                                                console.log( {{ product.ci_product.peb_discount_price }} );
-                                                console.log( {{ product.ci_product.peb_regular_price }} );
-
                                                 var p_quantity = {{ product.ci_quantity }};
-                                                
                                                 if ( {{product.ci_product.peb_discount_status}} === true ){
                                                     var p_price = {{ product.ci_product.peb_discount_price }};
                                                 } else {
                                                     var p_price = {{ product.ci_product.peb_discount_price }};
                                                 };
-                                                document.write(p_price*p_quantity);
+                                                document.write((p_price*p_quantity).toFixed(2));
                                                 document.write("a");
                                             </script>
                                         </span>
