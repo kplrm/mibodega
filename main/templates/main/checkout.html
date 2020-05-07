@@ -129,7 +129,7 @@
                                         var address_json = JSON.parse( Http.responseText );
                                         document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                     }
-                                    document.getElementById("street").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
+                                    document.getElementById("geolocation").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
 ;
                                 });
                                 map.on('click', onMapClick);
