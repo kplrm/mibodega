@@ -85,7 +85,6 @@ def homepage(request):
         request.session['bodega_name'] = "Cercanas"
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
         print(str(":")+str(request.session['id_bodega'])+str(":"))
-    request_session_bodega_name = request.session['bodega_name']
 
     # Bodega name to display
     if request.session['bodega_name'] == "Cercanas":
@@ -119,7 +118,6 @@ def homepage(request):
                            'user_location': user_location,
                            'shops': shops,
                            'id_bodega_text': id_bodega_text,
-                           'request_session_bodega_name': request_session_bodega_name,
                            'STATIC_URL': STATIC_URL})
 
 def embutidos(request):
