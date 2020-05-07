@@ -137,13 +137,13 @@
                                         <span id="calculate_product_price" onload="calculate_product_price()">S/.
                                             {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
                                             {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
-                                            <script>
-                                                function calculate_product_price(){
+                                            <script type="text/javascript">
+                                                //function calculate_product_price(){
                                                     var p_price = {{ product.ci_product.peb_discount_price }};
                                                     var p_quantity = {{product.ci_quantity}};
                                                     document.write(p_price*p_quantity);
                                                     alert(p_price*p_quantity);
-                                                }
+                                                //}
                                             </script>
                                         </span>
                                     </li>
