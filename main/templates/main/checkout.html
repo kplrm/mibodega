@@ -129,7 +129,7 @@
                                     Http.onreadystatechange = (e) => {
                                         var address_json = JSON.parse( Http.responseText );
                                         console.log(address_json.Response.View)
-                                        document.getElementById("street").value = String(address_json.Response.View);
+                                        document.getElementById("street").value = String(address_json.Response.View[0].Result[0]);
                                     }
                                 });
                                 map.on('click', onMapClick);
