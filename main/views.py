@@ -589,13 +589,13 @@ def checkout(request):
     for product in cart_list:
         # Check if bodega is already in the list
         if product.ci_product.peb_bodega in bodegas_en_cesta:
-            if product.ci_product.peb_bodega.peb_discount_status = True:
+            if product.ci_product.peb_bodega.peb_discount_status == True:
                 subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price
             else:
                 subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price
         else:
             bodegas_en_cesta.append(product.ci_product.peb_bodega)
-            if product.ci_product.peb_bodega.peb_discount_status = True:
+            if product.ci_product.peb_bodega.peb_discount_status == True:
                 subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price})
             else:
                 subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price})
