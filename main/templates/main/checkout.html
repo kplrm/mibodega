@@ -196,7 +196,17 @@
                                                         </li>
                                                     {% endif %}
                                                 {% endfor %}
-                                                <li class="total-price">Subtotal en esta bodega <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span></li>
+                                                <li class="total-price">Subtotal en esta bodega
+                                                    <span>
+                                                        S/.
+                                                        <script type="text/javascript">
+                                                            for (const product in {{ cart_list }} ) {
+                                                                console.log(product);
+                                                            }
+                                                        </script>
+                                                        {{cart_obj.crt_total_price|floatformat:2|intcomma}}
+                                                    </span>
+                                                </li>
                                             </li>
                                         </ul>
                                     </div>
