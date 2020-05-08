@@ -2,9 +2,11 @@
 
 #Install apache2
 sudo apt-get install apache2
+sudo /etc/init.d/apache2 status
 sudo /etc/init.d/apache2 start
 sudo /etc/init.d/apache2 stop
 sudo /etc/init.d/apache2 restart
+sudo service apache2 restart
 
 #Install postgre
 sudo apt-get install postgresql postgresql-contrib
@@ -25,7 +27,7 @@ sudo apt install pgadmin4 pgadmin4-apache2
 #change new super user password / create new super user / delete user
 sudo su postgres
 psql
-ALTER USER postgres WITH PASSWORD 'password';
+ALTER USER postgres WITH PASSWORD 'color800';
 CREATE USER kplrm WITH PASSWORD 'color800';
 GRANT ALL PRIVILEGES ON DATABASE mibodega TO kplrm;
 ALTER USER kplrm WITH SUPERUSER;
@@ -45,9 +47,9 @@ sudo service postgresql start
 exit
 
 #Create db
-sudo -u postgres createdb myspatialdb
+sudo -u postgres createdb mibodega
 #Connect to the database
-sudo -u postgres psql -d myspatialdb
+sudo -u postgres psql -d mibodega
 #Enable postgis extension
 CREATE EXTENSION postgis;
 #Check installed version

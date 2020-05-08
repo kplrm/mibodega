@@ -62,8 +62,9 @@ class Cliente(models.Model):
     cl_first_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Nombre")
     cl_last_name = models.CharField(max_length=50,blank=True,null=True,verbose_name="Apellido")
     cl_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
+    cl_email = models.CharField(max_length=50,blank=True,null=True,verbose_name="E-mail")
     cl_address = models.CharField(max_length=50,blank=True,null=True,verbose_name="Dirreción")
-    cl_geolocation = models.PointField(blank=True,null=True,verbose_name="Dirección")
+    cl_geolocation = models.PointField(blank=True,null=True,verbose_name="Ubicación")
     cl_date_reg = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de registro")
     cl_bodega_ID = models.CharField(max_length=36,default="",blank=True,null=True,verbose_name="ID Bodega")
 
@@ -93,7 +94,7 @@ class ProductosEnBodega(models.Model):
     peb_product = models.ForeignKey(ProductosAprobados,default="",blank=True,null=False,on_delete=models.CASCADE,verbose_name="Producto")
     peb_regular_price = models.FloatField(default=0,blank=False,null=False,verbose_name="Precio regular")
     peb_discount_price = models.FloatField(default="",blank=True,null=True,verbose_name="Precio con descuento") # not mandatory to have a discount price
-    peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con el descuento") # if it is currently being offered
+    peb_discount_status = models.BooleanField(default=False,null=False,verbose_name="Vender con descuento") # if it is currently being offered
     peb_discount_rate = models.FloatField(default=0,editable=False,verbose_name="'%' de descuento")
     peb_status = models.BooleanField(default=True,null=False,verbose_name="Disponible") # if it is currently being offered
     peb_slug = models.SlugField(max_length=100,allow_unicode=True,editable=False,unique=True)
