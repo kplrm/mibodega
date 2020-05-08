@@ -16,7 +16,7 @@ SECRET_KEY = config['SECRET_KEY']
 #SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe","104.200.18.239"]
 #ALLOWED_HOSTS = []
@@ -123,8 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static"),
+#    '/home/kplrm-user/mibodega/main/static',
+#]
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
