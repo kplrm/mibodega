@@ -81,7 +81,7 @@ class Bodega(models.Model):
     bd_geolocation = models.PointField(blank=True,null=True,verbose_name="Sede")
 
     def __str__(self):
-        return str(self.bd_ruc)+str(" ")+str(self.bd_name)
+        return str(self.bd_name)
 
 class ProductosEnBodega(models.Model):
     class Meta:
