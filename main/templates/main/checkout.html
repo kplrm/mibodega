@@ -185,7 +185,7 @@
                                         </span>
                                     </li>
                                 {% endfor %}
-                                <li class="total-price">Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span></li>
+                                <li class="total-price">Subtotal <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span></li>
                             </ul>
                         </div>
                         {% for bodega in bodegas_en_cesta %}
@@ -199,10 +199,27 @@
                                     <div class="col-12" align="center">
                                         <ul class="order-table">
                                             <li>Producto <span>Precio</span>
-                                                <li class="fw-normal">
-                                                    aaa
-                                                    <span>aaa</span>
-                                                </li>
+                                                {% load humanize %}
+                                                {% for product in cart_list %}
+                                                    {% if product.ci_product.peb_bodega == bodega %}
+                                                        <li class="fw-normal">
+                                                            {{product.ci_product.peb_product.pa_product}} x {{product.ci_quantity}}
+                                                            <span id="calculate_product_price" onload="calculate_product_price()">
+                                                                S/.
+                                                                <script type="text/javascript">
+                                                                    var True = true, False = false;
+                                                                    var p_quantity = {{ product.ci_quantity }};
+                                                                    if ( {{product.ci_product.peb_discount_status}} === true ){
+                                                                        var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                    } else {
+                                                                        var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                    };
+                                                                    document.write((p_price*p_quantity).toFixed(2));
+                                                                </script>
+                                                            </span>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </li>
                                         </ul>
                                     </div>
