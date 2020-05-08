@@ -166,7 +166,7 @@ def embutidos(request):
     for product in result_list:
         # Check if brand already in the list
         if product.peb_product.pa_brand in brands:
-            print(product.peb_product.pa_brand)
+            pass
         else:
             brands.append(product.peb_product.pa_brand)
     
@@ -240,7 +240,7 @@ def lacteos(request):
     for product in result_list:
         # Check if brand already in the list
         if product.peb_product.pa_brand in brands:
-            print(product.peb_product.pa_brand)
+            pass
         else:
             brands.append(product.peb_product.pa_brand)
     
@@ -314,7 +314,7 @@ def abarrotes(request):
     for product in result_list:
         # Check if brand already in the list
         if product.peb_product.pa_brand in brands:
-            print(product.peb_product.pa_brand)
+            pass
         else:
             brands.append(product.peb_product.pa_brand)
     
@@ -388,7 +388,7 @@ def limpieza(request):
     for product in result_list:
         # Check if brand already in the list
         if product.peb_product.pa_brand in brands:
-            print(product.peb_product.pa_brand)
+            pass
         else:
             brands.append(product.peb_product.pa_brand)
     
@@ -462,7 +462,7 @@ def licores(request):
     for product in result_list:
         # Check if brand already in the list
         if product.peb_product.pa_brand in brands:
-            print(product.peb_product.pa_brand)
+            pass
         else:
             brands.append(product.peb_product.pa_brand)
     
@@ -536,7 +536,7 @@ def vegetales(request):
     for product in result_list:
         # Check if brand already in the list
         if product.peb_product.pa_brand in brands:
-            print(product.peb_product.pa_brand)
+            pass
         else:
             brands.append(product.peb_product.pa_brand)
     
@@ -588,9 +588,11 @@ def checkout(request):
     for product in cart_list:
         # Check if bodega is already in the list
         if product.ci_product.peb_bodega in bodegas_en_cesta:
-            print(product.ci_product.peb_bodega)
+            pass
         else:
             bodegas_en_cesta.append(product.ci_product.peb_bodega)
+            print("Add bodega :")
+            print(product.ci_product.peb_bodega)
     
 
     return render(request=request, # to reference request
