@@ -203,11 +203,13 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        <!--<div class="order-total">-->
+                        <div class="order-total">
+                            Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
                             <ul class="order-table">
+                                Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
                                 <li class="total-price">Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span></li>
                             </ul>
-                        <!--</div>-->
+                        </div>
                         <div class="order-btn">
                             <button type="submit" class="site-btn place-btn">Comprar</button>
                         </div>
