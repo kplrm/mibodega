@@ -601,6 +601,7 @@ def checkout(request):
                   'cart_obj': cart_obj,
                   'cart_list': cart_list,
                   'user_location': user_location,
+                  'bodegas_en_cesta': bodegas_en_cesta,
                   'STATIC_URL': STATIC_URL})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
