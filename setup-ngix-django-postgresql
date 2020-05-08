@@ -1,0 +1,53 @@
+// UBUNTU SETUP
+apt-get update && apt-get upgrade
+hostnamectl set-hostname django-server
+hostname
+nano /etc/hosts
+104.200.18.239  django-server
+adduser kplrm-user
+deluser kplrm-user
+adduser kplrm-user sudo
+exit
+
+
+// UBUNTU LIBS INSTALL
+sudo apt install -y python3-pip python3-dev libpq-dev
+(yes)
+sudo apt install -y nginx curl
+sudo apt install -y postgresql postgresql-contrib
+sudo apt-get install -y postgis
+sudo apt-get install -y qgis-server
+sudo apt-get install -y python3-venv
+
+
+// CREATE & ACTIVATE VIRTUALENV
+python3 -m venv eshop
+source eshop/bin/activate
+
+
+// PIP INSTALLATIONS
+pip install django django-widget-tweaks gunicorn psycopg2-binary
+pip install six cachetools requests wheel
+pip install ipregistry
+
+
+// SETUP DATABASE
+sudo -u postgres psql
+ALTER USER postgres WITH PASSWORD 'color800';
+CREATE USER kplrm WITH PASSWORD 'color800';
+CREATE DATABASE mibodega;
+CREATE EXTENSION postgis;
+GRANT ALL PRIVILEGES ON DATABASE mibodega TO kplrm;
+ALTER USER kplrm WITH SUPERUSER;
+
+create database mibodega;
+
+
+
+// GET PROJECT
+git clone https://github.com/kplrm/mibodega.pe.git
+
+
+
+sudo ufw disable
+sudo ufw status
