@@ -167,7 +167,7 @@
                             <div class="order-total">
                                 <div class="row" style="background-color:#e7ab3c;color:#ffffff;text-transform:uppercase">
                                     <div class="col-12" align="center">
-                                        <span>{{ bodega }}aaaaaaas</span>
+                                        <span>{{ bodega }}</span>
                                     </div>
                                 </div>
                                 <hr/>
@@ -203,6 +203,7 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        <li class="total-price">Subtotal en esta bodega <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span></li>
                         <div class="order-btn">
                             <button type="submit" class="site-btn place-btn">Comprar</button>
                         </div>
