@@ -2,9 +2,11 @@
 
 #Install apache2
 sudo apt-get install apache2
+sudo /etc/init.d/apache2 status
 sudo /etc/init.d/apache2 start
 sudo /etc/init.d/apache2 stop
 sudo /etc/init.d/apache2 restart
+sudo service apache2 restart
 
 #Install postgre
 sudo apt-get install postgresql postgresql-contrib
