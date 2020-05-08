@@ -2972,7 +2972,7 @@ ol {
 }
 
 .checkout-form .place-order .order-total .order-table {
-	margin-bottom: 64px;
+	margin-bottom: 10px; /*64px*/
 }
 
 .checkout-form .place-order .order-total .order-table li {
