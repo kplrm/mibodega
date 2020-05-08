@@ -208,7 +208,7 @@
                                                                     } else {
                                                                         var p_price = {{ product.ci_product.peb_discount_price }};
                                                                     };
-                                                                    var value = document.getElementById("subtotal").value;
+                                                                    var value = +(document.getElementById("subtotal").innerHTML);
                                                                     value += p_price*p_quantity;
                                                                     console.log(value);
                                                                     document.write((value).toFixed(2));
