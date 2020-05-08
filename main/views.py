@@ -585,6 +585,7 @@ def checkout(request):
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
     # Look up for all stores with items in the shopping cart
     bodegas_en_cesta = []
+    subtotals_dict = defaultdict(list)
     for product in cart_list:
         # Check if bodega is already in the list
         if product.ci_product.peb_bodega in bodegas_en_cesta:
