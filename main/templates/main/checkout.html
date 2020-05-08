@@ -198,26 +198,9 @@
                                                 {% endfor %}
                                                 <li class="total-price">Subtotal en esta bodega
                                                     <span id="subtotal" value="0">
-                                                        {% for product in cart_list %}
-                                                            {% if product.ci_product.peb_bodega == bodega %}
-                                                                <script type="text/javascript">
-                                                                    var True = true, False = false;
-                                                                    var p_quantity = {{ product.ci_quantity }};
-                                                                    if ( {{product.ci_product.peb_discount_status}} === true ){
-                                                                        var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                    } else {
-                                                                        var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                    };
-                                                                    var value = +(document.getElementById("subtotal").innerHTML);
-                                                                    value += p_price*p_quantity;
-                                                                    console.log(document.getElementById("subtotal").value);
-                                                                    document.write((value).toFixed(2));
-                                                                </script>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </span>
-                                                    S/.
+                                                        S/.
                                                         {{cart_obj.crt_total_price|floatformat:2|intcomma}}
+                                                    </span>
                                                 </li>
                                             </li>
                                         </ul>
