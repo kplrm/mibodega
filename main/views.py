@@ -585,15 +585,17 @@ def checkout(request):
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
     # Look up for all stores with items in the shopping cart
     bodegas_en_cesta = []
+    subtotal_bodegas = dict()
     for product in cart_list:
         # Check if bodega is already in the list
         if product.ci_product.peb_bodega in bodegas_en_cesta:
             pass
         else:
             bodegas_en_cesta.append(product.ci_product.peb_bodega)
+            subtotal_bodegas.update({str(product.ci_product.peb_bodega):product.ci_product.peb_regular_price})
             print("Add bodega :")
             print(product.ci_product.peb_bodega)
-    
+    print(subtotal_bodegas)
 
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
