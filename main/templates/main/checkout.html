@@ -202,6 +202,7 @@
                                                         {% for key, value in subtotal_bodegas.items %}
                                                             <h1>Key: {{key}}</h1>
                                                             <h2>Value: {{value}}</h2>
+                                                            {{ bodega.bd_ruc }}
                                                         {% endfor %}
                                                         {{cart_obj.crt_total_price|floatformat:2|intcomma}}
                                                     </span>
