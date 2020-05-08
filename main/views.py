@@ -589,7 +589,7 @@ def checkout(request):
     for product in cart_list:
         # Check if bodega is already in the list
         if product.ci_product.peb_bodega in bodegas_en_cesta:
-            pass
+            subtotal_bodegas.update[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price
         else:
             bodegas_en_cesta.append(product.ci_product.peb_bodega.bd_name)
             subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price})
