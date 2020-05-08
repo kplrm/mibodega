@@ -99,12 +99,6 @@ def homepage(request):
     shuffle(temp)
     result_list = temp
 
-    # Saves store
-    if request.user.is_authenticated:
-        qs = Cliente.objects.all().filter(cl_user=request.user)
-    else:
-        print("usuario no identificado")
-
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
@@ -230,7 +224,7 @@ def lacteos(request):
         id_bodega_text = request.session['bodega_name']
     else:
         print("What is this?")
-   
+
     # Paginator
     page = request.GET.get('page', 1)
     paginator = Paginator(result_list, 12) # displayed products per page
@@ -263,6 +257,9 @@ def lacteos(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def abarrotes(request):
@@ -334,6 +331,9 @@ def abarrotes(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def limpieza(request):
@@ -405,6 +405,9 @@ def limpieza(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def licores(request):
@@ -476,6 +479,9 @@ def licores(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def vegetales(request):
@@ -547,12 +553,31 @@ def vegetales(request):
                   'brands': brands,
                   'results': results,
                   'result_count': result_count,
+                  'user_location': user_location,
+                  'shops': shops,
+                  'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
 def checkout(request):
-    # Load vegetales
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
-    result_list = productos_en_bodegas
+    # Locate user and shops nearby.
+    try:
+        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+        else:
+            user_longitude, user_latitude = locate_user()
+    except:
+        user_longitude, user_latitude = locate_user()
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+
+    # Check if user is logged in
+    if request.user.is_authenticated:
+        print("Cliente identificado")
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+    else:
+        cliente = Cliente
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -561,9 +586,10 @@ def checkout(request):
 
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
-                  context={'result_list': result_list,
+                  context={'cliente': cliente,
                   'cart_obj': cart_obj,
                   'cart_list': cart_list,
+                  'user_location': user_location,
                   'STATIC_URL': STATIC_URL})
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
@@ -576,6 +602,7 @@ def register(request): # CHANGE TO FORMVIEW BASED CLASS?
             client.cl_user = user
             client.cl_first_name = user.first_name
             client.cl_last_name = user.last_name
+            client.cl_email = user.email
             cl_form.save(commit=True)
             username = user.username # normalize to a standard format
             # Messages are stored only once. When they are delivered, they also are deleted.
