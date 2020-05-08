@@ -192,25 +192,27 @@
                                 <li class="total-price">Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span></li>
                             </ul>
                         </div>
-                        <div class="order-total">
-                            <div class="row">
-                                <div class="col-12" align="center">
-                                    bogeda comercial
+                        {% for bodega in bodegas_en_cesta %}
+                            <div class="order-total">
+                                <div class="row">
+                                    <div class="col-12" align="center">
+                                        {{ bodega }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12" align="center">
-                                    <ul class="order-table">
-                                        <li>Producto <span>Precio</span>
-                                            <li class="fw-normal">
-                                                aaa
-                                                <span>aaa</span>
+                                <div class="row">
+                                    <div class="col-12" align="center">
+                                        <ul class="order-table">
+                                            <li>Producto <span>Precio</span>
+                                                <li class="fw-normal">
+                                                    aaa
+                                                    <span>aaa</span>
+                                                </li>
                                             </li>
-                                        </li>
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endfor %}
                         <div class="order-btn">
                             <button type="submit" class="site-btn place-btn">Comprar</button>
                         </div>
