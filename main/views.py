@@ -592,7 +592,7 @@ def checkout(request):
             pass
         else:
             bodegas_en_cesta.append(product.ci_product.peb_bodega)
-            subtotal_bodegas.update({str(product.ci_product.peb_bodega):product.ci_product.peb_regular_price})
+            subtotal_bodegas.update({str(product.ci_product.bd_ruc):product.ci_product.peb_regular_price})
             print("Add bodega :")
             print(product.ci_product.peb_bodega)
     print(subtotal_bodegas)
