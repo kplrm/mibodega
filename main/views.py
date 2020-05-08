@@ -583,6 +583,15 @@ def checkout(request):
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    # Look up for all stores with items in the shopping cart
+    bodegas_en_cesta = []
+    for product in cart_list:
+        # Check if bodega is already in the list
+        if product.ci_product.peb_bodega in bodegas_en_cesta:
+            print(product.ci_product.peb_bodega)
+        else:
+            bodegas_en_cesta.append(product.ci_product.peb_bodega)
+    
 
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
