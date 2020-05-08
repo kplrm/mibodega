@@ -599,9 +599,6 @@ def checkout(request):
                 subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price})
             else:
                 subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price})
-            print("Add bodega :")
-            print(product.ci_product.peb_bodega)
-    print(subtotal_bodegas)
 
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
