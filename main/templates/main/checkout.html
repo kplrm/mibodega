@@ -199,11 +199,11 @@
                                                 <li class="total-price">Subtotal en esta bodega
                                                     <span>
                                                         S/.
-                                                        {% for key, value in subtotal_bodegas.items %}
-                                                            <h1>Key: {{key}}</h1>
+                                                        {# for key, value in subtotal_bodegas.items #}
+                                                            {% if bodega.bd_ruc == key %}
                                                             <h2>Value: {{value}}</h2>
-                                                            {{ bodega.bd_ruc }}
-                                                        {% endfor %}
+                                                            {% endif %}
+                                                        {# endfor #}
                                                         {{cart_obj.crt_total_price|floatformat:2|intcomma}}
                                                     </span>
                                                 </li>
