@@ -198,7 +198,7 @@
                                                 {% endfor %}
                                                 <li class="total-price">Subtotal en esta bodega
                                                     <span id="subtotal" value="0">
-                                                        {{% for product in cart_list %}}
+                                                        {% for product in cart_list %}
                                                             {% if product.ci_product.peb_bodega == bodega %}
                                                                 <script type="text/javascript">
                                                                     var True = true, False = false;
