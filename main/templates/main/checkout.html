@@ -176,64 +176,58 @@
                                         <ul class="order-table">
                                             <table class="fw-normal" style="width:100%">
                                                 <tr>
-                                                    <li class="total-price">
-                                                        <th style="width:65%;text-align:Left">
-                                                            Producto
-                                                        </th>
-                                                        <th style="width:15%;text-align:center">
-                                                            Cantidad
-                                                        </th>
-                                                        <th style="width:20%;text-align:right">
-                                                            Precio
-                                                        </th>
-                                                    </li>
+                                                    <th style="width:65%;text-align:Left">
+                                                        Producto
+                                                    </th>
+                                                    <th style="width:15%;text-align:center">
+                                                        Cantidad
+                                                    </th>
+                                                    <th style="width:20%;text-align:right">
+                                                        Precio
+                                                    </th>
                                                 </tr>
                                                 {% load humanize %}
                                                 {% for product in cart_list %}
                                                     {% if product.ci_product.peb_bodega == bodega %}
                                                         <tr>
-                                                            <li class="total-price">
-                                                                <td style="width:60%;text-align:Left">
-                                                                    {{product.ci_product.peb_product.pa_product}}
-                                                                </td>
-                                                                <td style="width:15%;text-align:center">
-                                                                    {{product.ci_quantity}}
-                                                                </td>
-                                                                <td style="width:25%;text-align:right">
-                                                                    <span>
-                                                                        S/.
-                                                                        <script type="text/javascript">
-                                                                            var True = true, False = false;
-                                                                            var p_quantity = {{ product.ci_quantity }};
-                                                                            if ( {{product.ci_product.peb_discount_status}} === true ){
-                                                                                var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                            } else {
-                                                                                var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                            };
-                                                                            document.write((p_price*p_quantity).toFixed(2));
-                                                                        </script>
-                                                                    </span>
-                                                                </td>
-                                                            </li>
+                                                            <td style="width:60%;text-align:Left">
+                                                                {{product.ci_product.peb_product.pa_product}}
+                                                            </td>
+                                                            <td style="width:15%;text-align:center">
+                                                                {{product.ci_quantity}}
+                                                            </td>
+                                                            <td style="width:25%;text-align:right">
+                                                                <span>
+                                                                    S/.
+                                                                    <script type="text/javascript">
+                                                                        var True = true, False = false;
+                                                                        var p_quantity = {{ product.ci_quantity }};
+                                                                        if ( {{product.ci_product.peb_discount_status}} === true ){
+                                                                            var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                        } else {
+                                                                            var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                        };
+                                                                        document.write((p_price*p_quantity).toFixed(2));
+                                                                    </script>
+                                                                </span>
+                                                            </td>
                                                         </tr>
                                                     {% endif %}
                                                 {% endfor %}
                                                 <tr>
-                                                    <li class="total-price">
-                                                        <td style="width:75%;text-align:Left">
-                                                            Subtotal en esta bodega
-                                                        </td>
-                                                        <td style="width:25%;text-align:Left">
-                                                            <span>
-                                                                S/.
-                                                                {% for key, value in subtotal_bodegas.items %}
-                                                                    {% if bodega.bd_ruc == key %}
-                                                                    {{value|floatformat:2|intcomma}}
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            </span>
-                                                        </td>
-                                                    </li>
+                                                    <td style="width:75%;text-align:Left">
+                                                        Subtotal en esta bodega
+                                                    </td>
+                                                    <td style="width:25%;text-align:Left">
+                                                        <span>
+                                                            S/.
+                                                            {% for key, value in subtotal_bodegas.items %}
+                                                                {% if bodega.bd_ruc == key %}
+                                                                {{value|floatformat:2|intcomma}}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </ul>
