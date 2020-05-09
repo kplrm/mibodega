@@ -672,6 +672,7 @@ def remove_cart(request):
     if request.method== "POST":
         print("a POST message arrived")
     print("Entering remove_cart")
+    print(request.POST)
     item_pk = request.POST.get('item_pk', None)
     print(item_pk)
     item_obj = CartItem.objects.all().filter(pk=item_pk).first()
