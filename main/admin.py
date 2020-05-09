@@ -4,7 +4,6 @@ from django.contrib.gis.admin import OSMGeoAdmin
 
 # Register your models here.
 admin.site.register(Cart)
-admin.site.register(CartItem)
 
 @admin.register(CartItem)
 class ProductosEnBodegaAdmin(OSMGeoAdmin):
