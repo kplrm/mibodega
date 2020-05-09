@@ -219,7 +219,7 @@
                                                             </td>
                                                             <td style="width:10%;text-align:right">
                                                                 {{product.pk}}
-                                                                <form method='POST' action='{% url "main:remove_cart" %}'>{% csrf_token %}
+                                                                <form method='POST' action='{% url "main:remove_cart" %}'>
                                                                     <td class="si-close">
                                                                         <input type="hidden" name='item_pk' value='{{product.pk}}'>
                                                                         <button type='submit'><i class="ti-close"></i></button>
