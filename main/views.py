@@ -20,6 +20,7 @@ from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
 import json
+from django.utils import simplejson
 
 # Global variable Loads STATIC_URL
 STATIC_URL = settings.STATIC_URL
@@ -690,6 +691,9 @@ def remove_cart(request):
     item_obj.delete()
 
     update_price(cart_obj)
+    
+    to_json = {'exito':"el exito XD"}
+    return HttpResponse(simplejson.dumps(to_json), mimetype='application/json')
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     #return HttpResponse("")
