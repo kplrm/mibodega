@@ -161,6 +161,23 @@
                     </div>
 
                     <!-- CHECKOUT CART SECTION BEGIN -->
+                    <script>
+                        function getCookie(name) {
+                            var cookieValue = null;
+                            if (document.cookie && document.cookie !== '') {
+                                var cookies = document.cookie.split(';');
+                                for (var i = 0; i < cookies.length; i++) {
+                                    var cookie = jQuery.trim(cookies[i]);
+                                    // Does this cookie string begin with the name we want?
+                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                        break;
+                                    }
+                                }
+                            }
+                            return cookieValue;
+                        }
+                    </script>
                     <div class="place-order">
                         <h4>Su pedido</h4>
                         {% for bodega in bodegas_en_cesta %}
@@ -225,6 +242,11 @@
                                                                         <button type='submit'><i class="ti-close"></i></button>
                                                                     </td>
                                                                 </form>
+                                                                <script>
+                                                                    var csrftoken = getCookie('csrftoken');
+                                                                    console.log(csrftoken);
+                                                                </script>
+                                                                
                                                             </td>
                                                         </tr>
                                                     {% endif %}
