@@ -674,7 +674,7 @@ def remove_cart(request):
         print("a POST message arrived")
         
     item_pk = request.POST.get('item_pk', None)
-    url_to_redirect = request.POST.get('url_to_redirect', None)
+    #url_to_redirect = request.POST.get('url_to_redirect', None)
 
     item_obj = CartItem.objects.all().filter(pk=item_pk).first()
     cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
@@ -687,11 +687,11 @@ def remove_cart(request):
     
     #data = {'exito':"exito"}
     #return JsonResponse(data)
-    print("redirecting to...")
-    print(url_to_redirect)
-    return redirect(url_to_redirect)
+    #print("redirecting to...")
+    #print(url_to_redirect)
+    #return redirect(url_to_redirect)
 
-    #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     #return HttpResponse("")
 
