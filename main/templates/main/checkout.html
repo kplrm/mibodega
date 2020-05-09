@@ -173,9 +173,8 @@
                                 <hr/>
                                 <div class="row">
                                     <div class="col-12">
-                                        
+                                        <ul class="order-table">
                                             <table class="fw-normal" style="width:100%">
-                                                <ul class="order-table">
                                                 <tr>
                                                     <li class="total-price">
                                                         <th style="width:65%;text-align:Left">
@@ -189,7 +188,6 @@
                                                         </th>
                                                     </li>
                                                 </tr>
-
                                                 {% load humanize %}
                                                 {% for product in cart_list %}
                                                     {% if product.ci_product.peb_bodega == bodega %}
@@ -233,9 +231,8 @@
                                                         </span>
                                                     </li>
                                                 </tr>
-                                            </ul>
                                             </table>
-                                        
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
