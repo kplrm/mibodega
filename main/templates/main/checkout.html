@@ -221,7 +221,7 @@
                                                                 {{product.pk}}
                                                                 <form method='POST' action='{% url "main:remove_cart" %}'>{% csrf_token %}
                                                                     <td class="si-close">
-                                                                        <input type="hidden" name='item_pk' value='{{product.pk}}'>
+                                                                        <input name="item_pk" type="hidden" id="item_pk" value='{{product.pk}}'>
                                                                         <button type='submit'><i class="ti-close"></i></button>
                                                                     </td>
                                                                 </form>
