@@ -204,7 +204,7 @@
                                                                         if ( {{product.ci_product.peb_discount_status}} === true ){
                                                                             var p_price = {{ product.ci_product.peb_discount_price }};
                                                                         } else {
-                                                                            var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                            var p_price = {{ product.ci_product.peb_regular_price }};
                                                                         };
                                                                         document.write((p_price*p_quantity).toFixed(2));
                                                                     </script>
