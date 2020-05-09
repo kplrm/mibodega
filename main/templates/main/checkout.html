@@ -252,8 +252,8 @@
                                                                                         'item_pk': {{product.pk}},
                                                                                         'url_to_redirect': window.location.href
                                                                                     },
-                                                                            success: function(data){
-                                                                                console.log(data.exito);
+                                                                            success: function(){
+                                                                                console.log("redirected to:"+window.location.href);
                                                                                 //location.reload();
                                                                             },
                                                                             error: function(){
