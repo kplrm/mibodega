@@ -238,10 +238,16 @@
                                                                 {{product.pk}}
                                                                 <script>
                                                                     var csrftoken = getCookie('csrftoken');
+                                                                    function delete_item(item_pk) {
+                                                                        console.log("Entered POST ajax");
+                                                                        console.log(item_pk);
+                                                                        alert(item_pk);
+                                                                    }
                                                                     function delete_item() {
                                                                         console.log("entering post ajax")
                                                                         console.log(window.location.href);
                                                                         console.log({{product.pk}});
+                                                                        document.getElementById("demo")
                                                                         $.ajax({
                                                                             headers: {'X-CSRFToken': '{{ csrf_token }}'},
                                                                             url: "/remove",
@@ -262,7 +268,7 @@
                                                                         });
                                                                     }
                                                                 </script>
-                                                                <button name="{{product.pk}}" onclick="delete_item()"><i class="ti-close"></i></button>
+                                                                <button name="{{product.pk}}" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>
                                                                 
                                                             </td>
                                                         </tr>
