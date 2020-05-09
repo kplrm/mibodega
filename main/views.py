@@ -668,11 +668,16 @@ def session_cart_load_or_create(request):
 
 def remove_cart(request):
     item_pk = request.POST.get('item_pk', None)
+    print(item_pk)
     item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+    print(item_obj)
     cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+    print(cart_obj)
 
     cart_obj.crt_product.remove(item_obj.ci_product)
+    print(cart_obj)
     cart_obj.crt_item.remove(item_obj)
+    print(cart_obj)
     item_obj.delete()
 
     update_price(cart_obj)
