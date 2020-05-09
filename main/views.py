@@ -667,6 +667,10 @@ def session_cart_load_or_create(request):
     return cart_obj, new_obj
 
 def remove_cart(request):
+    if request.method== "GET":
+        print("a GET message arrived")
+    if request.method== "POST":
+        print("a POST message arrived")
     print("Entering remove_cart")
     item_pk = request.POST.get('item_pk', None)
     print(item_pk)
