@@ -671,9 +671,6 @@ def remove_cart(request):
         print("a GET message arrived")
     if request.method== "POST":
         print("a POST message arrived")
-        print(request.path_info)
-        print(request.build_absolute_uri())
-        print(request.get_full_path())
     print("Entering remove_cart")
     print(request.POST)
     item_pk = request.POST.get('item_pk', None)
@@ -693,7 +690,8 @@ def remove_cart(request):
     item_obj.delete()
 
     update_price(cart_obj)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+    #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def cart_add(request):
     print("Entrando en el update!")
