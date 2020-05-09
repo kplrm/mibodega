@@ -249,8 +249,9 @@
                                                                                         'csrfmiddlewaretoken': csrftoken,
                                                                                         'item_pk': {{product.pk}}
                                                                                     },
-                                                                            success: function(response){
-                                                                                alert ("resp: "+response);
+                                                                            success: function(){
+                                                                                console.log("el exitoooo");
+                                                                                //alert ("resp: "+response);
                                                                                 //location.reload();
                                                                             }
                                                                         });
