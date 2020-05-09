@@ -246,7 +246,7 @@
                                                                             type: "POST",
                                                                             dataType: "json",
                                                                             data:   {
-                                                                                        {{product.pk}}
+                                                                                        'product_pk': {{product.pk}}
                                                                                     },
                                                                             success: function(response){
                                                                                 alert ("resp: "+response);
