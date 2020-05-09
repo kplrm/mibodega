@@ -692,7 +692,7 @@ def remove_cart(request):
 
     update_price(cart_obj)
     
-    data = {'exito':"el exito XD"}
+    data = {'exito':"exito"}
     return JsonResponse(data)
 
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
