@@ -242,12 +242,6 @@
                                                                         console.log("Entered POST ajax");
                                                                         console.log(item_pk);
                                                                         alert(item_pk);
-                                                                    }
-                                                                    /*function delete_item() {
-                                                                        console.log("entering post ajax")
-                                                                        console.log(window.location.href);
-                                                                        console.log({{product.pk}});
-                                                                        document.getElementById("demo")
                                                                         $.ajax({
                                                                             headers: {'X-CSRFToken': '{{ csrf_token }}'},
                                                                             url: "/remove",
@@ -255,7 +249,7 @@
                                                                             dataType: "json",
                                                                             data:   {
                                                                                         'csrfmiddlewaretoken': csrftoken,
-                                                                                        'item_pk': {{product.pk}},
+                                                                                        'item_pk': item_pk,
                                                                                         'url_to_redirect': window.location.href
                                                                                     },
                                                                             success: function(){
@@ -266,10 +260,9 @@
                                                                                 console.log("nooooooooooooooooo :(");
                                                                             }
                                                                         });
-                                                                    }*/
+                                                                    }
                                                                 </script>
                                                                 <!--<button name="{{product.pk}}" value="mybutton1" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>-->
-                                                                <!--<input type="button" value="{{product.pk}}" onclick="delete_item(this.value)">-->
                                                                 <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"></button>
                                                                 
                                                             </td>
