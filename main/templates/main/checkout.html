@@ -269,7 +269,8 @@
                                                                     }*/
                                                                 </script>
                                                                 <!--<button name="{{product.pk}}" value="mybutton1" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>-->
-                                                                <input type="button" value="{{product.pk}}" onclick="delete_item(this.value)">
+                                                                <!--<input type="button" value="{{product.pk}}" onclick="delete_item(this.value)">-->
+                                                                <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value)"></button>
                                                                 
                                                             </td>
                                                         </tr>
