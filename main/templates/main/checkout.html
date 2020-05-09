@@ -236,14 +236,26 @@
                                                             </td>
                                                             <td style="width:10%;text-align:right">
                                                                 {{product.pk}}
-                                                                <form method='POST' action='{% url "main:remove_cart" %}'>{% csrf_token %}
-                                                                    <td class="si-close">
-                                                                        <input name="item_pk" type="hidden" id="item_pk" value='{{product.pk}}'>
-                                                                        <button type='submit'><i class="ti-close"></i></button>
-                                                                    </td>
-                                                                </form>
+                                                                
+                                                                <button onclick="delete_item()"><i class="ti-close"></i></button>
+                                                                
                                                                 <script>
                                                                     var csrftoken = getCookie('csrftoken');
+                                                                    function delete_item() {
+                                                                        console.log("entering post ayax")
+                                                                        $.ajax({
+                                                                            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                                                                            url: "/remove",
+                                                                            type: "POST",
+                                                                            //dataType: "json",
+                                                                            data:   {
+                                                                                        {{product.pk}}
+                                                                                    },
+                                                                            success: function(response){
+                                                                                alert ("resp: "+response);
+                                                                            }
+                                                                        });
+                                                                    }
                                                                     console.log(csrftoken);
                                                                 </script>
                                                                 
