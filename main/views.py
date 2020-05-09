@@ -73,10 +73,10 @@ def homepage(request):
     try:
         if request.session['id_bodega'] == "Cercanas":
             print("id_bodega is Empty")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True)[:20]
         elif request.session['id_bodega'] != "Cercanas":
             print("There is an id_bodega in session")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
             print("id_bodega is None")
     except:
