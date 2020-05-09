@@ -240,6 +240,7 @@
                                                                     var csrftoken = getCookie('csrftoken');
                                                                     function delete_item() {
                                                                         console.log("entering post ajax")
+                                                                        console.log(window.location.href);
                                                                         $.ajax({
                                                                             headers: {'X-CSRFToken': '{{ csrf_token }}'},
                                                                             url: "/remove",
