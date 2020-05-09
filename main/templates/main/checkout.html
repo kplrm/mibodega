@@ -270,12 +270,7 @@
                                                                 </script>
                                                                 <!--<button name="{{product.pk}}" value="mybutton1" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>-->
                                                                 <!--<input type="button" value="{{product.pk}}" onclick="delete_item(this.value)">-->
-                                                                <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value)"></button>
-                                                                <script>
-                                                                    document.getElementById("{{product.pk}}").addEventListener("click", function(event){
-                                                                        event.preventDefault()
-                                                                    });
-                                                                </script>
+                                                                <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"></button>
                                                                 
                                                             </td>
                                                         </tr>
