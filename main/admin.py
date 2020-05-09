@@ -6,11 +6,11 @@ from django.contrib.gis.admin import OSMGeoAdmin
 #admin.site.register(Cart)
 
 @admin.register(Cart)
-class ProductosEnBodegaAdmin(OSMGeoAdmin):
+class CartAdmin(OSMGeoAdmin):
     list_display = ('crt_ID','crt_user','crt_total_price','crt_ordered')
 @admin.register(CartItem)
-class ProductosEnBodegaAdmin(OSMGeoAdmin):
-    list_display = ('ci_cart_ID','ci_user','ci_product','ci_quantity')
+class CartItemAdmin(OSMGeoAdmin):
+    list_display = ('pk','ci_cart_ID','ci_user','ci_product','ci_quantity')
 @admin.register(ProductosEnBodega)
 class ProductosEnBodegaAdmin(OSMGeoAdmin):
     list_display = ('peb_bodega','peb_product','peb_status','peb_discount_status')
