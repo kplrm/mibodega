@@ -175,50 +175,52 @@
                                     <div class="col-12">
                                         <ul class="order-table">
                                             <table class="fw-normal" style="width:100%">
-                                                <li class="total-price">
                                                 <tr>
-                                                    <th style="width:65%;text-align:Left">
-                                                        Producto
-                                                    </th>
-                                                    <th style="width:15%;text-align:center">
-                                                        Cantidad
-                                                    </th>
-                                                    <th style="width:20%;text-align:right">
-                                                        Precio
-                                                    </th>
+                                                    <li class="total-price">
+                                                        <th style="width:65%;text-align:Left">
+                                                            Producto
+                                                        </th>
+                                                        <th style="width:15%;text-align:center">
+                                                            Cantidad
+                                                        </th>
+                                                        <th style="width:20%;text-align:right">
+                                                            Precio
+                                                        </th>
+                                                    </li>
                                                 </tr>
 
                                                 {% load humanize %}
                                                 {% for product in cart_list %}
                                                     {% if product.ci_product.peb_bodega == bodega %}
                                                         <tr>
-                                                            <td style="width:60%;text-align:Left">
-                                                                {{product.ci_product.peb_product.pa_product}}
-                                                            </td>
-                                                            <td style="width:15%;text-align:center">
-                                                                {{product.ci_quantity}}
-                                                            </td>
-                                                            <td style="width:25%;text-align:right">
-                                                                <span>
-                                                                    S/.
-                                                                    <script type="text/javascript">
-                                                                        var True = true, False = false;
-                                                                        var p_quantity = {{ product.ci_quantity }};
-                                                                        if ( {{product.ci_product.peb_discount_status}} === true ){
-                                                                            var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                        } else {
-                                                                            var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                        };
-                                                                        document.write((p_price*p_quantity).toFixed(2));
-                                                                    </script>
-                                                                </span>
-                                                            </td>
+                                                            <li class="total-price">
+                                                                <td style="width:60%;text-align:Left">
+                                                                    {{product.ci_product.peb_product.pa_product}}
+                                                                </td>
+                                                                <td style="width:15%;text-align:center">
+                                                                    {{product.ci_quantity}}
+                                                                </td>
+                                                                <td style="width:25%;text-align:right">
+                                                                    <span>
+                                                                        S/.
+                                                                        <script type="text/javascript">
+                                                                            var True = true, False = false;
+                                                                            var p_quantity = {{ product.ci_quantity }};
+                                                                            if ( {{product.ci_product.peb_discount_status}} === true ){
+                                                                                var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                            } else {
+                                                                                var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                            };
+                                                                            document.write((p_price*p_quantity).toFixed(2));
+                                                                        </script>
+                                                                    </span>
+                                                                </td>
+                                                            </li>
                                                         </tr>
                                                     {% endif %}
                                                 {% endfor %}
-                                                </li>
-                                                <li class="total-price">
-                                                    <tr>
+                                                <tr>
+                                                    <li class="total-price">
                                                         Subtotal en esta bodega
                                                         <span>
                                                             S/.
@@ -228,8 +230,8 @@
                                                                 {% endif %}
                                                             {% endfor %}
                                                         </span>
-                                                    </tr>
-                                                </li>
+                                                    </li>
+                                                </tr>
                                             </table>
                                         </ul>
                                     </div>
