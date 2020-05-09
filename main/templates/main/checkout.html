@@ -175,22 +175,29 @@
                                         <ul class="order-table">
                                             <table class="fw-normal" border="4" bordercolor="#808080" frame="hsides" rules="rows" style="width:100%">
                                                 <tr>
-                                                    <th style="width:65%;text-align:Left">
+                                                    <th style="width:55%;text-align:Left">
                                                         Producto
                                                     </th>
-                                                    <th style="width:15%;text-align:center">
-                                                        Cantidad
+                                                    <th style="width:15%;text-align:left">
+                                                        P.u.
+                                                    </th>
+                                                    <th style="width:10%;text-align:center">
+                                                        Cant.
                                                     </th>
                                                     <th style="width:20%;text-align:right">
-                                                        Precio
+                                                        Subtotal
                                                     </th>
                                                 </tr>
                                                 {% load humanize %}
                                                 {% for product in cart_list %}
                                                     {% if product.ci_product.peb_bodega == bodega %}
                                                         <tr>
-                                                            <td style="width:55%;text-align:Left">
+                                                            <th style="width:55%;text-align:Left">
                                                                 {{product.ci_product.peb_product.pa_product}}
+                                                            </td>
+                                                            <td style="width:15%;text-align:left">
+                                                                {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                                                {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                                                             </td>
                                                             <td style="width:15%;text-align:center">
                                                                 {{product.ci_quantity}}
