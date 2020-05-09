@@ -220,15 +220,19 @@
                                                 {% endfor %}
                                                 <tr>
                                                     <li class="total-price">
-                                                        Subtotal en esta bodega
-                                                        <span>
-                                                            S/.
-                                                            {% for key, value in subtotal_bodegas.items %}
-                                                                {% if bodega.bd_ruc == key %}
-                                                                {{value|floatformat:2|intcomma}}
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </span>
+                                                        <td style="width:75%;text-align:Left">
+                                                            Subtotal en esta bodega
+                                                        </td>
+                                                        <td style="width:25%;text-align:Left">
+                                                            <span>
+                                                                S/.
+                                                                {% for key, value in subtotal_bodegas.items %}
+                                                                    {% if bodega.bd_ruc == key %}
+                                                                    {{value|floatformat:2|intcomma}}
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </span>
+                                                        </td>
                                                     </li>
                                                 </tr>
                                             </table>
