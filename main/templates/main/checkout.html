@@ -243,7 +243,7 @@
                                                                         console.log(item_pk);
                                                                         alert(item_pk);
                                                                     }
-                                                                    function delete_item() {
+                                                                    /*function delete_item() {
                                                                         console.log("entering post ajax")
                                                                         console.log(window.location.href);
                                                                         console.log({{product.pk}});
@@ -266,9 +266,10 @@
                                                                                 console.log("nooooooooooooooooo :(");
                                                                             }
                                                                         });
-                                                                    }
+                                                                    }*/
                                                                 </script>
-                                                                <button name="{{product.pk}}" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>
+                                                                <!--<button name="{{product.pk}}" value="mybutton1" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>-->
+                                                                <input type="button" value="{{product.pk}}" onclick="delete_item(this.value)">
                                                                 
                                                             </td>
                                                         </tr>
