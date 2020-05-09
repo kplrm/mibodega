@@ -691,7 +691,8 @@ def remove_cart(request):
 
     update_price(cart_obj)
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponse("")
 
 def cart_add(request):
     print("Entrando en el update!")
