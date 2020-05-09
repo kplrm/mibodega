@@ -236,9 +236,6 @@
                                                             </td>
                                                             <td style="width:10%;text-align:right">
                                                                 {{product.pk}}
-                                                                
-                                                                <button onclick="delete_item()"><i class="ti-close"></i></button>
-                                                                
                                                                 <script>
                                                                     var csrftoken = getCookie('csrftoken');
                                                                     function delete_item() {
@@ -258,6 +255,8 @@
                                                                     }
                                                                     console.log(csrftoken);
                                                                 </script>
+
+                                                                <button onclick="delete_item()"><i class="ti-close"></i></button>
                                                                 
                                                             </td>
                                                         </tr>
