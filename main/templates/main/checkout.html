@@ -237,9 +237,6 @@
                                                             <td style="width:10%;text-align:right">
                                                                 {{product.pk}}
                                                                 <script>
-                                                                    document.getElementById("{{product.pk}}").addEventListener("click", function(event){
-                                                                        event.preventDefault()
-                                                                    });
                                                                     var csrftoken = getCookie('csrftoken');
                                                                     function delete_item(item_pk) {
                                                                         console.log("Entered POST ajax");
@@ -274,6 +271,11 @@
                                                                 <!--<button name="{{product.pk}}" value="mybutton1" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>-->
                                                                 <!--<input type="button" value="{{product.pk}}" onclick="delete_item(this.value)">-->
                                                                 <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value)"></button>
+                                                                <script>
+                                                                    document.getElementById("{{product.pk}}").addEventListener("click", function(event){
+                                                                        event.preventDefault()
+                                                                    });
+                                                                </script>
                                                                 
                                                             </td>
                                                         </tr>
