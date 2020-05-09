@@ -235,7 +235,6 @@
                                                                 </span>
                                                             </td>
                                                             <td style="width:10%;text-align:right">
-                                                                {{product.pk}}
                                                                 <script>
                                                                     var csrftoken = getCookie('csrftoken');
                                                                     function delete_item(item_pk) {
@@ -253,17 +252,15 @@
                                                                                         'url_to_redirect': window.location.href
                                                                                     },
                                                                             success: function(){
-                                                                                console.log("redirected to:"+window.location.href);
-                                                                                //location.reload();
+                                                                                location.reload();
                                                                             },
                                                                             error: function(){
-                                                                                console.log("nooooooooooooooooo :(");
+                                                                                location.reload();
                                                                             }
                                                                         });
                                                                     }
                                                                 </script>
-                                                                <!--<button name="{{product.pk}}" value="mybutton1" onclick="delete_item({{product.pk}})"><i class="ti-close"></i></button>-->
-                                                                <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"></button>
+                                                                <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"><i class="ti-close"></i></button>
                                                                 
                                                             </td>
                                                         </tr>
