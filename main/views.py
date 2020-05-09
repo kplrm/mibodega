@@ -672,6 +672,7 @@ def remove_cart(request):
         print("a GET message arrived")
     if request.method== "POST":
         print("a POST message arrived")
+        
     item_pk = request.POST.get('item_pk', None)
     url_to_redirect = request.POST.get('url_to_redirect', None)
 
@@ -684,8 +685,10 @@ def remove_cart(request):
 
     update_price(cart_obj)
     
-    data = {'exito':"exito"}
+    #data = {'exito':"exito"}
     #return JsonResponse(data)
+    print("redirecting to...")
+    print(url_to_redirect)
     return redirect(url_to_redirect)
 
     #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
