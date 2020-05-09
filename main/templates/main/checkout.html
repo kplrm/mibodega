@@ -189,13 +189,13 @@
                                                 {% for product in cart_list %}
                                                     {% if product.ci_product.peb_bodega == bodega %}
                                                         <tr>
-                                                            <td style="width:60%;text-align:Left">
+                                                            <td style="width:55%;text-align:Left">
                                                                 {{product.ci_product.peb_product.pa_product}}
                                                             </td>
                                                             <td style="width:15%;text-align:center">
                                                                 {{product.ci_quantity}}
                                                             </td>
-                                                            <td style="width:25%;text-align:right">
+                                                            <td style="width:20%;text-align:right">
                                                                 <span>
                                                                     S/.
                                                                     <script type="text/javascript">
@@ -209,6 +209,14 @@
                                                                         document.write((p_price*p_quantity).toFixed(2));
                                                                     </script>
                                                                 </span>
+                                                            </td>
+                                                            <td style="width:10%;text-align:right">
+                                                                <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
+                                                                    <td class="si-close">
+                                                                        <input type="hidden" name='item_pk' value='{{product.pk}}'>
+                                                                        <button type='submit'><i class="ti-close"></i></button>
+                                                                    </td>
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     {% endif %}
