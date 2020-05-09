@@ -667,6 +667,7 @@ def session_cart_load_or_create(request):
     return cart_obj, new_obj
 
 def remove_cart(request):
+    print("Entering remove_cart")
     item_pk = request.POST.get('item_pk', None)
     print(item_pk)
     item_obj = CartItem.objects.all().filter(pk=item_pk).first()
