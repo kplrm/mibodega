@@ -239,7 +239,7 @@
                                                                 <script>
                                                                     var csrftoken = getCookie('csrftoken');
                                                                     function delete_item() {
-                                                                        console.log("entering post ayax")
+                                                                        console.log("entering post ajax")
                                                                         $.ajax({
                                                                             headers: {'X-CSRFToken': '{{ csrf_token }}'},
                                                                             url: "/remove",
@@ -253,6 +253,9 @@
                                                                                 console.log("el exitoooo");
                                                                                 //alert ("resp: "+response);
                                                                                 //location.reload();
+                                                                            },
+                                                                            error: function(){
+                                                                                console.log("nooooooooooooooooo :(");
                                                                             }
                                                                         });
                                                                     }
