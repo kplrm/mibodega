@@ -6,6 +6,9 @@ from django.contrib.gis.admin import OSMGeoAdmin
 admin.site.register(Cart)
 admin.site.register(CartItem)
 
+@admin.register(CartItem)
+class ProductosEnBodegaAdmin(OSMGeoAdmin):
+    list_display = ('ci_cart_ID','ci_user','ci_product','ci_quantity')
 @admin.register(ProductosEnBodega)
 class ProductosEnBodegaAdmin(OSMGeoAdmin):
     list_display = ('peb_bodega','peb_product','peb_status','peb_discount_status')
