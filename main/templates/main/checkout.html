@@ -241,6 +241,7 @@
                                                                     function delete_item() {
                                                                         console.log("entering post ajax")
                                                                         console.log(window.location.href);
+                                                                        console.log({{product.pk}});
                                                                         $.ajax({
                                                                             headers: {'X-CSRFToken': '{{ csrf_token }}'},
                                                                             url: "/remove",
@@ -252,7 +253,7 @@
                                                                                     },
                                                                             success: function(data){
                                                                                 console.log(data.exito);
-                                                                                location.reload();
+                                                                                //location.reload();
                                                                             },
                                                                             error: function(){
                                                                                 console.log("nooooooooooooooooo :(");
