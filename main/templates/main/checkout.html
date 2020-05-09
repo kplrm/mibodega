@@ -237,6 +237,9 @@
                                                             <td style="width:10%;text-align:right">
                                                                 {{product.pk}}
                                                                 <script>
+                                                                    document.getElementById("{{product.pk}}").addEventListener("click", function(event){
+                                                                        event.preventDefault()
+                                                                    });
                                                                     var csrftoken = getCookie('csrftoken');
                                                                     function delete_item(item_pk) {
                                                                         console.log("Entered POST ajax");
