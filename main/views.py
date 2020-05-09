@@ -590,15 +590,15 @@ def checkout(request):
         # Check if bodega is already in the list
         if product.ci_product.peb_bodega in bodegas_en_cesta:
             if product.ci_product.peb_discount_status == True:
-                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price
+                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price * product.ci_quantity
             else:
-                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price
+                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price * product.ci_quantity
         else:
             bodegas_en_cesta.append(product.ci_product.peb_bodega)
             if product.ci_product.peb_discount_status == True:
-                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price})
+                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price * product.ci_quantity})
             else:
-                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price})
+                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
 
     print(subtotal_bodegas)
     return render(request=request, # to reference request
