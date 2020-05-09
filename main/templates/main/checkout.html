@@ -249,7 +249,8 @@
                                                                             dataType: "json",
                                                                             data:   {
                                                                                         'csrfmiddlewaretoken': csrftoken,
-                                                                                        'item_pk': {{product.pk}}
+                                                                                        'item_pk': {{product.pk}},
+                                                                                        'url_to_redirect': window.location.href
                                                                                     },
                                                                             success: function(data){
                                                                                 console.log(data.exito);
