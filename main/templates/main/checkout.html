@@ -215,16 +215,18 @@
                                                         </tr>
                                                     {% endif %}
                                                 {% endfor %}
-                                                <li class="total-price">Subtotal en esta bodega
-                                                    <span>
-                                                        S/.
-                                                        {% for key, value in subtotal_bodegas.items %}
-                                                            {% if bodega.bd_ruc == key %}
-                                                            {{value|floatformat:2|intcomma}}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </span>
-                                                </li>
+                                                <tr>
+                                                    <li class="total-price">Subtotal en esta bodega
+                                                        <span>
+                                                            S/.
+                                                            {% for key, value in subtotal_bodegas.items %}
+                                                                {% if bodega.bd_ruc == key %}
+                                                                {{value|floatformat:2|intcomma}}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </span>
+                                                    </li>
+                                                </tr>
                                             </table>
                                         </ul>
                                     </div>
