@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form action="#" class="checkout-form">
+        <form id="checkout-form" action="#" class="checkout-form">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -161,7 +161,7 @@
                             <label for="phone">Teléfono<span>*</span></label>
                             <input type="text" id="phone" value="{{cliente.cl_phone}}">
                         </div>
-                        <div class="col-lg-12">
+                        <!--<div class="col-lg-12">
                             <div class="create-item">
                                 <label for="acc-create">
                                     Create an account?
@@ -169,7 +169,7 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
 
@@ -312,8 +312,37 @@
                                 Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
                             </ul>
                         </div>
+                        <script>
+                            var csrftoken = getCookie('csrftoken');
+                            var elements = document.getElementById("checkout-form").elements;
+
+                            console.log(elements);
+
+                            //for (var i = 0, element; element = elements[i++];) {
+                            //    if (element.type === "text" && element.value === "")
+                            //        console.log("it's an empty textfield")
+                            //}
+
+                            /*function buy_checkout(item_pk) {
+                                $.ajax({
+                                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                                    url: "/remove",
+                                    type: "POST",
+                                    dataType: "json",
+                                    data:   {
+                                                'csrfmiddlewaretoken': csrftoken,
+                                            },
+                                    success: function(){
+                                        console.log("Exito");
+                                    },
+                                    error: function(){
+                                        console.log("YUP");
+                                    }
+                                });
+                            }*/
+                        </script>
                         <div class="order-btn">
-                            <button type="submit" class="site-btn place-btn">Comprar</button>
+                            <button name="btn_comprar" class="site-btn place-btn" onclick="buy_checkout();return false">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
