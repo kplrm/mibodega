@@ -65,8 +65,6 @@
 <!-- Shopping Cart Section Begin -->
 <script>
     function validate_fir(input) {
-        console.log("Entering validate");
-        console.log(input.validity);
         var validityState_object = input.validity;
         if(validityState_object.patternMismatch) {
             input.setCustomValidity('Use solo letras y espacio');
@@ -79,8 +77,6 @@
         }
     };
     function validate_last(input) {
-        console.log("Entering validate");
-        console.log(input.validity);
         var validityState_object = input.validity;
         if(validityState_object.patternMismatch) {
             input.setCustomValidity('Use solo letras y espacio');
@@ -93,8 +89,6 @@
         }
     };
     function validate_street(input) {
-        console.log("Entering validate");
-        console.log(input.validity);
         var validityState_object = input.validity;
         if (validityState_object.valueMissing ) {
             input.setCustomValidity('Seleccione en el mapa su dirección y corrija su dirección.');
@@ -104,8 +98,6 @@
         }
     };
     function validate_phone(input) {
-        console.log("Entering validate");
-        console.log(input.validity);
         var validityState_object = input.validity;
         if(validityState_object.patternMismatch) {
             input.setCustomValidity('Use solo números');
@@ -121,9 +113,6 @@
         }
     };
     function check(input) {
-        console.log("Entering check");
-        console.log(input.validity);
-        console.log(input.validity.valid);
         if (input.validity) {
             if (input.validity.valid === true) {
                 ;
@@ -131,8 +120,6 @@
                 input.reportValidity();
             }
         }
-        console.log(input.checkValidity());
-        console.log("Leaving check");
     };
 </script>
 <section class="checkout-section spad">
