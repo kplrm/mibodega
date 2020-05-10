@@ -154,8 +154,8 @@
                             </script>
                         </div>
                         <div class="col-lg-6">
-                            <label for="email">Email<span>*</span></label>
-                            <input type="email" id="email" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}">
                         </div>
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
                         <style>
@@ -341,15 +341,21 @@
         <script>
             var csrftoken = getCookie('csrftoken');
             function buy_checkout(item_pk) {
+                // Set custom validation messages
                 $('#fir').get(0).setCustomValidity('Escriba su nombre.');
-                var inpObj = document.getElementById("fir");
-                if (!inpObj.checkValidity()) {
-                    document.getElementById("fir").innerHTML = inpObj.validationMessage;
-                }
+                $('#last').get(0).setCustomValidity('Escriba su apellido.');
+                $('#street').get(0).setCustomValidity('Ingrese su dirección.');
+                $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
+                $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
+
                 $("#checkout-form").validate({
                     // Specify validation rules
                     rules: {
                         fir: "required",
+                        last: "required",
+                        street: "required",
+                        geolocation: "required",
+                        phone: "required",
                     },
 
                 });
