@@ -405,11 +405,11 @@
         <script type="text/javascript">
             function submit_checkout() {
                 console.log("Entering submit");
-                if ($("#checkout-form").valid()) {
+                /*if ($("#checkout-form").valid()) {
                     console.log("valid form");
                 } else {
                     console.log("INvalid form");
-                }
+                }*/
                 
                 var validator = $("#checkout-form").validate(options);
                 if (validator.form()) {
@@ -440,54 +440,6 @@
                     }
                 });*/
             }
-            /*
-            $(document).ready(function() {
-                $('checkout-form').on('submit', function (e) {
-                    console.log("Entering submit");
-                    e.preventDefault();
-
-                    if (!$('#fir').val()) {
-                        if ($("#fir").parent().next(".validation").length == 0) // only add if not added
-                        {
-                            $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su nombre</div>");
-                        }
-                    } else {
-                        $("#fir").parent().next(".validation").remove(); // remove it
-                    }
-                    if (!$('#last').val()) {
-                        if ($("#last").parent().next(".validation").length == 0) // only add if not added
-                            {$("#last").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su apellido</div>");}
-                    } else {$("#last").parent().next(".validation").remove();}
-                    console.log("Exiting submit");
-                }); 
-            });*/
-            /*
-            function buy_checkout() {
-            //$(document).ready(function() {
-                console.log("Entering validation");
-                // Set custom validation messages
-                $('#fir').get(0).setCustomValidity('Escriba su nombre.');
-                
-
-                $("#checkout_form").validate({
-                    rules: {
-                        // simple rule, converted to {required:true}
-                        last : {
-                            required: true,
-                            minlength: 3
-                        }
-                    },
-                    messages: {
-                        last: {
-                            required: "Name required",
-                            minlength: "Name should be at least 3 characters"
-                        }
-                    }
-                });
-                $('#last').focus();
-                focusSet = true;
-                console.log("Exiting validate");
-            };*/
         </script>
     </div>
 </section>
