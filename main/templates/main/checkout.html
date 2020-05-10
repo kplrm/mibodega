@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form"><!--method="POST"-->
+        <form id="checkout_form" action="" class="checkout-form" method="POST">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button onclick="buy_checkout()" id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -344,19 +344,20 @@
         -->
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
-            /*
+            
             $(document).ready(function() {
-                $('form').on('submit', function (e) {
+                $('checkout_form').on('submit', function (e) {
                     e.preventDefault();
                     console.log("Entering validation");
 
-                    if (!$('#email').val()) {
-                        if ($("#email").parent().next(".validation").length == 0) // only add if not added
+                    /*
+                    if (!$('#fir').val()) {
+                        if ($("#fir").parent().next(".validation").length == 0) // only add if not added
                         {
-                            $("#email").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter email address</div>");
+                            $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter fir address</div>");
                         }
                     } else {
-                        $("#email").parent().next(".validation").remove(); // remove it
+                        $("#fir").parent().next(".validation").remove(); // remove it
                     }
                     if (!$('#last').val()) {
                         if ($("#last").parent().next(".validation").length == 0) // only add if not added
@@ -367,12 +368,11 @@
                     } else {
                         $("#last").parent().next(".validation").remove(); // remove it
                     }
+                    */
+                    console.log("Exiting validate");
                 }); 
             });
-            */
-
-
-
+            
             
             function buy_checkout() {
             //$(document).ready(function() {
