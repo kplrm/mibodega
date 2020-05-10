@@ -75,18 +75,18 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
+                            <input type="text" id="fir" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}">
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" required>
+                            <input type="text" id="last" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}">
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
+                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}">
                         </div>
                         <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" required>
+                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -171,11 +171,11 @@
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="tel" id="phone" name="phone" pattern="^[0-9-+\s()]*$" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
+                            <input type="tel" id="phone" name="phone" pattern="^[0-9-+\s()]*$" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}">
                         </div>
                         <div class="col-lg-12">
                             <label for="comments">Comentarios para la bodega</label>
-                            <textarea id="comments" class="form-control" rows="3" required placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
+                            <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
                         </div>
                         <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
                         {% if cliente.cl_user != None %}
