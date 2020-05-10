@@ -64,6 +64,17 @@
 
 <!-- Shopping Cart Section Begin -->
 <script>
+    console.log("Entering script...");
+    var var_fir = document.getElementById('fir');
+    var val_fir = var_fir.validity;
+    if(val_fir.patternMismatch ) {
+        var_fir.setCustomValidity('Use solo letras y espacio');
+    } else if (var_fir.valueMissing ) {
+        var_fir.setCustomValidity('Escriba su nombre.');
+    } else {
+        var_fir.setCustomValidity('');
+    }
+
     function check(input) {
         console.log("Entering check");
         console.log(input.validity);
@@ -79,10 +90,6 @@
         console.log("Leaving check");
     };
 </script>
-<style>
-    .valid { color: #0B7866; }
-    .invalid { color: rgb(170, 11, 11); }
- </style>
 <section class="checkout-section spad">
     <div class="container">
         <form id="checkout_form" action="" class="checkout-form" method="POST">
@@ -364,16 +371,7 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            console.log("Entering script...");
-            var var_fir = document.getElementById('fir');
-            var val_fir = var_fir.validity;
-            if(val_fir.patternMismatch ) {
-                var_fir.setCustomValidity('Use solo letras y espacio');
-            } else if (var_fir.valueMissing ) {
-                var_fir.setCustomValidity('Escriba su nombre.');
-            } else {
-                var_fir.setCustomValidity('');
-            }
+            
             //document.getElementById('fir').setCustomValidity('Escriba su nombre.');
             //document.getElementById('last').setCustomValidity('Escriba su apellido.');
             //$('#street').get(0).setCustomValidity('Ingrese su dirección.');
