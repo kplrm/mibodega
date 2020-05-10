@@ -95,14 +95,14 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" minlength="1" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" required>
+                            <input type="text" id="last" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="check(this)" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
+                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="check(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" required>
+                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" oninput="check(this)" required>
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
