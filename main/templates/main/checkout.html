@@ -75,7 +75,7 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" minlength="1" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
+                            <input type="text" id="fir" minlength="1" required value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}">
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
@@ -352,6 +352,12 @@
             $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
 
             var csrftoken = getCookie('csrftoken');
+            const fir = document.getElementById('fir');
+            const last = document.getElementById('last');
+            const street = document.getElementById('street');
+            const geolocation = document.getElementById('geolocation');
+            const phone = document.getElementById('phone');
+
    
             function validate_checkout() {
                 console.log("validator...");
