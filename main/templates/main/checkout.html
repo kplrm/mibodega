@@ -170,7 +170,7 @@
                             </style>
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                        <input type="text" id="phone" min="0" maxlength="9" required value="{% if cliente.cl_address != None %}{555}{% endif %}">
+                        <input type="text" id="phone" min="0" maxlength="9" required value="{% if cliente.cl_address == None %}{555}{% endif %}">
                         </div>
                         <div class="col-lg-12">
                             <label for="comments">Comentarios para la bodega</label>
