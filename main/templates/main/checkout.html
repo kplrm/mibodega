@@ -331,8 +331,8 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <!--<button onclick="validate_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
-                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button onclick="validate_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -345,7 +345,7 @@
         -->
         <script type="text/javascript">
             console.log("Entering script...");
-            $("#fir").setCustomValidity('Escriba su nombre.');
+            $("#fir").get(0).setCustomValidity('Escriba su nombre.');
             $('#last').get(0).setCustomValidity('Escriba su apellido.');
             $('#street').get(0).setCustomValidity('Ingrese su dirección.');
             $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
@@ -353,7 +353,7 @@
 
             var csrftoken = getCookie('csrftoken');
    
-            function validate_checkout(item_pk) {
+            function validate_checkout() {
                 console.log("validator...");
                 const isValidName = fir.checkValidity();
                 if ( isValidName ) {
