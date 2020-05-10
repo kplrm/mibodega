@@ -356,14 +356,14 @@
                 $("#checkout-form").validate({
                     rules: {
                         // simple rule, converted to {required:true}
-                        "name": {required: true},
-                        "last": {required: true},
-                        "street": {required: true}
+                        name: {required: true},
+                        last: {required: true},
+                        street: {required: true}
                     },
                     messages: {
-                        "name": {required: "Escriba su nombre."},
-                        "last": {required: "Escriba su apellido."},
-                        "street": {required: "Ingrese su dirección."}
+                        name: {required: "Escriba su nombre."},
+                        last: {required: "Escriba su apellido."},
+                        street: {required: "Ingrese su dirección."}
                     }
                 });
                 console.log("Exiting validate");
