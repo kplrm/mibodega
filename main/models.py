@@ -79,6 +79,8 @@ class Bodega(models.Model):
     bd_ruc = models.CharField(max_length=11,unique=True,blank=False,null=False,verbose_name="RUC (o DNI)")
     bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
     bd_geolocation = models.PointField(blank=True,null=True,verbose_name="Sede")
+    bd_email = models.CharField(max_length=50,blank=True,null=True,verbose_name="E-mail")
+    bd_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
 
     def __str__(self):
         return str(self.bd_name)
