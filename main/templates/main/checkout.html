@@ -66,7 +66,8 @@
 <script>
     console.log("Entering script...");
     function validate(input) {
-        console.log(input);
+        console.log("Entering validate");
+        console.log(input.validity);
         var validityState_object = input.validity;
         if(validityState_object.patternMismatch) {
             input.setCustomValidity('Use solo letras y espacio');
