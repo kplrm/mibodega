@@ -414,7 +414,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button onclick="validate_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button onclick="submit_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>
                             <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
                         </div>
                     </div>
@@ -427,13 +427,12 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            function validate_checkout() {
-                console.log("validator...");
-                const isValidName = $("#fir").get(0).checkValidity();
-                if ( isValidName ) {
-                    console.log("valid name");
+            function submit_checkout() {
+                console.log("Entering submit");
+                if ($("#checkout-form").valid()) {
+                    console.log("valid form");
                 } else {
-                    console.log("invalid name");
+                    console.log("INvalid form");
                 }
 
                 //$("#checkout-form").valid();
