@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button onclick="buy_checkout()" id="btn_comprar" class="site-btn place-btn">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -343,56 +343,24 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            var csrftoken = getCookie('csrftoken');
-            /*
-            function delete_item(item_pk) {
-                $.ajax({
-                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                    url: "/remove",
-                    type: "POST",
-                    dataType: "json",
-                    data:   {
-                                'csrfmiddlewaretoken': csrftoken,
-                                'item_pk': item_pk,
-                                'url_to_redirect': window.location.href
-                            },
-                    success: function(){
-                        location.reload();
-                    },
-                    error: function(){
-                        location.reload();
-                    }
-                });
-            }*/
-            
             $(document).ready(function() {
-                $('checkout_form').on('submit', function (e) {
+                $('checkout-form').on('submit', function (e) {
                     e.preventDefault();
-                    console.log("Entering validation");
 
-                    /*
                     if (!$('#fir').val()) {
                         if ($("#fir").parent().next(".validation").length == 0) // only add if not added
                         {
-                            $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter fir address</div>");
+                            $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su nombre</div>");
                         }
                     } else {
                         $("#fir").parent().next(".validation").remove(); // remove it
                     }
                     if (!$('#last').val()) {
                         if ($("#last").parent().next(".validation").length == 0) // only add if not added
-                        {
-                            $("#last").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter last</div>");
-
-                        }
-                    } else {
-                        $("#last").parent().next(".validation").remove(); // remove it
-                    }
-                    */
-                    console.log("Exiting validate");
+                            {$("#last").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su apellido</div>");}
+                    } else {$("#last").parent().next(".validation").remove();}
                 }); 
             });
-            
             
             function buy_checkout() {
             //$(document).ready(function() {
