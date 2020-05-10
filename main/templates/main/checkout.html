@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form"><!--method="POST"-->
+        <form id="checkout_form" action="" class="checkout-form" method="POST">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button onclick="validate_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -343,6 +343,36 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
+            var csrftoken = getCookie('csrftoken');
+            function validate_checkout(){
+                if (!$('#fir').val()) {
+                    if ($("#fir").parent().next(".validation").length == 0) // only add if not added
+                    {
+                        $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su nombre</div>");
+                    }
+                } else {
+                    $("#fir").parent().next(".validation").remove(); // remove it
+                }
+            }
+            function posting_func(item_pk) {
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/remove",
+                    type: "POST",
+                    dataType: "json",
+                    data:   {
+                                'csrfmiddlewaretoken': csrftoken,
+                                'item_pk': item_pk,
+                                'url_to_redirect': window.location.href
+                            },
+                    success: function(){
+                        location.reload();
+                    },
+                    error: function(){
+                        location.reload();
+                    }
+                });
+            }
             $(document).ready(function() {
                 $('checkout-form').on('submit', function (e) {
                     console.log("Entering submit");
