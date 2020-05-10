@@ -75,7 +75,7 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
+                            <input type="text" id="fir" pattern="^[a-zA-Z]+$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
