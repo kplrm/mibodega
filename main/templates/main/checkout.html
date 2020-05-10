@@ -65,6 +65,24 @@
 <!-- Shopping Cart Section Begin -->
 <script>
     console.log("Entering script...");
+    input = document.getElementById('last');
+    var validityState_object = input.validity;
+    if(validityState_object.patternMismatch) {
+        input.setCustomValidity('Use solo letras y espacio');
+    } else if (validityState_object.valueMissing ) {
+        input.setCustomValidity('Escriba su apellido.');
+    } else {
+        input.setCustomValidity('');
+    }
+
+    //document.getElementById('last').setCustomValidity('Escriba su apellido.');
+    //$('#street').get(0).setCustomValidity('Ingrese su dirección.');
+    //$('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
+    //$('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
+
+
+
+
     function validate(input) {
         console.log("Entering validate");
         console.log(input.validity);
