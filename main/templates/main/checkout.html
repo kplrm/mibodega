@@ -75,7 +75,7 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" minlength="1" required value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}">
+                            <input type="text" id="fir" minlength="8" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="check(this)" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
@@ -358,7 +358,20 @@
             const geolocation = document.getElementById('geolocation');
             const phone = document.getElementById('phone');
 
-   
+            function check(input) {
+                var out = document.getElementById('result');
+           
+                if (input.validity) {
+                    if (input.validity.valid === true) {
+                        out.innerHTML = "<span class='valid'>" + input.id + " valid</span>";
+                    } else {
+                        out.innerHTML = "<span class='invalid'>" + input.id + " not valid</span>";
+                    }
+                }
+                console.log(input.checkValidity());
+    
+            };
+            /*
             function validate_checkout() {
                 console.log("validator...");
                 const isValidName = $("#fir").get(0).checkValidity();
@@ -366,7 +379,7 @@
                     console.log("valid name");
                 } else {
                     console.log("invalid name");
-                }
+                }*/
 
                 //$("#checkout-form").valid();
                 /*
