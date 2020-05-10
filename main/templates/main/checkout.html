@@ -69,7 +69,7 @@
     var val_fir = var_fir.validity;
     if(val_fir.patternMismatch ) {
         var_fir.setCustomValidity('Use solo letras y espacio');
-    } else if (var_fir.valueMissing ) {
+    } else if (val_fir.valueMissing ) {
         var_fir.setCustomValidity('Escriba su nombre.');
     } else {
         var_fir.setCustomValidity('');
