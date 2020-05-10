@@ -72,7 +72,7 @@
         if(validityState_object.patternMismatch) {
             input.setCustomValidity('Use solo letras y espacio');
             input.reportValidity();
-        } else if (validityState_object.tooShort ) {
+        } else if (validityState_object.valueMissing ) {
             input.setCustomValidity('Escriba su nombre.');
             input.reportValidity();
         } else {
