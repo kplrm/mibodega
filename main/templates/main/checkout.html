@@ -345,6 +345,8 @@
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
             function validate_checkout(){
+                $("#fir").get(0).setCustomValidity('Escriba su nombre.');
+                
                 if (!$('#fir').val()) {
                     if ($("#fir").parent().next(".validation").length == 0) // only add if not added
                     {
@@ -353,6 +355,7 @@
                 } else {
                     $("#fir").parent().next(".validation").remove(); // remove it
                 }
+                
             }
             function posting_func(item_pk) {
                 $.ajax({
