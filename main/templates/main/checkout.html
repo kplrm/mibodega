@@ -361,7 +361,7 @@
    
             function validate_checkout() {
                 console.log("validator...");
-                const isValidName = fir.checkValidity();
+                const isValidName = $("#fir").get(0).checkValidity();
                 if ( isValidName ) {
                     console.log("valid name");
                 } else {
