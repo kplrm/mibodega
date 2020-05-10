@@ -163,7 +163,7 @@
                             <input type="text" id="last" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <label for="street">Dirección (seleccione en el mapa y corrija este texto)<span>*</span></label>
+                            <label for="street">Dirección<span>*</span></label>
                             <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                         </div>
                         <div class="col-lg-12">
