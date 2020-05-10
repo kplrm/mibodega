@@ -354,7 +354,6 @@
                 $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');*/
 
                 $("#checkout-form").validate({
-                    console.log("Entering validate");
                     rules: {
                         // simple rule, converted to {required:true}
                         "name": {required: true},
@@ -367,6 +366,7 @@
                         "street": {required: "Ingrese su dirección."}
                     }
                 });
+                console.log("Exiting validate");
             };
         </script>
     </div>
