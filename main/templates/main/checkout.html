@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="submit" name="btn_comprar" class="site-btn place-btn" onclick="buy_checkout();return false">Comprar</button>
+                            <button name="btn_comprar" class="site-btn place-btn" onclick="buy_checkout();return false">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -345,24 +345,10 @@
             //console.log(elements);
             
             function buy_checkout(item_pk) {
-                var form = $( this ),errorList = $( "ul.errorMessages", form );
-                console.log(form);
-
-                var showAllErrorMessages = function() {
-                    errorList.empty();
-                    // Find all invalid fields within the form.
-                    var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
-        
-                        // Find the field's corresponding label
-                        var label = $( "label[for=" + node.id + "] "),
-                            // Opera incorrectly does not fill the validationMessage property.
-                            message = node.validationMessage || 'Invalid value.';
-        
-                        errorList
-                            .show()
-                            .append( "<li><span>" + label.html() + "</span> " + message + "</li>" );
-                    });
-                };
+                if (document.forms["checkout-form"]["fir"].value == "") {
+                    alert("Tiene que colocar su nombre");
+                    return false;
+                }
             }
         </script>
     </div>
