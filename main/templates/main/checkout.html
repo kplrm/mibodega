@@ -360,15 +360,19 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
+            var fir_1 = document.querySelector('#fir');
+            fir_1.addEventListener('invalid', function(ev){
+                ev.target.setCustomValidity('Escriba su nombre.');
+            });
 
-            
+            /*
             console.log("Entering script...");
             document.getElementById('fir').setCustomValidity('Escriba su nombre.');
             document.getElementById('last').setCustomValidity('Escriba su apellido.');
             $('#street').get(0).setCustomValidity('Ingrese su dirección.');
             $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
             $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
-            
+            */
             /*
             var csrftoken = getCookie('csrftoken');
             const fir = document.getElementById('fir');
