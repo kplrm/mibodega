@@ -177,8 +177,7 @@
                             <label for="comments">Comentarios para la bodega</label>
                             <textarea id="comments" class="form-control" rows="3" required placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
                         </div>
-                        {% if cliente != None %}
-                        {{cliente}}
+                        {% if cliente.cl_user != None %}
                         <div class="col-lg-12">
                             <div class="create-item">
                                 <label for="acc-create">
@@ -188,6 +187,8 @@
                                 </label>
                             </div>
                         </div>
+                        {% else %}
+                        Nuevo cliente
                         {% endif %}
                     </div>
                 </div>
