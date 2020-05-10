@@ -342,11 +342,11 @@
             var csrftoken = getCookie('csrftoken');
             function buy_checkout(item_pk) {
                 // Set custom validation messages
-                $('#fir').get(0).setCustomValidity('Escriba su nombre.');
+                /*$('#fir').get(0).setCustomValidity('Escriba su nombre.');
                 $('#last').get(0).setCustomValidity('Escriba su apellido.');
                 $('#street').get(0).setCustomValidity('Ingrese su dirección.');
                 $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
-                $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
+                $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');*/
 
                 $("#checkout-form").validate({
                     rules: {
@@ -360,7 +360,6 @@
                         "last": {required: "Escriba su apellido."},
                         "street": {required: "Ingrese su dirección."}
                     }
-
                 });
             };
         </script>
