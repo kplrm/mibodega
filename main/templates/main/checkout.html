@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form" method="POST">{{ csrf_token }}
+        <form id="checkout_form" action="" class="checkout-form" method="POST">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -79,14 +79,14 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}">
+                            <input type="text" id="last" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}">
+                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
+                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" required>
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -171,7 +171,7 @@
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="tel" id="phone" name="phone" pattern="^[0-9-+\s()]*$" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}">
+                            <input type="tel" id="phone" name="phone" pattern="^[0-9-+\s()]*$" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="comments">Comentarios para la bodega</label>
@@ -346,6 +346,10 @@
         <script type="text/javascript">
             console.log("Entering script...");
             $("#fir").get(0).setCustomValidity('Escriba su nombre.');
+            $('#last').get(0).setCustomValidity('Escriba su apellido.');
+            $('#street').get(0).setCustomValidity('Ingrese su dirección.');
+            $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
+            $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
 
             var csrftoken = getCookie('csrftoken');
             function validate_checkout(){
@@ -407,10 +411,7 @@
                 console.log("Entering validation");
                 // Set custom validation messages
                 $('#fir').get(0).setCustomValidity('Escriba su nombre.');
-                $('#last').get(0).setCustomValidity('Escriba su apellido.');
-                $('#street').get(0).setCustomValidity('Ingrese su dirección.');
-                $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
-                $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
+                
 
                 $("#checkout_form").validate({
                     rules: {
