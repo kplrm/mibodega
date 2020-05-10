@@ -345,14 +345,29 @@
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
             function validate_checkout(){
-                if (!$('#fir').val()) {
+                $("#checkout_form").validate({
+                    rules: {
+                        // simple rule, converted to {required:true}
+                        last : {
+                            required: true,
+                            minlength: 3
+                        }
+                    },
+                    messages: {
+                        last: {
+                            required: "Name required",
+                            minlength: "Name should be at least 3 characters"
+                        }
+                    }
+                });
+                /*if (!$('#fir').val()) {
                     if ($("#fir").parent().next(".validation").length == 0) // only add if not added
                     {
                         $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su nombre</div>");
                     }
                 } else {
                     $("#fir").parent().next(".validation").remove(); // remove it
-                }
+                }*/
             }
             function posting_func(item_pk) {
                 $.ajax({
