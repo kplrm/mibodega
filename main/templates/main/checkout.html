@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form">
+        <form id="checkout_form" action="" class="checkout-form" method="POST">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -86,7 +86,7 @@
                             <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="text" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" required>
+                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" required>
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button id="btn_comprar" class="site-btn place-btn" onclick="buy_checkout();return false">Comprar</button>
+                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -344,6 +344,34 @@
         -->
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
+            $(document).ready(function() {
+                $('form').on('submit', function (e) {
+                    e.preventDefault();
+
+                    if (!$('#email').val()) {
+                        if ($("#email").parent().next(".validation").length == 0) // only add if not added
+                        {
+                            $("#email").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter email address</div>");
+                        }
+                    } else {
+                        $("#email").parent().next(".validation").remove(); // remove it
+                    }
+                    if (!$('#last').val()) {
+                        if ($("#last").parent().next(".validation").length == 0) // only add if not added
+                        {
+                            $("#last").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Please enter last</div>");
+
+                        }
+                    } else {
+                        $("#last").parent().next(".validation").remove(); // remove it
+                    }
+                }); 
+            });
+
+
+
+
+            
             function buy_checkout() {
             //$(document).ready(function() {
                 console.log("Entering validation");
@@ -357,19 +385,19 @@
                 $("#checkout_form").validate({
                     rules: {
                         // simple rule, converted to {required:true}
-                        geolocation : {
+                        last : {
                             required: true,
                             minlength: 3
                         }
                     },
                     messages: {
-                        geolocation: {
+                        last: {
                             required: "Name required",
                             minlength: "Name should be at least 3 characters"
                         }
                     }
                 });
-                $('#fir').focus();
+                $('#last').focus();
                 focusSet = true;
                 console.log("Exiting validate");
             };
