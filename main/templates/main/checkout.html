@@ -65,14 +65,13 @@
 <!-- Shopping Cart Section Begin -->
 <script>
     console.log("Entering script...");
-    input = document.getElementById('last');
-    var validityState_object = input.validity;
+    var validityState_object = document.getElementById('last').validity;
     if(validityState_object.patternMismatch) {
-        input.setCustomValidity('Use solo letras y espacio');
+        document.getElementById('last').setCustomValidity('Use solo letras y espacio');
     } else if (validityState_object.valueMissing ) {
-        input.setCustomValidity('Escriba su apellido.');
+        document.getElementById('last').setCustomValidity('Escriba su apellido.');
     } else {
-        input.setCustomValidity('');
+        document.getElementById('last').setCustomValidity('');
     }
 
     //document.getElementById('last').setCustomValidity('Escriba su apellido.');
