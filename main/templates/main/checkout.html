@@ -63,6 +63,20 @@
 <!-- Header End -->
 
 <!-- Shopping Cart Section Begin -->
+<script>
+    function check(input) {
+        var out = document.getElementById('result');
+    
+        if (input.validity) {
+            if (input.validity.valid === true) {
+                out.innerHTML = "<span class='valid'>" + input.id + " valid</span>";
+            } else {
+                out.innerHTML = "<span class='invalid'>" + input.id + " not valid</span>";
+            }
+        }
+        console.log(input.checkValidity());
+    };
+</script>
 <section class="checkout-section spad">
     <div class="container">
         <form id="checkout_form" action="" class="checkout-form" method="POST">
@@ -357,20 +371,6 @@
             const street = document.getElementById('street');
             const geolocation = document.getElementById('geolocation');
             const phone = document.getElementById('phone');
-
-            function check(input) {
-                var out = document.getElementById('result');
-           
-                if (input.validity) {
-                    if (input.validity.valid === true) {
-                        out.innerHTML = "<span class='valid'>" + input.id + " valid</span>";
-                    } else {
-                        out.innerHTML = "<span class='invalid'>" + input.id + " not valid</span>";
-                    }
-                }
-                console.log(input.checkValidity());
-    
-            };
             
             function validate_checkout() {
                 console.log("validator...");
