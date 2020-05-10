@@ -65,17 +65,11 @@
 <!-- Shopping Cart Section Begin -->
 <script>
     function check(input) {
-        console.log("Checking");
-        console.log(input);
-        console.log(input.validity);
-        console.log(input.validity.valid);
-        console.log(input.checkValidity());
-        console.log("Check end");
         if (input.validity) {
             if (input.validity.valid === true) {
-                alert("it is valid");
+                ;
             } else {
-                alert("it is INvalid");
+                reportValidity;
             }
         }
         console.log(input.checkValidity());
@@ -366,14 +360,15 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-        /*
+        
             console.log("Entering script...");
             $("#fir").get(0).setCustomValidity('Escriba su nombre.');
             $('#last').get(0).setCustomValidity('Escriba su apellido.');
             $('#street').get(0).setCustomValidity('Ingrese su dirección.');
             $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
             $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
-
+            
+            /*
             var csrftoken = getCookie('csrftoken');
             const fir = document.getElementById('fir');
             const last = document.getElementById('last');
