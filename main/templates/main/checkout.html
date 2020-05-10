@@ -121,6 +121,9 @@
         if(validityState_object.patternMismatch) {
             input.setCustomValidity('Use solo números');
             input.reportValidity();
+        } else if (validityState_object.badInput ) {
+            input.setCustomValidity('Use solo números');
+            input.reportValidity();
         } else if (validityState_object.valueMissing ) {
             input.setCustomValidity('Ingrese su teléfono.');
             input.reportValidity();
