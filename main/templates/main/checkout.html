@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form" method="POST">
+        <form id="checkout_form" action="" class="checkout-form" ><!--method="POST"-->
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -344,6 +344,26 @@
         -->
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
+            /*
+            function delete_item(item_pk) {
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/remove",
+                    type: "POST",
+                    dataType: "json",
+                    data:   {
+                                'csrfmiddlewaretoken': csrftoken,
+                                'item_pk': item_pk,
+                                'url_to_redirect': window.location.href
+                            },
+                    success: function(){
+                        location.reload();
+                    },
+                    error: function(){
+                        location.reload();
+                    }
+                });
+            }*/
             
             $(document).ready(function() {
                 $('checkout_form').on('submit', function (e) {
