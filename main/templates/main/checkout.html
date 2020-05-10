@@ -65,6 +65,9 @@
 <!-- Shopping Cart Section Begin -->
 <script>
     function check(input) {
+        console.log("Entering check");
+        console.log(input.validity);
+        console.log(input.validity.valid);
         if (input.validity) {
             if (input.validity.valid === true) {
                 ;
@@ -73,6 +76,7 @@
             }
         }
         console.log(input.checkValidity());
+        console.log("Leaving check");
     };
 </script>
 <style>
@@ -360,6 +364,8 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
+            document.getElementById("last").setCustomValidity("Escriba su apellido.");
+
             var fir_1 = document.querySelector('#fir');
             fir_1.addEventListener('invalid', function(ev){
                 ev.target.setCustomValidity('Escriba su nombre.');
