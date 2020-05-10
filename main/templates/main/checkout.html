@@ -124,7 +124,7 @@
 </script>
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form" method="POST">
+        <form id="checkout_form" action="" class="checkout-form">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -410,6 +410,15 @@
                 } else {
                     console.log("INvalid form");
                 }
+                
+                var validator = $("#checkout-form").validate(options);
+                if (validator.form()) {
+                    // submit with AJAX
+                    console.log("YUP valid form");
+                } else {
+                    console.log("NOPE invalid form");
+                }
+
 
                 //$("#checkout-form").valid();
                 /*
