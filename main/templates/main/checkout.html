@@ -163,7 +163,7 @@
                             <input type="text" id="last" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <label for="street">Dirección<span>*</span></label>
+                            <label for="street">Dirección (seleccione en el mapa y corrija este texto)<span>*</span></label>
                             <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                         </div>
                         <div class="col-lg-12">
@@ -425,21 +425,6 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            
-            //document.getElementById('fir').setCustomValidity('Escriba su nombre.');
-            //document.getElementById('last').setCustomValidity('Escriba su apellido.');
-            //$('#street').get(0).setCustomValidity('Ingrese su dirección.');
-            //$('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
-            //$('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
-            
-            /*
-            var csrftoken = getCookie('csrftoken');
-            const fir = document.getElementById('fir');
-            const last = document.getElementById('last');
-            const street = document.getElementById('street');
-            const geolocation = document.getElementById('geolocation');
-            const phone = document.getElementById('phone');
-            */
             function validate_checkout() {
                 console.log("validator...");
                 const isValidName = $("#fir").get(0).checkValidity();
