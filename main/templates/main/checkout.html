@@ -69,9 +69,9 @@
     
         if (input.validity) {
             if (input.validity.valid === true) {
-                out.innerHTML = "<span class='valid'>" + input.id + " valid</span>";
+                alert("it is valid");
             } else {
-                out.innerHTML = "<span class='invalid'>" + input.id + " not valid</span>";
+                alert("it is INvalid");
             }
         }
         console.log(input.checkValidity());
