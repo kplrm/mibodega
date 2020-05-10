@@ -344,8 +344,8 @@
         -->
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
-            //function buy_checkout() {
-            $(document).ready(function() {
+            function buy_checkout() {
+            //$(document).ready(function() {
                 console.log("Entering validation");
                 // Set custom validation messages
                 /*$('#fir').get(0).setCustomValidity('Escriba su nombre.');
@@ -369,8 +369,10 @@
                         }
                     }
                 });
+                $('#fir').focus();
+                focusSet = true;
                 console.log("Exiting validate");
-            });
+            };
         </script>
     </div>
 </section>
