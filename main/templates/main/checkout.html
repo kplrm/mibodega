@@ -155,11 +155,15 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email<span>*</span></label>
-                            <input type="text" id="email" value="{{cliente.cl_address}}">
+                            <input type="email" id="email" value="{{cliente.cl_address}}">
                         </div>
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="text" id="phone" value="{{cliente.cl_phone}}">
+                            <input type="number" id="phone" value="{{cliente.cl_phone}}" maxlength="9">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="comments">Comentarios para la bodega</label>
+                            <textarea id="comments" cols="1" rows="2" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o deje algún comentario">
                         </div>
                         <!--<div class="col-lg-12">
                             <div class="create-item">
@@ -363,6 +367,22 @@
                             function buy_checkout(item_pk) {
                                 var form = $( this ),errorList = $( "ul.errorMessages", form );
                                 console.log(form);
+
+                                var showAllErrorMessages = function() {
+                                    errorList.empty();
+                                    // Find all invalid fields within the form.
+                                    var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
+                        
+                                        // Find the field's corresponding label
+                                        var label = $( "label[for=" + node.id + "] "),
+                                            // Opera incorrectly does not fill the validationMessage property.
+                                            message = node.validationMessage || 'Invalid value.';
+                        
+                                        errorList
+                                            .show()
+                                            .append( "<li><span>" + label.html() + "</span> " + message + "</li>" );
+                                    });
+                                };
                             }
                             
 
