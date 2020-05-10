@@ -158,18 +158,18 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type=text id="fir" pattern="^[A-Za-z\s]{1,}$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate_fir(this)" required>
+                            <input type=text id="fir" class="form-control" pattern="^[A-Za-z\s]{1,}$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate_fir(this)" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
+                            <input type="text" id="last" class="form-control" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
+                            <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" oninput="validate_geolocation(this)" required>
+                            <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" oninput="validate_geolocation(this)" required>
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -238,7 +238,7 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email</label>
-                            <input type="email" id="email" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}">
+                            <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}">
                         </div>
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
                         <style>
@@ -254,7 +254,7 @@
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="text" id="phone" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_phone(this)" required>
+                            <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_phone(this)" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="comments">Comentarios para la bodega</label>
