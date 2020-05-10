@@ -117,7 +117,8 @@
                                     Http.open("GET", url);
                                     Http.send();
                                     Http.onreadystatechange = (e) => {
-                                        const address_json = JSON.stringify( Http.responseText );
+                                        const address_json = JSON.parse( Http.responseText );
+                                        console.log(JSON.stringify(Http.responseText));
                                         document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                     };
                                     if (marker) { // check if marker already exists
@@ -141,7 +142,7 @@
                                         Http.open("GET", url);
                                         Http.send();
                                         Http.onreadystatechange = (e) => {
-                                            const address_json = JSON.stringify( Http.responseText );
+                                            const address_json = JSON.parse( Http.responseText );
                                             document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                         };
                                         
