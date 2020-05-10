@@ -363,8 +363,8 @@
 
             
             console.log("Entering script...");
-            $("#fir").get(0).setCustomValidity('Escriba su nombre.');
-            $('#last').get(0).setCustomValidity('Escriba su apellido.');
+            document.getElementById('fir').setCustomValidity('Escriba su nombre.');
+            document.getElementById('last').setCustomValidity('Escriba su apellido.');
             $('#street').get(0).setCustomValidity('Ingrese su dirección.');
             $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
             $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
