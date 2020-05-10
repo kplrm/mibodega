@@ -75,11 +75,11 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" pattern="^[a-zA-Z]+$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
+                            <input type="text" id="fir" minlength="1" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" required>
+                            <input type="text" id="last" minlength="1" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
@@ -353,7 +353,17 @@
 
             var csrftoken = getCookie('csrftoken');
    
-            function posting_func(item_pk) {
+            function validate_checkout(item_pk) {
+                console.log("validator...");
+                const isValidName = fir.checkValidity();
+                if ( isValidName ) {
+                    console.log("valid name");
+                } else {
+                    console.log("invalid name");
+                }
+
+                //$("#checkout-form").valid();
+                /*
                 $.ajax({
                     headers: {'X-CSRFToken': '{{ csrf_token }}'},
                     url: "/remove",
@@ -370,7 +380,7 @@
                     error: function(){
                         location.reload();
                     }
-                });
+                });*/
             }
             /*
             $(document).ready(function() {
