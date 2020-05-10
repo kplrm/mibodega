@@ -345,11 +345,16 @@
             //console.log(elements);
             
             function buy_checkout(item_pk) {
-                var x = document.getElementById("fir");
-                if (x.value == "") {
-                    console.log("Ohhhh");
-                    x.setCustomValidity("Escriba su nombre");
-                    return false;
+                var input = document.getElementById("fir");
+                var validityState_object = input.validity;
+                if(validityState_object.valueMissing) {
+                    input.setCustomValidity('Escriba su nombre');
+                } else if (input.rangeUnderflow) {
+                    input.setCustomValidity('We need a higher number!');
+                } else if (input.rangeOverflow) {
+                    input.setCustomValidity('Thats too high!');
+                } else {
+                    input.setCustomValidity('');
                 }
             }
         </script>
