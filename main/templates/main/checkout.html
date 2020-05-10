@@ -367,8 +367,8 @@
             console.log("Entering script...");
             var var_fir = document.getElementById('fir');
             var val_fir = var_fir.validity;
-            if(val_fir.valid ) {
-                var_fir.setCustomValidity('');
+            if(val_fir.patternMismatch ) {
+                var_fir.setCustomValidity('Use solo letras y espacio');
             } else if (var_fir.valueMissing ) {
                 var_fir.setCustomValidity('Escriba su nombre.');
             } else {
