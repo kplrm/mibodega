@@ -338,6 +338,7 @@
                 </div>
             </div>
         </form>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
         <script>
             var csrftoken = getCookie('csrftoken');
             function buy_checkout(item_pk) {
@@ -424,16 +425,5 @@
 <!-- Infinite scroll -->
 <script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static 'main/js/infinite.min.js' %}"></script>
-<!--
-<script>
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-</script>-->
+<!--<script src="{% static 'main/js/jquery.validate.min.js' %}"></script>-->
 {% endblock %}
