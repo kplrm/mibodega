@@ -347,6 +347,7 @@
             function buy_checkout(item_pk) {
                 var x = document.forms["checkout-form"]["fir"].value;
                 if (x == "") {
+                    console.log("Error")
                     x.setCustomValidity("Escriba su nombre");
                     return false;
                 }
