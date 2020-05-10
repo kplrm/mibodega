@@ -65,11 +65,19 @@
 <!-- Shopping Cart Section Begin -->
 <script>
     console.log("Entering script...");
+    function validate(input) {
+    var validityState_object = input.validity;
+    if(validityState_object.patternMismatch) {
+        input.setCustomValidity('Use solo letras y espacio');
+    } else {
+        input.setCustomValidity('');
+    }
+    }
     var var_fir = document.getElementById('fir');
     var val_fir = var_fir.validity;
     if(val_fir.patternMismatch ) {
         var_fir.setCustomValidity('Use solo letras y espacio');
-    } else if (val_fir.valueMissing ) {
+    } else if (val_fir.tooShort ) {
         var_fir.setCustomValidity('Escriba su nombre.');
     } else {
         var_fir.setCustomValidity('');
@@ -102,7 +110,7 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type=text id="fir" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="check(this)" required>
+                            <input type=text id="fir" pattern="[A-Za-z\s]" minlength="1" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate(this)" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
