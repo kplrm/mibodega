@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button onclick="buy_checkout()" id="btn_comprar" class="site-btn place-btn">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -344,6 +344,7 @@
         -->
         <script type="text/javascript">
             var csrftoken = getCookie('csrftoken');
+            /*
             $(document).ready(function() {
                 $('form').on('submit', function (e) {
                     e.preventDefault();
@@ -368,7 +369,7 @@
                     }
                 }); 
             });
-
+            */
 
 
 
