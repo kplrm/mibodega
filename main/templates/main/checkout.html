@@ -331,7 +331,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button name="btn_comprar" class="site-btn place-btn" onclick="buy_checkout();return false">Comprar</button>
+                            <button id="btn_comprar" class="site-btn place-btn" onclick="buy_checkout();return false">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -346,7 +346,13 @@
                 if (!inpObj.checkValidity()) {
                     document.getElementById("fir").innerHTML = inpObj.validationMessage;
                 }
-                
+                $("#checkout-form").validate({
+                    // Specify validation rules
+                    rules: {
+                        fir: "required",
+                    },
+
+                });
             }
         </script>
     </div>
