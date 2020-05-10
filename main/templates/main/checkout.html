@@ -65,7 +65,7 @@
 <!-- Shopping Cart Section Begin -->
 <section class="checkout-section spad">
     <div class="container">
-        <form id="checkout_form" action="" class="checkout-form" method="POST">
+        <form id="checkout_form" action="" class="checkout-form" method="POST">{{ csrf_token }}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
@@ -331,7 +331,8 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button onclick="validate_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <!--<button onclick="validate_checkout();return false" false id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
+                            <button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
@@ -345,7 +346,7 @@
         <script type="text/javascript">
             console.log("Entering script...");
             $("#fir").get(0).setCustomValidity('Escriba su nombre.');
-            
+
             var csrftoken = getCookie('csrftoken');
             function validate_checkout(){
                 
