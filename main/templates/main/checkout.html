@@ -120,11 +120,12 @@
                                         const address_json = JSON.parse( Http.responseText );
                                         document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                     };
-
                                     if (marker) { // check if marker already exists
                                         map.removeLayer(marker); // remove existing marker
                                     }
                                     marker = new L.marker(e.latlng, {draggable:'true'});
+                                    
+                                    // When drops after dragging
                                     marker.on('dragend', function(event){
                                         var marker = event.target;
                                         var position = marker.getLatLng();
@@ -132,7 +133,18 @@
                                         map.panTo(new L.LatLng(position.lat, position.lng));
                                         alert("stop hammer time");
                                         document.getElementById("geolocation").value = 'SRID=4326;POINT ('+position.lng+' '+position.lat+')';
-
+                                        const Http = new XMLHttpRequest();
+                                        const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
+                                                '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
+                                                '&mode=retrieveAddresses'+
+                                                '&prox='
+                                                +position.lat+','+position.lng+',250';
+                                        Http.open("GET", url);
+                                        Http.send();
+                                        Http.onreadystatechange = (e) => {
+                                            const address_json = JSON.parse( Http.responseText );
+                                            document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
+                                        };
                                         
                                         
                                     });
