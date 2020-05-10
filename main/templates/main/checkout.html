@@ -352,19 +352,7 @@
             $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
 
             var csrftoken = getCookie('csrftoken');
-            function validate_checkout(){
-                
-
-                if (!$('#fir').val()) {
-                    if ($("#fir").parent().next(".validation").length == 0) // only add if not added
-                    {
-                        $("#fir").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su nombre</div>");
-                    }
-                } else {
-                    $("#fir").parent().next(".validation").remove(); // remove it
-                }
-                
-            }
+   
             function posting_func(item_pk) {
                 $.ajax({
                     headers: {'X-CSRFToken': '{{ csrf_token }}'},
