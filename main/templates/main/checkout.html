@@ -75,18 +75,18 @@
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" value="{{cliente.cl_first_name}}" required>
+                            <input type="text" id="fir" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" value="{{cliente.cl_last_name}}" required>
+                            <input type="text" id="last" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{{cliente.cl_address}}" required>
+                            <input type="text" id="street" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" value="{{cliente.cl_geolocation}}" required>
+                            <input type="hidden" id="geolocation" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" required>
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -155,9 +155,9 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email<span>*</span></label>
-                            <input type="email" id="email" value="{{cliente.cl_address}}" required>
+                            <input type="email" id="email" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
                         </div>
-                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER -->
+                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
                         <style>
                             /* Chrome, Safari, Edge, Opera */
                             input::-webkit-outer-spin-button,
@@ -167,7 +167,8 @@
                             }
                             /* Firefox */
                             input[type=number] {-moz-appearance: textfield;}
-                            </style>
+                        </style>
+                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
                         <input type="text" id="phone" min="0" maxlength="9" required value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}">
@@ -176,15 +177,17 @@
                             <label for="comments">Comentarios para la bodega</label>
                             <textarea id="comments" class="form-control" rows="3" required placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
                         </div>
-                        <!--<div class="col-lg-12">
+                        {% if cliente != None %}
+                        <div class="col-lg-12">
                             <div class="create-item">
                                 <label for="acc-create">
-                                    Create an account?
+                                    ¿Desea actualizar sus preferencias?
                                     <input type="checkbox" id="acc-create">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        </div>-->
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-6">
