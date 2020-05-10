@@ -340,12 +340,13 @@
         </form>
         <script>
             var csrftoken = getCookie('csrftoken');
-            //var elements = document.getElementById("checkout-form").elements;
-
-            //console.log(elements);
-            
             function buy_checkout(item_pk) {
                 $('#fir').get(0).setCustomValidity('Escriba su nombre.');
+                var inpObj = document.getElementById("fir");
+                if (!inpObj.checkValidity()) {
+                    document.getElementById("fir").innerHTML = inpObj.validationMessage;
+                }
+                
             }
         </script>
     </div>
