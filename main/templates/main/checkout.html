@@ -405,12 +405,11 @@
         <script type="text/javascript">
             function submit_checkout() {
                 console.log("Entering submit");
-                if ($("#checkout-form").valid()) {
-                    console.log("valid form");
-                } else {
-                    console.log("INvalid form");
-                }
                 
+                var form = document.getElementById('checkout-form');
+                var isValidForm = form.checkValidity();
+                
+                console.log("isValidForm");
                 /*var validator = $("#checkout-form").validate(options);
                 if (validator.form()) {
                     // submit with AJAX
