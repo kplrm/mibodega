@@ -69,7 +69,7 @@
             if (input.validity.valid === true) {
                 ;
             } else {
-                reportValidity;
+                document.forms['checkout_form'].reportValidity();
             }
         }
         console.log(input.checkValidity());
