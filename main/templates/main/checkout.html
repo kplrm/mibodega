@@ -367,14 +367,12 @@
             console.log("Entering script...");
             var var_fir = document.getElementById('fir');
             var val_fir = var_fir.validity;
-            if(val_fir.valueMissing) {
-                var_fir.setCustomValidity('Escriba su nombre.');
-            } else if (var_fir.rangeUnderflow) {
-                var_fir.setCustomValidity('We need a higher number!');
-            } else if (var_fir.rangeOverflow) {
-                var_fir.setCustomValidity('Thats too high!');
-            } else {
+            if(val_fir.valid ) {
                 var_fir.setCustomValidity('');
+            } else if (var_fir.valueMissing ) {
+                var_fir.setCustomValidity('Escriba su nombre.');
+            } else {
+                var_fir.setCustomValidity('Error desconocido');
             }
             //document.getElementById('fir').setCustomValidity('Escriba su nombre.');
             //document.getElementById('last').setCustomValidity('Escriba su apellido.');
