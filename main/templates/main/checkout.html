@@ -364,26 +364,24 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            document.getElementById("last").setCustomValidity("Escriba su apellido.");
-
-            var fir_1 = document.querySelector('#fir');
-            fir_1.addEventListener('invalid', function(ev){
-                ev.target.setCustomValidity('Escriba su nombre.');
-            });
-
-            //this is necessary to remove the invalidate mark on validated filed
-            fir_1.addEventListener('valid', function(ev){
-                ev.target.setCustomValidity('');
-            });
-
-            /*
             console.log("Entering script...");
-            document.getElementById('fir').setCustomValidity('Escriba su nombre.');
-            document.getElementById('last').setCustomValidity('Escriba su apellido.');
-            $('#street').get(0).setCustomValidity('Ingrese su dirección.');
-            $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
-            $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
-            */
+            var var_fir = document.getElementById('fir');
+            var val_fir = var_fir.validity;
+            if(val_fir.valueMissing) {
+                var_fir.setCustomValidity('Escriba su nombre.');
+            } else if (var_fir.rangeUnderflow) {
+                var_fir.setCustomValidity('We need a higher number!');
+            } else if (var_fir.rangeOverflow) {
+                var_fir.setCustomValidity('Thats too high!');
+            } else {
+                var_fir.setCustomValidity('');
+            }
+            //document.getElementById('fir').setCustomValidity('Escriba su nombre.');
+            //document.getElementById('last').setCustomValidity('Escriba su apellido.');
+            //$('#street').get(0).setCustomValidity('Ingrese su dirección.');
+            //$('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
+            //$('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
+            
             /*
             var csrftoken = getCookie('csrftoken');
             const fir = document.getElementById('fir');
