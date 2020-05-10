@@ -345,6 +345,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('checkout-form').on('submit', function (e) {
+                    console.log("Entering submit");
                     e.preventDefault();
 
                     if (!$('#fir').val()) {
@@ -359,18 +360,19 @@
                         if ($("#last").parent().next(".validation").length == 0) // only add if not added
                             {$("#last").parent().after("<div class='validation' style='color:red;margin-bottom: 20px;'>Escriba su apellido</div>");}
                     } else {$("#last").parent().next(".validation").remove();}
+                    console.log("Exiting submit");
                 }); 
             });
-            
+            /*
             function buy_checkout() {
             //$(document).ready(function() {
                 console.log("Entering validation");
                 // Set custom validation messages
-                /*$('#fir').get(0).setCustomValidity('Escriba su nombre.');
+                $('#fir').get(0).setCustomValidity('Escriba su nombre.');
                 $('#last').get(0).setCustomValidity('Escriba su apellido.');
                 $('#street').get(0).setCustomValidity('Ingrese su dirección.');
                 $('#geolocation').get(0).setCustomValidity('Ubique su dirección en el mapa.');
-                $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');*/
+                $('#phone').get(0).setCustomValidity('Ingrese su teléfono.');
 
                 $("#checkout_form").validate({
                     rules: {
@@ -390,7 +392,7 @@
                 $('#last').focus();
                 focusSet = true;
                 console.log("Exiting validate");
-            };
+            };*/
         </script>
     </div>
 </section>
