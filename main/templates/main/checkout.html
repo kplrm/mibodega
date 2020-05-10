@@ -169,7 +169,7 @@
                             <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="text" style="opacity:0;width:0;" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" oninput="validate_geolocation(this)" required>
+                            <input type="text" style="opacity:0;height:0px;" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}" oninput="validate_geolocation(this)" required>
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
