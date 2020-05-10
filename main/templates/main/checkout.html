@@ -170,7 +170,7 @@
                             </style>
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="text" id="phone" min="0" pattern="\d{9}" required> <!--oninput="validity.valid||(value='');"-->
+                        <input type="number" id="phone" min="0" maxlength="9" oninput="if(validity.valid){5555}else{(value='');}" required> <!--validity.valid||(value='');-->
                         </div>
                         <div class="col-lg-12">
                             <label for="comments">Comentarios para la bodega</label>
