@@ -347,6 +347,7 @@
             $(document).ready(function() {
                 $('form').on('submit', function (e) {
                     e.preventDefault();
+                    console.log("Entering validation");
 
                     if (!$('#email').val()) {
                         if ($("#email").parent().next(".validation").length == 0) // only add if not added
