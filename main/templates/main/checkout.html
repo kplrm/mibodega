@@ -405,7 +405,8 @@
         <script type="text/javascript">
             function submit_checkout() {
                 console.log("Entering submit");
-                
+                console.log({{cart_obj.crt_total_price}});
+
                 var validator = $("#checkout_form").validate();
                 if (validator.form() && {{cart_obj.crt_total_price}} == 0 ) {
                     // submit with AJAX
