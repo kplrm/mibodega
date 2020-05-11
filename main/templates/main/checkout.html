@@ -406,7 +406,8 @@
             function submit_checkout() {
                 console.log("Entering submit");
                 
-                const checkout_form = document.getElementById('checkout_form');
+                var checkout_form = document.getElementById('checkout_form');
+                console.log(checkout_form);
                 if (!$checkout_form.checkValidity || $checkout_form.checkValidity()) {
                     /* submit the form */
                     console.log("Inside");
