@@ -406,17 +406,15 @@
             function submit_checkout() {
                 console.log("Entering submit");
                 
-                var checkout_form = document.getElementById('checkout_form');
-                console.log(checkout_form);
-
                 var validator = $("#checkout_form").validate();
-                if (validator.form()) {
+                if (validator.form() && {{cart_obj.crt_total_price}} != 0 ) {
                     // submit with AJAX
                     alert("YUP valid form");
                 } else {
                     alert("NOPE invalid form");
                 }
 
+                /*
                 $("#checkout_form").validate({
                     invalidHandler: function(event, validator) {
                         // 'this' refers to the form
@@ -432,6 +430,7 @@
                         }
                     }
                 });
+                */
 
                 //$("#checkout-form").valid();
                 /*
