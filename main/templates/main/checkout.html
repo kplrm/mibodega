@@ -407,13 +407,27 @@
                 console.log("Entering submit");
                 console.log({{cart_obj.crt_total_price}});
 
-                //var validator = $("#checkout_form").validate();
-                //if (validator.form() && {{cart_obj.crt_total_price}} != 0 ) {
                 if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 ) {
                     // submit with AJAX
-                    alert("YUP valid form");
+                    $.ajax({
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        url: "/submit_checkout",
+                        type: "POST",
+                        dataType: "json",
+                        data:   {
+                                    'csrfmiddlewaretoken': csrftoken,
+                                    'item_pk': item_pk,
+                                    'url_to_redirect': window.location.href
+                                },
+                        success: function(){
+                            location.reload();
+                        },
+                        error: function(){
+                            location.reload();
+                        }
+                    });
                 } else {
-                    alert("NOPE invalid form");
+                    alert("Error");
                 }
 
                 /*
