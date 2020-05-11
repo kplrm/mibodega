@@ -408,7 +408,7 @@
                 console.log({{cart_obj.crt_total_price}});
 
                 var validator = $("#checkout_form").validate();
-                if (validator.form() && {{cart_obj.crt_total_price}} == 0 ) {
+                if (validator.form() && {{cart_obj.crt_total_price}} != 0 ) {
                     // submit with AJAX
                     alert("YUP valid form");
                 } else {
