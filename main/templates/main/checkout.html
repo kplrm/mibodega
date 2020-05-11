@@ -406,8 +406,11 @@
             function submit_checkout() {
                 console.log("Entering submit");
                 
-                
-                console.log(document.getElementById("checkout-form").validity);
+                var checkout_form = document.getElementById('checkout-form');
+                if (!$checkout_form.checkValidity || $checkout_form.checkValidity()) {
+                    /* submit the form */
+                    console.log("Inside");
+                }
 
                 var validator = $("#checkout-form").validate();
                 if (validator.form()) {
