@@ -406,6 +406,9 @@
             function submit_checkout() {
                 console.log("Entering submit");
                 
+                
+                console.log(document.getElementById("checkout-form").validity);
+
                 var validator = $("#checkout-form").validate();
                 if (validator.form()) {
                     // submit with AJAX
