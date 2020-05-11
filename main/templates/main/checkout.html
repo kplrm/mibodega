@@ -408,12 +408,9 @@
                 
                 var checkout_form = document.getElementById('checkout_form');
                 console.log(checkout_form);
-                if (!$checkout_form.checkValidity || $checkout_form.checkValidity()) {
-                    /* submit the form */
-                    console.log("Inside");
-                }
 
                 var validator = $("#checkout_form").validate();
+                console.log(validator);
                 if (validator.form()) {
                     // submit with AJAX
                     alert("YUP valid form");
