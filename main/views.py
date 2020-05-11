@@ -612,6 +612,9 @@ def checkout(request):
                   'subtotal_bodegas': subtotal_bodegas,
                   'STATIC_URL': STATIC_URL})
 
+def submit_checkout(request):
+    pass
+
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
         form = RegistrationForm(request.POST)
