@@ -7,18 +7,16 @@ with open('/etc/conf.json') as config_file:
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config['SECRET_KEY']
-#SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe","104.200.18.239"]
+ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe"]
 #ALLOWED_HOSTS = []
 
 # Application definition
@@ -34,7 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'main',
     'django.contrib.gis',
-#    'leaflet',
 ]
 
 MIDDLEWARE = [
@@ -45,8 +42,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # DG
-    #'mibodega.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'mibodega.urls'
@@ -79,7 +74,6 @@ DATABASES = {
         'NAME': 'mibodega',
         'USER': 'kplrm',
         'PASSWORD': 'color800',
-#        'HOST': '104.200.18.239',
 	'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -127,10 +121,10 @@ USE_TZ = True
 #    '/home/kplrm-user/mibodega/main/static',
 #]
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 #EMAIL_HOST = 'localhost'
 #EMAIL_PORT = 1025
