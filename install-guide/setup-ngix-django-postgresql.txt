@@ -33,7 +33,7 @@ pip install ipregistry
 
 // SETUP DATABASE
 sudo -u postgres psql
-ALTER USER postgres WITH PASSWORD 'color800';
+ALTER USER postgres WITH PASSWORD 'Color800.';
 CREATE USER kplrm WITH PASSWORD 'color800';
 CREATE DATABASE mibodega;
 CREATE EXTENSION postgis;
@@ -43,11 +43,15 @@ ALTER USER kplrm WITH SUPERUSER;
 create database mibodega;
 
 
-
 // GET PROJECT
 git clone https://github.com/kplrm/mibodega.pe.git
 
 
-
 sudo ufw disable
 sudo ufw status
+sudo ufw enable
+
+
+// CERTIFICATE AND INSTALLATION
+https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
