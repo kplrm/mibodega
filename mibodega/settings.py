@@ -75,13 +75,12 @@ WSGI_APPLICATION = 'mibodega.wsgi.application'
 
 DATABASES = {
     'default': { # user access and system stuff
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'default.db'),
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'mibodega',
         'USER': 'kplrm',
         'PASSWORD': 'color800',
-        'HOST': 'localhost',
+#        'HOST': '104.200.18.239',
+	'HOST': 'localhost',
         'PORT': '5432',
     }
 }
