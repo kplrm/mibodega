@@ -15,7 +15,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
@@ -616,13 +616,12 @@ def checkout(request):
 
 def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
-    send_mail(
-        'Subject here',
-        orders_obj,
-        'hola@alimentos.pe',
-        [usr_email],
-        fail_silently=False,
-    )
+    
+    html_content = "<strong>Comment tu vas?</strong>"
+    email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email])
+    email.content_subtype = "html"
+    res = email.send()
+    return HttpResponse('%s'%res)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
