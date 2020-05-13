@@ -224,8 +224,8 @@ class Cart(models.Model):
 class Orders(models.Model):
     ord_ID = models.AutoField(primary_key=True,editable=False,verbose_name="ID Order")
     ord_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
-    ord_taxes = models.DecimalField()(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
-    ord_total_price = models.DecimalField()(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
+    ord_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
+    ord_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
     ord_date_updated = models.DateTimeField(auto_now=True) # when was it created
     ord_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
 
