@@ -15,7 +15,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives #EmailMessage
 from django.template.loader import render_to_string
 
 from django.contrib.gis.geos import Point
