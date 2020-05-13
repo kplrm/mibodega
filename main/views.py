@@ -615,7 +615,13 @@ def checkout(request):
                   'STATIC_URL': STATIC_URL})
 
 def send_order_mail(orders_obj,usr_email):
-    send_mail('orders_obj:', orders_obj, ' usr_email:', usr_email)
+    send_mail(
+        'Subject here',
+        'orders_obj',
+        'hola@alimentos.pe',
+        ['usr_email'],
+        fail_silently=False,
+    )
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
