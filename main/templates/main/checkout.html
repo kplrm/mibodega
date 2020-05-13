@@ -405,6 +405,7 @@
         <script type="text/javascript">
             function submit_checkout() {
                 console.log("Entering submit");
+                console.log({{ cart_obj.crt_ID }});
                 cart_obj_id = {{ cart_obj.crt_ID }};
                 usr_email = document.getElementById("email").value;
 
