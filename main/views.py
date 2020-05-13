@@ -625,18 +625,23 @@ def send_order_mail(orders_obj,usr_email):
     }
 
     html_content = render_to_string('main/customer_order_confirmation.html', context)
-    msg = EmailMultiAlternatives(subject="subject", from_email="hola@alimentos.pe",
+    email = EmailMultiAlternatives(subject="subject", from_email="hola@alimentos.pe",
                                 to=[usr_email], body="text_body")
-    msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    email.attach_alternative(html_content, "text/html")
+    res = email.send()
 
     # html_content = "<strong>Comment tu vas?</strong>"
     #email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email],)
     #email.content_subtype = "html"
     #res = email.send()
     print("Email enviado")
-    #print(res)
+    print(res)
     return HttpResponse('%s'%res)
+
+def email(request):
+    return render(request=request, # to reference request
+                  template_name="main/customer_order_confirmation.html", # where to find the specifix template
+                  context={'result_list': "result_list"})
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
