@@ -617,7 +617,8 @@ def send_order_mail():
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
         # Stores variables in session
-        cart_obj = request.POST['cart_obj']
+        cart_obj_id = request.POST['cart_obj_id']
+        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
         usr_email = request.POST['usr_email']
 
         # Creates a new order
