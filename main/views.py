@@ -621,6 +621,8 @@ def send_order_mail(orders_obj,usr_email):
     email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email])
     email.content_subtype = "html"
     res = email.send()
+    print("Email enviado")
+    print(res)
     return HttpResponse('%s'%res)
 
 def submit_checkout(request):
