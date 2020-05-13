@@ -16,6 +16,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 
 from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
@@ -617,8 +618,16 @@ def checkout(request):
 def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
     
-    html_content = "<strong>Comment tu vas?</strong>"
-    email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email])
+    context = {
+        'contact_name': "contact_name", 
+        'contact_email': "contact_email", 
+        'form_content': "content"
+    }
+
+    html_content = render_to_string('main/customer_order_confirmation.html', context, context_instance=RequestContext(request))
+
+    # html_content = "<strong>Comment tu vas?</strong>"
+    email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email],fail_silently=True)
     email.content_subtype = "html"
     res = email.send()
     print("Email enviado")
