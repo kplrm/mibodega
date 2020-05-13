@@ -612,7 +612,7 @@ def checkout(request):
                   'subtotal_bodegas': subtotal_bodegas,
                   'STATIC_URL': STATIC_URL})
 
-def send_order_mail():
+def send_order_mail(orders_obj,usr_email):
     pass
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
