@@ -390,7 +390,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout( {{ cart_obj }} ); return false">Comprar</button>
+                            <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout(); return false">Comprar</button>
                             <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
                         </div>
                     </div>
@@ -403,8 +403,9 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            function submit_checkout(cart_obj) {
+            function submit_checkout() {
                 console.log("Entering submit");
+                cart_obj_js = {{ cart_obj }};
                 usr_email = document.getElementById("email").value;
 
                 if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 ) {
@@ -416,7 +417,7 @@
                         dataType: "json",
                         data:   {
                                     'csrfmiddlewaretoken': csrftoken,
-                                    'cart_obj': cart_obj,
+                                    'cart_obj': cart_obj_js,
                                     'usr_email': usr_email,
                                     // spare line to send confirmation if user wants to update his preferences
                                 }
