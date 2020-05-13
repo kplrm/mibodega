@@ -134,7 +134,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #EMAIL_HOST = 'localhost'
-#EMAIL_PORT = 1025
-#EMAIL_HOST_USER = config.get('EMAIL_USER')
-#EMAIL_HOST_PASSWORD = config.get('EMAIL_USER')
+#EMAIL_HOST_USER = config['EMAIL_USER']
+#EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
+#EMAIL_PORT = 465
+
+EMAIL_HOST= 'smtp.zoho.eu'
+EMAIL_HOST_USER = 'hola@alimentos.pe'
+EMAIL_HOST_PASSWORD = 'C4mp30n123.'
+EMAIL_PORT= 465
+EMAIL_USE_TLS= True
 

@@ -15,6 +15,8 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 
+from django.core.mail import send_mail
+
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
@@ -613,7 +615,8 @@ def checkout(request):
                   'STATIC_URL': STATIC_URL})
 
 def send_order_mail(orders_obj,usr_email):
-    pass
+    send_mail('orders_obj:', orders_obj, ' usr_email:', usr_email)
+
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
         # Stores variables in session
