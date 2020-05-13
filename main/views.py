@@ -627,7 +627,7 @@ def send_order_mail(orders_obj,usr_email):
     html_content = render_to_string('main/customer_order_confirmation.html', context)
 
     # html_content = "<strong>Comment tu vas?</strong>"
-    email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email],fail_silently=True)
+    email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email],)
     email.content_subtype = "html"
     res = email.send()
     print("Email enviado")
