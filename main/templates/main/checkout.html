@@ -214,7 +214,7 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}">
+                            <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
                         </div>
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
                         <style>
@@ -390,7 +390,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="button" onclick="submit_checkout(); return false;" id="btn_comprar" class="site-btn place-btn">Comprar</button>
+                            <button type="button" onclick="submit_checkout( {{ cart_obj }} ); return false;" id="btn_comprar" class="site-btn place-btn">Comprar</button>
                             <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
                         </div>
                     </div>
@@ -403,9 +403,9 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         -->
         <script type="text/javascript">
-            function submit_checkout() {
+            function submit_checkout(cart_obj) {
                 console.log("Entering submit");
-                console.log({{cart_obj.crt_total_price}});
+                usr_email = document.getElementById("email").value;
 
                 if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 ) {
                     // submit with AJAX
@@ -416,57 +416,14 @@
                         dataType: "json",
                         data:   {
                                     'csrfmiddlewaretoken': csrftoken,
-                                    'item_pk': item_pk,
-                                    'url_to_redirect': window.location.href
-                                },
-                        success: function(){
-                            location.reload();
-                        },
-                        error: function(){
-                            location.reload();
-                        }
+                                    'cart_obj': cart_obj,
+                                    'usr_email': usr_email,
+                                    // spare line to send confirmation if user wants to update his preferences
+                                }
                     });
                 } else {
                     alert("Error");
                 }
-
-                /*
-                $("#checkout_form").validate({
-                    invalidHandler: function(event, validator) {
-                        // 'this' refers to the form
-                        var errors = validator.numberOfInvalids();
-                        if (errors) {
-                            var message = errors == 1
-                                ? 'You missed 1 field. It has been highlighted'
-                                : 'You missed ' + errors + ' fields. They have been highlighted';
-                            $("div.error span").html(message);
-                            $("div.error").show();
-                        } else {
-                            $("div.error").hide();
-                        }
-                    }
-                });
-                */
-
-                //$("#checkout-form").valid();
-                /*
-                $.ajax({
-                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                    url: "/remove",
-                    type: "POST",
-                    dataType: "json",
-                    data:   {
-                                'csrfmiddlewaretoken': csrftoken,
-                                'item_pk': item_pk,
-                                'url_to_redirect': window.location.href
-                            },
-                    success: function(){
-                        location.reload();
-                    },
-                    error: function(){
-                        location.reload();
-                    }
-                });*/
             }
         </script>
     </div>

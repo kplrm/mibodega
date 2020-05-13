@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404 # to redirect the user
-from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega
+from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, OrderItem
 from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm
@@ -612,8 +612,47 @@ def checkout(request):
                   'subtotal_bodegas': subtotal_bodegas,
                   'STATIC_URL': STATIC_URL})
 
-def submit_checkout(request):
+def send_order_mail():
     pass
+def submit_checkout(request):
+    if request.method== "POST" and request.is_ajax():
+        # Stores variables in session
+        cart_obj = request.POST['cart_obj']
+        usr_email = request.POST['usr_email']
+
+        # Creates a new order
+        orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
+        
+        # Saves user data if there is a user
+        if request.user.is_authenticated:
+            print("Cliente identificado")
+            # Lines to update clients data           ord_user
+            #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+            #cliente.cl_bodega_ID = id_bodega
+            #cliente.save()
+        else:
+            print("Usuario no identificado")
+        
+        # Create every order item
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        for item in cart_list:
+            order_item = OrderItem.objects.create(oi_ID=orders_obj)
+            order_item.oi_id_product = item.ci_product.peb_product.pa_ID
+            order_item.oi_product = item.ci_product.peb_product.pa_product
+            order_item.oi_quantity = item.ci_quantity
+            order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
+            order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
+            if item.ci_product.peb_discount_status:
+                order_item.oi_price = item.ci_product.peb_discount_price
+            else:
+                order_item.oi_price = item.ci_product.peb_regular_price
+            order_item.save()
+        
+        send_order_mail(orders_obj,usr_email)
+
+    else:
+        print("Not Ajax")
+    return redirect('main:homepage')
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
