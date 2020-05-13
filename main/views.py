@@ -618,9 +618,9 @@ def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
     send_mail(
         'Subject here',
-        'orders_obj',
+        orders_obj,
         'hola@alimentos.pe',
-        ['usr_email'],
+        [usr_email],
         fail_silently=False,
     )
 
