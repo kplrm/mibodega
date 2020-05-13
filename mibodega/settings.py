@@ -1,28 +1,26 @@
 import os
 import json
 
-with open('/etc/conf.json') as config_file:
-    config = json.load(config_file)
+#with open('/etc/conf.json') as config_file:
+#    config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['SECRET_KEY']
-#SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
+#SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe","104.200.18.239"]
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe","104.200.18.239"]
+ALLOWED_HOSTS = []
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -34,7 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'main',
     'django.contrib.gis',
-#    'leaflet',
 ]
 
 MIDDLEWARE = [
@@ -45,8 +42,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # DG
-    #'mibodega.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'mibodega.urls'
@@ -75,8 +70,6 @@ WSGI_APPLICATION = 'mibodega.wsgi.application'
 
 DATABASES = {
     'default': { # user access and system stuff
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'default.db'),
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'mibodega',
         'USER': 'kplrm',
@@ -85,7 +78,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -105,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -118,7 +109,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -143,4 +133,3 @@ EMAIL_HOST_USER = 'hola@alimentos.pe'
 EMAIL_HOST_PASSWORD = 'C4mp30n123.'
 EMAIL_PORT= 465
 EMAIL_USE_TLS= True
-
