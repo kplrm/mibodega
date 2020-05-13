@@ -615,6 +615,7 @@ def checkout(request):
                   'STATIC_URL': STATIC_URL})
 
 def send_order_mail(orders_obj,usr_email):
+    print("Enviando email a:", usr_email)
     send_mail(
         'Subject here',
         'orders_obj',
