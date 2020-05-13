@@ -133,4 +133,5 @@ EMAIL_HOST= 'smtp.zoho.eu'
 EMAIL_HOST_USER = 'hola@alimentos.pe'
 EMAIL_HOST_PASSWORD = 'C4mp30n123.'
 EMAIL_PORT= 465
-EMAIL_USE_TLS= True
+EMAIL_USE_TLS= False
+EMAIL_USE_SSL= True
