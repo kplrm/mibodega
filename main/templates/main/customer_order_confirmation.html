@@ -158,12 +158,8 @@
             {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
                 <div style="padding: 20px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
                     {% for key, value in bodega_names.items %}
-                    <br>Entrando en bodega_names
-                    <br>{{ bodega_id }}
-                    <br>{{ key }}
-                    <br>{{ value }}
                         {% if key == bodega_id %}
-                            {{value|floatformat:2|intcomma}}
+                            {{ value }}
                         {% endif %}
                     {% endfor %}
                 </div>
