@@ -13,7 +13,7 @@ class CartItemAdmin(OSMGeoAdmin):
     list_display = ('pk','ci_cart_ID','ci_user','ci_product','ci_quantity')
 @admin.register(ProductosEnBodega)
 class ProductosEnBodegaAdmin(OSMGeoAdmin):
-    list_display = ('pk','peb_bodega','peb_product','peb_status','peb_discount_status')
+    list_display = ('pk','peb_bodega','peb_product','peb_regular_price','peb_discount_price','peb_status','peb_discount_status')
 @admin.register(ProductosAprobados)
 class ProductosAprobadosAdmin(OSMGeoAdmin):
     list_display = ('pk','pa_product','pa_category','pa_brand')
