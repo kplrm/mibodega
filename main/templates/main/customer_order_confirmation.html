@@ -133,11 +133,13 @@
     {% load humanize %}
     <br>==============
     {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+        <br>
         <br>{{ bodega_id }}
         <br>{{ bodega_ruc }}
+        <br>
     <br>--------------
         {% for product in result_list %}
-            <br>*************
+            <br>
             <br>{{  product.oi_ID }}
             <br>{{  product.oi_id_product }}
             <br>{{  product.oi_product }}
@@ -146,7 +148,7 @@
             <br>{{  product.oi_id_bodega }}
             <br>{{  product.oi_ruc_bodega }}
             <br>{{  product.oi_bodega_name }}
-            <br>#############
+            <br>
             {% if product.oi_ID == bodega_id %}
                 <br>*************
                 {{  product.oi_product }}
