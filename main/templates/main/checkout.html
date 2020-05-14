@@ -229,7 +229,7 @@
                         </style>
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
-                            <label for="phone">Teléfono<span>*</span></label>
+                            <label for="phone">Celular<span>*</span></label>
                             <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_phone(this)" required>
                         </div>
                         <div class="col-lg-12">
@@ -413,7 +413,7 @@
                 usr_phone = document.getElementById("phone").value;
                 usr_comments = document.getElementById("comments").value;
 
-                if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 ) {
+                if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 && usr_geolocation != "") {
                     // submit with AJAX
                     $.ajax({
                         headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -434,7 +434,7 @@
                                 }
                     });
                 } else {
-                    alert("Error");
+                    alert("Seleccione en el mapa su ubicación");
                 }
             }
         </script>
