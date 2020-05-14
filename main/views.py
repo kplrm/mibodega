@@ -640,6 +640,8 @@ def send_order_mail(orders_obj,usr_email):
         'subtotal_bodegas': subtotal_bodegas
     }
 
+    subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
+
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
     html_content = render_to_string('main/customer_order_confirmation.html', context)
     email = EmailMultiAlternatives(subject="subject", from_email="hola@alimentos.pe",
