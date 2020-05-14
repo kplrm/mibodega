@@ -630,12 +630,6 @@ def send_order_mail(orders_obj,usr_email):
     email.attach_alternative(html_content, "text/html")
     res = email.send()
 
-    print(html_content)
-    
-    # html_content = "<strong>Comment tu vas?</strong>"
-    #email = EmailMessage("my subject", html_content, "hola@alimentos.pe", [usr_email],)
-    #email.content_subtype = "html"
-    #res = email.send()
     print("Email enviado")
     print(res)
     return HttpResponse('%s'%res)
