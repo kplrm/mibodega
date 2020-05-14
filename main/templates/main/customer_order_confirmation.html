@@ -133,12 +133,17 @@
     {% load humanize %}
     <br>==============
     {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
-        <br>*************
-        <br>{{ bodega_id }} aaaaaaaa
-        <br>{{ bodega_ruc }} bbbbbbbbbb
+        <br>{{ bodega_id }}
+        <br>{{ bodega_ruc }}
     <br>--------------
         {% for product in result_list %}
+            <br>*************
+            {{  product.oi_product }}
+            {{  product.oi_quantity }}
+            {{  product.oi_price }}
+            <br>*************
             {% if product.oi_ID == bodega_id %}
+                <br>############
                 {{  product.oi_product }}
                 {{  product.oi_quantity }}
                 {{  product.oi_price }}
@@ -147,6 +152,7 @@
                     var p_price = {{  product.oi_price }};
                     document.write((p_price*p_quantity).toFixed(2));
                 </script>
+                <br>############
             {% endif %}
         {% endfor %}
     <br>--------------
