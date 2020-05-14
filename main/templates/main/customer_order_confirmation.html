@@ -141,9 +141,9 @@
             {{  product.oi_product }}
             {{  product.oi_quantity }}
             {{  product.oi_price }}
-            <br>*************
+            <br>#############
             {% if product.oi_ID == bodega_id %}
-                <br>############
+                <br>*************
                 {{  product.oi_product }}
                 {{  product.oi_quantity }}
                 {{  product.oi_price }}
@@ -152,7 +152,7 @@
                     var p_price = {{  product.oi_price }};
                     document.write((p_price*p_quantity).toFixed(2));
                 </script>
-                <br>############
+                <br>#############
             {% endif %}
         {% endfor %}
     <br>--------------
