@@ -1,8 +1,8 @@
 import os
 import json
 
-#with open('/etc/conf.json') as config_file:
-#    config = json.load(config_file)
+with open('/etc/conf.json') as config_file:
+    config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +17,6 @@ SECRET_KEY = config['SECRET_KEY']
 DEBUG = False
 
 ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe"]
-#ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
@@ -112,25 +111,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, "static"),
-#    '/home/kplrm-user/mibodega/main/static',
-#]
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-#EMAIL_HOST = 'localhost'
-#EMAIL_HOST_USER = config['EMAIL_USER']
-#EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
-#EMAIL_PORT = 465
+EMAIL_HOST = config['EMAIL_HOST']
+EMAIL_HOST_USER = config['EMAIL_USER']
+EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
+EMAIL_PORT = 465
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST= 'smtp.zoho.eu'
-EMAIL_HOST_USER = 'hola@alimentos.pe'
-EMAIL_HOST_PASSWORD = 'C4mp30n123.'
-EMAIL_PORT= 465
 EMAIL_USE_TLS= False
 EMAIL_USE_SSL= True
