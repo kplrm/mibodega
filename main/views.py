@@ -618,7 +618,7 @@ def checkout(request):
 def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
 
-    result_list = OrderItem.filter(oi_ID=orders_obj).all()
+    result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
     print(result_list)
 
     bodegas_en_cesta = dict()
