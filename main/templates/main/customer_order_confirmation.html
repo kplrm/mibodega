@@ -229,12 +229,7 @@
                                             <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_price|floatformat:2|intcomma }}</td>
                                             <!-- RIGHT COLUMN -->
                                             <td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.
-                                                <script type="text/javascript">
-                                                    var p_quantity = {{ product.oi_quantity }};
-                                                    var p_price = {{ product.oi_price }};
-                                                    var st_unit = (p_quantity * p_price).toFixed(2);
-                                                    document.write(st_unit);
-                                                </script>
+                                                {{ product.oi_quantity*product.oi_price|floatformat:2|intcomma }}
                                             </td>
                                         </tr>
                                     </table>
@@ -255,7 +250,7 @@
                                     <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 30%; font-family: Arial, sans-serif; color: #7ca230; font-size: 16px; font-weight: bold;">S/.
                                         {% for key, value in subtotal_bodegas.items %}
                                             {% if key == bodega_id %}
-                                                <br>{{value|floatformat:2|intcomma}}
+                                                {{value|floatformat:2|intcomma}}
                                             {% endif %}
                                         {% endfor %}
                                     </td>
