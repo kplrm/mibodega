@@ -1,8 +1,8 @@
 import os
 import json
 
-with open('/etc/conf.json') as config_file:
-    config = json.load(config_file)
+#with open('/etc/conf.json') as config_file:
+#    config = json.load(config_file)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,12 +11,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config['SECRET_KEY']
+#SECRET_KEY = config['SECRET_KEY']
+SECRET_KEY = 's(n=govm%toe1tt5zr(^-768kt-0e3po3hhu7!6fg34bu+gbrl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+#DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe"]
+#ALLOWED_HOSTS = ["alimentos.pe","www.alimentos.pe"]
+ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
@@ -117,10 +120,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-EMAIL_HOST = config['EMAIL_HOST']
-EMAIL_HOST_USER = config['EMAIL_USER']
-EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
+#EMAIL_HOST = config['EMAIL_HOST']
+#EMAIL_HOST_USER = config['EMAIL_USER']
+#EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
+#EMAIL_PORT = 465
+
+EMAIL_HOST = 'smtp.zoho.eu'
+EMAIL_HOST_USER = 'hola@alimentos.pe'
+EMAIL_HOST_PASSWORD = 'C4mp30n123.'
 EMAIL_PORT = 465
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS= False
