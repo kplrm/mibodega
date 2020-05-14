@@ -150,7 +150,6 @@
             <br>{{  product.oi_bodega_name }}
             <br>
             {% if product.oi_id_bodega == bodega_id %}
-                <br>*************
                 <br>{{  product.oi_product }}
                 <br>{{  product.oi_quantity }}
                 <br>{{  product.oi_price }}
@@ -159,19 +158,12 @@
                     var p_price = {{  product.oi_price }};
                     document.write((p_price*p_quantity).toFixed(2));
                 </script>
-                <br>#############
             {% endif %}
         {% endfor %}
     <br>--------------
         {% for key, value in subtotal_bodegas.items %}
-            <br> {{ bodega_id }}    
-            <br>{{ key }}
-            <br>{{ value }}
             {% if key == bodega_id %}
-                <script type="text/javascript">
-                    var b_subtotal = {{ value }};
-                </script>
-                <br>{{value|floatformat:3|intcomma}}
+                <br>{{value|floatformat:2|intcomma}}
             {% endif %}
         {% endfor %}
     {% endfor %}
@@ -200,57 +192,64 @@
     </tr>
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;" class="padding">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
-                <tr>
-                    <td style="padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa; border-bottom: 1px solid #eaeaea;">
-                        <!-- TWO COLUMNS -->
-                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tr>
-								<!-- LEFT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Productos</td>
-								<!-- MIDDLE-LEFT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Cantidad</td>
-								<!-- MIDDLE-RIGHT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">P.u.</td>
-								<!-- RIGHT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Subtotal</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <!-- TWO COLUMNS -->
-                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tr>
-								<!-- LEFT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="left" style="padding: 10px 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Producto 1</td>
-								<!-- MIDDLE-LEFT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">2</td>
-								<!-- MIDDLE-RIGHT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.100.00</td>
-								<!-- RIGHT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.200.00</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px 0 0px 0; border-top: 1px solid #eaeaea; border-bottom: 1px dashed #aaaaaa;">
-                        <!-- TWO COLUMNS -->
-                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tr>
-								<!-- LEFT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 64%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
-								<!-- MIDDLE-RIGHT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Total</td>
-								<!-- RIGHT COLUMN -->
-								<td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #7ca230; font-size: 16px; font-weight: bold;">S/.200.00</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+            {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+                {% for product in result_list %}
+                    <div style="padding: 10px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
+                        {{  product.oi_bodega_name }}
+                    </div>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
+                        <tr>
+                            <td style="padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa; border-bottom: 1px solid #eaeaea;">
+                                <!-- TWO COLUMNS -->
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <!-- LEFT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Productos</td>
+                                        <!-- MIDDLE-LEFT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Cantidad</td>
+                                        <!-- MIDDLE-RIGHT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">P.u.</td>
+                                        <!-- RIGHT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Subtotal</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- TWO COLUMNS -->
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <!-- LEFT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="left" style="padding: 10px 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Producto 1</td>
+                                        <!-- MIDDLE-LEFT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">2</td>
+                                        <!-- MIDDLE-RIGHT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.100.00</td>
+                                        <!-- RIGHT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.200.00</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px 0 0px 0; border-top: 1px solid #eaeaea; border-bottom: 1px dashed #aaaaaa;">
+                                <!-- TWO COLUMNS -->
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <!-- LEFT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 64%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
+                                        <!-- MIDDLE-RIGHT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Total</td>
+                                        <!-- RIGHT COLUMN -->
+                                        <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #7ca230; font-size: 16px; font-weight: bold;">S/.200.00</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            {% endfor %}
         </td>
     </tr>
     <tr>
