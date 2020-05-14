@@ -638,7 +638,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
     # usr_geolocation with regex
-    patterns = ([0-9.]+) # Full match 1 is SRID, Full match 1 is LAT, Full match 1 is LNG
+    patterns = "([0-9.]+)" # Full match 1 is SRID, Full match 1 is LAT, Full match 1 is LNG
     match = re.search(patterns, usr_geolocation)
     if match:
         print 'found', match.group() ## 'found word:cat'
