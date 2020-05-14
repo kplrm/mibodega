@@ -617,7 +617,7 @@ def checkout(request):
 
 def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
-    print("orders_obj: ", orders_obj.oi_ID)
+    print("orders_obj: ", orders_obj)
 
     context = {
         'orders_obj': orders_obj, 
