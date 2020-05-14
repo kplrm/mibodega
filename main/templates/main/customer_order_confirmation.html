@@ -131,43 +131,6 @@
         </td>
     </tr>
     {% load humanize %}
-    <br>==============
-    {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
-        <br>
-        <br>{{ bodega_id }}
-        <br>{{ bodega_ruc }}
-        <br>
-    <br>--------------
-        {% for product in result_list %}
-            <br>
-            <br>{{ product.oi_ID }}
-            <br>{{ product.oi_id_product }}
-            <br>{{ product.oi_product }}
-            <br>{{ product.oi_price }}
-            <br>{{ product.oi_quantity }}
-            <br>{{ product.oi_id_bodega }}
-            <br>{{ product.oi_ruc_bodega }}
-            <br>{{ product.oi_bodega_name }}
-            <br>
-            {% if product.oi_id_bodega == bodega_id %}
-                <br>{{ product.oi_product }}
-                <br>{{ product.oi_quantity }}
-                <br>{{ product.oi_price }}
-                <script type="text/javascript">
-                    var p_quantity = {{  product.oi_quantity }};
-                    var p_price = {{  product.oi_price }};
-                    document.write((p_price*p_quantity).toFixed(2));
-                </script>
-            {% endif %}
-        {% endfor %}
-    <br>--------------
-    {% for key, value in subtotal_bodegas.items %}
-        {% if key == bodega_id %}
-            <br>{{value|floatformat:2|intcomma}}
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
-    <br>==============
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
@@ -179,7 +142,7 @@
                                 <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">Su pedido fue aceptado y está siendo procesado.</td>
                             </tr>
                             <tr>
-                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Su bodega ahora preparará su pedido.
+                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">La bodega ahora preparará su pedido.
                                 <br>
                                 Orden de compra #{{ orders_obj.ord_ID|stringformat:"08d" }}
                                 </td>
@@ -245,11 +208,11 @@
                             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <!-- LEFT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 30%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
+                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
                                     <!-- MIDDLE-RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal en esta bodega</td>
+                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Subtotal en esta bodega</td>
                                     <!-- RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 30%; font-family: Arial, sans-serif; color: #7ca230; font-size: 16px; font-weight: bold;">S/.
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 25%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.
                                         {% for key, value in subtotal_bodegas.items %}
                                             {% if key == bodega_id %}
                                                 {{value|floatformat:2|intcomma}}
@@ -275,7 +238,7 @@
                                     <!-- COPY -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">En caso algún producto esté agotado, se anulará dicho producto de su orden de compra se le reducirá la cantidad automáticamente. No se le cobrará por .</td>
+                                            <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">En caso algún producto esté agotado, se anulará la compra de dicho producto.</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -294,10 +257,10 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <!-- COPY -->
-                                <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">How did we do?</td>
+                                <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">¿Desea realizar alguna otra compra?</td>
                             </tr>
                             <tr>
-                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius, leo a ullamcorper feugiat, ante purus sodales justo, a faucibus libero lacus a est. Aenean at mollis ipsum.</td>
+                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Aproveche las ofertas exclusivas en línea.</td>
                             </tr>
                             <tr>
                                 <td align="center">
@@ -307,7 +270,7 @@
                                             <td align="center" style="padding-top: 25px;" class="padding">
                                                 <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container">
                                                     <tr>
-                                                        <td align="center" style="border-radius: 3px;" bgcolor="#256F9C"><a href="https://www.alimentos.pe" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 15px 25px; border: 1px solid #256F9C; display: inline-block;" class="mobile-button">Let Us Know</a></td>
+                                                        <td align="center" style="border-radius: 3px;" bgcolor="#256F9C"><a href="https://www.alimentos.pe" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; border-radius: 3px; padding: 15px 25px; border: 1px solid #256F9C; display: inline-block;" class="mobile-button">Visitenos</a></td>
                                                     </tr>
                                                 </table>
                                             </td>
@@ -327,11 +290,7 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 500px;" class="responsive-table">
                 <tr>
                     <td align="center" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
-                        1234 Main Street, Anywhere, MA 01234, USA
-                        <br>
-                        <a href="https://www.alimentos.pe" target="_blank" style="color: #666666; text-decoration: none;">Unsubscribe</a>
-                        <span style="font-family: Arial, sans-serif; font-size: 12px; color: #444444;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                        <a href="https://www.alimentos.pe" target="_blank" style="color: #666666; text-decoration: none;">View this email in your browser</a>
+                        Lima, Peru
                     </td>
                 </tr>
             </table>
