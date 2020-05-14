@@ -156,7 +156,7 @@
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;" class="padding">
             {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
-                <div style="padding: 20px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
+                <div style="padding: 25px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
                     {% for key, value in bodega_names.items %}
                         {% if key == bodega_id %}
                             {{ value }}
@@ -210,7 +210,7 @@
                                     <!-- LEFT COLUMN -->
                                     <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
                                     <!-- MIDDLE-RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal en esta bodega</td>
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal</td>
                                     <!-- RIGHT COLUMN -->
                                     <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 25%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">S/.
                                         {% for key, value in subtotal_bodegas.items %}
