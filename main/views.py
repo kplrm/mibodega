@@ -636,7 +636,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
         else:
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
-            bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
+            bodega_phones.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
     # usr_geolocation with regex
