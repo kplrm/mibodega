@@ -151,9 +151,9 @@
             <br>
             {% if product.oi_id_bodega == bodega_id %}
                 <br>*************
-                {{  product.oi_product }}
-                {{  product.oi_quantity }}
-                {{  product.oi_price }}
+                <br>{{  product.oi_product }}
+                <br>{{  product.oi_quantity }}
+                <br>{{  product.oi_price }}
                 <script type="text/javascript">
                     var p_quantity = {{  product.oi_quantity }};
                     var p_price = {{  product.oi_price }};
@@ -164,6 +164,8 @@
         {% endfor %}
     <br>--------------
         {% for key, value in subtotal_bodegas.items %}
+            <br>{{ key }}
+            <br>{{ value }}
             {% if key == bodega.oi_id_bodega %}
                 {{value|floatformat:2|intcomma}}
             {% endif %}
