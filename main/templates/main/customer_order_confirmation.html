@@ -149,7 +149,7 @@
             <br>{{  product.oi_ruc_bodega }}
             <br>{{  product.oi_bodega_name }}
             <br>
-            {% if product.oi_ID == bodega_id %}
+            {% if product.oi_id_bodega == bodega_id %}
                 <br>*************
                 {{  product.oi_product }}
                 {{  product.oi_quantity }}
@@ -164,7 +164,7 @@
         {% endfor %}
     <br>--------------
         {% for key, value in subtotal_bodegas.items %}
-            {% if bodega.bd_ruc == key %}
+            {% if key == bodega.oi_id_bodega %}
                 {{value|floatformat:2|intcomma}}
             {% endif %}
         {% endfor %}
