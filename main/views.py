@@ -22,6 +22,11 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
+from PIL import Image
+import requests
+from io import BytesIO
+from base64 import b64encode
+
 import json
 from django.http import JsonResponse
 
@@ -616,8 +621,10 @@ def checkout(request):
                   'STATIC_URL': STATIC_URL})
 
 def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
+    # Retrieve all corresponding cart products
     result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
 
+    # Organize all email context information
     bodegas_en_cesta = dict()
     bodega_names = dict()
     subtotal_bodegas = dict()
@@ -629,6 +636,18 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
+
+    # Get map image
+    img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-122.337798,37.810550,9.67,0.00,0.00/1000x600@2x?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ"
+    response = requests.get(img_url)
+    img = Image.open(BytesIO(response.content))
+
+    # Encoding to base64
+    encodedBytes = b64encode(img.encode("utf-8"))
+    encodedStr = str(encodedBytes, "utf-8")
+    print("encoded image:")
+    print(encodedStr)
+
 
     context = {
         'orders_obj': orders_obj, 
@@ -645,6 +664,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
         'usr_comments': usr_comments
     }
 
+    # Add email subject
     subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
 
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
