@@ -621,6 +621,7 @@ def send_order_mail(orders_obj,usr_email):
     result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
 
     bodegas_en_cesta = dict()
+    bodega_names = dict()
     subtotal_bodegas = dict()
     for product in result_list:
         # Check if bodega is already in the dictionary
@@ -628,17 +629,16 @@ def send_order_mail(orders_obj,usr_email):
             subtotal_bodegas[str(product.oi_id_bodega)] += float(product.oi_price)* float(product.oi_quantity)
         else:
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
+            bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
     context = {
         'orders_obj': orders_obj, 
         'result_list': result_list,
         'bodegas_en_cesta': bodegas_en_cesta,
+        'bodega_names': bodega_names,
         'subtotal_bodegas': subtotal_bodegas
     }
-
-    #print("context:")
-    #print(context)
 
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
     html_content = render_to_string('main/customer_order_confirmation.html', context)
