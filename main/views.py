@@ -627,6 +627,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     # Organize all email context information
     bodegas_en_cesta = dict()
     bodega_names = dict()
+    bodega_phones = dict()
     subtotal_bodegas = dict()
     for product in result_list:
         # Check if bodega is already in the dictionary
@@ -634,6 +635,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
             subtotal_bodegas[str(product.oi_id_bodega)] += float(product.oi_price)* float(product.oi_quantity)
         else:
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
+            bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
@@ -658,6 +660,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
         'result_list': result_list,
         'bodegas_en_cesta': bodegas_en_cesta,
         'bodega_names': bodega_names,
+        'bodega_phones': bodega_phones,
         'subtotal_bodegas': subtotal_bodegas,
         'usr_first': usr_first,
         'usr_last': usr_last,
@@ -719,6 +722,7 @@ def submit_checkout(request):
             order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
             order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
             order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
+            order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
             if item.ci_product.peb_discount_status:
                 order_item.oi_price = item.ci_product.peb_discount_price
             else:
