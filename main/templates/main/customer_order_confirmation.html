@@ -138,9 +138,14 @@
     <br>--------------
         {% for product in result_list %}
             <br>*************
+            {{  product.oi_ID }}
+            {{  product.oi_id_product }}
             {{  product.oi_product }}
-            {{  product.oi_quantity }}
             {{  product.oi_price }}
+            {{  product.oi_quantity }}
+            {{  product.oi_id_bodega }}
+            {{  product.oi_ruc_bodega }}
+            {{  product.oi_bodega_name }}
             <br>#############
             {% if product.oi_ID == bodega_id %}
                 <br>*************
