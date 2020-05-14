@@ -645,7 +645,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
 
     # Encoding to base64
     print("usr_geolocation")
-    print(usr_geolocation.lat)
+    print(usr_geolocation)
 
 
     context = {
