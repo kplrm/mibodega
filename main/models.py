@@ -79,6 +79,8 @@ class Bodega(models.Model):
     bd_ruc = models.CharField(max_length=11,unique=True,blank=False,null=False,verbose_name="RUC (o DNI)")
     bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
     bd_geolocation = models.PointField(blank=True,null=True,verbose_name="Sede")
+    bd_email = models.CharField(max_length=50,blank=True,null=True,verbose_name="E-mail")
+    bd_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
 
     def __str__(self):
         return str(self.bd_name)
@@ -194,7 +196,7 @@ class CartManager(models.Manager):
         return self.model.objects.create(crt_user=user_obj)
 
 class CartItem(models.Model):
-    ci_cart_ID = models.IntegerField(default=0,verbose_name="ID Cart ID")
+    ci_cart_ID = models.IntegerField(default=0,verbose_name="Cart ID")
     ci_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
     ci_product = models.ForeignKey(ProductosEnBodega,on_delete=models.CASCADE,verbose_name="Producto")
     ci_quantity = models.IntegerField(default=1)
@@ -218,3 +220,28 @@ class Cart(models.Model):
 
     def __str__(self):
         return str("Cart ID:")+str(self.crt_ID)+str(" || Producto:")+str(self.crt_user)
+
+class Orders(models.Model):
+    ord_ID = models.AutoField(primary_key=True,editable=False,verbose_name="ID Order")
+    ord_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
+    ord_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
+    ord_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
+    ord_date_updated = models.DateTimeField(auto_now=True) # when was it created
+    ord_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
+
+    def __str__(self):
+        return str("Order ID:")+str(self.ord_ID)+str(" || User:")+str(self.ord_user)
+
+class OrderItem(models.Model):
+    oi_ID = models.ForeignKey(Orders,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Orden de Compra")
+    oi_id_product = models.CharField(max_length=100,default="",verbose_name="ID Producto")
+    oi_product = models.CharField(max_length=100,default="",verbose_name="Producto")
+    oi_price = models.CharField(max_length=100,default="",verbose_name="Precio")
+    oi_prod_total = models.CharField(max_length=100,default="",verbose_name="Precio")
+    oi_quantity = models.CharField(max_length=100,default="",verbose_name="Cantidad")
+    oi_id_bodega = models.CharField(max_length=100,default="",verbose_name="ID Bodega")
+    oi_ruc_bodega = models.CharField(max_length=100,default="",verbose_name="RUC Bodega")
+    oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")    
+
+    def __str__(self):
+        return str("Order ID:")+str(self.oi_ID)+str(" || Product ID:")+str(self.oi_id_product)+str(" || Producto:")+str(self.oi_product)

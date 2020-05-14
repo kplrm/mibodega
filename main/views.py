@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404 # to redirect the user
-from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega
+from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, OrderItem
 from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm
@@ -14,6 +14,9 @@ from django.conf import settings
 
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
+
+from django.core.mail import EmailMultiAlternatives #EmailMessage
+from django.template.loader import render_to_string
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
@@ -611,6 +614,87 @@ def checkout(request):
                   'bodegas_en_cesta': bodegas_en_cesta,
                   'subtotal_bodegas': subtotal_bodegas,
                   'STATIC_URL': STATIC_URL})
+
+def send_order_mail(orders_obj,usr_email):
+    print("Enviando email a:", usr_email)
+
+    result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
+
+    bodegas_en_cesta = dict()
+    bodega_names = dict()
+    subtotal_bodegas = dict()
+    for product in result_list:
+        # Check if bodega is already in the dictionary
+        if product.oi_id_bodega in bodegas_en_cesta:
+            subtotal_bodegas[str(product.oi_id_bodega)] += float(product.oi_price)* float(product.oi_quantity)
+        else:
+            bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
+            bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
+            subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
+
+    context = {
+        'orders_obj': orders_obj, 
+        'result_list': result_list,
+        'bodegas_en_cesta': bodegas_en_cesta,
+        'bodega_names': bodega_names,
+        'subtotal_bodegas': subtotal_bodegas
+    }
+
+    subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
+
+    # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
+    html_content = render_to_string('main/customer_order_confirmation.html', context)
+    email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
+                                to=[usr_email], body="text_body")
+    email.attach_alternative(html_content, "text/html")
+    res = email.send()
+
+    print("Email enviado")
+    print(res)
+    return HttpResponse('%s'%res)
+
+def submit_checkout(request):
+    if request.method== "POST" and request.is_ajax():
+        # Stores variables in session
+        cart_obj_id = request.POST['cart_obj_id']
+        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
+        usr_email = request.POST['usr_email']
+
+        # Creates a new order
+        orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
+        
+        # Saves user data if there is a user
+        if request.user.is_authenticated:
+            print("Cliente identificado")
+            # Lines to update clients data           ord_user
+            #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+            #cliente.cl_bodega_ID = id_bodega
+            #cliente.save()
+        else:
+            print("Usuario no identificado")
+        
+        # Create every order item
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        for item in cart_list:
+            order_item = OrderItem.objects.create(oi_ID=orders_obj)
+            order_item.oi_id_product = item.ci_product.peb_product.pa_ID
+            order_item.oi_product = item.ci_product.peb_product.pa_product
+            order_item.oi_quantity = item.ci_quantity
+            order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
+            order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
+            order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
+            if item.ci_product.peb_discount_status:
+                order_item.oi_price = item.ci_product.peb_discount_price
+            else:
+                order_item.oi_price = item.ci_product.peb_regular_price
+            order_item.oi_prod_total = item.ci_quantity * order_item.oi_price
+            order_item.save()
+
+        send_order_mail(orders_obj,usr_email)
+
+    else:
+        print("Not Ajax")
+    return redirect('main:homepage')
 
 def register(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
