@@ -404,10 +404,14 @@
         -->
         <script type="text/javascript">
             function submit_checkout() {
-                console.log("Entering submit");
-                console.log({{ cart_obj.crt_ID }});
                 cart_obj_id = {{ cart_obj.crt_ID }};
+                usr_first = document.getElementById("fir").value;
+                usr_last = document.getElementById("last").value;
+                usr_street = document.getElementById("street").value;
+                usr_geolocation = document.getElementById("geolocation").value;
                 usr_email = document.getElementById("email").value;
+                usr_phone = document.getElementById("phone").value;
+                usr_comments = document.getElementById("comments").value;
 
                 if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 ) {
                     // submit with AJAX
@@ -419,7 +423,13 @@
                         data:   {
                                     'csrfmiddlewaretoken': csrftoken,
                                     'cart_obj_id': cart_obj_id.toString(),
+                                    'usr_first': usr_first,
+                                    'usr_last': usr_last,
+                                    'usr_street': usr_street,
+                                    'usr_geolocation': usr_geolocation,
                                     'usr_email': usr_email,
+                                    'usr_phone': usr_phone,
+                                    'usr_comments': usr_comments,
                                     // spare line to send confirmation if user wants to update his preferences
                                 }
                     });
