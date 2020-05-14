@@ -625,10 +625,10 @@ def send_order_mail(orders_obj,usr_email):
     for product in result_list:
         # Check if bodega is already in the dictionary
         if product.oi_id_bodega in bodegas_en_cesta:
-            subtotal_bodegas[str(product.oi_id_bodega)] += round(float(product.oi_price)* float(product.oi_quantity), 2)
+            subtotal_bodegas[str(product.oi_id_bodega)] += float(product.oi_price)* float(product.oi_quantity)
         else:
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
-            subtotal_bodegas.update({str(product.oi_id_bodega):round(float(product.oi_price) * float(product.oi_quantity), 2) })
+            subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
     context = {
         'orders_obj': orders_obj, 
