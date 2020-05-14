@@ -676,6 +676,7 @@ def submit_checkout(request):
                 order_item.oi_price = item.ci_product.peb_regular_price
             order_item.save()
         
+        print("before email. orders_obj:", orders_obj)
         send_order_mail(orders_obj,usr_email)
 
     else:
