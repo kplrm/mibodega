@@ -628,7 +628,7 @@ def send_order_mail(orders_obj,usr_email):
         if product.oi_id_bodega in bodegas_en_cesta:
             subtotal_bodegas[str(product.oi_id_bodega)] += product.oi_price * product.oi_quantity
         else:
-            bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega))
+            bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             subtotal_bodegas.update({str(product.oi_id_bodega):product.oi_price * product.oi_quantity})
 
     context = {
