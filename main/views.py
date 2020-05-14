@@ -685,6 +685,7 @@ def submit_checkout(request):
                 order_item.oi_price = item.ci_product.peb_discount_price
             else:
                 order_item.oi_price = item.ci_product.peb_regular_price
+            order_item.oi_prod_total = item.ci_quantity * order_item.oi_price
             order_item.save()
 
         send_order_mail(orders_obj,usr_email)
