@@ -156,6 +156,7 @@
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;" class="padding">
             {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+                <br>
                 <div style="padding: 25px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
                     {% for key, value in bodega_names.items %}
                         {% if key == bodega_id %}
@@ -163,6 +164,7 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+                <br>
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
                     <tr>
                         <td style="padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa; border-bottom: 1px solid #eaeaea;">
@@ -210,9 +212,9 @@
                                     <!-- LEFT COLUMN -->
                                     <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
                                     <!-- MIDDLE-RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal</td>
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal</td>
                                     <!-- RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 25%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">S/.
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 20%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">S/.
                                         {% for key, value in subtotal_bodegas.items %}
                                             {% if key == bodega_id %}
                                                 {{value|floatformat:2|intcomma}}
