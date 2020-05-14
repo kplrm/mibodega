@@ -167,7 +167,7 @@
             <br>{{ key }}
             <br>{{ value }}
             {% if key == bodega.oi_id_bodega %}
-                {{value|floatformat:2|intcomma}}
+                <br>{{value|floatformat:3|intcomma}}
             {% endif %}
         {% endfor %}
     {% endfor %}
