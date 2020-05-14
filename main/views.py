@@ -640,7 +640,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
     # Get map image
-    img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-122.337798,37.810550,9.67,0.00,0.00/1000x600@2x?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ"
+    img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(-76.9,38.9)/-76.9,38.9,14/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ"
     response = requests.get(img_url)
     usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
     
@@ -650,12 +650,14 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     # Encoding to base64
     #encodedBytes = b64encode(img.encode("utf-8"))
     #encodedStr = str(encodedBytes, "utf-8")
-    print("response")
-    print(response)
+    #print("response")
+    #print(response)
     #print("image")
     #print(img)
-    print("encoded image:")
-    print(usr_map)
+    #print("encoded image:")
+    #print(usr_map)
+    print("usr_geolocation")
+    print(usr_geolocation)
 
 
     context = {
