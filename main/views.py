@@ -644,7 +644,7 @@ def send_order_mail(orders_obj,usr_email):
 
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
     html_content = render_to_string('main/customer_order_confirmation.html', context)
-    email = EmailMultiAlternatives(subject="subject", from_email="hola@alimentos.pe",
+    email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
                                 to=[usr_email], body="text_body")
     email.attach_alternative(html_content, "text/html")
     res = email.send()
