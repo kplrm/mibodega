@@ -28,4 +28,4 @@ class OrdersAdmin(OSMGeoAdmin):
     list_display = ('pk','ord_ID','ord_user','ord_total_price')
 @admin.register(OrderItem)
 class OrderItemAdmin(OSMGeoAdmin):
-    list_display = ('pk','oi_ID','oi_product','oi_price','oi_quantity','oi_bodega_name')
+    list_display = ('pk','oi_ID','oi_ruc_bodega','oi_product','oi_price','oi_quantity','oi_bodega_name')

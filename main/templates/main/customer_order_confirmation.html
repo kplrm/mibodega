@@ -130,6 +130,28 @@
             </table>
         </td>
     </tr>
+    {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+    ==============
+        {{ bodega_id }}
+        {{ bodega_ruc }}
+    --------------
+        {% for product in result_list %}
+            {% if product.oi_ID == bodega_id %}
+                {{  product.oi_product }}
+                {{  product.oi_quantity }}
+                {{  product.oi_price }}
+                <script type="text/javascript">
+                    var p_quantity = {{  product.oi_quantity }};
+                    var p_price = {{  product.oi_price }};
+                    document.write((p_price*p_quantity).toFixed(2));
+                </script>
+    --------------
+        {% for key, value in subtotal_bodegas.items %}
+            {% if bodega.bd_ruc == key %}
+                {{value|floatformat:2|intcomma}}
+            {% endif %}
+        {% endfor %}
+    ==============
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
@@ -143,7 +165,7 @@
                             <tr>
                                 <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Su bodega ahora preparará su pedido.
                                 <br>
-                                Orden de compra #{{ orders_obj.ord_ID|stringformat:"04d" }}
+                                Orden de compra #{{ orders_obj.ord_ID|stringformat:"08d" }}
                                 </td>
                             </tr>
                         </table>

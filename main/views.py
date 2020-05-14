@@ -617,12 +617,25 @@ def checkout(request):
 
 def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
-    print("orders_obj: ", orders_obj.ord_ID)
+
+    result_list = OrderItem.filter(oi_ID=orders_obj).all()
+    print(result_list)
+
+    bodegas_en_cesta = dict()
+    subtotal_bodegas = dict()
+    for product in result_list:
+        # Check if bodega is already in the dictionary
+        if product.oi_id_bodega in bodegas_en_cesta:
+            subtotal_bodegas[str(product.oi_id_bodega)] += product.oi_price * product.oi_quantity
+        else:
+            bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega))
+            subtotal_bodegas.update({str(product.oi_id_bodega):product.oi_price * product.oi_quantity})
 
     context = {
         'orders_obj': orders_obj, 
-        'contact_email': "contact_email", 
-        'form_content': "content"
+        'result_list': result_list,
+        'bodegas_en_cesta': bodegas_en_cesta,
+        'subtotal_bodegas': subtotal_bodegas
     }
 
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
@@ -635,11 +648,6 @@ def send_order_mail(orders_obj,usr_email):
     print("Email enviado")
     print(res)
     return HttpResponse('%s'%res)
-
-def email(request):
-    return render(request=request, # to reference request
-                  template_name="main/customer_order_confirmation.html", # where to find the specifix template
-                  context={'result_list': "result_list"})
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
