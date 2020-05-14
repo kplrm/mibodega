@@ -130,6 +130,7 @@
             </table>
         </td>
     </tr>
+    {% load humanize %}
     {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
     ==============
         {{ bodega_id }}
