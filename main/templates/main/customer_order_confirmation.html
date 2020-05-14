@@ -132,7 +132,7 @@
     </tr>
     {% load humanize %}
     ============== <br>
-    {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+    {% for bodega_id, bodega_ruc in bodegas_en_cesta.iteritems() %}
         {{ bodega_id }}
         {{ bodega_ruc }}
     --------------<br>
@@ -149,7 +149,7 @@
             {% endif %}
         {% endfor %}
     --------------<br>
-        {% for key, value in subtotal_bodegas.items %}
+        {% for key, value in subtotal_bodegas.iteritems() %}
             {% if bodega.bd_ruc == key %}
                 {{value|floatformat:2|intcomma}}
             {% endif %}
