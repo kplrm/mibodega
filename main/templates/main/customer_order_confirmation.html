@@ -158,6 +158,10 @@
             {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
                 <div style="padding: 20px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
                     {% for key, value in bodega_names.items %}
+                    <br>Entrando en bodega_names
+                    <br>{{ bodega_id }}
+                    <br>{{ key }}
+                    <br>{{ value }}
                         {% if key == bodega_id %}
                             {{value|floatformat:2|intcomma}}
                         {% endif %}
@@ -234,7 +238,7 @@
                                 <!-- LEFT COLUMN -->
                                 <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px;"></td>
                                 <!-- MIDDLE-RIGHT COLUMN -->
-                                <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px; font-weight: bold;">Subtotal en esta bodega</td>
+                                <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px; font-weight: bold;">Total</td>
                                 <!-- RIGHT COLUMN -->
                                 <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 25%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px; font-weight: bold;">S/.
                                     {{orders_obj.ord_total_price|floatformat:2|intcomma}}
