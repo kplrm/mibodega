@@ -23,7 +23,7 @@ from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
 from PIL import Image
-import urllib2 as urllib
+import requests
 from io import BytesIO
 from base64 import b64encode
 
