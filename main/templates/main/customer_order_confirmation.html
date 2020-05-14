@@ -193,12 +193,16 @@
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;" class="padding">
             {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
-                <div style="padding: 10px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
-                    {{  bodega_ruc }}
+                <div style="padding: 20px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
+                    {% for key, value in bodega_names.items %}
+                        {% if key == bodega_id %}
+                            {{value|floatformat:2|intcomma}}
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
                     <tr>
-                        <td style="padding: 20px 0 0 0; border-top: 1px dashed #aaaaaa; border-bottom: 1px solid #eaeaea;">
+                        <td style="padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa; border-bottom: 1px solid #eaeaea;">
                             <!-- BODEGA TABLE HEADER -->
                             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
