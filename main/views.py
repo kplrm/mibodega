@@ -638,22 +638,15 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
 
     # usr_geolocation with regex
-    patterns = "([0-9.]+)" # Full match 1 is SRID, Full match 1 is LAT, Full match 1 is LNG
-    match = re.findall(patterns, usr_geolocation)
-    print('Found:', match[1], match[2]) ## 'found word:cat'
-    
+    patterns = "([0-9.]+)"
+    match = re.findall(patterns, usr_geolocation) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
+    lng = match[1]
+    lat = match[2]
+
     # Get map image
-    img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(-76.9,38.9)/-76.9,38.9,14/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ"
+    img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(%s,%s)/%s,%s,14/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ" % (lng,lat,lng,lat)
     response = requests.get(img_url)
     usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
-    
-    #response = requests.get(img_url)
-    #img = Image.open(BytesIO(response.content))
-
-    # Encoding to base64
-    print("usr_geolocation")
-    print(usr_geolocation)
-
 
     context = {
         'orders_obj': orders_obj, 
