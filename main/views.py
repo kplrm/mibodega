@@ -679,6 +679,7 @@ def submit_checkout(request):
             order_item.oi_product = item.ci_product.peb_product.pa_product
             order_item.oi_quantity = item.ci_quantity
             order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
+            order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
             order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
             if item.ci_product.peb_discount_status:
                 order_item.oi_price = item.ci_product.peb_discount_price
