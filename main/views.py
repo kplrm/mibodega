@@ -619,7 +619,7 @@ def send_order_mail(orders_obj,usr_email):
     print("Enviando email a:", usr_email)
     
     context = {
-        'contact_name': "contact_name", 
+        'orders_obj': orders_obj, 
         'contact_email': "contact_email", 
         'form_content': "content"
     }
