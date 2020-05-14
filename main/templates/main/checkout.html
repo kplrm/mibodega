@@ -63,30 +63,89 @@
 <!-- Header End -->
 
 <!-- Shopping Cart Section Begin -->
+<script>
+    function validate_fir(input) {
+        var validityState_object = input.validity;
+        if(validityState_object.patternMismatch) {
+            input.setCustomValidity('Use solo letras y espacio');
+            input.reportValidity();
+        } else if (validityState_object.valueMissing ) {
+            input.setCustomValidity('Escriba su nombre.');
+            input.reportValidity();
+        } else {
+            input.setCustomValidity('');
+        }
+    };
+    function validate_last(input) {
+        var validityState_object = input.validity;
+        if(validityState_object.patternMismatch) {
+            input.setCustomValidity('Use solo letras y espacio');
+            input.reportValidity();
+        } else if (validityState_object.valueMissing ) {
+            input.setCustomValidity('Escriba su apellido.');
+            input.reportValidity();
+        } else {
+            input.setCustomValidity('');
+        }
+    };
+    function validate_street(input) {
+        var validityState_object = input.validity;
+        if (validityState_object.valueMissing ) {
+            input.setCustomValidity('Seleccione en el mapa su dirección y corrija su dirección.');
+            input.reportValidity();
+        } else {
+            input.setCustomValidity('');
+        }
+    };
+    function validate_phone(input) {
+        var validityState_object = input.validity;
+        if(validityState_object.patternMismatch) {
+            input.setCustomValidity('Use solo números');
+            input.reportValidity();
+        } else if (validityState_object.badInput ) {
+            input.setCustomValidity('Use solo números');
+            input.reportValidity();
+        } else if (validityState_object.valueMissing ) {
+            input.setCustomValidity('Ingrese su teléfono.');
+            input.reportValidity();
+        } else {
+            input.setCustomValidity('');
+        }
+    };
+    function check(input) {
+        if (input.validity) {
+            if (input.validity.valid === true) {
+                ;
+            } else {
+                input.reportValidity();
+            }
+        }
+    };
+</script>
 <section class="checkout-section spad">
     <div class="container">
-        <form action="#" class="checkout-form">
+        <form id="checkout_form" action="" class="checkout-form">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout-content">
                         <a href="/login" class="content-btn">Inicie sesión</a>
                     </div>
                     <h4>Sus datos</h4>
-                    <div class="row">
+                    <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
                             <label for="fir">Nombre<span>*</span></label>
-                            <input type="text" id="fir" value="{{cliente.cl_first_name}}">
+                            <input type=text id="fir" class="form-control" pattern="^[A-Za-z\s]{1,}$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate_fir(this)" required>
                         </div>
                         <div class="col-lg-6">
                             <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" value="{{cliente.cl_last_name}}">
+                            <input type="text" id="last" class="form-control" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <label for="street">Dirección<span>*</span></label>
-                            <input type="text" id="street" class="street-first" value="{{cliente.cl_address}}">
+                            <label for="street">Dirección (Seleccione en el mapa y corrija)<span>*</span></label>
+                            <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                         </div>
                         <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" value="{{cliente.cl_geolocation}}">
+                            <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                             <div id="mapid"></div>
                             <script>
                                 var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
@@ -155,24 +214,42 @@
                         </div>
                         <div class="col-lg-6">
                             <label for="email">Email<span>*</span></label>
-                            <input type="text" id="email" value="{{cliente.cl_address}}">
+                            <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
                         </div>
+                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
+                        <style>
+                            /* Chrome, Safari, Edge, Opera */
+                            input::-webkit-outer-spin-button,
+                            input::-webkit-inner-spin-button {
+                              -webkit-appearance: none;
+                              margin: 0;
+                            }
+                            /* Firefox */
+                            input[type=number] {-moz-appearance: textfield;}
+                        </style>
+                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
                             <label for="phone">Teléfono<span>*</span></label>
-                            <input type="text" id="phone" value="{{cliente.cl_phone}}">
+                            <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_phone(this)" required>
                         </div>
+                        <div class="col-lg-12">
+                            <label for="comments">Comentarios para la bodega</label>
+                            <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
+                        </div>
+                        <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
+                        {% if cliente.cl_user != None %}
                         <div class="col-lg-12">
                             <div class="create-item">
                                 <label for="acc-create">
-                                    Create an account?
+                                    ¿Desea guardar sus datos?
                                     <input type="checkbox" id="acc-create">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
-
                 <div class="col-lg-6">
                     <div class="checkout-content">
                         <a href="/register" class="content-btn">Regístrese</a>
@@ -313,14 +390,44 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="submit" class="site-btn place-btn">Comprar</button>
+                            <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout(); return false">Comprar</button>
+                            <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
                         </div>
                     </div>
                     <!-- CHECKOUT CART SECTION END -->
-
                 </div>
             </div>
         </form>
+        <!--
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        -->
+        <script type="text/javascript">
+            function submit_checkout() {
+                console.log("Entering submit");
+                console.log({{ cart_obj.crt_ID }});
+                cart_obj_id = {{ cart_obj.crt_ID }};
+                usr_email = document.getElementById("email").value;
+
+                if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 ) {
+                    // submit with AJAX
+                    $.ajax({
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        url: "/submit_checkout",
+                        type: "POST",
+                        dataType: "json",
+                        data:   {
+                                    'csrfmiddlewaretoken': csrftoken,
+                                    'cart_obj_id': cart_obj_id.toString(),
+                                    'usr_email': usr_email,
+                                    // spare line to send confirmation if user wants to update his preferences
+                                }
+                    });
+                } else {
+                    alert("Error");
+                }
+            }
+        </script>
     </div>
 </section>
 <!-- Shopping Cart Section End -->
@@ -370,6 +477,7 @@
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.validate.min.js' %}"></script>
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'main/js/jquery-ui.min.js' %}"></script>
 <script src="{% static 'main/js/jquery.countdown.min.js' %}"></script>
@@ -382,16 +490,5 @@
 <!-- Infinite scroll -->
 <script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static 'main/js/infinite.min.js' %}"></script>
-<!--
-<script>
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-</script>-->
+<!--<script src="{% static 'main/js/jquery.validate.min.js' %}"></script>-->
 {% endblock %}

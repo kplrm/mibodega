@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Su pedido de Alimentos.pe</title>
+<!--
+
+    An email present from your friends at Litmus (@litmusapp)
+
+    Email is surprisingly hard. While this has been thoroughly tested, your mileage may vary.
+    It's highly recommended that you test using a service like Litmus (http://litmus.com) and your own devices.
+
+    Enjoy!
+
+ -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<style type="text/css">
+    /* CLIENT-SPECIFIC STYLES */
+    body, table, td, a{-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+    table, td{mso-table-lspace: 0pt; mso-table-rspace: 0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+    img{-ms-interpolation-mode: bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+
+    /* RESET STYLES */
+    img{border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none;}
+    table{border-collapse: collapse !important;}
+    body{height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important;}
+
+    /* iOS BLUE LINKS */
+    a[x-apple-data-detectors] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+    }
+
+    /* MOBILE STYLES */
+    @media screen and (max-width: 525px) {
+
+        /* ALLOWS FOR FLUID TABLES */
+        .wrapper {
+          width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* ADJUSTS LAYOUT OF LOGO IMAGE */
+        .logo img {
+          margin: 0 auto !important;
+        }
+
+        /* USE THESE CLASSES TO HIDE CONTENT ON MOBILE */
+        .mobile-hide {
+          display: none !important;
+        }
+
+        .img-max {
+          max-width: 100% !important;
+          width: 100% !important;
+          height: auto !important;
+        }
+
+        /* FULL-WIDTH TABLES */
+        .responsive-table {
+          width: 100% !important;
+        }
+
+        /* UTILITY CLASSES FOR ADJUSTING PADDING ON MOBILE */
+        .padding {
+          padding: 10px 5% 15px 5% !important;
+        }
+
+        .padding-meta {
+          padding: 30px 5% 0px 5% !important;
+          text-align: center;
+        }
+
+        .padding-copy {
+             padding: 10px 5% 10px 5% !important;
+          text-align: center;
+        }
+
+        .no-padding {
+          padding: 0 !important;
+        }
+
+        .section-padding {
+          padding: 50px 15px 50px 15px !important;
+        }
+
+        /* ADJUST BUTTONS ON MOBILE */
+        .mobile-button-container {
+            margin: 0 auto;
+            width: 100% !important;
+        }
+
+        .mobile-button {
+            padding: 15px !important;
+            border: 0 !important;
+            font-size: 16px !important;
+            display: block !important;
+        }
+
+    }
+
+    /* ANDROID CENTER FIX */
+    div[style*="margin: 16px 0;"] { margin: 0 !important; }
+</style>
+</head>
+<body style="margin: 0 !important; padding: 0 !important;">
+
+<!-- HIDDEN PREHEADER TEXT -->
+<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+    Alimentos.pe
+</div>
+
+<!-- HEADER -->
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td bgcolor="#ffffff" align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="wrapper">
+                <tr>
+                    <td align="center" valign="top" style="padding: 15px 0;" class="logo">
+                        <a href="https://www.alimentos.pe" target="_blank">
+                            <img alt="Logo" src="data:image/png;base64,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" width="60%" height="60" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;" border="0">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    {% load humanize %}
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 15px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
+                <tr>
+                    <td>
+                        <!-- COPY -->
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">Su pedido fue aceptado y está siendo procesado.</td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">La bodega ahora preparará su pedido.
+                                <br>
+                                Orden de compra #{{ orders_obj.ord_ID|stringformat:"08d" }}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 15px;" class="padding">
+            {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+                <br>
+                <div style="padding: 25px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
+                    {% for key, value in bodega_names.items %}
+                        {% if key == bodega_id %}
+                            {{ value }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <br>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
+                    <tr>
+                        <td style="padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa; border-bottom: 1px solid #eaeaea;">
+                            <!-- BODEGA TABLE HEADER -->
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <!-- LEFT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Productos</td>
+                                    <!-- MIDDLE-LEFT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Cantidad</td>
+                                    <!-- MIDDLE-RIGHT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">P.u.</td>
+                                    <!-- RIGHT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Subtotal</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- BODEGA LISTING -->
+                            {% for product in result_list %}
+                                {% if product.oi_id_bodega == bodega_id %}
+                                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <!-- LEFT COLUMN -->
+                                            <td valign="top" class="mobile-wrapper" align="left" style="padding: 10px 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">{{ product.oi_product }}</td>
+                                            <!-- MIDDLE-LEFT COLUMN -->
+                                            <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">{{ product.oi_quantity }}</td>
+                                            <!-- MIDDLE-RIGHT COLUMN -->
+                                            <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_price|floatformat:2|intcomma }}</td>
+                                            <!-- RIGHT COLUMN -->
+                                            <td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_prod_total|floatformat:2|intcomma }}</td>
+                                        </tr>
+                                    </table>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0 0px 0; border-top: 1px solid #eaeaea; border-bottom: 1px dashed #aaaaaa;">
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <!-- LEFT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
+                                    <!-- MIDDLE-RIGHT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal</td>
+                                    <!-- RIGHT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 20%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">S/.
+                                        {% for key, value in subtotal_bodegas.items %}
+                                            {% if key == bodega_id %}
+                                                {{value|floatformat:2|intcomma}}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            {% endfor %}
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
+                <tr>
+                    <td style="padding: 10px 0 0px 0; border-top: 1px solid #eaeaea; border-bottom: 1px dashed #aaaaaa;">
+                        <!-- TWO COLUMNS -->
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <!-- LEFT COLUMN -->
+                                <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px;"></td>
+                                <!-- MIDDLE-RIGHT COLUMN -->
+                                <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 35%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px; font-weight: bold;">Total</td>
+                                <!-- RIGHT COLUMN -->
+                                <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 25%; font-family: Arial, sans-serif; color: #e7ab3c; font-size: 18px; font-weight: bold;">S/.
+                                    {{orders_obj.ord_total_price|floatformat:2|intcomma}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 15px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>
+                                    <!-- COPY -->
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">En caso algún producto esté agotado, se anulará la compra de dicho producto.</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 15px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="500" class="responsive-table">
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <!-- COPY -->
+                                <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">¿Desea realizar alguna otra compra?</td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Aproveche las ofertas exclusivas en línea.</td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <!-- BULLETPROOF BUTTON -->
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="center" style="padding-top: 25px;" class="padding">
+                                                <table border="0" cellspacing="0" cellpadding="0" class="mobile-button-container">
+                                                    <tr>
+                                                        <td align="center" style="border-radius: 3px;" bgcolor="#e7ab3c"><a href="https://www.alimentos.pe" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; text-decoration: none; border-radius: 3px; padding: 15px 25px; border: 1px solid #e7ab3c; display: inline-block;" class="mobile-button">Visitenos</a></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 20px 0px;">
+            <!-- UNSUBSCRIBE COPY -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="max-width: 500px;" class="responsive-table">
+                <tr>
+                    <td align="center" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
+                        Lima, Peru
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
