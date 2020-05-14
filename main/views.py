@@ -23,7 +23,7 @@ from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
 from PIL import Image
-import requests
+import urllib2 as urllib
 from io import BytesIO
 from base64 import b64encode
 
@@ -645,6 +645,8 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     # Encoding to base64
     encodedBytes = b64encode(img.encode("utf-8"))
     encodedStr = str(encodedBytes, "utf-8")
+    print("response")
+    print(response)
     print("encoded image:")
     print(encodedStr)
 
