@@ -146,12 +146,15 @@
                     var p_price = {{  product.oi_price }};
                     document.write((p_price*p_quantity).toFixed(2));
                 </script>
+            {% endif %}
+        {% endfor %}
     --------------
         {% for key, value in subtotal_bodegas.items %}
             {% if bodega.bd_ruc == key %}
                 {{value|floatformat:2|intcomma}}
             {% endif %}
         {% endfor %}
+    {% endfor %}
     ==============
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;">
