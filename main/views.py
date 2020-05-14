@@ -22,10 +22,6 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
-#from PIL import Image
-#import requests
-#from io import BytesIO
-#from base64 import b64encode
 import base64
 import requests
 
@@ -648,16 +644,8 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     #img = Image.open(BytesIO(response.content))
 
     # Encoding to base64
-    #encodedBytes = b64encode(img.encode("utf-8"))
-    #encodedStr = str(encodedBytes, "utf-8")
-    #print("response")
-    #print(response)
-    #print("image")
-    #print(img)
-    #print("encoded image:")
-    #print(usr_map)
     print("usr_geolocation")
-    print(usr_geolocation)
+    print(usr_geolocation.lat)
 
 
     context = {
