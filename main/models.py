@@ -239,6 +239,7 @@ class OrderItem(models.Model):
     oi_price = models.CharField(max_length=100,default="",verbose_name="Precio")
     oi_quantity = models.CharField(max_length=100,default="",verbose_name="Cantidad")
     oi_id_bodega = models.CharField(max_length=100,default="",verbose_name="ID Bodega")
+    oi_ruc_bodega = models.CharField(max_length=100,default="",verbose_name="RUC Bodega")
     oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")    
 
     def __str__(self):
