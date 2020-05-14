@@ -25,6 +25,8 @@ from ipregistry import IpregistryClient, NoCache
 import base64
 import requests
 
+import re # regex
+
 import json
 from django.http import JsonResponse
 
@@ -634,6 +636,14 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
+
+    # usr_geolocation with regex
+    patterns = ([0-9.]+) # Full match 1 is SRID, Full match 1 is LAT, Full match 1 is LNG
+    match = re.search(patterns, usr_geolocation)
+    if match:
+        print 'found', match.group() ## 'found word:cat'
+    else:
+        print 'did not find'
 
     # Get map image
     img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(-76.9,38.9)/-76.9,38.9,14/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ"
