@@ -641,7 +641,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     patterns = "([0-9.]+)" # Full match 1 is SRID, Full match 1 is LAT, Full match 1 is LNG
     match = re.search(patterns, usr_geolocation)
     if match:
-        print('found', match.group()) ## 'found word:cat'
+        print('found', match.group(1)) ## 'found word:cat'
     else:
         print('did not find')
 
