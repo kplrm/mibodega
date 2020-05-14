@@ -647,6 +647,8 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     #encodedStr = str(encodedBytes, "utf-8")
     print("response")
     print(response)
+    print("image")
+    print(img)
     print("encoded image:")
     #print(encodedStr)
 
