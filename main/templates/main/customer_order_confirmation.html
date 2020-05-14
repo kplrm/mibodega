@@ -164,9 +164,13 @@
         {% endfor %}
     <br>--------------
         {% for key, value in subtotal_bodegas.items %}
+            <br> {{ bodega.oi_id_bodega }}    
             <br>{{ key }}
             <br>{{ value }}
             {% if key == bodega.oi_id_bodega %}
+                <script type="text/javascript">
+                    var b_subtotal = {{ value }};
+                </script>
                 <br>{{value|floatformat:3|intcomma}}
             {% endif %}
         {% endfor %}
