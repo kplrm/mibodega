@@ -144,7 +144,7 @@
                             <tr>
                                 <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">La bodega ahora preparará su pedido.
                                 <br>
-                                <span>Pedido #{{ orders_obj.ord_ID|stringformat:"08d" }}</span>
+                                <span style="font-weight: bold;">Pedido #{{ orders_obj.ord_ID|stringformat:"08d" }}</span>
                                 </td>
                             </tr>
                         </table>
@@ -284,7 +284,7 @@
                                 <td align="left" style="padding: 16px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
                                     {{ usr_first }} {{ usr_last }}
                                     <br>{{ usr_street }}
-                                    <br>{{ usr_email }}
+                                    <br>T:{{ usr_email }}
                                     <br>{{ usr_phone }}
                                 </td>
                             </tr>
