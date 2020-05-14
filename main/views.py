@@ -615,9 +615,7 @@ def checkout(request):
                   'subtotal_bodegas': subtotal_bodegas,
                   'STATIC_URL': STATIC_URL})
 
-def send_order_mail(orders_obj,usr_email):
-    print("Enviando email a:", usr_email)
-
+def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
     result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
 
     bodegas_en_cesta = dict()
@@ -637,7 +635,14 @@ def send_order_mail(orders_obj,usr_email):
         'result_list': result_list,
         'bodegas_en_cesta': bodegas_en_cesta,
         'bodega_names': bodega_names,
-        'subtotal_bodegas': subtotal_bodegas
+        'subtotal_bodegas': subtotal_bodegas,
+        'usr_first': usr_first,
+        'usr_last': usr_last,
+        'usr_street': usr_street,
+        'usr_geolocation': usr_geolocation,
+        'usr_email': usr_email,
+        'usr_phone': usr_phone,
+        'usr_comments': usr_comments
     }
 
     subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
@@ -658,7 +663,13 @@ def submit_checkout(request):
         # Stores variables in session
         cart_obj_id = request.POST['cart_obj_id']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
+        usr_first = request.POST['usr_first']
+        usr_last = request.POST['usr_last']
+        usr_street = request.POST['usr_street']
+        usr_geolocation = request.POST['usr_geolocation']
         usr_email = request.POST['usr_email']
+        usr_phone = request.POST['usr_phone']
+        usr_comments = request.POST['usr_comments']
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
@@ -690,7 +701,7 @@ def submit_checkout(request):
             order_item.oi_prod_total = item.ci_quantity * order_item.oi_price
             order_item.save()
 
-        send_order_mail(orders_obj,usr_email)
+        send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
     else:
         print("Not Ajax")

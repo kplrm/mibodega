@@ -144,7 +144,7 @@
                             <tr>
                                 <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">La bodega ahora preparará su pedido.
                                 <br>
-                                Orden de compra #{{ orders_obj.ord_ID|stringformat:"08d" }}
+                                <span>Pedido #{{ orders_obj.ord_ID|stringformat:"08d" }}</span>
                                 </td>
                             </tr>
                         </table>
@@ -262,6 +262,34 @@
                                             <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">En caso algún producto esté agotado, se anulará la compra de dicho producto.</td>
                                         </tr>
                                     </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 15px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
+                <tr>
+                    <td>
+                        <!-- COPY -->
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="left" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 16px;" class="padding-copy">Dirección del cliente</td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
+                                    {{ usr_first }} {{ usr_last }}
+                                    <br>{{ usr_street }}
+                                    <br>{{ usr_email }}
+                                    <br>{{ usr_phone }}
+                                </td>
+                                <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
+                                    Comentarios:
+                                    <br>{{ usr_comments }}
                                 </td>
                             </tr>
                         </table>
