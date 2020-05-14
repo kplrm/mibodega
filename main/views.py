@@ -639,12 +639,9 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
 
     # usr_geolocation with regex
     patterns = "([0-9.]+)" # Full match 1 is SRID, Full match 1 is LAT, Full match 1 is LNG
-    match = re.search(patterns, usr_geolocation)
-    if match:
-        print('found', match.group(2), match.group(3)) ## 'found word:cat'
-    else:
-        print('did not find')
-
+    match = re.findall(patterns, usr_geolocation)
+    print('Found:', match[1], match[2]) ## 'found word:cat'
+    
     # Get map image
     img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(-76.9,38.9)/-76.9,38.9,14/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ"
     response = requests.get(img_url)
