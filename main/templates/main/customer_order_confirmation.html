@@ -259,7 +259,9 @@
                                     <!-- COPY -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">En caso algún producto esté agotado, se anulará la compra de dicho producto.</td>
+                                            <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">
+                                                En caso algún producto esté agotado, se anulará la compra de dicho producto.
+                                            </td>
                                         </tr>
                                     </table>
                                 </td>
@@ -277,6 +279,31 @@
                     <td>
                         <!-- COPY -->
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="left" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 16px; font-weight: bold;" class="padding-copy">
+                                    Indicaciones
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding: 7px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
+                                    Cualquier cambio o devolución, coordinar directamente con la bodega.
+                                    <br>El producto será enviado a su dirección indicada. 
+                                    <br>Si desea recoger sus productos en persona, llame a la bodega.
+                                    {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+                                        {% for key, value in bodega_names.items %}
+                                            {% if key == bodega_id %}
+                                                <br>{{ value }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% for key, value in bodega_phones.items %}
+                                            {% if key == bodega_id %}
+                                                <a href="tel:{{ value }}"> {{ value }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    
+                                </td>
+                            </tr>
                             <tr>
                                 <td align="left" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 16px; font-weight: bold;" class="padding-copy">
                                     Dirección del cliente

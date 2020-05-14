@@ -241,7 +241,8 @@ class OrderItem(models.Model):
     oi_quantity = models.CharField(max_length=100,default="",verbose_name="Cantidad")
     oi_id_bodega = models.CharField(max_length=100,default="",verbose_name="ID Bodega")
     oi_ruc_bodega = models.CharField(max_length=100,default="",verbose_name="RUC Bodega")
-    oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")    
+    oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")
+    oi_bodega_phone = models.CharField(max_length=100,default="",verbose_name="Teléfono de Bodega")
 
     def __str__(self):
         return str("Order ID:")+str(self.oi_ID)+str(" || Product ID:")+str(self.oi_id_product)+str(" || Producto:")+str(self.oi_product)
