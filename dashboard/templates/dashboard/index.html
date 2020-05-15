@@ -9,50 +9,30 @@
 
 <!-- Header Section Begin -->
 <header class="header-section">
-    <!-- MIDDLE BAR -->
-    <div class="container">
-        <div class="inner-header">
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
-                    <div class="logo">
-                        <!-- <a href="./index.html"> -->
-                            <img src="{% static 'main/img/logo.png' %}" alt="">
-                        <!-- </a> -->
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="advanced-search">
-                        <form action="#" class="input-group">
-                            <input type="text" placeholder="Producto">
-                            <button type="button"><i class="ti-search"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-right col-md-4">
-                    <div class="row">
-                        <!-- SHOP SELECTION BEGIN -->
-                        {% include 'main/includes/shop_selection.html' %}
-                        <!-- SHOP SELECTION END -->
-                        <!-- SHOPPING CART -->
-                        {% include 'main/includes/shopping_cart.html' %}
-                        <!-- SHOPPING CART -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- BOTTOM BAR-->
     <div class="nav-item">
         <div class="container">
+            <div class="nav-depart">
+                <div class="depart-btn">
+                    <i class="ti-menu"></i>
+                    <span>Todas las opciones</span>
+                    <ul class="depart-hover">
+                        <li class="active"><a href="#">Women’s Clothing</a></li>
+                        <li><a href="#">Men’s Clothing</a></li>
+                        <li><a href="#">Underwear</a></li>
+                        <li><a href="#">Kid's Clothing</a></li>
+                        <li><a href="#">Brand Fashion</a></li>
+                        <li><a href="#">Accessories/Shoes</a></li>
+                        <li><a href="#">Luxury Brands</a></li>
+                        <li><a href="#">Brand Outdoor Apparel</a></li>
+                    </ul>
+                </div>
+            </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="/index">Ofertas</a></li>
-                    <li><a href="/embutidos">Embutidos</a></li>
-                    <li><a href="/vegetales">Vegetales</a>
-                    <li><a href="/lacteos">Lácteos</a></li>
-                    <li><a href="/abarrotes">Abarrotes</a></li>
-                    <li><a href="/limpieza">Limpieza</a></li>
-                    <li><a href="/licores">Licores</a>
+                    <li class="active"><a href="/index">Dashboard</a></li>
+                    <li><a href="/productos">Productos</a></li>
+                    <li><a href="/pedidos">Pedidos</a>
                     </li>
                 </ul>
             </nav>
