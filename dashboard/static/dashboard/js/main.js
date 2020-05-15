@@ -127,6 +127,7 @@
     /*----------------------------------------------------
      Language Flag js 
     ----------------------------------------------------*/
+    /*
     $(document).ready(function(e) {
     //no use
     try {
@@ -142,13 +143,13 @@
         $("#ver").html(msBeautify.version.msDropdown);
     } catch(e) {
         // console.log(e);
-    }/*
-    $("#ver").html(msBeautify.version.msDropdown);*/
+    }
+    $("#ver").html(msBeautify.version.msDropdown);
 
     //convert
     $(".language_drop").msDropdown({roundedBorder:false});
         $("#tech").data("dd");
-    });
+    });*/
     /*-------------------
 		Range Slider
 	--------------------- *//*
@@ -181,7 +182,7 @@
     /*-------------------
 		Nice Select
     --------------------- */
-    $('.sorting, .p-show').niceSelect();
+    //$('.sorting, .p-show').niceSelect();
 
     /*------------------
 		Single Product
