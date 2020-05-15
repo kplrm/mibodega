@@ -34,11 +34,6 @@
         $(".fw-size-choose .sc-item label, .pd-size-choose .sc-item label").removeClass('active');
         $(this).addClass('active');
     });
-    
-    /*-------------------
-		Nice Select
-    --------------------- */
-    //$('.sorting, .p-show').niceSelect();
 
     /*------------------
 		Single Product
@@ -53,8 +48,6 @@
 			$('.zoomImg').attr({src: imgurl});
 		}
 	});
-
-    //$('.product-pic-zoom').zoom();
     
     /*-------------------
 		Quantity change
