@@ -1,0 +1,207 @@
+{% extends 'dashboard/header.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header-section">
+    <!-- MIDDLE BAR -->
+    <div class="container">
+        <div class="inner-header">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="logo">
+                        <!-- <a href="./index.html"> -->
+                            <img src="{% static 'main/img/logo.png' %}" alt="">
+                        <!-- </a> -->
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="advanced-search">
+                        <form action="#" class="input-group">
+                            <input type="text" placeholder="Producto">
+                            <button type="button"><i class="ti-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-right col-md-4">
+                    <div class="row">
+                        <!-- SHOP SELECTION BEGIN -->
+                        {% include 'main/includes/shop_selection.html' %}
+                        <!-- SHOP SELECTION END -->
+
+                        <!-- SHOPPING CART -->
+                        {% include 'main/includes/shopping_cart.html' %}
+                        <!-- SHOPPING CART -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BOTTOM BAR-->
+    <div class="nav-item">
+        <div class="container">
+            <nav class="nav-menu mobile-menu">
+                <ul>
+                    <li class="active"><a href="/index">Ofertas</a></li>
+                    <li><a href="/embutidos">Embutidos</a></li>
+                    <li><a href="/vegetales">Vegetales</a>
+                    <li><a href="/lacteos">Lácteos</a></li>
+                    <li><a href="/abarrotes">Abarrotes</a></li>
+                    <li><a href="/limpieza">Limpieza</a></li>
+                    <li><a href="/licores">Licores</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Mobile version-->
+           <div id="mobile-menu-wrap"></div>
+        </div>
+    </div>
+</header>
+<!-- Header End -->
+
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hero-items owl-carousel">
+        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-1.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!--<span>Bag,kids</span>-->
+                        <h1 style="background-color:white; opacity: 0.8">Ahora en La Molina</h1>
+                        <h3 style="background-color:white; opacity: 0.8">La bodega de tu cuadra ahora está en internet</h3>
+                        <a href="#" class="primary-btn">¡Compra!</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Ya abrimos</h2>
+                </div>
+            </div>
+        </div>
+        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-2.jpg' %}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <!--<span>Bag,kids</span>-->
+                        <h1 style="background-color:white; opacity: 0.8">Afilia tu bodega gratis</h1>
+                        <h3 style="background-color:white; opacity: 0.8">Ahora puedes vender por internet</h3>
+                        <a href="#" class="primary-btn">¡Únete!</a>
+                    </div>
+                </div>
+                <div class="off-card">
+                    <h2>Ya abrimos</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Women Banner Section Begin -->
+<section class="women-banner spad">
+    <div class="container-fluid">
+        <div class="row">
+            <!--<div class="col-lg-8 offset-lg-1">-->
+            <div class="col-lg-12">
+                <div class="filter-control">
+                    <ul>
+                        <li class="active">Ofertas</li>
+                        <li>Embutidos</li>
+                        <li>Vegetales</li>
+                        <li>Lácteos</li>
+                        <li>Abarrotes</li>
+                        <li>Limpieza</li>
+                        <li>Licores</li>
+                    </ul>
+                </div>
+                <div class="product-slider owl-carousel">
+                    <!-- FIRST ITEM -->
+                    {% load humanize %}
+                    {% for product in result_list %}
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
+                            <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
+                            <ul>
+                                <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
+                                    <input type="hidden" name='product_id' value='{{product.pk}}'>
+                                    <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
+                                </form>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">{{product.peb_bodega.bd_name}}</div>
+                            <a href="#"><h5>{{product.peb_product.pa_product}}</h5></a>
+                            <div class="product-price">
+                                S/.{{product.peb_discount_price|floatformat:2|intcomma}}
+                                <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Women Banner Section End -->
+
+<!-- BENEFICIOS -->
+<section class="latest-blog spad">
+    <div class="container">
+        <div class="benefit-items">
+            <div class="row">
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-1.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>Envío económico</h6>
+                            <p>Es la bodega de la cuadra.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-2.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>Rápido envío</h6>
+                            <p>El bodeguero es tu vecino.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-3.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>100% pago seguro</h6>
+                            <p>En efectivo a <b>contraentrega.</b><br>Próximamente con tarjeta via web.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Latest Blog Section End -->
+<!-- Js Plugins -->
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'main/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.zoom.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.dd.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'main/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'main/js/main.js' %}"></script>
+{% endblock %}
