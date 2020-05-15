@@ -647,11 +647,6 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
 
     # Get map image
     img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(%s,%s)/%s,%s,15/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ" % (lng,lat,lng,lat)
-    #print("======================")
-    #print(img_url)
-    #print(lng)
-    #print(lat)
-    #print("======================")
     response = requests.get(img_url)
     usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
 
