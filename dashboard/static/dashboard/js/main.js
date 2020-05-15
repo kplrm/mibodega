@@ -151,7 +151,7 @@
     });
     /*-------------------
 		Range Slider
-	--------------------- */
+	--------------------- *//*
 	var rangeSlider = $(".price-range"),
 		minamount = $("#minamount"),
 		maxamount = $("#maxamount"),
@@ -168,7 +168,7 @@
 		}
 	});
 	minamount.val('$' + rangeSlider.slider("values", 0));
-    maxamount.val('$' + rangeSlider.slider("values", 1));
+    maxamount.val('$' + rangeSlider.slider("values", 1));*/
 
     /*-------------------
 		Radio Btn
