@@ -143,12 +143,12 @@
     } catch(e) {
         // console.log(e);
     }/*
-    $("#ver").html(msBeautify.version.msDropdown);
+    $("#ver").html(msBeautify.version.msDropdown);*/
 
     //convert
     $(".language_drop").msDropdown({roundedBorder:false});
         $("#tech").data("dd");
-    });*/
+    });
     /*-------------------
 		Range Slider
 	--------------------- *//*
