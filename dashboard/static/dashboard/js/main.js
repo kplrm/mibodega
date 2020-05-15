@@ -146,9 +146,10 @@
     $("#ver").html(msBeautify.version.msDropdown);*/
 
     //convert
+    /*
     $(".language_drop").msDropdown({roundedBorder:false});
         $("#tech").data("dd");
-    });
+    });*/
     /*-------------------
 		Range Slider
 	--------------------- *//*
