@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'main',
     'django.contrib.gis',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
