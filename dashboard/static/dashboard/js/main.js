@@ -54,7 +54,7 @@
 		}
 	});
 
-    $('.product-pic-zoom').zoom();
+    //$('.product-pic-zoom').zoom();
     
     /*-------------------
 		Quantity change
