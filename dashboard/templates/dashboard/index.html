@@ -63,7 +63,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del día</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_daily_sales|floatformat:2|intcomma }}</h1>
+                                        <h3 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_daily_sales|floatformat:2|intcomma }}</h3>
                                     </div>
                                     {% if BodegaDashboard_obj.bd_daily_change_sales >= 0 %}
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
@@ -90,7 +90,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h1>
+                                        <h2 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                     {% if BodegaDashboard_obj.bd_weekly_change_sales >= 0 %}
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
