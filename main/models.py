@@ -109,6 +109,7 @@ class ProductosEnBodega(models.Model):
             self.pk = sav_object.pk
         except:
 #            print("object DO NOT exists")
+            pass
 
         if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and isinstance(self.peb_discount_price,float):
             self.peb_discount_rate = (self.peb_discount_price-self.peb_regular_price)/self.peb_regular_price*100
