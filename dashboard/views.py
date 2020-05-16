@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from main.models import Cliente
+from main.models import Cliente, Bodega
 
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
