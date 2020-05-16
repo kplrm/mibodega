@@ -678,7 +678,6 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     #res = email.send()
 
     print("Email enviado")
-    print(res)
     return HttpResponse('%s'%res)
 
 def submit_checkout(request):
@@ -713,6 +712,7 @@ def submit_checkout(request):
         # Crate a new bodegaorder for every bodega in the basket
         bodegas = dict()
         for item in cart_list:
+            print("item.ci_product.peb_bodega.bd_ID: ",item.ci_product.peb_bodega.bd_ID)
             if item.ci_product.peb_bodega.bd_ID in bodegas: # Check for key in dict
                 pass
             else:
