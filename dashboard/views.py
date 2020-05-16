@@ -32,9 +32,8 @@ def dashboard(request):
         print("BodegaOrders_list? ", len(BodegaOrders_list))
         print("OrderItem_list? ", len(OrderItem_list))
 
-
-
-        update_values_BodegaDashboard(BodegaOrders_list)
+        # Update BodegaDashboard values
+        update_values_BodegaDashboard(BodegaDashboard_obj, OrderItem_list)
 
 
 
@@ -63,5 +62,7 @@ def dashboard(request):
 ####################################################################################
 ################################# PAGE A #################################
 
-def update_values_BodegaDashboard(BodegaOrders_list):
+def update_values_BodegaDashboard(BodegaDashboard_obj, OrderItem_list):
+#    for item in OrderItem_list:
+#        bd_daily_sales
     pass
