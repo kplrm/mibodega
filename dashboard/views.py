@@ -58,14 +58,13 @@ def dashboard(request):
 ################################# PYTHON FUNCTIONS #################################
 
 def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list):
+#        print("Today's week: ", date.today().isocalendar()[1]) # (ISO Year, ISO Week Number, ISO Weekday), always start on monday
+#        print("order.bo_date_created: ", order.bo_date_created.strftime('%W')) # %W week starts on monday, %w starts on sunday
+
     today_sales = 0
     week_sales = 0
     month_sales = 0
-
     for order in BodegaOrders_list:
-#        print("Today's week: ", date.today().isocalendar()[1]) # (ISO Year, ISO Week Number, ISO Weekday), always start on monday
-#        print("order.bo_date_created: ", order.bo_date_created.strftime('%W')) # %W week starts on monday, %w starts on sunday
-        
         # Daily sales
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
             today_sales += order.bo_total_price
@@ -75,7 +74,6 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
         # Monthly sales
         if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str(date.today().month)):
             month_sales += order.bo_total_price
-    
     BodegaDashboard_obj.bd_daily_sales = today_sales
     BodegaDashboard_obj.bd_weekly_sales = week_sales
     BodegaDashboard_obj.bd_monthly_sales = month_sales

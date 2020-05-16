@@ -244,7 +244,7 @@ class BodegaOrders(models.Model):
     bo_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
     bo_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
     bo_date_updated = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
-    bo_date_created = models.DateTimeField(editable=True,auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación") # editable True only for debbuging
+    bo_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
     bo_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
     bo_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")
 
@@ -264,9 +264,12 @@ class OrderItem(models.Model):
     oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")
     oi_bodega_phone = models.CharField(max_length=100,default="",verbose_name="Teléfono de Bodega")
     oi_date_updated = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
-    oi_date_created = models.DateTimeField(editable=True,auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación") # editable True only for debbuging
+#    oi_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
     oi_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
     oi_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")
+    
+    # only for debugging
+    oi_date_created = models.DateTimeField(default=timezone.now(),blank=True,null=True,verbose_name="Fecha de creación")
 
     def __str__(self):
         return str("Order ID:")+str(self.oi_ID)+str(" || Product ID:")+str(self.oi_id_product)+str(" || Producto:")+str(self.oi_product)
