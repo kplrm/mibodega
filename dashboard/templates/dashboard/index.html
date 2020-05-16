@@ -216,6 +216,39 @@
                                                 <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
                                             </tr>
                                             {% endfor %}
+                                            {% for product in most_sold_products %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>{{ product.1.1 }}</td>
+                                                <td>{{ product.1.0 }}</td>
+                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% for product in most_sold_products %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>{{ product.1.1 }}</td>
+                                                <td>{{ product.1.0 }}</td>
+                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% for product in most_sold_products %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>{{ product.1.1 }}</td>
+                                                <td>{{ product.1.0 }}</td>
+                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
+                                            </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
