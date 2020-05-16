@@ -713,7 +713,7 @@ def submit_checkout(request):
         bodegas = dict()
         for item in cart_list:
             print("item.ci_product.peb_bodega.bd_ID: ", item.ci_product.peb_bodega.bd_ID)
-            if item.ci_product.peb_bodega.bd_ID in bodegas: # Check for key in dict
+            if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
                 pass
             else:
                 print("Nueva bodega en cesta")
