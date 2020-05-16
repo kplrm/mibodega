@@ -62,7 +62,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     today_sales = 0
     for order in BodegaOrders_list:
         print("Today: ", date.day)
-        print("order.bo_date_created.day", order.bo_date_created.day)
+        print("order.bo_date_created", order.bo_date_created.strftime('%y%m%d'))
         if order.bo_date_created == date.today():
             today_sales += order.bo_total_price
     
