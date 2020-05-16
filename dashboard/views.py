@@ -91,7 +91,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
             last_week_sales += order.bo_total_price
         # Previos Monthly sales
         print("last month: ", (date.today()+relativedelta(months=-1)).month)
-        if str(order.bo_date_created.strftime('%Y-%m')) == (date.today()+relativedelta(months=-1)).month:
+        if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str((date.today()+relativedelta(months=-1)).month)):
             last_month_sales += order.bo_total_price
 
     BodegaDashboard_obj.bd_daily_sales = today_sales
