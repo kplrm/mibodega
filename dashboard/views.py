@@ -69,7 +69,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
             today_sales += order.bo_total_price
             print("today_sales: ", today_sales)
         # Weekly sales
-        if str(order.bo_date_created.strftime('%W')+1) == str(date.today().isocalendar()[1]):
+        if str(int(order.bo_date_created.strftime('%W'))+1) == str(date.today().isocalendar()[1]):
             print("Calculating...")
             today_sales += order.bo_total_price
             print("today_sales: ", today_sales)
