@@ -5,7 +5,7 @@ from main.models import Cliente, Bodega, OrderItem, BodegaOrders
 from .models import BodegaDashboard
 
 from datetime import date
-from dateutil import relativedelta
+from dateutil.relativedelta import relativedelta
 
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
@@ -71,7 +71,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     #print("Yesterday: ", date.today() + timedelta(days=-1))
     print("Yesterday: ", date.today() + relativedelta(days=-1))
     print("Yesterday2: ", order.bo_date_created.strftime('%Y-%m'))
-    print("Last month: ", date.today() + relativedelta(months=3))
+    print("Last month: ", date.today() + relativedelta(months=-1))
     print("Last month2: ", order.bo_date_created.strftime('%Y-%m-%d'))
     for order in BodegaOrders_list:
         # Daily sales
