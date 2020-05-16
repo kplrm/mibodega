@@ -120,18 +120,11 @@ def find_most_sold_products(OrderItem_list):
     for item in OrderItem_list:
         if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
             if item.oi_id_product in most_sold_products:
-                print("updating existing...")
-                print("value to update", list(most_sold_products[str(item.oi_id_product)])[0])
-                print(most_sold_products)
+                # Tuple can not be updated, so convert it to list before updating a value
                 temp = list(most_sold_products[str(item.oi_id_product)])
                 temp[0] += int(item.oi_quantity)
-               #most_sold_products[str(item.oi_id_product)][0] = int(item.oi_quantity) + most_sold_products[str(item.oi_id_product)][0]
                 most_sold_products[str(item.oi_id_product)] = tuple(temp)
             else:
-                print("generating new...")
-                print("oi_quantity", item.oi_quantity)
-                print("oi_product", item.oi_product)
-                print(most_sold_products)
                 most_sold_products.update({
                     str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
                 })
