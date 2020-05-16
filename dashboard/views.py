@@ -13,7 +13,7 @@ def dashboard(request):
             return HttpResponseRedirect(reverse('main:homepage'))
         ####################################################################################
         ################################### PAGE CONTENT ###################################
-        bodega = Bodega.objects.all().filter(bd_ID=cl_default_bodega).first()
+        bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
 
 
 
