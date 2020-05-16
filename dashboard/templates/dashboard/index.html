@@ -246,8 +246,9 @@
                                     <script src="{% static 'dashboard/js/decimal.min.js' %}"></script>
                                     <script>
                                         var most_sold_products = {{ most_sold_products|safe }};
-                                        console.log(most_sold_products)
-                                        console.log("most_sold_products")
+                                        console.log(most_sold_products);
+                                        console.log("most_sold_products");
+                                        console.log(most_sold_products[0]);
                                     </script>
                                     <div class="text-center m-t-10">
                                         {% for product in most_sold_products %}
