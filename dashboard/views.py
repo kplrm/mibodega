@@ -72,7 +72,6 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     last_week_sales = 0
     last_month_sales = 0
     for order in BodegaOrders_list:
-        print("order creation date: ", order.bo_date_created.strftime('%Y-%m-%d'))
         # Daily sales
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
             today_sales += order.bo_total_price
@@ -112,6 +111,8 @@ def find_most_sold_products(OrderItem_list):
     print("=========================")
     most_sold_products = dict()
     for item in OrderItem_list:
+        print("item date: ", item.oi_date_created.strftime('%Y-%m-%d'))
+        print("relative date: ", date.today()+relativedelta(days=-30))
         if str(item.oi_date_created.strftime('%Y-%m-%d')) == str(date.today()+relativedelta(days=-30)):
             if item.oi_id_product in most_sold_products:
                 print("ya está el producto")
