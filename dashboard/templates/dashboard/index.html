@@ -1,5 +1,7 @@
 {% extends 'dashboard/header.html' %}
+
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 <!-- Page Preloder -->
@@ -61,7 +63,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del día</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_daily_sales }}</h1>
+                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_daily_sales|floatformat:2|intcomma }}</h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
@@ -70,11 +72,8 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de ayer</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_last_day_sales }}</h1>
+                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_last_day_sales|floatformat:2|intcomma }}</h1>
                                     </div>
-                                    <!--<div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                        <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span>
-                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -83,7 +82,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_weekly_sales }}</h1>
+                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
                                         <span><i class="fa fa-fw fa-arrow-down"></i></span><span>5.86%</span>
@@ -92,7 +91,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana pasada</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_last_week_sales }}</h1>
+                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_last_week_sales|floatformat:2|intcomma }}</h1>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +101,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del mes</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_monthly_sales }}</h1>
+                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_monthly_sales|floatformat:2|intcomma }}</h1>
                                     </div>
                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
                                         <span><i class="fa fa-fw fa-arrow-down"></i></span><span>5.86%</span>
@@ -111,7 +110,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del mes pasado</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_last_month_sales }}</h1>
+                                        <h1 class="mb-1">S/.{{ BodegaDashboard_obj.bd_last_month_sales|floatformat:2|intcomma }}</h1>
                                     </div>
                                 </div>
                             </div>
