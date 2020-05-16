@@ -27,13 +27,13 @@ def dashboard(request):
                 if item in OrderItem_list:
                     pass
                 else:
-                    OrderItem_list.extend(item)
+                    OrderItem_list.append(item)
         
         
         print("BodegaOrders_list? ", len(BodegaOrders_list))
-        print("OrderItem_obj? ", len(OrderItem_obj))
+        print("OrderItem_list? ", len(OrderItem_list))
 
-        update_values_BodegaDashboard(BodegaDashboard_obj)
+        update_values_BodegaDashboard(BodegaOrders_list)
 
 
 
@@ -62,5 +62,5 @@ def dashboard(request):
 ####################################################################################
 ################################# PAGE A #################################
 
-def update_values_BodegaDashboard(BodegaDashboard_obj):
+def update_values_BodegaDashboard(BodegaOrders_list):
     pass
