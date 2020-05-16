@@ -725,7 +725,7 @@ def submit_checkout(request):
                 print("Bodega: ", bodega)
                 print("item.ci_product.peb_bodega: ", item.ci_product.peb_bodega.bd_ID)
                 if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
-                    order_item.oi_bo_ID = bodega.value()
+                    order_item.oi_bo_ID = bodegas[str(bodega)]
                     print("Bodega añadida")
                     break
             order_item.oi_id_product = item.ci_product.peb_product.pa_ID
