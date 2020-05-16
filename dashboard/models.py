@@ -9,8 +9,8 @@ class BodegaDashboard(models.Model):
     bd_weekly_sales = models.DecimalField(default=0.00,max_digits=10,decimal_places=2,blank=True,null=True)
     bd_monthly_sales = models.DecimalField(default=0.00,max_digits=10,decimal_places=2,blank=True,null=True)
     bd_last_day_sales = models.DecimalField(default=0.00,max_digits=10,decimal_places=2,blank=True,null=True)
+    bd_last_week_sales = models.DecimalField(default=0.00,max_digits=10,decimal_places=2,blank=True,null=True)
     bd_last_month_sales = models.DecimalField(default=0.00,max_digits=10,decimal_places=2,blank=True,null=True)
-    bd_last_year_sales = models.DecimalField(default=0.00,max_digits=10,decimal_places=2,blank=True,null=True)
 
     def __str__(self):
         return str(self.bd_ID)
