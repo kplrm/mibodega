@@ -35,7 +35,7 @@ def dashboard(request):
         print("OrderItem_list? ", len(OrderItem_list))
 
         # Update BodegaDashboard values
-        update_values_BodegaDashboard(BodegaDashboard_obj, OrderItem_list)
+        update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list)
 
 
 
@@ -58,10 +58,9 @@ def dashboard(request):
 ####################################################################################
 ################################# PYTHON FUNCTIONS #################################
 
-def update_values_BodegaDashboard(BodegaDashboard_obj, OrderItem_list):
-    today_sales = objects.filter(oi_date_created__date=date.today())
-    bd_daily_sales = 0
-    for item in today_sales:    
+def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list):
+    today_sales = 0
+    for order in BodegaOrders_list:
         bd_daily_sales += item.oi_prod_total
     
     BodegaDashboard_obj.bd_daily_sales = bd_daily_sales
