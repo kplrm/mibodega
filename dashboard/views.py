@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from main.models import Cliente, Bodega, OrderItem, BodegaOrders
 from .models import BodegaDashboard
+from decimal import *
 
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -41,7 +42,6 @@ def dashboard(request):
         # Find the most sold products
         most_sold_products = find_most_sold_products(OrderItem_list)
         top_list_size = 10
-        print("len: ",len(most_sold_products))
         if len(most_sold_products) > top_list_size:
             top10_products = list(most_sold_products)[0:len(most_sold_products)]
         else:
@@ -128,7 +128,7 @@ def find_most_sold_products(OrderItem_list):
                 most_sold_products[str(item.oi_id_product)] = tuple(temp)
             else:
                 most_sold_products.update({
-                    str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
+                    str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product), Decimal(item.oi_prod_total) )
                 })
     most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1][0], reverse=True)
 
