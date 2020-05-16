@@ -112,14 +112,17 @@ def find_most_sold_products(OrderItem_list):
     print("=========================")
     most_sold_products = dict()
     for item in OrderItem_list:
-        if item.oi_id_product in most_sold_products:
-            print("ya está el producto")
-            most_sold_products[str(item.oi_id_product)] += item.oi_quantity
+        if str(item.oi_date_created.strftime('%Y-%m-%d')) == str(date.today()+relativedelta(days=-30)):
+            if item.oi_id_product in most_sold_products:
+                print("ya está el producto")
+                most_sold_products[str(item.oi_id_product)] += int(item.oi_quantity)
+            else:
+                print("nuevo producto")
+                most_sold_products.update({
+                    str(item.oi_id_product): int(item.oi_quantity)
+                })
         else:
-            print("nuevo producto")
-            most_sold_products.update({
-                str(item.oi_id_product): item.oi_quantity
-            })
+            print("product older than 30 days")
     sort_orders = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
     print("most_sold_products: ", most_sold_products)
     print("sort_orders: ", sort_orders)
