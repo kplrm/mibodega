@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from main.models import Cliente, Bodega
+from .models import BodegaDashboard
 
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
@@ -13,7 +14,10 @@ def dashboard(request):
             return HttpResponseRedirect(reverse('main:homepage'))
         ####################################################################################
         ################################### PAGE CONTENT ###################################
+        # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
+        obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
+        print("created", created)
 
 
 
