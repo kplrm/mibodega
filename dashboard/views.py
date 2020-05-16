@@ -39,7 +39,7 @@ def dashboard(request):
         update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
 
         # Find the most sold products
-        most_sold_products = find_most_sold_products(BodegaOrders_list)
+        most_sold_products = find_most_sold_products(OrderItem_list)
         
 
         ################################# PAGE CONTENT END #################################
@@ -115,7 +115,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     BodegaDashboard_obj.bd_monthly_change_sales = monthly_change_sales
     BodegaDashboard_obj.save()
 
-def find_most_sold_products(BodegaDashboard_obj, BodegaOrders_list):
+def find_most_sold_products(OrderItem_list):
     most_sold_products = dict()
     for item in OrderItem_list:
         if item.oi_id_product in most_sold_products:
