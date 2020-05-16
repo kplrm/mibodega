@@ -29,10 +29,10 @@ def dashboard(request):
                     pass
                 else:
                     OrderItem_list.append(item)
-        
-        
         print("BodegaOrders_list? ", len(BodegaOrders_list))
         print("OrderItem_list? ", len(OrderItem_list))
+
+        
 
         update_values_BodegaDashboard(BodegaOrders_list)
 
