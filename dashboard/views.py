@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from main.models import Cliente
 
 def dashboard(request):
     if request.user.is_authenticated:
