@@ -47,7 +47,8 @@ def dashboard(request):
         if cliente.cl_is_bodega:
             context = {
                         'BodegaDashboard_obj': BodegaDashboard_obj,
-                        'cliente': cliente
+                        'cliente': cliente,
+                        'bodega': bodega
                     }
             return render(request=request,template_name="dashboard/index.html",context=context)
         else:
