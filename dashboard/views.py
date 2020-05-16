@@ -87,9 +87,9 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()+relativedelta(days=-1)):
             last_day_sales += order.bo_total_price
         # Previos Weekly sales
-        print("lastweek1: ", str((date.today()+relativedelta(weeks=-1)).isocalendar()[1])
+        print("lastweek1: ", str((date.today()+relativedelta(weeks=-1)).isocalendar()[1]))
         print("lastweek2: ", order.bo_date_created.strftime('%W'))
-        if str(order.bo_date_created.strftime('%W')) == str(date.today().isocalendar()[1]):
+        if str(order.bo_date_created.strftime('%W')) == str((date.today()+relativedelta(weeks=-1)).isocalendar()[1])):
             last_week_sales += order.bo_total_price
         # Previos Monthly sales
         print("last month1: ", str(str(date.today().year)+"-"+str((date.today()+relativedelta(months=-1)).month)))
