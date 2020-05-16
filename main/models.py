@@ -105,10 +105,10 @@ class ProductosEnBodega(models.Model):
     def save(self,*args,**kwargs):
         try:
             sav_object = ProductosEnBodega.objects.get(pk=self.pk)
-            print("object exists")
+#            print("object exists")
             self.pk = sav_object.pk
         except:
-            print("object DO NOT exists")
+#            print("object DO NOT exists")
 
         if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and isinstance(self.peb_discount_price,float):
             self.peb_discount_rate = (self.peb_discount_price-self.peb_regular_price)/self.peb_regular_price*100
@@ -135,36 +135,36 @@ class CartManager(models.Manager):
             new_obj = False
             # Verify if user is authenticated and current session's cart has no user
             if request.user.is_authenticated and cart_obj.crt_user is None:
-                print("Buscando coche de usuario...")
+#                print("Buscando coche de usuario...")
                 # Look for a previous user's Cart
                 qs2 = self.get_queryset().filter(crt_user=request.user)
                 if qs2.exists():
-                    print("El usuario tiene multiples coches...")
+#                    print("El usuario tiene multiples coches...")
                     previous_cart_obj = qs2.first()
-                    print("Coche previo:")
+#                    print("Coche previo:")
                     print(previous_cart_obj)
-                    print("Coche actual:")
+#                    print("Coche actual:")
                     print(cart_obj)
                     # Update products
                     for product in previous_cart_obj.crt_product.all():
                         # Merging previous cart with current cart
-                        print("Buscando objetos...")
+#                        print("Buscando objetos...")
                         if cart_obj.crt_product.filter(pk=product.pk).exists():
-                            print("Product previously found. Do nothing.")
+#                            print("Product previously found. Do nothing.")
                         else:
-                            print("Found nothing. Adding previously added product.")
+#                            print("Found nothing. Adding previously added product.")
                             cart_obj.crt_product.add(product)
                     # Update items
                     for item in CartItem.objects.all():
-                        print("Buscando Items...")
-                        print(item)
-                        print(item.ci_cart_ID)
-                        print(previous_cart_obj.crt_ID)
+#                        print("Buscando Items...")
+#                        print(item)
+#                        print(item.ci_cart_ID)
+#                        print(previous_cart_obj.crt_ID)
                         if item.ci_cart_ID == previous_cart_obj.crt_ID:
                             item.ci_cart_ID = cart_obj.crt_ID
                             item.save()
                     previous_cart_obj.delete()
-                    print("exit product search")
+#                    print("exit product search")
                     # Update price
                     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
                     total_price = 0
@@ -177,7 +177,8 @@ class CartManager(models.Manager):
                     cart_obj.save()
                 else:
                     # There is no previous cart, so no item to recover
-                    print("El usuario no tiene coche")
+#                    print("El usuario no tiene coche")
+                    pass
                 
                 cart_obj.crt_user = request.user
                 cart_obj.save()
@@ -190,9 +191,9 @@ class CartManager(models.Manager):
     def new(self, user=None):
         user_obj = None
         if user is not None:
-            print("Sin usuario")
+#            print("Sin usuario")
             if user.is_authenticated:
-                print("Hay una autenticación")
+#                print("Hay una autenticación")
                 user_obj = user
         return self.model.objects.create(crt_user=user_obj)
 
