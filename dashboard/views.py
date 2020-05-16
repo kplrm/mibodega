@@ -127,15 +127,6 @@ def find_most_sold_products(OrderItem_list):
                     str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
                 })
                 #products_name.update({str(item.oi_id_product): str(item.oi_product)})
-    print("===============")
-    print(most_sold_products)
-    most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1][0], reverse=True)
-    print(most_sold_products)
-    print("===============")
-    #most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
-    #most_sold_products = list(products_quantity)
-
-
     dicti = {
         'aa': (1,"ha"),
         'bb': (2,"hb"),
@@ -147,6 +138,17 @@ def find_most_sold_products(OrderItem_list):
     dicti = sorted(dicti.items(), key=lambda x: x[1][0], reverse=True)
     print(dicti)
     print("===============")
+    
+    print("===============")
+    print(most_sold_products)
+    most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1][0], reverse=True)
+    print(most_sold_products)
+    print("===============")
+    #most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
+    #most_sold_products = list(products_quantity)
+
+
+    
 
     # In case adding enumeration is needed
 #    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
