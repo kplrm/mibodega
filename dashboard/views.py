@@ -4,6 +4,8 @@ from django.urls import reverse
 from main.models import Cliente, Bodega, OrderItem, BodegaOrders
 from .models import BodegaDashboard
 
+from datetime import date
+
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
     if request.user.is_authenticated:
@@ -23,7 +25,7 @@ def dashboard(request):
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
-            item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False)
+            item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
             for item in item_list:
                 if item in OrderItem_list:
                     pass
@@ -38,19 +40,13 @@ def dashboard(request):
 
 
 
-
-
-
-
-
-
-
-
-
         ################################# PAGE CONTENT END #################################
         ####################################################################################
         # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
         if cliente.cl_is_bodega:
+            context = {
+                        'BodegaDashboard_obj': BodegaDashboard_obj
+                    }
             return render(request=request,
                   template_name="dashboard/index.html")
         else:
@@ -60,9 +56,13 @@ def dashboard(request):
         return HttpResponseRedirect(reverse('main:homepage'))
 
 ####################################################################################
-################################# PAGE A #################################
+################################# PYTHON FUNCTIONS #################################
 
 def update_values_BodegaDashboard(BodegaDashboard_obj, OrderItem_list):
-#    for item in OrderItem_list:
-#        bd_daily_sales
-    pass
+    today_sales = objects.filter(oi_date_created__date=date.today())
+    bd_daily_sales = 0
+    for item in today_sales:    
+        bd_daily_sales += item.oi_prod_total
+    
+    BodegaDashboard_obj.bd_daily_sales = bd_daily_sales
+    BodegaDashboard_obj.save()
