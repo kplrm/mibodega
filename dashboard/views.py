@@ -42,10 +42,11 @@ def dashboard(request):
         # Find the most sold products
         most_sold_products = find_most_sold_products(OrderItem_list)
         top_list_size = 2 #10
-        if len(most_sold_products) > top_list_size:
-            top10_products = list(most_sold_products)[0:len(most_sold_products)]
-        else:
-            top10_products = list(most_sold_products)[0:top_list_size]
+        #if len(most_sold_products) > top_list_size:
+        #    top10_products = list(most_sold_products)[0:len(most_sold_products)]
+        #else:
+        #    top10_products = list(most_sold_products)[0:top_list_size]
+        #top10_products = list(most_sold_products)[0:top_list_size] #for debugging
 
         
 
