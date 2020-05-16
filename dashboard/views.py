@@ -65,21 +65,16 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
         
         # Daily sales
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
-            print("Calculating...")
-            today_sales += order.bo_total_price
-            print("today_sales: ", today_sales)
+            today_sales += order.bo_total_price)
         # Weekly sales
         if str(int(order.bo_date_created.strftime('%W'))+1) == str(date.today().isocalendar()[1]):
-            print("Calculating...")
-            today_sales += order.bo_total_price
-            print("today_sales: ", today_sales)
+            week_sales += order.bo_total_price
         # Monthly sales
-        print("date.today.year: ", date.today().year)
         if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str(date.today().month)):
-            print("Calculating...")
-            today_sales += order.bo_total_price
-            print("today_sales: ", today_sales)
+            month_sales += order.bo_total_price
     
     BodegaDashboard_obj.bd_daily_sales = today_sales
+    BodegaDashboard_obj.bd_weekly_sales = week_sales
+    BodegaDashboard_obj.bd_monthly_sales = month_sales
+
     BodegaDashboard_obj.save()
-    print("BodegaDashboard_obj.bd_daily_sales: ", BodegaDashboard_obj.bd_daily_sales)
