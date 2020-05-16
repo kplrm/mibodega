@@ -39,7 +39,9 @@ def dashboard(request):
         update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
 
         # Find the most sold products
-        most_sold_products = find_most_sold_products(OrderItem_list)
+        list_size = 2
+        most_sold_products = find_most_sold_products(OrderItem_list, list_size)
+
         
 
         ################################# PAGE CONTENT END #################################
@@ -107,26 +109,18 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     BodegaDashboard_obj.bd_monthly_change_sales = monthly_change_sales
     BodegaDashboard_obj.save()
 
-def find_most_sold_products(OrderItem_list):
+def find_most_sold_products(OrderItem_list, list_size):
     print("=========================")
     most_sold_products = dict()
     for item in OrderItem_list:
-        print("item date: ", item.oi_date_created.strftime('%Y-%m-%d'))
-        print("relative date: ", date.today()+relativedelta(days=-30))
-        #if str(item.oi_date_created.strftime('%Y-%m-%d')) > str(date.today()+relativedelta(days=-30)):
         if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
             if item.oi_id_product in most_sold_products:
-                print("ya está el producto")
                 most_sold_products[str(item.oi_id_product)] += int(item.oi_quantity)
             else:
-                print("nuevo producto")
                 most_sold_products.update({
                     str(item.oi_id_product): int(item.oi_quantity)
                 })
-        else:
-            print("product older than 30 days")
-    sort_orders = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
-    print("most_sold_products: ", most_sold_products)
-    print("sort_orders: ", sort_orders)
-
+    most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
+    for x in list(most_sold_products)[0:list_size]:
+        print (most_sold_products[x])
     return most_sold_products
