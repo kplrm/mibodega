@@ -19,6 +19,10 @@ def dashboard(request):
         obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
         print("created? ", created)
 
+        update_values_BodegaDashboard()
+
+
+
 
 
 
@@ -40,4 +44,6 @@ def dashboard(request):
 
     else:
         return HttpResponseRedirect(reverse('main:homepage'))
-                  
+
+def update_values_BodegaDashboard():
+    pass
