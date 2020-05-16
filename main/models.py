@@ -251,7 +251,7 @@ class OrderItem(models.Model):
     oi_id_product = models.CharField(max_length=100,default="",verbose_name="ID Producto")
     oi_product = models.CharField(max_length=100,default="",verbose_name="Producto")
     oi_price = models.CharField(max_length=100,default="",verbose_name="Precio")
-    oi_prod_total = models.CharField(max_length=100,default="",verbose_name="Precio")
+    oi_prod_total = models.CharField(max_length=100,default="",verbose_name="Precio total")
     oi_quantity = models.CharField(max_length=100,default="",verbose_name="Cantidad")
     oi_id_bodega = models.CharField(max_length=100,default="",verbose_name="ID Bodega")
     oi_ruc_bodega = models.CharField(max_length=100,default="",verbose_name="RUC Bodega")
