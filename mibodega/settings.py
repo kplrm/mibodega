@@ -76,9 +76,17 @@ DATABASES = {
         'NAME': 'mibodega',
         'USER': 'kplrm',
         'PASSWORD': 'color800',
-	'HOST': 'localhost',
+	    'HOST': 'localhost',
         'PORT': '5432',
-    }
+    },
+#    'stores': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'store_data',
+#        'USER': 'kplrm',
+#        'PASSWORD': 'color800',
+#	    'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
 }
 
 # Password validation

@@ -707,10 +707,27 @@ def submit_checkout(request):
         else:
             print("Usuario no identificado")
         
-        # Create every order item
+        # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+        # Crate a new bodegaorder for every bodega in the basket
+        bodegas = dict()
+        for item in cart_list:
+            if item.ci_product.peb_bodega.bd_ID in bodegas: # Check for key in dict
+                pass
+            else:
+                print("Nueva bodega en cesta")
+                bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
+                bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj)
+        
+        # Create every order item
         for item in cart_list:
             order_item = OrderItem.objects.create(oi_ID=orders_obj)
+            for bodega in bodegas.values():
+                if bodega == item.ci_product.peb_bodega:
+                    order_item.oi_bo_ID = bodega
+                    print("Bodega añadida")
+                    break
             order_item.oi_id_product = item.ci_product.peb_product.pa_ID
             order_item.oi_product = item.ci_product.peb_product.pa_product
             order_item.oi_quantity = item.ci_quantity
