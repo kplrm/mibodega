@@ -20,7 +20,7 @@ def dashboard(request):
         BodegaOrders_obj = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         #BodegaOrders_obj = get_list_or_404(OrderItem,oi_bo_ID=oi_bo_ID) # oi_bo_ID needs to be something else
         print("created? ", created)
-        print("BodegaOrders_obj? ", BodegaOrders_obj.bo_order)
+        print("BodegaOrders_obj? ", BodegaOrders_obj[0].bo_order)
 
         update_values_BodegaDashboard(BodegaDashboard_obj)
 
