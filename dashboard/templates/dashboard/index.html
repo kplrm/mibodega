@@ -65,7 +65,7 @@
                                     <div class="metric-value d-inline-block">
                                         <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_daily_sales|floatformat:2|intcomma }}</h1>
                                     </div>
-                                    {% if BodegaDashboard_obj.bd_daily_change_sales >= 0 %}
+                                    {% if BodegaDashboard_obj.bd_daily_change_sales|float >= 0 %}
                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold">
                                         <span><i class="fa fa-fw fa-arrow-up"></i></span>
                                         <span><i class="fa fa-fw fa-arrow-down"></i></span>
