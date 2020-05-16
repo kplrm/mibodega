@@ -735,7 +735,7 @@ def submit_checkout(request):
                 order_item.oi_price = item.ci_product.peb_discount_price
             else:
                 order_item.oi_price = item.ci_product.peb_regular_price
-            order_item.oi_prod_total = item.ci_quantity * order_item.oi_price
+            order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
             # Adds bodegaorders_obj to order_item
             for bodega in bodegas:
                 if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
