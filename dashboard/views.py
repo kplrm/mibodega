@@ -7,6 +7,8 @@ from .models import BodegaDashboard
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
+from jinja2 import Template
+
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
     if request.user.is_authenticated:
@@ -40,8 +42,8 @@ def dashboard(request):
 
         # Find the most sold products
         most_sold_products = find_most_sold_products(OrderItem_list)
-        list_size = 2
-        top10_products = list(most_sold_products)[0:list_size]
+        top_list_size = 2
+        top10_products = list(most_sold_products)[0:top_list_size]
 
         
 
