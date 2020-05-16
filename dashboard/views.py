@@ -119,7 +119,10 @@ def find_most_sold_products(OrderItem_list):
     for item in OrderItem_list:
         if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
             if item.oi_id_product in most_sold_products:
-                most_sold_products[str(item.oi_id_product)][0] += int(item.oi_quantity)
+                print(most_sold_products[str(item.oi_id_product)])
+                print(most_sold_products[str(item.oi_id_product)][0])
+                print(most_sold_products[str(item.oi_id_product)][1])
+                most_sold_products[str(item.oi_id_product)] += int(item.oi_quantity)
             else:
                 most_sold_products.update({
                     str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
