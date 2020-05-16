@@ -123,8 +123,10 @@ def find_most_sold_products(OrderItem_list):
                 print("updating existing...")
                 print("value to update", list(most_sold_products[str(item.oi_id_product)])[0])
                 print(most_sold_products)
+                temp = list(most_sold_products[str(item.oi_id_product)])
+                temp[0] += int(item.oi_quantity)
                #most_sold_products[str(item.oi_id_product)][0] = int(item.oi_quantity) + most_sold_products[str(item.oi_id_product)][0]
-                most_sold_products[str(item.oi_id_product)][0] = int(item.oi_quantity) + most_sold_products[str(item.oi_id_product)][0]
+                most_sold_products[str(item.oi_id_product)] = tuple(temp)
             else:
                 print("generating new...")
                 print("oi_quantity", item.oi_quantity)
