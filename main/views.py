@@ -857,7 +857,6 @@ def cart_add(request):
         update_price(cart_obj)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
-
 def update_price(cart_obj):
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
     total_price = 0
