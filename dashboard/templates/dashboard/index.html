@@ -167,8 +167,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for product in top10_products %}
                                                 <tr>
-                                                    <td>1</td>
+                                                    <td>{{ loop.index }}</td>
                                                     <td>
                                                         <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
                                                     </td>
@@ -180,9 +181,9 @@
                                                     <td>Patricia J. King </td>
                                                     <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
                                                 </tr>
-                                                
+                                                {% endfor %}
                                                 <tr>
-                                                    <td colspan="9"><a href="#" class="btn btn-outline-primary float-right">View Details</a></td>
+                                                    <td colspan="9"><a href="#" class="btn btn-outline-primary float-right">Ver todos</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

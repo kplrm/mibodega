@@ -39,8 +39,9 @@ def dashboard(request):
         update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
 
         # Find the most sold products
+        most_sold_products = find_most_sold_products(OrderItem_list)
         list_size = 2
-        most_sold_products = find_most_sold_products(OrderItem_list, list_size)
+        top10_products = list(most_sold_products)[0:list_size]
 
         
 
@@ -52,7 +53,8 @@ def dashboard(request):
                         'BodegaDashboard_obj': BodegaDashboard_obj,
                         'cliente': cliente,
                         'bodega': bodega,
-                        'most_sold_products': most_sold_products
+                        'most_sold_products': most_sold_products,
+                        'top10_products': top10_products
                     }
             return render(request=request,template_name="dashboard/index.html",context=context)
         else:
@@ -110,7 +112,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     BodegaDashboard_obj.bd_monthly_change_sales = monthly_change_sales
     BodegaDashboard_obj.save()
 
-def find_most_sold_products(OrderItem_list, list_size):
+def find_most_sold_products(OrderItem_list):
     print("=========================")
     most_sold_products = dict()
     for item in OrderItem_list:
@@ -122,7 +124,6 @@ def find_most_sold_products(OrderItem_list, list_size):
                     str(item.oi_id_product): int(item.oi_quantity)
                 })
     most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
-    most_sold_products = list(most_sold_products)[0:list_size]
     # In case adding enumeration is needed
 #    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
 #    print(most_sold_products[1][:])
