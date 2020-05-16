@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from main.models import Cliente
 
 def dashboard(request):
@@ -13,7 +14,7 @@ def dashboard(request):
                   template_name="dashboard/index.html")
     else:
         print("user is NOT authenticated")
-        return render(request=request,
-                  template_name="main/index.html")
-        #return HttpResponseRedirect("https://www.google.de")
+        #return render(request=request,
+        #          template_name="main/index.html")
+        return HttpResponseRedirect(reverse('main:homepage'))
                   
