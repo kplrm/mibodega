@@ -90,7 +90,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h3 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h3>
+                                        <h2 class="mb-1" style="text-align:right; font-size:40px;">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                     {% if BodegaDashboard_obj.bd_weekly_change_sales >= 0 %}
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
@@ -107,7 +107,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana pasada</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h3 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_last_week_sales|floatformat:2|intcomma }}</h3>
+                                        <h2 class="mb-1" style="text-align:right; font-size:40px;">S/.{{ BodegaDashboard_obj.bd_last_week_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del mes</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_monthly_sales|floatformat:2|intcomma }}</h1>
+                                        <h2 class="mb-1" style="text-align:right; font-size:40px;">S/.{{ BodegaDashboard_obj.bd_monthly_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                     {% if BodegaDashboard_obj.bd_monthly_change_sales >= 0 %}
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
@@ -134,7 +134,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del mes pasado</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_last_month_sales|floatformat:2|intcomma }}</h1>
+                                        <h2 class="mb-1" style="text-align:right; font-size:40px;">S/.{{ BodegaDashboard_obj.bd_last_month_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                 </div>
                             </div>
