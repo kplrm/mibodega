@@ -56,8 +56,10 @@
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
                 <div class="ecommerce-widget">
-
                     <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- sales metrics  -->
+                        <!-- ============================================================== -->
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-body">
@@ -139,13 +141,13 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ============================================================== -->
+                        <!-- end sales metrics  -->
+                        <!-- ============================================================== -->
                     </div>
                     <div class="row">
                         <!-- ============================================================== -->
-                  
-                        <!-- ============================================================== -->
-
-                                      <!-- recent orders  -->
+                        <!-- most sold products  -->
                         <!-- ============================================================== -->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="card">
@@ -183,7 +185,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal -->
+                        <!-- ============================================================== -->
+                        <!-- end most sold products  -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Modal  -->
+                        <!-- ============================================================== -->
                         <div class="modal fade" id="verTodos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -216,39 +223,6 @@
                                                 <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
                                             </tr>
                                             {% endfor %}
-                                            {% for product in most_sold_products %}
-                                            <tr>
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
-                                                </td>
-                                                <td>{{ product.1.1 }}</td>
-                                                <td>{{ product.1.0 }}</td>
-                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% for product in most_sold_products %}
-                                            <tr>
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
-                                                </td>
-                                                <td>{{ product.1.1 }}</td>
-                                                <td>{{ product.1.0 }}</td>
-                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% for product in most_sold_products %}
-                                            <tr>
-                                                <td>{{ forloop.counter }}</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
-                                                </td>
-                                                <td>{{ product.1.1 }}</td>
-                                                <td>{{ product.1.0 }}</td>
-                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
-                                            </tr>
-                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
@@ -259,15 +233,21 @@
                             </div>
                         </div>
                         <!-- ============================================================== -->
-                        <!-- end recent orders  -->
-
+                        <!-- end Modal  -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- product sales distribution -->
+                        <!-- ============================================================== -->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
                                 <div class="card-body">
-                                    <div class="ct-chart-category ct-golden-section" ></div>
+                                    <div class="ct-chart-category ct-golden-section"></div>
+                                    <script>
+                                        var most_sold_products = {{ most_sold_products }};
+                                    </script>
                                     <div class="text-center m-t-10">
-                                        {% for product in top10_products %}
+                                        {% for product in most_sold_products %}
                                             <span class="legend-item mr-3">
                                                 <span class="fa-xs text-primary mr-1 legend-tile">
                                                     <i class="fa fa-fw fa-square-full "></i>
@@ -279,6 +259,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ============================================================== -->
+                        <!-- end product sales distribution -->
+                        <!-- ============================================================== -->
                     </div>
                 </div>
             </div>

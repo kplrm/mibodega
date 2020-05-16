@@ -45,6 +45,8 @@
 
     });
 
+    console.log(most_sold_products);
+
 
     chart.on('draw', function(data) {
         if (data.type === 'slice') {
