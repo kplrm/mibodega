@@ -23,7 +23,7 @@ def dashboard(request):
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
-            item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order)
+            item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False)
             for item in item_list:
                 if item in OrderItem_list:
                     pass
@@ -32,7 +32,7 @@ def dashboard(request):
         print("BodegaOrders_list? ", len(BodegaOrders_list))
         print("OrderItem_list? ", len(OrderItem_list))
 
-        
+
 
         update_values_BodegaDashboard(BodegaOrders_list)
 
