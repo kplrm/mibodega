@@ -71,7 +71,9 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     print("Yesterday: ", date.today()+relativedelta(days=-1))
     print("Last week: ", (date.today()+relativedelta(weeks=-1)).isocalendar()[1])
     print("Last month: ", date.today()+relativedelta(months=-1))
+    print("=========================")
     for order in BodegaOrders_list:
+        print("order creation date: ", order.bo_date_created.strftime('%Y-%m-%d'))
         # Daily sales
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
             today_sales += order.bo_total_price
