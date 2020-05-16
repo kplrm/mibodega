@@ -70,3 +70,4 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     
     BodegaDashboard_obj.bd_daily_sales = today_sales
     BodegaDashboard_obj.save()
+    print(BodegaDashboard_obj.bd_daily_sales)
