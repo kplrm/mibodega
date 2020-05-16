@@ -16,5 +16,5 @@ def dashboard(request):
         print("user is NOT authenticated")
         #return render(request=request,
         #          template_name="main/index.html")
-        return HttpResponseRedirect(reverse('main:homepage'))
+        return HttpResponseRedirect(reverse('https://www.google.de/'))
                   
