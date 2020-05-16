@@ -34,6 +34,8 @@ pip install ipregistry
 // SETUP DATABASE
 service postgresql status
 sudo -u postgres psql
+SELECT NOW();
+SET TIME ZONE 'America/Lima';
 ALTER USER postgres WITH PASSWORD 'Color800.';
 CREATE USER kplrm WITH PASSWORD 'color800';
 CREATE DATABASE mibodega;
