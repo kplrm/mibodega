@@ -17,7 +17,7 @@ def dashboard(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
-        print("created", created)
+        print("created? ", created)
 
 
 
