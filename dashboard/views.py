@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from main.models import Cliente
 
+#@login_required(login_url='/accounts/login/')
 def dashboard(request):
     if request.user.is_authenticated:
         print("user is authenticated")
@@ -12,9 +13,13 @@ def dashboard(request):
         if cliente.cl_is_bodega:
             return render(request=request,
                   template_name="dashboard/index.html")
+        else:
+            return HttpResponseRedirect(reverse('main:homepage'))
+
     else:
         print("user is NOT authenticated")
         #return render(request=request,
         #          template_name="main/index.html")
-        return HttpResponseRedirect(reverse('https://www.google.de/'))
+        #return HttpResponseRedirect(reverse('https://www.google.de/'))
+        return None
                   
