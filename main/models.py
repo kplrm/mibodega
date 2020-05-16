@@ -230,8 +230,10 @@ class Orders(models.Model):
     ord_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
     ord_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
     ord_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
-    ord_date_updated = models.DateTimeField(auto_now=True) # when was it created
-    ord_date_created = models.DateTimeField(auto_now_add=True) # when was it updated
+    ord_date_updated = models.DateTimeField(auto_now=True,verbose_name="Fecha de modificación")
+    ord_date_created = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de creación")
+    ord_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
+    ord_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")
 
     def __str__(self):
         return str("Order ID:")+str(self.ord_ID)+str(" || User:")+str(self.ord_user)
@@ -241,6 +243,10 @@ class BodegaOrders(models.Model):
     bo_bodega = models.ForeignKey(Bodega,blank=True,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
     bo_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
     bo_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
+    bo_date_updated = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
+    bo_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
+    bo_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
+    bo_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")
 
     def __str__(self):
         return str("Order ID:")+str(self.bo_order.ord_ID)+str(" || User:")+str(self.bo_bodega)
@@ -257,7 +263,7 @@ class OrderItem(models.Model):
     oi_ruc_bodega = models.CharField(max_length=100,default="",verbose_name="RUC Bodega")
     oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")
     oi_bodega_phone = models.CharField(max_length=100,default="",verbose_name="Teléfono de Bodega")
-    oi_date_update = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
+    oi_date_updated = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
     oi_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
     oi_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
     oi_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")

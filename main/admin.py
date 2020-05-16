@@ -25,10 +25,10 @@ class BodegaAdmin(OSMGeoAdmin):
     list_display = ('pk','bd_ID','bd_user','bd_is_active','bd_name','bd_ruc','bd_raz_soc','bd_geolocation')
 @admin.register(Orders)
 class OrdersAdmin(OSMGeoAdmin):
-    list_display = ('pk','ord_ID','ord_user','ord_total_price')
+    list_display = ('pk','ord_ID','ord_user','ord_total_price','ord_date_update','ord_date_created','ord_is_anulado','ord_date_anulado')
 @admin.register(BodegaOrders)
 class BodegaOrderssAdmin(OSMGeoAdmin):
-    list_display = ('pk','bo_order','bo_bodega','bo_total_price')
+    list_display = ('pk','bo_order','bo_bodega','bo_total_price','bo_date_update','bo_date_created','bo_is_anulado','bo_date_anulado')
 @admin.register(OrderItem)
 class OrderItemAdmin(OSMGeoAdmin):
     list_display = ('pk','oi_ID','oi_bo_ID','oi_ruc_bodega','oi_product','oi_price','oi_quantity','oi_prod_total','oi_bodega_name','oi_date_update','oi_date_created','oi_is_anulado','oi_date_anulado')
