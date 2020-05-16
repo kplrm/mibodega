@@ -722,9 +722,9 @@ def submit_checkout(request):
         for item in cart_list:
             order_item = OrderItem.objects.create(oi_ID=orders_obj)
             for bodega in bodegas.values():
-                print("Bodega: ", bodega)
-                print("item.ci_product.peb_bodega: ", item.ci_product.peb_bodega)
-                if bodega == item.ci_product.peb_bodega:
+                print("Bodega: ", bodega.bd_ID)
+                print("item.ci_product.peb_bodega: ", item.ci_product.peb_bodega.bd_ID)
+                if bodega.bd_ID == item.ci_product.peb_bodega.bd_ID:
                     order_item.oi_bo_ID = bodega
                     print("Bodega añadida")
                     break
