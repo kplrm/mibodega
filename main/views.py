@@ -721,10 +721,6 @@ def submit_checkout(request):
         # Create every order item
         for item in cart_list:
             order_item = OrderItem.objects.create(oi_ID=orders_obj)
-            for bodega in bodegas:
-                if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
-                    order_item.oi_bo_ID = bodegas[str(bodega)]
-                    break
             order_item.oi_id_product = item.ci_product.peb_product.pa_ID
             order_item.oi_product = item.ci_product.peb_product.pa_product
             order_item.oi_quantity = item.ci_quantity
@@ -737,6 +733,14 @@ def submit_checkout(request):
             else:
                 order_item.oi_price = item.ci_product.peb_regular_price
             order_item.oi_prod_total = item.ci_quantity * order_item.oi_price
+            # Adds bodegaorders_obj to order_item
+            for bodega in bodegas:
+                if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
+                    order_item.oi_bo_ID = bodegas[str(bodega)]
+                    # Updates bodega order total price
+                    bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
+                    bodegas[str(bodega)].save()
+                    break
             order_item.save()
 
         send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
