@@ -4,7 +4,6 @@
 <html lang="en">
 
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="description" content="Alimentos.pe - ¡La bodega de tu barrio!">
     <meta name="keywords" content="Alimentos.pe, Tienda, Alimentos, Tienda online, bodega online, simple, online, comprar, shopping, descuentos, descuento, Alimentos, Comida, delivery, barato, económico, fresco">
@@ -94,9 +93,8 @@
     {% include 'main/includes/messages.html' %}
     <!-- ENDS ALERT MESSAGES SECTIONS-->
 
-	{% include 'dashboard/index.html' %}
-    {# block content #}
-    {# endblock #}
+    {% block content %}
+    {%s endblock %}
 
     <footer class="footer-section">
         {% include 'main/includes/footer.html' %}

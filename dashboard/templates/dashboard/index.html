@@ -1,9 +1,9 @@
-{# extends 'dashboard/header.html' #}
+{% extends 'dashboard/header.html' %}
 
 {% load static %}
 {% load humanize %}
 
-{# block content #}
+{% block content %}
 <!-- Page Preloder -->
 <!--
 <div id="preloder">
@@ -167,7 +167,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% set counter = 1 %}
                                                 {% for product in top10_products %}
                                                 <tr>
                                                     <td>{{ count }}</td>
@@ -182,7 +181,6 @@
                                                     <td>Patricia J. King </td>
                                                     <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
                                                 </tr>
-                                                {# set count = count + 1 #}
                                                 {% endfor %}
                                                 <tr>
                                                     <td colspan="9"><a href="#" class="btn btn-outline-primary float-right">Ver todos</a></td>
@@ -251,4 +249,4 @@
 <script src="{% static 'dashboard/js/jquery.slicknav.js' %}"></script> <!-- Needed for mobile navigation header -->
 <script src="{% static 'dashboard/js/dashboard-ecommerce.js' %}"></script>
 <script src="{% static 'dashboard/js/main.js' %}"></script>
-{# endblock #}
+{% endblock %}
