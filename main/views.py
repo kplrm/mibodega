@@ -712,7 +712,7 @@ def submit_checkout(request):
         # Crate a new bodegaorder for every bodega in the basket
         bodegas = dict()
         for item in cart_list:
-            print("item.ci_product.peb_bodega.bd_ID: ",item.ci_product.peb_bodega.bd_ID)
+            print("item.ci_product.peb_bodega.bd_ID: ", item.ci_product.peb_bodega.bd_ID)
             if item.ci_product.peb_bodega.bd_ID in bodegas: # Check for key in dict
                 pass
             else:
