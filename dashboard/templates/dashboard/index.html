@@ -243,6 +243,9 @@
                                 <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
                                 <div class="card-body">
                                     <div class="ct-chart-category ct-golden-section"></div>
+                                    <script>
+                                        List<String> supplierNames1 = {{ most_sold_products }};
+                                    </script>
                                     <div class="text-center m-t-10">
                                         {% for product in most_sold_products %}
                                             <span class="legend-item mr-3">
