@@ -96,12 +96,10 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
         if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format((date.today()+relativedelta(months=-1)).month) ):
             last_month_sales += order.bo_total_price
     # Sale changes
-    #daily_change_sales = (today_sales - last_day_sales)/last_day_sales*100
-    #weekly_change_sales = (week_sales - last_week_sales)/last_week_sales*100
-    #monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
-    daily_change_sales = -2
-    weekly_change_sales = -10
-    monthly_change_sales = 0
+    daily_change_sales = (today_sales - last_day_sales)/last_day_sales*100
+    weekly_change_sales = (week_sales - last_week_sales)/last_week_sales*100
+    monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
+    
     # Save object
     BodegaDashboard_obj.bd_daily_sales = today_sales
     BodegaDashboard_obj.bd_weekly_sales = week_sales
