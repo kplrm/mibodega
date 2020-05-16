@@ -232,8 +232,18 @@ class Orders(models.Model):
     def __str__(self):
         return str("Order ID:")+str(self.ord_ID)+str(" || User:")+str(self.ord_user)
 
+class BodegaOrders(models.Model):
+    bo_order = models.ForeignKey(Orders,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Orden de Compra")
+    bo_bodega = models.ForeignKey(Bodega,blank=True,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
+    bo_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
+    bo_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
+
+    def __str__(self):
+        return str("Order ID:")+str(self.bo_order.ord_ID)+str(" || User:")+str(self.bo_user)
+
 class OrderItem(models.Model):
     oi_ID = models.ForeignKey(Orders,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Orden de Compra")
+    oi_bo_ID = models.ForeignKey(BodegaOrders,blank=True,null=True,on_delete=models.CASCADE,verbose_name="Bodega Orden de compra")
     oi_id_product = models.CharField(max_length=100,default="",verbose_name="ID Producto")
     oi_product = models.CharField(max_length=100,default="",verbose_name="Producto")
     oi_price = models.CharField(max_length=100,default="",verbose_name="Precio")

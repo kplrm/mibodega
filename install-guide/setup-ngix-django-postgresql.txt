@@ -32,6 +32,7 @@ pip install ipregistry
 
 
 // SETUP DATABASE
+service postgresql status
 sudo -u postgres psql
 ALTER USER postgres WITH PASSWORD 'Color800.';
 CREATE USER kplrm WITH PASSWORD 'color800';
@@ -39,8 +40,11 @@ CREATE DATABASE mibodega;
 CREATE EXTENSION postgis;
 GRANT ALL PRIVILEGES ON DATABASE mibodega TO kplrm;
 ALTER USER kplrm WITH SUPERUSER;
+CREATE DATABASE store_data;
+GRANT ALL PRIVILEGES ON DATABASE store_data TO kplrm;
 
-create database mibodega;
+python manage.py migrate
+python manage.py migrate --database=store_data
 
 
 // GET PROJECT
