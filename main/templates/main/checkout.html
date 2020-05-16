@@ -230,7 +230,7 @@
                         <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
                         <div class="col-lg-6">
                             <label for="phone">Celular<span>*</span></label>
-                            <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_phone(this)" required>
+                            <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_phone != None %}{{cliente.cl_phone}}{% endif %}" oninput="validate_phone(this)" required>
                         </div>
                         <div class="col-lg-12">
                             <label for="comments">Comentarios para la bodega</label>
