@@ -13,8 +13,7 @@ def dashboard(request):
         # To avoid any rendering or calculation if it's not a bodega
         if cliente.cl_is_bodega == False:
             print("first exit")
-            return render(request=request,
-                  template_name="dashboard/index.html")
+            return HttpResponseRedirect(reverse('main:homepage'))
 
         if cliente.cl_is_bodega:
             return render(request=request,
