@@ -51,7 +51,8 @@ def dashboard(request):
             context = {
                         'BodegaDashboard_obj': BodegaDashboard_obj,
                         'cliente': cliente,
-                        'bodega': bodega
+                        'bodega': bodega,
+                        'most_sold_products': most_sold_products
                     }
             return render(request=request,template_name="dashboard/index.html",context=context)
         else:
@@ -121,9 +122,8 @@ def find_most_sold_products(OrderItem_list, list_size):
                     str(item.oi_id_product): int(item.oi_quantity)
                 })
     most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
-    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
-    print(most_sold_products[1][:])
-#    for idx, key in enumerate(list(most_sold_products)[0:list_size]):
-#        print(idx)
-#        print(key)
-    return ranked_most_sold_products
+    most_sold_products = list(most_sold_products)[0:list_size]
+    # In case adding enumeration is needed
+#    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
+#    print(most_sold_products[1][:])
+    return most_sold_products
