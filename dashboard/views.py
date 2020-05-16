@@ -81,23 +81,19 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
         if str(int(order.bo_date_created.strftime('%W'))+1) == str(date.today().isocalendar()[1]):
             week_sales += order.bo_total_price
         # Monthly sales
-        if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str(date.today().month)):
+        #if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str(date.today().month)):
+        if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format(date.today().month)):
             month_sales += order.bo_total_price
         # Previos Daily sales
-#        yesterday = datetime.now() - timedelta(days=1)
-#        print("yesterday2: ", yesterday)
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()+relativedelta(days=-1)):
             last_day_sales += order.bo_total_price
         # Previos Weekly sales
-        print("lastweek1: ", str((date.today()+relativedelta(weeks=-1)).isocalendar()[1]))
-        print("lastweek2: ", order.bo_date_created.strftime('%W'))
         if str(int(order.bo_date_created.strftime('%W'))+1) == str((date.today()+relativedelta(weeks=-1)).isocalendar()[1]):
             last_week_sales += order.bo_total_price
         # Previos Monthly sales
         print("last month1: ", str(str(date.today().year)+"-"+str((date.today()+relativedelta(months=-1)).month)))
         print("last month2: ", str(order.bo_date_created.strftime('%Y-%m')))
-        #if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str((date.today()+relativedelta(months=-1)).month)):
-        if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+"{:02d}".format( (date.today()+relativedelta(months=-1)).month) ):
+        if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format((date.today()+relativedelta(months=-1)).month) ):
             last_month_sales += order.bo_total_price
 
     BodegaDashboard_obj.bd_daily_sales = today_sales
