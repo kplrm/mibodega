@@ -31,4 +31,4 @@ class BodegaOrderssAdmin(OSMGeoAdmin):
     list_display = ('pk','bo_order','bo_bodega','bo_total_price')
 @admin.register(OrderItem)
 class OrderItemAdmin(OSMGeoAdmin):
-    list_display = ('pk','oi_ID','oi_bo_ID','oi_ruc_bodega','oi_product','oi_price','oi_quantity','oi_prod_total','oi_bodega_name')
+    list_display = ('pk','oi_ID','oi_bo_ID','oi_ruc_bodega','oi_product','oi_price','oi_quantity','oi_prod_total','oi_bodega_name','oi_date_anulado','oi_date_created')
