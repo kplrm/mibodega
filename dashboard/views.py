@@ -99,6 +99,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     daily_change_sales = (today_sales - last_day_sales)/last_day_sales*100
     weekly_change_sales = (week_sales - last_week_sales)/last_week_sales*100
     #monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
+    weekly_change_sales = -2
     monthly_change_sales = -1
 
     # Save object
