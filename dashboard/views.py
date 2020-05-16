@@ -122,6 +122,6 @@ def find_most_sold_products(OrderItem_list, list_size):
                 })
     most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
     for idx, key in enumerate(list(most_sold_products)[0:list_size]):
-        print(x)
+        print(idx)
         print(key)
     return most_sold_products
