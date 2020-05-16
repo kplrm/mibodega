@@ -6,8 +6,12 @@ def dashboard(request):
         print("user is authenticated")
         cliente = Cliente.objects.all().filter(cl_user=request.user).first()
         print(cliente)
+        # Render only if it's bodega
+        if cliente.cl_is_bodega:
+            return render(request=request,
+                  template_name="dashboard/index.html")
     else:
         print("user is NOT authenticated")
-    return render(request=request,
-                  template_name="dashboard/index.html")
+        return render(request=request,
+                      template_name="main/index.html")
                   
