@@ -7,8 +7,6 @@ from .models import BodegaDashboard
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from jinja2 import Template
-
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
     if request.user.is_authenticated:
