@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from main.models import Cliente
 
 def dashboard(request):
