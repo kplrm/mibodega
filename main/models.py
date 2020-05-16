@@ -257,8 +257,8 @@ class OrderItem(models.Model):
     oi_ruc_bodega = models.CharField(max_length=100,default="",verbose_name="RUC Bodega")
     oi_bodega_name = models.CharField(max_length=100,default="",verbose_name="Nombre de Bodega")
     oi_bodega_phone = models.CharField(max_length=100,default="",verbose_name="Teléfono de Bodega")
-    oi_date_canceled = models.DateTimeField(auto_now=True,blank=True,null=True)
-    oi_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    oi_date_anulado = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de anulación")
+    oi_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
 
     def __str__(self):
         return str("Order ID:")+str(self.oi_ID)+str(" || Product ID:")+str(self.oi_id_product)+str(" || Producto:")+str(self.oi_product)
