@@ -12,5 +12,5 @@ def dashboard(request):
                   template_name="dashboard/index.html")
     else:
         print("user is NOT authenticated")
-        return HttpResponseRedirect("main/index.html")
+        return HttpResponseRedirect("https://www.google.com")
                   
