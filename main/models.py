@@ -239,7 +239,7 @@ class BodegaOrders(models.Model):
     bo_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
 
     def __str__(self):
-        return str("Order ID:")+str(self.bo_order.ord_ID)+str(" || User:")+str(self.bo_user)
+        return str("Order ID:")+str(self.bo_order.ord_ID)+str(" || User:")+str(self.bo_bodega)
 
 class OrderItem(models.Model):
     oi_ID = models.ForeignKey(Orders,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Orden de Compra")
