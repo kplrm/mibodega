@@ -259,8 +259,8 @@ class OrderItem(models.Model):
     oi_bodega_phone = models.CharField(max_length=100,default="",verbose_name="Teléfono de Bodega")
     oi_date_update = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
     oi_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
-    oi_date_anulado = models.DateTimeField(default="",blank=True,null=True,verbose_name="Fecha de anulación")
-    oi_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?") # if it is currently being offered
+    oi_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
+    oi_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")
 
     def __str__(self):
         return str("Order ID:")+str(self.oi_ID)+str(" || Product ID:")+str(self.oi_id_product)+str(" || Producto:")+str(self.oi_product)
