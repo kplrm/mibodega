@@ -71,10 +71,6 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     last_day_sales = 0
     last_week_sales = 0
     last_month_sales = 0
-    print("Yesterday: ", date.today()+relativedelta(days=-1))
-    print("Last week: ", (date.today()+relativedelta(weeks=-1)).isocalendar()[1])
-    print("Last month: ", date.today()+relativedelta(months=-1))
-    print("=========================")
     for order in BodegaOrders_list:
         print("order creation date: ", order.bo_date_created.strftime('%Y-%m-%d'))
         # Daily sales
@@ -84,7 +80,6 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
         if str(int(order.bo_date_created.strftime('%W'))+1) == str(date.today().isocalendar()[1]):
             week_sales += order.bo_total_price
         # Monthly sales
-        #if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+str(date.today().month)):
         if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format(date.today().month)):
             month_sales += order.bo_total_price
         # Previos Daily sales
@@ -94,8 +89,6 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
         if str(int(order.bo_date_created.strftime('%W'))+1) == str((date.today()+relativedelta(weeks=-1)).isocalendar()[1]):
             last_week_sales += order.bo_total_price
         # Previos Monthly sales
-        print("last month1: ", str(str(date.today().year)+"-"+str((date.today()+relativedelta(months=-1)).month)))
-        print("last month2: ", str(order.bo_date_created.strftime('%Y-%m')))
         if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format((date.today()+relativedelta(months=-1)).month) ):
             last_month_sales += order.bo_total_price
     # Sale changes
@@ -116,6 +109,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     BodegaDashboard_obj.save()
 
 def find_most_sold_products(OrderItem_list):
+    print("=========================")
     most_sold_products = dict()
     for item in OrderItem_list:
         if item.oi_id_product in most_sold_products:
