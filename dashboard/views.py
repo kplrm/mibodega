@@ -120,7 +120,7 @@ def find_most_sold_products(OrderItem_list):
     for item in OrderItem_list:
         if item.oi_id_product in most_sold_products:
             print("ya está el producto")
-            most_sold_products['item.oi_id_product'] += item.oi_quantity
+            most_sold_products[str(item.oi_id_product)] += item.oi_quantity
         else:
             print("nuevo producto")
             most_sold_products.update({
