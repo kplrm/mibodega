@@ -46,7 +46,7 @@ def dashboard(request):
         #    top10_products = list(most_sold_products)[0:len(most_sold_products)]
         #else:
         #    top10_products = list(most_sold_products)[0:top_list_size]
-        #top10_products = list(most_sold_products)[0:top_list_size] #for debugging
+        top10_products = list(most_sold_products)[0:top_list_size] #for debugging
 
         
 
