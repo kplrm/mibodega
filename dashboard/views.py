@@ -17,10 +17,19 @@ def dashboard(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
-        BodegaOrders_obj = get_list_or_404(BodegaOrders,bo_bodega=bodega)
-        #BodegaOrders_obj = get_list_or_404(OrderItem,oi_bo_ID=oi_bo_ID) # oi_bo_ID needs to be something else
         print("created? ", created)
-        print("BodegaOrders_obj? ", BodegaOrders_obj[0].bo_order)
+
+        BodegaOrders_obj = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        OrderItem_obj = []
+        for order_item in BodegaOrders_obj:
+            if order_item in OrderItem_obj:
+                pass
+            else:
+                OrderItem_obj.append(order_item)
+        
+        
+        print("BodegaOrders_obj? ", len(BodegaOrders_obj))
+        print("OrderItem_obj? ", len(OrderItem_obj))
 
         update_values_BodegaDashboard(BodegaDashboard_obj)
 
