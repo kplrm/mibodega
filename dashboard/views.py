@@ -125,6 +125,7 @@ def find_most_sold_products(OrderItem_list):
                 # Tuple can not be updated, so convert it to list before updating a value
                 temp = list(most_sold_products[str(item.oi_id_product)])
                 temp[0] += int(item.oi_quantity)
+                temp[2] += Decimal(item.oi_prod_total)
                 most_sold_products[str(item.oi_id_product)] = tuple(temp)
             else:
                 most_sold_products.update({
