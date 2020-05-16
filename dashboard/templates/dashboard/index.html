@@ -159,7 +159,7 @@
                                                     <th class="border-0">Imagen</th>
                                                     <th class="border-0">Producto</th>
                                                     <th class="border-0">Cantidad</th>
-                                                    <th class="border-0">Ventas</th>
+                                                    <th class="border-0">Ventas por producto</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -171,7 +171,7 @@
                                                     </td>
                                                     <td>{{ product.1.1 }}</td>
                                                     <td>{{ product.1.0 }}</td>
-                                                    <td>{{ product.1.2|floatformat:2|intcomma }}</td>
+                                                    <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
@@ -188,28 +188,18 @@
 
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Ventas por producto</h5>
+                                <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
                                 <div class="card-body">
                                     <div class="ct-chart-category ct-golden-section" ></div>
                                     <div class="text-center m-t-10">
-                                        <span class="legend-item mr-3">
-                                            <span class="fa-xs text-primary mr-1 legend-tile">
-                                                <i class="fa fa-fw fa-square-full "></i>
+                                        {% for product in top10_products %}
+                                            <span class="legend-item mr-3">
+                                                <span class="fa-xs text-primary mr-1 legend-tile">
+                                                    <i class="fa fa-fw fa-square-full "></i>
+                                                </span>
+                                                <span class="legend-text">{{ product.1.1 }}</span>
                                             </span>
-                                            <span class="legend-text">Man</span>
-                                        </span>
-                                        <span class="legend-item mr-3">
-                                            <span class="fa-xs text-secondary mr-1 legend-tile">
-                                                <i class="fa fa-fw fa-square-full"></i>
-                                            </span>
-                                            <span class="legend-text">Woman</span>
-                                        </span>
-                                        <span class="legend-item mr-3">
-                                            <span class="fa-xs text-info mr-1 legend-tile">
-                                                <i class="fa fa-fw fa-square-full"></i>
-                                            </span>
-                                            <span class="legend-text">Accessories</span>
-                                        </span>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
