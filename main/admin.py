@@ -19,7 +19,7 @@ class ProductosAprobadosAdmin(OSMGeoAdmin):
     list_display = ('pk','pa_product','pa_category','pa_brand')
 @admin.register(Cliente)
 class ClienteAdmin(OSMGeoAdmin):
-    list_display = ('pk','cl_user','cl_first_name','cl_last_name','cl_phone','cl_address','cl_geolocation','cl_is_bodega')
+    list_display = ('pk','cl_user','cl_first_name','cl_last_name','cl_phone','cl_address','cl_geolocation','cl_is_bodega','cl_default_bodega')
 @admin.register(Bodega)
 class BodegaAdmin(OSMGeoAdmin):
     list_display = ('pk','bd_ID','bd_user','bd_is_active','bd_name','bd_ruc','bd_raz_soc','bd_geolocation')

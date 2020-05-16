@@ -67,6 +67,7 @@ class Cliente(models.Model):
     cl_geolocation = models.PointField(blank=True,null=True,verbose_name="Ubicación")
     cl_date_reg = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de registro")
     cl_is_bodega = models.BooleanField(default=False,verbose_name="¿Es bodega?")
+    cl_default_bodega = models.CharField(default="",max_length=36,blank=True,null=True,verbose_name="Bodega predeterminada")
 
     def __str__(self):
         return str(self.cl_user)

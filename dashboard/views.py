@@ -6,23 +6,34 @@ from main.models import Cliente
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
     if request.user.is_authenticated:
-        print("user is authenticated")
         cliente = Cliente.objects.all().filter(cl_user=request.user).first()
-        print(cliente)
         # Render only if it's bodega
         # To avoid any rendering or calculation if it's not a bodega
         if cliente.cl_is_bodega == False:
-            print("first exit")
             return HttpResponseRedirect(reverse('main:homepage'))
+        ####################################################################################
+        ################################### PAGE CONTENT ###################################
+        bodega = Bodega.objects.all().filter(bd_ID=cl_default_bodega).first()
 
+
+
+
+
+
+
+
+
+
+
+        ################################# PAGE CONTENT END #################################
+        ####################################################################################
+        # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
         if cliente.cl_is_bodega:
             return render(request=request,
                   template_name="dashboard/index.html")
         else:
-            print("second exit")
             return HttpResponseRedirect(reverse('main:homepage'))
 
     else:
-        print("user is NOT authenticated")
         return HttpResponseRedirect(reverse('main:homepage'))
                   
