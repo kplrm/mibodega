@@ -194,7 +194,33 @@
                                 </button>
                                 </div>
                                 <div class="modal-body">
-                                ...
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">#</th>
+                                                <th class="border-0">Imagen</th>
+                                                <th class="border-0">Producto</th>
+                                                <th class="border-0">Cantidad</th>
+                                                <th class="border-0">Ventas por producto</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in top10_products %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>
+                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
+                                                </td>
+                                                <td>{{ product.1.1 }}</td>
+                                                <td>{{ product.1.0 }}</td>
+                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                            <tr>
+                                                <td colspan="9"><a class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#verTodos">Ver todos</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
