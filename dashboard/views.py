@@ -61,7 +61,7 @@ def dashboard(request):
 def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list):
     today_sales = 0
     for order in BodegaOrders_list:
-        print("Today: ", date.today())
+        print("Today: ", date.today)
         if order.bo_date_created == date.today():
             today_sales += order.bo_total_price
     
