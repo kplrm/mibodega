@@ -621,8 +621,10 @@ def checkout(request):
                   'STATIC_URL': STATIC_URL})
 
 def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
-    # Retrieve all corresponding cart products
+    # Retrieve all corresponding cart products and bodegaorders
     result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
+    bodegaorders_obj = BodegaOrders.objects.all().filter(bo_order=orders_obj).all()
+    print("bodegaorders_obj", bodegaorders_obj)
 
     # Organize all email context information
     bodegas_en_cesta = dict()
@@ -633,11 +635,13 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
         # Check if bodega is already in the dictionary
         if product.oi_id_bodega in bodegas_en_cesta:
             subtotal_bodegas[str(product.oi_id_bodega)] += float(product.oi_price)* float(product.oi_quantity)
+            pass
         else:
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             bodega_phones.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
             subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
+            subtotal_bodegas.update({str(product.oi_id_bodega):})
 
     # usr_geolocation with regex
     patterns = "([0-9.-]+)"
