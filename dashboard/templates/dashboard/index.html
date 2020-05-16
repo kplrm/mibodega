@@ -70,7 +70,7 @@
                                         <span><i class="fa fa-fw fa-arrow-up"></i></span>
                                         <span>{{ BodegaDashboard_obj.bd_daily_change_sales|floatformat:2|intcomma }}%</span>
                                     </div>
-                                    {% elif %}
+                                    {% else %}
                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold">
                                         <span><i class="fa fa-fw fa-arrow-down"></i></span>
                                         <span>{{ BodegaDashboard_obj.bd_daily_change_sales|floatformat:2|intcomma }}%</span>
