@@ -61,7 +61,8 @@ def dashboard(request):
 def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list):
     today_sales = 0
     for order in BodegaOrders_list:
-        bd_daily_sales += item.oi_prod_total
+        if order.ord_date_created == date.today()
+            today_sales += order.ord_total_price
     
-    BodegaDashboard_obj.bd_daily_sales = bd_daily_sales
+    BodegaDashboard_obj.bd_daily_sales = today_sales
     BodegaDashboard_obj.save()
