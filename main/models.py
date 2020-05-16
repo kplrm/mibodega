@@ -151,9 +151,10 @@ class CartManager(models.Manager):
                         # Merging previous cart with current cart
 #                        print("Buscando objetos...")
                         if cart_obj.crt_product.filter(pk=product.pk).exists():
+                            pass
 #                            print("Product previously found. Do nothing.")
                         else:
-                            print("Found nothing. Adding previously added product.")
+#                            print("Found nothing. Adding previously added product.")
                             cart_obj.crt_product.add(product)
                     # Update items
                     for item in CartItem.objects.all():
