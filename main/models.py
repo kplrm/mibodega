@@ -66,7 +66,8 @@ class Cliente(models.Model):
     cl_address = models.CharField(max_length=50,blank=True,null=True,verbose_name="Dirreción")
     cl_geolocation = models.PointField(blank=True,null=True,verbose_name="Ubicación")
     cl_date_reg = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de registro")
-    cl_bodega_ID = models.CharField(max_length=36,default="",blank=True,null=True,verbose_name="ID Bodega")
+    cl_is_bodega = models.BooleanField(default=False,verbose_name="¿Es bodega?")
+    #cl_bodega_ID = models.CharField(max_length=36,default="",blank=True,null=True,verbose_name="ID Bodega")
 
     def __str__(self):
         return str(self.cl_user)
