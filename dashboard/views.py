@@ -127,7 +127,7 @@ def find_most_sold_products(OrderItem_list):
                 most_sold_products.update({
                     str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
                 })
-    most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
+    #most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
     # In case adding enumeration is needed
 #    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
 #    print(most_sold_products[1][:])
