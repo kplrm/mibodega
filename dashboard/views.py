@@ -70,9 +70,9 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     last_month_sales = 0
     #print("Yesterday: ", date.today() + timedelta(days=-1))
     print("Yesterday: ", date.today() + relativedelta(days=-1))
-    print("Yesterday2: ", order.bo_date_created.strftime('%Y-%m'))
+    #print("Yesterday2: ", order.bo_date_created.strftime('%Y-%m'))
     print("Last month: ", date.today() + relativedelta(months=-1))
-    print("Last month2: ", order.bo_date_created.strftime('%Y-%m-%d'))
+    #print("Last month2: ", order.bo_date_created.strftime('%Y-%m-%d'))
     for order in BodegaOrders_list:
         # Daily sales
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
