@@ -60,7 +60,7 @@ def dashboard(request):
 def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list):
     today_sales = 0
     for order in BodegaOrders_list:
-        print("Today: ", date.today())
+        print("Today: ", date.today().isocalendar())
         print("order.bo_date_created: ", order.bo_date_created.strftime('%W'))
         if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
             print("Calculating...")
