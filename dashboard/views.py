@@ -115,16 +115,31 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
 
 def find_most_sold_products(OrderItem_list):
     print("=========================")
-    most_sold_products = dict()
+    products_quantity = dict()
+    products_name = dict()
     for item in OrderItem_list:
         if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
-            if item.oi_id_product in most_sold_products:
-                most_sold_products[str(item.oi_id_product)] += int(item.oi_quantity)
+            if item.oi_id_product in products_quantity:
+                products_quantity[str(item.oi_id_product)] += int(item.oi_quantity)
             else:
-                most_sold_products.update({
-                    str(item.oi_id_product): int(item.oi_quantity)
-                })
-    most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
+                products_quantity.update({str(item.oi_id_product): int(item.oi_quantity)})
+                products_name.update({str(item.oi_id_product): str(item.oi_product)})
+    products_quantity = sorted(products_quantity.items(), key=lambda x: x[1], reverse=True)
+    most_sold_products = list(products_quantity)
+
+
+    dicti = {
+        'aa': (1,"ha"),
+        'bb': (2,"hb"),
+        'cc': (3,"hc"),
+        'dd': (4,"hd") ,
+    }
+    print("===============")
+    print(dicti)
+    dicti = sorted(context.items()[0], key=lambda x: x[1], reverse=True)
+    print(dicti)
+    print("===============")
+
     # In case adding enumeration is needed
 #    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
 #    print(most_sold_products[1][:])
