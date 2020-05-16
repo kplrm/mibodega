@@ -96,7 +96,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
         # Previos Monthly sales
         print("last month1: ", str(str(date.today().year)+"-"+str((date.today()+relativedelta(months=-1)).month)))
         print("last month2: ", str(order.bo_date_created.strftime('%Y-%m')))
-        if str(order.bo_date_created.strftime('%Y-%m')) == str(str(date.today().year)+"-"+(str((date.today()+relativedelta(months=-1)).month)).zfill(2)):
+        if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+str( (date.today()+relativedelta(months=-1) ).month).zfill(2) ):
             last_month_sales += order.bo_total_price
 
     BodegaDashboard_obj.bd_daily_sales = today_sales
