@@ -47,8 +47,7 @@ def dashboard(request):
             context = {
                         'BodegaDashboard_obj': BodegaDashboard_obj
                     }
-            return render(request=request,
-                  template_name="dashboard/index.html", context)
+            return render(request=request,template_name="dashboard/index.html",context=context)
         else:
             return HttpResponseRedirect(reverse('main:homepage'))
 
