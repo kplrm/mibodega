@@ -640,7 +640,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
             bodega_phones.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
             print("product.oi_id_bodega", product.oi_id_bodega)
             print("bodegas[str(product.oi_id_bodega)]", bodegas[str(product.oi_id_bodega)])
-            subtotal_bodegas.update({str(product.oi_id_bodega):bodegas[str(product.oi_id_bodega)] })
+            subtotal_bodegas.update({str(product.oi_id_bodega):bodegas[str(product.oi_id_bodega)].bo_total_price })
 
     # usr_geolocation with regex
     patterns = "([0-9.-]+)"
