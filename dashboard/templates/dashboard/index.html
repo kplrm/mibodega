@@ -167,9 +167,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% set count = 1 %}
                                                 {% for product in top10_products %}
                                                 <tr>
-                                                    <td>{{ loop.index }}</td>
+                                                    <td>{{ count }}</td>
                                                     <td>
                                                         <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
                                                     </td>
@@ -181,6 +182,7 @@
                                                     <td>Patricia J. King </td>
                                                     <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
                                                 </tr>
+                                                {% set count = count + 1 %}
                                                 {% endfor %}
                                                 <tr>
                                                     <td colspan="9"><a href="#" class="btn btn-outline-primary float-right">Ver todos</a></td>
