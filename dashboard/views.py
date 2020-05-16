@@ -19,6 +19,7 @@ def dashboard(request):
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
         print("created? ", created)
 
+        # Find BodegaOrders with their corresponding OrderItem
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
