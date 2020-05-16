@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductosAprobados,Cliente,Bodega,ProductosEnBodega,Cart,CartItem,Orders,OrderItem
+from .models import ProductosAprobados,Cliente,Bodega,ProductosEnBodega,Cart,CartItem,Orders,BodegaOrders,OrderItem
 from django.contrib.gis.admin import OSMGeoAdmin
 
 # Register your models here.
@@ -26,6 +26,9 @@ class BodegaAdmin(OSMGeoAdmin):
 @admin.register(Orders)
 class OrdersAdmin(OSMGeoAdmin):
     list_display = ('pk','ord_ID','ord_user','ord_total_price')
+@admin.register(BodegaOrders)
+class BodegaOrderssAdmin(OSMGeoAdmin):
+    list_display = ('pk','bo_order','bo_bodega','bo_total_price')
 @admin.register(OrderItem)
 class OrderItemAdmin(OSMGeoAdmin):
     list_display = ('pk','oi_ID','oi_ruc_bodega','oi_product','oi_price','oi_quantity','oi_prod_total','oi_bodega_name')
