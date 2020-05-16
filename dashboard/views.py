@@ -74,7 +74,8 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
             today_sales += order.bo_total_price
             print("today_sales: ", today_sales)
         # Monthly sales
-        if str(order.bo_date_created.strftime('%Y-%m')) == str(date.today.year+"-"+date.today.month):
+        print("date.today.year: ", date.today().year)
+        if str(order.bo_date_created.strftime('%Y-%m')) == str(date.today().year+"-"+date.today.month):
             print("Calculating...")
             today_sales += order.bo_total_price
             print("today_sales: ", today_sales)
