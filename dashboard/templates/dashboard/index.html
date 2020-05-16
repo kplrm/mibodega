@@ -243,6 +243,7 @@
                                 <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
                                 <div class="card-body">
                                     <div class="ct-chart-category ct-golden-section"></div>
+                                    <script src="{% static 'dashboard/js/decimal.min.js' %}"></script>
                                     <script>
                                         var most_sold_products = {{ most_sold_products|safe }};
                                     </script>
