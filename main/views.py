@@ -719,6 +719,7 @@ def submit_checkout(request):
                 print("Nueva bodega en cesta")
                 bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
                 bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
+        print(bodegas)
         
         # Create every order item
         for item in cart_list:
