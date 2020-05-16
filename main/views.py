@@ -621,11 +621,8 @@ def checkout(request):
                   'STATIC_URL': STATIC_URL})
 
 def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
-    # Retrieve all corresponding cart products and bodegaorders
+    # Retrieve all corresponding cart products
     result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
-    #bodegaorders_obj = BodegaOrders.objects.all().filter(bo_order=orders_obj).all()
-
-    #print("bodegaorders_obj", bodegaorders_obj)
 
     # Organize all email context information
     bodegas_en_cesta = dict()
@@ -640,7 +637,6 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             bodega_phones.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
-            #subtotal_bodegas.update({str(product.oi_id_bodega):float(product.oi_price) * float(product.oi_quantity) })
             subtotal_bodegas.update({str(product.oi_id_bodega):bodegas[str(product.oi_id_bodega)] })
 
     # usr_geolocation with regex
@@ -679,10 +675,10 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
                                 to=[usr_email], body="text_body")
     email.attach_alternative(html_content, "text/html")
-    #res = email.send()
+    res = email.send()
 
     print("Email enviado")
-#    return HttpResponse('%s'%res)
+    return HttpResponse('%s'%res)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
