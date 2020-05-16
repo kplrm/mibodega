@@ -629,6 +629,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     bodega_names = dict()
     bodega_phones = dict()
     subtotal_bodegas = dict()
+    print("bodegas: ", bodegas)
     for product in result_list:
         # Check if bodega is already in the dictionary
         if product.oi_id_bodega in bodegas_en_cesta:
@@ -637,6 +638,8 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             bodega_phones.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
+            print("product.oi_id_bodega", product.oi_id_bodega)
+            print("bodegas[str(product.oi_id_bodega)]", bodegas[str(product.oi_id_bodega)])
             subtotal_bodegas.update({str(product.oi_id_bodega):bodegas[str(product.oi_id_bodega)] })
 
     # usr_geolocation with regex
