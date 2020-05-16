@@ -29,6 +29,7 @@ source eshop/bin/activate
 pip install django django-widget-tweaks gunicorn psycopg2-binary
 pip install six cachetools requests wheel
 pip install ipregistry
+pip install python-dateutil
 
 
 // SETUP DATABASE

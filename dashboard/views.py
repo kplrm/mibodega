@@ -5,6 +5,7 @@ from main.models import Cliente, Bodega, OrderItem, BodegaOrders
 from .models import BodegaDashboard
 
 from datetime import date
+from dateutil import relativedelta
 
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
