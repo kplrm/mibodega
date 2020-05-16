@@ -171,7 +171,7 @@
                                                     </td>
                                                     <td>{{ product.1.1 }}</td>
                                                     <td>{{ product.1.0 }}</td>
-                                                    <td>{{ product.1.2 }}</td>
+                                                    <td>{{ product.1.2|floatformat:2|intcomma }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
