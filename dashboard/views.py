@@ -46,7 +46,8 @@ def dashboard(request):
         # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
         if cliente.cl_is_bodega:
             context = {
-                        'BodegaDashboard_obj': BodegaDashboard_obj
+                        'BodegaDashboard_obj': BodegaDashboard_obj,
+                        'cliente': cliente
                     }
             return render(request=request,template_name="dashboard/index.html",context=context)
         else:

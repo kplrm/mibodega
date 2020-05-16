@@ -45,7 +45,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">E-commerce Dashboard Template </h2>
+                            <h2 class="pageheader-title">Hola {{ cliente.cl_first_name cliente.cl_last_name }}</h2>
                             <p class="pageheader-text">
                                 Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.
                             </p>
@@ -63,7 +63,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta del día</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h3 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_daily_sales|floatformat:2|intcomma }}</h3>
+                                        <h2 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_daily_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                     {% if BodegaDashboard_obj.bd_daily_change_sales >= 0 %}
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
@@ -80,7 +80,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de ayer</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_last_day_sales|floatformat:2|intcomma }}</h1>
+                                        <h2 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_last_day_sales|floatformat:2|intcomma }}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h2 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h2>
+                                        <h3 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_weekly_sales|floatformat:2|intcomma }}</h3>
                                     </div>
                                     {% if BodegaDashboard_obj.bd_weekly_change_sales >= 0 %}
                                         <div class="metric-label d-inline-block float-right text-success font-weight-bold">
@@ -107,7 +107,7 @@
                                 <div class="card-body">
                                     <h5 class="text-muted">Venta de la semana pasada</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_last_week_sales|floatformat:2|intcomma }}</h1>
+                                        <h3 class="mb-1" style="text-align:right">S/.{{ BodegaDashboard_obj.bd_last_week_sales|floatformat:2|intcomma }}</h3>
                                     </div>
                                 </div>
                             </div>
