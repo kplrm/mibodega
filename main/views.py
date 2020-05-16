@@ -712,14 +712,11 @@ def submit_checkout(request):
         # Crate a new bodegaorder for every bodega in the basket
         bodegas = dict()
         for item in cart_list:
-            print("item.ci_product.peb_bodega.bd_ID: ", item.ci_product.peb_bodega.bd_ID)
             if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
                 pass
             else:
-                print("Nueva bodega en cesta")
                 bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
                 bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
-        print(bodegas)
         
         # Create every order item
         for item in cart_list:
