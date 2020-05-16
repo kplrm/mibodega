@@ -45,7 +45,7 @@
 
     });
 
-    console.log(most_sold_products);
+    console.log({{ most_sold_products }});
 
 
     chart.on('draw', function(data) {
