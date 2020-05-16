@@ -40,8 +40,12 @@ def dashboard(request):
 
         # Find the most sold products
         most_sold_products = find_most_sold_products(OrderItem_list)
-        top_list_size = 2
-        top10_products = list(most_sold_products)[0:top_list_size]
+        top_list_size = 10
+        print("len: ",len(most_sold_products))
+        if len(most_sold_products) > top_list_size:
+            top10_products = list(most_sold_products)[0:len(most_sold_products)]
+        else:
+            top10_products = list(most_sold_products)[0:top_list_size]
 
         
 
@@ -114,9 +118,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     BodegaDashboard_obj.save()
 
 def find_most_sold_products(OrderItem_list):
-    print("=========================")
     most_sold_products = dict()
-    #products_name = dict()
     for item in OrderItem_list:
         if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
             if item.oi_id_product in most_sold_products:
@@ -128,29 +130,7 @@ def find_most_sold_products(OrderItem_list):
                 most_sold_products.update({
                     str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
                 })
-                #products_name.update({str(item.oi_id_product): str(item.oi_product)})
-    dicti = {
-        'aa': (1,"ha"),
-        'bb': (2,"hb"),
-        'cc': (3,"hc"),
-        'dd': (4,"hd") ,
-    }
-    print("===============")
-    print(dicti)
-    dicti = sorted(dicti.items(), key=lambda x: x[1][0], reverse=True)
-    print(dicti)
-    print("===============")
-
-    print("===============")
-    print(most_sold_products)
     most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1][0], reverse=True)
-    print(most_sold_products)
-    print("===============")
-    #most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
-    #most_sold_products = list(products_quantity)
-
-
-    
 
     # In case adding enumeration is needed
 #    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
