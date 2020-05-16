@@ -122,7 +122,7 @@ def find_most_sold_products(OrderItem_list):
                 print(most_sold_products[str(item.oi_id_product)])
                 print(most_sold_products[str(item.oi_id_product)][0])
                 print(most_sold_products[str(item.oi_id_product)][1])
-                most_sold_products[str(item.oi_id_product)[0]] = int(item.oi_quantity) + most_sold_products[str(item.oi_id_product)[0]]
+                most_sold_products[str(item.oi_id_product)[0]] = int(item.oi_quantity) + int(most_sold_products[str(item.oi_id_product)][0])
             else:
                 most_sold_products.update({
                     str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product) )
