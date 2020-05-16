@@ -51,6 +51,7 @@ def dashboard(request):
         if cliente.cl_is_bodega:
             context = {
                         'BodegaDashboard_obj': BodegaDashboard_obj,
+                        'OrderItem_list': OrderItem_list,
                         'cliente': cliente,
                         'bodega': bodega,
                         'most_sold_products': most_sold_products,
