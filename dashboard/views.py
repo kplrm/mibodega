@@ -36,10 +36,11 @@ def dashboard(request):
         print("OrderItem_list? ", len(OrderItem_list))
 
         # Update BodegaDashboard values
-        update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list)
+        update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
 
-
-
+        # Find the most sold products
+        most_sold_products = find_most_sold_products(BodegaOrders_list)
+        
 
         ################################# PAGE CONTENT END #################################
         ####################################################################################
@@ -60,7 +61,7 @@ def dashboard(request):
 ####################################################################################
 ################################# PYTHON FUNCTIONS #################################
 
-def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderItem_list):
+def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
 #        print("Today's week: ", date.today().isocalendar()[1]) # (ISO Year, ISO Week Number, ISO Weekday), always start on monday
 #        print("order.bo_date_created: ", order.bo_date_created.strftime('%W')) # %W week starts on monday, %w starts on sunday
 
@@ -101,11 +102,9 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     daily_change_sales = (today_sales - last_day_sales)/last_day_sales*100
     weekly_change_sales = (week_sales - last_week_sales)/last_week_sales*100
     monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
-    weekly_change_sales = -2
-    monthly_change_sales = -1
 
     # Save object
-    BodegaDashboard_obj.bd_daily_sales = today_sales +10000
+    BodegaDashboard_obj.bd_daily_sales = today_sales
     BodegaDashboard_obj.bd_weekly_sales = week_sales
     BodegaDashboard_obj.bd_monthly_sales = month_sales
     BodegaDashboard_obj.bd_last_day_sales = last_day_sales
@@ -116,3 +115,19 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list, OrderI
     BodegaDashboard_obj.bd_monthly_change_sales = monthly_change_sales
     BodegaDashboard_obj.save()
 
+def find_most_sold_products(BodegaDashboard_obj, BodegaOrders_list):
+    most_sold_products = dict()
+    for item in OrderItem_list:
+        if item.oi_id_product in most_sold_products:
+            print("ya está el producto")
+            most_sold_products['item.oi_id_product'] += item.oi_quantity
+        else:
+            print("nuevo producto")
+            most_sold_products.update({
+                str(item.oi_id_product): item.oi_quantity
+            })
+    sort_orders = sorted(most_sold_products.items(), key=lambda x: x[1], reverse=True)
+    print("most_sold_products: ", most_sold_products)
+    print("sort_orders: ", sort_orders)
+
+    return most_sold_products
