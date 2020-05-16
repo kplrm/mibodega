@@ -205,7 +205,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for product in top10_products %}
+                                            {% for product in most_sold_products %}
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
                                                 <td>
@@ -216,9 +216,6 @@
                                                 <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
                                             </tr>
                                             {% endfor %}
-                                            <tr>
-                                                <td colspan="9"><a class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#verTodos">Ver todos</a></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
