@@ -53,12 +53,10 @@
                         label += ': ';
                     }
                     if (!helpers.isNullOrUndef(tooltipItem.value)) {
-                        label += tooltipItem.value;
-                    } else {
-                        label += tooltipItem.yLabel;
+                        label += '$' + tooltipItem.value;
                     }
                     return label;
-                },
+                }
             }
         }
     };
