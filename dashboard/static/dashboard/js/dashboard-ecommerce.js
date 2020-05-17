@@ -48,7 +48,7 @@
         tooltips: {
             callbacks: {
                 label: function(tooltipItem, data) {
-                    var label = data['datasets'][0]['data'][tooltipItem['index']];
+                    var label = data['labels'][tooltipItem['index']];
                     console.log(label);
                     if (label) {
                         label += ': ';
