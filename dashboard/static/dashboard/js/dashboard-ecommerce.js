@@ -49,18 +49,13 @@
             callbacks: {
                 label: function(tooltipItem, data) {
                     var label = data['labels'][tooltipItem['index']];
-                    console.log(label);
                     if (label) {
                         label += ': ';
                     }
-                    console.log(label);
                     var dataset = data['datasets'][0];
                     var temp = (dataset['data'][tooltipItem['index']]/sales_volumen_last_30)*10000;
                     var percent = Math.round(temp)/100;
-                    var temp2 = '(' + percent + '%)';
                     label += '(' + percent + '%)';
-                    console.log(label);
-                    console.log(label+temp2);
                     return label;
                   }
             }
