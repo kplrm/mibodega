@@ -40,12 +40,6 @@
         //labels: ['Bananas', 'Apples', 'Grapes']
         series: series_most_sold_products,
         labels: labels_most_sold_products,
-        options: {
-            legend: {
-                display: true,
-                position: 'bottom'
-            }
-        }
     }, {
         donut: true,
         showLabel: false,
@@ -54,7 +48,8 @@
         high: 8,
         fullWidth: true,
         plugins: [
-            Chartist.plugins.tooltip()
+            Chartist.plugins.tooltip(),
+            Chartist.plugins.legend()
         ],        
     });
 
