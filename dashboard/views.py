@@ -118,7 +118,7 @@ def productos(request):
                         'most_sold_products': most_sold_products,
                         'top10_products': top10_products
                     }
-            return render(request=request,template_name="dashboard/index.html",context=context)
+            return render(request=request,template_name="dashboard/productos.html",context=context)
         else:
             return HttpResponseRedirect(reverse('main:homepage'))
 
