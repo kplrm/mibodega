@@ -80,7 +80,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <form id="products_to_update" method="POST">
+                                                <form id="products_to_update" action="">
                                                 {% csrf_token %}
                                                 {% for product in ProductosEnBodega_list %}
                                                 <tr>
