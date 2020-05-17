@@ -1,5 +1,5 @@
 // JS for productos template
-function submit_checkout() {
+function save_product_changes() {
     if $("#products_to_update").validate().form() {
         alert("Form is valid");
     } else {
