@@ -44,6 +44,9 @@
         donut: true,
         showLabel: false,
         donutWidth: 40,
+        low: 0,
+        high: 8,
+        fullWidth: true,
         plugins: [
             Chartist.plugins.tooltip()
         ]
