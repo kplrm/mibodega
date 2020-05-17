@@ -47,13 +47,18 @@
     var options = {
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) {
+                afterLabel: function(tooltipItem, data) {
+                    var dataset = data['datasets'][0];
+                    var percent = Math.round((dataset['data'][tooltipItem['index']] / 1 * 100)
+                    return '(' + percent + '%)';
+                  }
+                //label: function(tooltipItem, data) {
                     //var label = data.datasets[tooltipItem.datasetIndex].label || '';
-                    var label = "Laikitas";
-                    if (label) {
-                        label += ': ';
-                    }
-                    label += "hola";
+                    //var label = "Laikitas";
+                    //if (label) {
+                    //    label += ': ';
+                    //}
+                    //label += "hola";
                     // Calculate total volume
                     /*
                     var sales_volumen = 0
@@ -64,8 +69,8 @@
                     if (label) {
                         label += sales_volumen;
                     }*/
-                    return label;
-                }
+                    //return label;
+                //}
             }
         }
     };
