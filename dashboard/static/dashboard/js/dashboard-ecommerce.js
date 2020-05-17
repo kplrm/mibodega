@@ -49,7 +49,14 @@
         fullWidth: true,
         plugins: [
             Chartist.plugins.tooltip()
-        ]
+        ],
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            }
+        },
+        
     });
 
     chart.on('draw', function(data) {
