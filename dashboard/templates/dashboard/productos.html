@@ -204,7 +204,7 @@
                     peb_status:         peb_status[i].checked
                 }
             };
-            var product_data = JSON.parse(dict);
+            //var product_data = JSON.parse(dict);
 
 
             $.ajax({
@@ -212,7 +212,7 @@
                 url: "/save_product_changes",
                 type: "POST",
                 dataType: "json",
-                data: {product_data}
+                data: {dict}
             });
         } else {
             alert("Verifique los datos ingresados");
