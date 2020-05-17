@@ -246,9 +246,19 @@
                                     <script type="text/javascript">
                                         var series_most_sold_products = [];
                                         var labels_most_sold_products = [];
+                                        var labels_backgroundColors = [];
+                                        function getRandomColor() {
+                                            var letters = '0123456789ABCDEF';
+                                            var color = '#';
+                                            for (var i = 0; i < 6; i++) {
+                                                color += letters[Math.floor(Math.random() * 16)];
+                                            }
+                                            return color;
+                                        }
                                         {% for product in most_sold_products %}
                                             series_most_sold_products.push( "{{ product.1.2 }}" );
                                             labels_most_sold_products.push( "{{ product.1.1 }}" );
+                                            labels_backgroundColors.push( getRandomColor() );
                                         {% endfor %}
                                     </script>
                                 </div>
@@ -258,16 +268,6 @@
                         <!-- end product sales distribution -->
                         <!-- ============================================================== -->
                     </div>
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="card">
-                                <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
-                                <div class="card-body">
-                                    <div class="c3chart_category ct-legend"></div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
                 </div>
             </div>
         </div>
