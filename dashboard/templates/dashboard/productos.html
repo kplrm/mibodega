@@ -81,16 +81,6 @@
                                             </thead>
                                             <tbody>
                                                 <form id="products_to_update" action="">
-                                                <script>
-                                                    function save_product_changes() {
-                                                        console.log("entering save_product_changes");
-                                                        if ($("#products_to_update").validate().form()) {
-                                                            alert("Form is valid");
-                                                        } else {
-                                                            alert("Form is NOT valid");
-                                                        };
-                                                    }
-                                                </script>
                                                 {% for product in ProductosEnBodega_list %}
                                                 <tr>
                                                     <td>
@@ -128,7 +118,7 @@
                                                 {% endfor %}
                                                 </form>
                                                 <tr>
-                                                    <td colspan="9"><a type="button" class="btn btn-outline-primary float-right" onclick="save_product_changes(); return false;">Guardar</a></td>
+                                                    <td colspan="9"><button type="button" class="btn btn-outline-primary float-right" onclick="save_product_changes(); return false;">Guardar</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -162,6 +152,16 @@
     <!-- end wrapper  -->
     <!-- ============================================================== -->
 </div>
+<script type="text/javascript">
+    function save_product_changes() {
+        console.log("entering save_product_changes");
+        if ($("#products_to_update").validate().form()) {
+            alert("Form is valid");
+        } else {
+            alert("Form is NOT valid");
+        };
+    }
+</script>
 
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
