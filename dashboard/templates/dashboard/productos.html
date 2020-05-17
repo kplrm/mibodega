@@ -89,27 +89,27 @@
                                                     <td>{{ product.peb_product.pa_category }}</td>
                                                     <td>{{ product.peb_product.pa_brand }}</td>
                                                     <td>
-                                                        <input type=text name="regular_price" id="{{ product.peb_ID }}" class="form-control" value="{{ product.peb_regular_price|floatformat:2|intcomma }}" required>
+                                                        <input type=text name="regular_price" id="regular_price_{{ product.peb_ID }}" class="form-control" value="{{ product.peb_regular_price|floatformat:2|intcomma }}" required>
                                                     </td>
                                                     <td>
-                                                        <input type=text name="regular_price" id="{{ product.peb_ID }}" class="form-control" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
+                                                        <input type=text name="regular_price" id="regular_price_{{ product.peb_ID }}" class="form-control" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
                                                     </td>
                                                     <td>
                                                         {% if product.peb_discount_status == True %}
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked>
+                                                            <input type="checkbox" name="discount_status" id="discount_status_{{ product.peb_ID }}" class="form-check-input" checked>
                                                             <span class="badge-dot badge-success mr-1"></span>Sí
                                                         {% else %}
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input">
+                                                            <input type="checkbox" name="discount_status" id="discount_status_{{ product.peb_ID }}" class="form-check-input">
                                                             <span class="badge-dot badge-danger mr-1"></span>No
                                                         {% endif %}
                                                     </td>
                                                     <td>{{ product.peb_discount_rate|floatformat:2|intcomma }}</td>
                                                     <td>
                                                         {% if product.peb_status == True %}
-                                                            <input type="checkbox" name="status" id="{{ product.peb_ID }}" class="form-check-input" checked>
+                                                            <input type="checkbox" name="status" id="status_{{ product.peb_ID }}" class="form-check-input" checked>
                                                             <span class="badge-dot badge-success mr-1"></span>Sí
                                                         {% else %}
-                                                            <input type="checkbox" name="status" id="{{ product.peb_ID }}" class="form-check-input">
+                                                            <input type="checkbox" name="status" id="status_{{ product.peb_ID }}" class="form-check-input">
                                                             <span class="badge-dot badge-danger mr-1"></span>No
                                                         {% endif %}
                                                     </td>
