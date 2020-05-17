@@ -159,6 +159,9 @@
             if (e.target.value == '') {
                 e.target.value = 0;
             }
+            if (e.target.value < 0) {
+                e.target.value = 0;
+            }
         })
     });
     function save_product_changes() {
