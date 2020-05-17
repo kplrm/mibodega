@@ -153,7 +153,15 @@
     <!-- end wrapper  -->
     <!-- ============================================================== -->
 </div>
-
+<script>
+    function save_product_changes() {
+        if $("#products_to_update").validate().form() {
+            alert("Form is valid");
+        } else {
+            alert("Form is NOT valid");
+        };
+    }
+</script>
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
