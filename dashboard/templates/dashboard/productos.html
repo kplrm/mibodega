@@ -170,15 +170,15 @@
             discount_price = document.getElementsByName("discount_price");
             discount_status = document.getElementsByName("discount_status");
             peb_status = document.getElementsByName("peb_status");
-            console.log(regular_price[0].value);// .value
-            console.log(discount_price);// .value
-            console.log(discount_status[0].checked);// .checked = false / true
-            console.log(peb_status);
+            //console.log(regular_price[0].value);// .value
+            //console.log(discount_price);// .value
+            //console.log(discount_status[0].checked);// .checked = false / true
+            //console.log(peb_status);
             
             var dict = new Object();
             for (i = 0; i < dict.length; i++) {
                 dict.push({
-                    key:   regular_price[i].id,
+                    key:   (regular_price[i].id).toString,
                     value: (regular_price[i].value, discount_price[i].value, discount_status[i].checked, peb_status[i].checked)
                 });
             }
