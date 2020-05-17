@@ -49,12 +49,13 @@
             callbacks: {
                 afterLabel: function(tooltipItem, data) {
                     var dataset = data['datasets'][0];
-                    var percent = Math.round( ( dataset['data'][tooltipItem['index']] / sales_volumen_last_30 ) );
+                    var temp = (dataset['data'][tooltipItem['index']]/sales_volumen_last_30)*10000;
+                    var percent = Math.round(temp)/100;
                     console.log(dataset);
                     console.log("tooltipItem['index']: "+tooltipItem['index']);
                     console.log("math: "+ dataset['data'][tooltipItem['index']] );
                     console.log("sales_volumen_last_30: "+sales_volumen_last_30);
-                    console.log(dataset['data'][tooltipItem['index']]/sales_volumen_last_30);
+                    console.log(dataset['data'][tooltipItem['index']]/sales_volumen_last_30*100);
                     
                     return '(' + percent + '%)';
                   }
