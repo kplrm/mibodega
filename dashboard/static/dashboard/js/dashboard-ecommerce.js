@@ -36,8 +36,10 @@
     // Product Category
     // ============================================================== 
     var chart = new Chartist.Pie('.ct-chart-category', {
-        series: [60, 30, 30],
-        labels: ['Bananas', 'Apples', 'Grapes']
+        //series: [60, 30, 30],
+        //labels: ['Bananas', 'Apples', 'Grapes']
+        series: series_most_sold_products,
+        labels: labels_most_sold_products
     }, {
         donut: true,
         showLabel: false,
