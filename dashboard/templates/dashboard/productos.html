@@ -154,6 +154,7 @@
 </div>
 
 <script type="text/javascript">
+    /*
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -169,7 +170,7 @@
         }
         return cookieValue;
     }
-    var csrftoken = getCookie('csrftoken');
+    var csrftoken = getCookie('csrftoken');*/
 
     const numInputs = document.querySelectorAll('input[type=number]');
     numInputs.forEach(function(input) {
@@ -209,7 +210,7 @@
                 type: "POST",
                 dataType: "json",
                 data:   {
-                            'csrfmiddlewaretoken': csrftoken,
+                            //'csrfmiddlewaretoken': csrftoken,
                             'cart_obj_id': cart_obj_id.toString(),
                             'usr_first': usr_first,
                             'usr_last': usr_last,
