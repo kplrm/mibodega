@@ -91,7 +91,7 @@
                                                     <td>{{ product.peb_regular_price }}</td>
                                                     <td>{{ product.peb_discount_price }}</td>
                                                     <td>{{ product.peb_discount_status }}</td>
-                                                    <td>{{ product.peb_discount_rate }}</td>
+                                                    <td>{{ product.peb_discount_rate|floatformat:2|intcomma }}</td>
                                                     <td>{{ product.peb_status }}</td>
                                                 </tr>
                                                 {% endfor %}
