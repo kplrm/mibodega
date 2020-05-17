@@ -49,22 +49,17 @@
           enabled: false
         },
         plugins: {
-          datalabels: {
-            formatter: (value, ctx) => {
-     
-              let datasets = ctx.chart.data.datasets;
-     
-              if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
-                let sum = datasets[0].data.reduce((a, b) => a + b, 0);
-                let percentage = Math.round((value / sum) * 100) + '%';
-                return percentage;
-              } else {
-                return percentage;
-              }
+            formatter: function(value, ctx) {
+                var sum = 0;
+                
+                var dataArr = ctx.chart.data.datasets[0].data;
+
+                dataArr.map(function(data) {
+                    sum += data;
+                });
+
+                return (value * 100 / sum).toFixed(2) + "%";
             },
-            color: '#fff',
-          }
-        }
       };
      
     var ctx = document.getElementById('myPieChart').getContext('2d');
