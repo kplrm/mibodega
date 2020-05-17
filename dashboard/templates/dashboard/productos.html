@@ -90,10 +90,10 @@
                                                     <td>{{ product.peb_product.pa_category }}</td>
                                                     <td>{{ product.peb_product.pa_brand }}</td>
                                                     <td>
-                                                        <input type="number" step="0.01" name="regular_price" id="regularprice_{{ product.peb_ID }}" class="form-control" value="{{ product.peb_regular_price|floatformat:2|intcomma }}" required>
+                                                        <input type="number" step="0.01" name="regular_price" id="regularprice_{{ product.peb_ID }}" pattern="^[0-9\.]*$" class="form-control" value="{{ product.peb_regular_price|floatformat:2|intcomma }}" required>
                                                     </td>
                                                     <td>
-                                                        <input type="number" step="0.01"  name="discount_price" id="discountprice_{{ product.peb_ID }}" class="form-control" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
+                                                        <input type="number" step="0.01"  name="discount_price" id="discountprice_{{ product.peb_ID }}" pattern="^[0-9\.]*$" class="form-control" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
                                                     </td>
                                                     <td>
                                                         {% if product.peb_discount_status == True %}
@@ -157,7 +157,6 @@
         console.log("entering save_product_changes");
         form = document.getElementById("products_to_update");
         console.log($("#products_to_update").validate().form());
-        //if ($("#products_to_update").validate().form()) {
         if ($("#products_to_update").validate().form()) {
             alert("Form is valid");
         } else {
@@ -168,8 +167,8 @@
 
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
-<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
+<script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'dashboard/js/jquery.slimscroll.js' %}"></script>
 <script src="{% static 'dashboard/js/main-js.js' %}"></script>
