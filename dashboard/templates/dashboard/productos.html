@@ -184,14 +184,10 @@
                     discount_status:    discount_status[i].checked,
                     peb_status:         peb_status[i].checked
                 }
-                dict.push(data);
-                console.log(data);
             }
-            console.log(dict);
-            /*
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/submit_checkout",
+                url: "/save_product_changes",
                 type: "POST",
                 dataType: "json",
                 data:   {
@@ -206,7 +202,7 @@
                             'usr_comments': usr_comments,
                             // spare line to send confirmation if user wants to update his preferences
                         }
-            });*/
+            });
         } else {
             alert("Verifique los datos ingresados");
         };

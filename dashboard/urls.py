@@ -10,4 +10,5 @@ app_name = 'dashboard'  # here for namespacing of urls.
 urlpatterns = [
     path("", views.dashboard, name="dashboard"),
     path("productos", views.productos, name="productos"),
+    path("save_product_changes", views.save_product_changes, name="save_product_changes"),
 ]
