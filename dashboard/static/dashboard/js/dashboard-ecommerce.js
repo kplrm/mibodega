@@ -45,23 +45,6 @@
     };
 
     var options = {
-        tooltips: {
-          enabled: false
-        },
-        plugins: {
-            formatter: function(value, ctx) {
-                var sum = 0;
-                
-                var dataArr = ctx.chart.data.datasets[0].data;
-
-                dataArr.map(function(data) {
-                    sum += data;
-                });
-
-                return (value * 100 / sum).toFixed(2) + "%";
-            },
-            color: '#fff'
-        }
       };
      
     var ctx = document.getElementById('myPieChart').getContext('2d');
