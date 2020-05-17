@@ -42,7 +42,8 @@
         labels: labels_most_sold_products
     }, {
         donut: true,
-        showLabel: false,
+        //showLabel: false,
+        showLabel: true,
         donutWidth: 40
 
     });
