@@ -246,11 +246,12 @@
                                     <!--<script src="{% static 'dashboard/js/decimal.min.js' %}"></script>-->
                                     <script type="text/javascript">
                                         var series_most_sold_products = [];
+                                        var series_most_sold_products = [];
                                         var labels_most_sold_products = [];
 
                                         {% for product in most_sold_products %}
-                                            series_most_sold_products.push("{{ product.1.2 }}")
-                                            labels_most_sold_products.push("{{ product.1.1 }}")
+                                            series_most_sold_products.push("{{ product.1.2 }}");
+                                            labels_most_sold_products.push("{{ product.1.1 }}");
                                         {% endfor %}
                                     </script>
                                     <div class="text-center m-t-10">
