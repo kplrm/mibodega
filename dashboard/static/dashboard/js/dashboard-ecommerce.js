@@ -49,7 +49,7 @@
             callbacks: {
                 afterLabel: function(tooltipItem, data) {
                     var dataset = data['datasets'][0];
-                    var percent = Math.round((dataset['data'][tooltipItem['index']] / 1 * 100));
+                    var percent = Math.round((dataset['data'][tooltipItem['index']] / sales_volumen_last_30));
                     return '(' + percent + '%)';
                   }
                 //label: function(tooltipItem, data) {
