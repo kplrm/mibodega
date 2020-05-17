@@ -166,10 +166,10 @@
     });
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
-            regular_price = document.getElementsByName("regular_price").value;
-            discount_price = document.getElementsByName("discount_price").value;
-            discount_status = document.getElementsByName("discount_status").checked;
-            peb_status = document.getElementsByName("peb_status").checked;
+            regular_price = document.getElementsByName("regular_price");
+            discount_price = document.getElementsByName("discount_price");
+            discount_status = document.getElementsByName("discount_status");
+            peb_status = document.getElementsByName("peb_status");
             console.log(regular_price);// .value
             console.log(discount_price);// .value
             console.log(discount_status);// .checked = false / true
