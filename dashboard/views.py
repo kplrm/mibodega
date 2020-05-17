@@ -1,12 +1,15 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from main.models import Cliente, Bodega, OrderItem, BodegaOrders
+from main.models import Cliente, Bodega, OrderItem, BodegaOrders, ProductosEnBodega
 from .models import BodegaDashboard
 from decimal import *
 
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
+
+from django.conf import settings
+STATIC_URL = settings.STATIC_URL
 
 #@login_required(login_url='/accounts/login/')
 def dashboard(request):
@@ -53,6 +56,7 @@ def dashboard(request):
         # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
         if cliente.cl_is_bodega:
             context = {
+                        'STATIC_URL': STATIC_URL,
                         'BodegaDashboard_obj': BodegaDashboard_obj,
                         'OrderItem_list': OrderItem_list,
                         'cliente': cliente,
@@ -81,7 +85,8 @@ def productos(request):
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
         print("created? ", created)
 
-        # Find BodegaOrders with their corresponding OrderItem
+        # Find BodegaOrders, ProductosEnBodega and the corresponding OrderItem
+        ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,bo_bodega=bodega)
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
@@ -111,6 +116,8 @@ def productos(request):
         # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
         if cliente.cl_is_bodega:
             context = {
+                        'STATIC_URL': STATIC_URL,
+                        'ProductosEnBodega_list': ProductosEnBodega_list,
                         'BodegaDashboard_obj': BodegaDashboard_obj,
                         'OrderItem_list': OrderItem_list,
                         'cliente': cliente,
