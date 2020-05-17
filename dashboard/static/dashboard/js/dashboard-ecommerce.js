@@ -45,11 +45,9 @@
 
     });
 
-    console.log("dic_most_sold_products");
-    console.log(dic_most_sold_products);
-
-
     chart.on('draw', function(data) {
+        console.log("dic_most_sold_products");
+        console.log(dic_most_sold_products);
         if (data.type === 'slice') {
             // Get the total path length in order to use for dash array animation
             var pathLength = data.element._node.getTotalLength();
