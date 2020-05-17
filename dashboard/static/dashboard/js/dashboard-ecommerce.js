@@ -45,6 +45,7 @@
 
     });
 
+    console.log("dic_most_sold_products");
     console.log(dic_most_sold_products);
 
 
