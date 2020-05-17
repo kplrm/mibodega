@@ -86,7 +86,7 @@ def productos(request):
         print("created? ", created)
 
         # Find BodegaOrders, ProductosEnBodega and the corresponding OrderItem
-        ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,bo_bodega=bodega)
+        ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
