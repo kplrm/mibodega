@@ -44,7 +44,7 @@
         labels: labels_most_sold_products
     };
 
-    options = {
+    var options = {
         tooltips: {
             enabled: false
         },
@@ -62,7 +62,6 @@
                 color: '#fff',
             }
         }
-        
     };
 
     var ctx = document.getElementById('myPieChart').getContext('2d');
