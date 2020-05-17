@@ -153,6 +153,14 @@
     <!-- ============================================================== -->
 </div>
 <script type="text/javascript">
+    const numInputs = document.querySelectorAll('input[type=number]');
+    numInputs.forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            if (e.target.value == '') {
+            e.target.value = 0;
+            }
+        })
+    });
     function save_product_changes() {
         console.log("entering save_product_changes");
         form = document.getElementById("products_to_update");
