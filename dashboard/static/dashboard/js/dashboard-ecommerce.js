@@ -38,10 +38,10 @@
 
     data = {
         datasets: [{
-            data: series_most_sold_products
+            data: series_most_sold_products,
+            backgroundColor: labels_backgroundColors
         }],
-        labels: labels_most_sold_products,
-        backgroundColor: labels_backgroundColors
+        labels: labels_most_sold_products
     };
 
     options = {
