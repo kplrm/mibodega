@@ -178,7 +178,7 @@
             var dict = new Object();
             for (i = 0; i < dict.length; i++) {
                 dict.push({
-                    key:   (regular_price[i].id).toString,
+                    key:   String(regular_price[i].id),
                     value: (regular_price[i].value, discount_price[i].value, discount_status[i].checked, peb_status[i].checked)
                 });
             }
