@@ -248,7 +248,14 @@
                                         var li_most_sold_products = []
                                         var dic_most_sold_products = [];
 
+                                        var series_most_sold_products = [];
+                                        var labels_most_sold_products = [];
+
                                         {% for product in most_sold_products %}
+                                            series_most_sold_products.push("{{ product.1.2 }}")
+                                            labels_most_sold_products.push("{{ product.1.1 }}")
+
+
                                             dic_most_sold_products.push({
                                                 id:         "{{ product.0 }}",
                                                 cantidad:   "{{ product.1.0 }}",
