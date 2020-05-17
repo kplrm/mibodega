@@ -60,6 +60,15 @@
                         <!-- ============================================================== -->
                         <!-- productos en bodega  -->
                         <!-- ============================================================== -->
+                        <script>
+                            function save_product_changes() {
+                                if $("#products_to_update").validate().form() {
+                                    alert("Form is valid");
+                                } else {
+                                    alert("Form is NOT valid");
+                                };
+                            }
+                        </script>
                         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Todos los productos en mi bodega</h5>
@@ -153,15 +162,7 @@
     <!-- end wrapper  -->
     <!-- ============================================================== -->
 </div>
-<script>
-    function save_product_changes() {
-        if $("#products_to_update").validate().form() {
-            alert("Form is valid");
-        } else {
-            alert("Form is NOT valid");
-        };
-    }
-</script>
+
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>

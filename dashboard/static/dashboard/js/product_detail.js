@@ -1,10 +1,4 @@
 // JS for productos template
-function save_product_changes() {
-    if $("#products_to_update").validate().form() {
-        alert("Form is valid");
-    } else {
-        alert("Form is NOT valid");
-    };
 
 /*    if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 && usr_geolocation != "") {
         // submit with AJAX
