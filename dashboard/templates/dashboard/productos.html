@@ -161,7 +161,8 @@
             }
         }),
         input.addEventListener('keyup', function(e) {
-            if (((e.target.value).toString).includes("-")) {
+            var string = (e.target.value).toString;
+            if (string.includes('-')) {
                 e.target.value = 0;
             }
         })
