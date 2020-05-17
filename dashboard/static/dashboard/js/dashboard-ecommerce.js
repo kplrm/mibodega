@@ -60,6 +60,8 @@
 
                 return (value * 100 / sum).toFixed(2) + "%";
             },
+            color: '#fff'
+        }
       };
      
     var ctx = document.getElementById('myPieChart').getContext('2d');
