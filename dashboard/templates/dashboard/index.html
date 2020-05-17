@@ -245,24 +245,12 @@
                                     <div class="ct-chart-category ct-golden-section"></div>
                                     <!--<script src="{% static 'dashboard/js/decimal.min.js' %}"></script>-->
                                     <script type="text/javascript">
-                                        var li_most_sold_products = []
-                                        var dic_most_sold_products = [];
-
                                         var series_most_sold_products = [];
                                         var labels_most_sold_products = [];
 
                                         {% for product in most_sold_products %}
                                             series_most_sold_products.push("{{ product.1.2 }}")
                                             labels_most_sold_products.push("{{ product.1.1 }}")
-
-
-                                            dic_most_sold_products.push({
-                                                id:         "{{ product.0 }}",
-                                                cantidad:   "{{ product.1.0 }}",
-                                                producto:   "{{ product.1.1 }}",
-                                                ventas:     "{{ product.1.2 }}"
-                                            });
-                                            li_most_sold_products.push(dic_most_sold_products);
                                         {% endfor %}
                                     </script>
                                     <div class="text-center m-t-10">
@@ -282,6 +270,16 @@
                         <!-- end product sales distribution -->
                         <!-- ============================================================== -->
                     </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
+                                <div class="card-body">
+                                    <div class="c3chart_category"></div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
                 </div>
             </div>
         </div>

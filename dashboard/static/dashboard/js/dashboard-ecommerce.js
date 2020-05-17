@@ -33,7 +33,7 @@
 
 
     // ============================================================== 
-    // Product Category
+    // Ventas por producto en los últimos 30 días
     // ============================================================== 
     var chart = new Chartist.Pie('.ct-chart-category', {
         //series: [60, 30, 30],
@@ -42,15 +42,11 @@
         labels: labels_most_sold_products
     }, {
         donut: true,
-        //showLabel: false,
-        showLabel: true,
+        showLabel: false,
         donutWidth: 40
-
     });
 
     chart.on('draw', function(data) {
-//        console.log("dic_most_sold_products");
-//        console.log(dic_most_sold_products);
         if (data.type === 'slice') {
             // Get the total path length in order to use for dash array animation
             var pathLength = data.element._node.getTotalLength();
@@ -125,69 +121,6 @@
         }
     });*/
 
-
-
-
-    // ============================================================== 
-    // Revenue Cards
-    // ============================================================== 
-    $("#sparkline-revenue").sparkline([5, 5, 7, 7, 9, 5, 3, 5, 2, 4, 6, 7], {
-        type: 'line',
-        width: '99.5%',
-        height: '100',
-        lineColor: '#5969ff',
-        fillColor: '#dbdeff',
-        lineWidth: 2,
-        spotColor: undefined,
-        minSpotColor: undefined,
-        maxSpotColor: undefined,
-        highlightSpotColor: undefined,
-        highlightLineColor: undefined,
-        resize: true
-    });
-
-
-
-    $("#sparkline-revenue2").sparkline([3, 7, 6, 4, 5, 4, 3, 5, 5, 2, 3, 1], {
-        type: 'line',
-        width: '99.5%',
-        height: '100',
-        lineColor: '#ff407b',
-        fillColor: '#ffdbe6',
-        lineWidth: 2,
-        spotColor: undefined,
-        minSpotColor: undefined,
-        maxSpotColor: undefined,
-        highlightSpotColor: undefined,
-        highlightLineColor: undefined,
-        resize: true
-    });
-
-
-
-    // ============================================================== 
-    // Total Revenue
-    // ============================================================== 
-    /*
-    Morris.Area({
-        element: 'morris_totalrevenue',
-        behaveLikeLine: true,
-        data: [
-            { x: '2016 Q1', y: 0, },
-            { x: '2016 Q2', y: 7500, },
-            { x: '2017 Q3', y: 15000, },
-            { x: '2017 Q4', y: 22500, },
-            { x: '2018 Q5', y: 30000, },
-            { x: '2018 Q6', y: 40000, }
-        ],
-        xkey: 'x',
-        ykeys: ['y'],
-        labels: ['Y'],
-        lineColors: ['#5969ff'],
-        resize: true
-
-    });
-    */
 
 
     // ============================================================== 
