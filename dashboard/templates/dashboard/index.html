@@ -247,6 +247,7 @@
                                         var series_most_sold_products = [];
                                         var labels_most_sold_products = [];
                                         var labels_backgroundColors = [];
+                                        var sales_volumen_last_30 = 0;
                                         // Random rgba color function
                                         const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
                                         const randomByte = () => randomNumber(0, 255)
@@ -256,14 +257,10 @@
                                         {% for product in most_sold_products %}
                                             series_most_sold_products.push( "{{ product.1.2 }}" );
                                             labels_most_sold_products.push( "{{ product.1.1 }}" );
+                                            sales_volumen_last_30 += parseFloat({{ product.1.2 }});
                                             var coloring = randomCssRgba();
                                             labels_backgroundColors.push( coloring );
                                         {% endfor %}
-                                        // Calculate total sales in the last 30 days
-                                        var sales_volumen_last_30 = 0;
-                                        for(var i = 0, size = series_most_sold_products.length; i < size ; i++){
-                                            sales_volumen_last_30 += series_most_sold_products[i];
-                                        }
                                         console.log(sales_volumen_last_30);
                                     </script>
                                 </div>
