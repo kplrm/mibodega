@@ -83,8 +83,8 @@
                                                 <form id="products_to_update" action="">
                                                 <script>
                                                     function save_product_changes() {
-                                                        alert("entering save_product_changes");
-                                                        if $("#products_to_update").validate().form() {
+                                                        console.log("entering save_product_changes");
+                                                        if ($("#products_to_update").validate().form()) {
                                                             alert("Form is valid");
                                                         } else {
                                                             alert("Form is NOT valid");
