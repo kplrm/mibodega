@@ -159,12 +159,6 @@
             if (e.target.value == '') {
                 e.target.value = 0;
             }
-        }),
-        input.addEventListener('keyup', function(e) {
-            var string = (e.target.value).toString;
-            if (string.indexOf("-") < 0) {
-                e.target.value = 0;
-            }
         })
     });
     function save_product_changes() {
