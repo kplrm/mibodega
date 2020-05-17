@@ -44,12 +44,9 @@
         donut: true,
         showLabel: false,
         donutWidth: 40,
-
-        ///
-        onclick: function(d, i) { console.log("onclick", d, i); },
-        onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-        onmouseout: function(d, i) { console.log("onmouseout", d, i); }
-        ///
+        plugins: [
+            Chartist.plugins.tooltip()
+        ]
     });
 
     chart.on('draw', function(data) {
