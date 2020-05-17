@@ -43,7 +43,7 @@
     }, {
         //donut: true,
         //showLabel: false,
-        //donutWidth: 40,
+        donutWidth: 20,
         low: 0,
         high: 8,
         fullWidth: true,
