@@ -205,14 +205,15 @@
                 }
             };
             //var product_data = JSON.parse(dict);
-
+            let product_data = JSON.stringify(student);
+            console.log(product_data);
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/save_product_changes",
                 type: "POST",
                 dataType: "json",
-                data: {dict}
+                data: {product_data}
             });
         } else {
             alert("Verifique los datos ingresados");
