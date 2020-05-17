@@ -23,7 +23,6 @@
     } else {
         alert("Seleccione en el mapa su ubicación");
     }*/
-};
 
 $(document).ready(function(){
 
