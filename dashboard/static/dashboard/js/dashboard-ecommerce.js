@@ -45,11 +45,20 @@
     };
 
     var options = {
-        plugins: {
-            datalabels: {
-                formatter: function(value, context) {
-                    return context.chart.data.labels[context.dataIndex];
-                }
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+                    if (!helpers.isNullOrUndef(tooltipItem.value)) {
+                        label += tooltipItem.value;
+                    } else {
+                        label += tooltipItem.yLabel;
+                    }
+                    return label;
+                },
             }
         }
     };
