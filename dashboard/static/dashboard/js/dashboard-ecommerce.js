@@ -52,9 +52,6 @@
                     if (label) {
                         label += ': ';
                     }
-                    if (!helpers.isNullOrUndef(tooltipItem.value)) {
-                        label += '$' + tooltipItem.value;
-                    }
                     return label;
                 }
             }
