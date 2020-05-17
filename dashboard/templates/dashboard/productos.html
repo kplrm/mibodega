@@ -80,6 +80,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <form id="products_to_update" method="POST">
                                                 {% for product in ProductosEnBodega_list %}
                                                 <tr>
                                                     <td>
@@ -115,6 +116,7 @@
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
+                                                </form>
                                                 <tr>
                                                     <td colspan="9"><a class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#saveChanges">Guardar</a></td>
                                                 </tr>
