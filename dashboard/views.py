@@ -204,3 +204,10 @@ def find_most_sold_products(OrderItem_list):
 #    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
 #    print(most_sold_products[1][:])
     return most_sold_products
+
+def save_product_changes(request):
+    if request.method== "POST" and request.is_ajax():
+        print("yups a post")
+#        cart_obj_id = request.POST['cart_obj_id']
+#        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
+    return redirect('dashboard:productos')
