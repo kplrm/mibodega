@@ -159,6 +159,8 @@
             if (e.target.value == '') {
                 e.target.value = 0;
             }
+        }),
+        input.addEventListener('keyup', function(e) {
             if (((e.target.value).toString).includes("-")) {
                 e.target.value = 0;
             }
