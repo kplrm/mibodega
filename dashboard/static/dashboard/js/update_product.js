@@ -1,1 +1,4 @@
-console.log('test update_product');
+// Update product ProductosEnBodega
+$(document).ready(function(){
+
+});
