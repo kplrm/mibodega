@@ -58,7 +58,7 @@
                 <div class="ecommerce-widget">
                     <div class="row">
                         <!-- ============================================================== -->
-                        <!-- most sold products  -->
+                        <!-- productos en bodega  -->
                         <!-- ============================================================== -->
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="card">
@@ -68,23 +68,23 @@
                                         <table class="table">
                                             <thead class="bg-light">
                                                 <tr class="border-0">
-                                                    <th class="border-0">#</th>
-                                                    <th class="border-0">Imagen</th>
+                                                    <th class="border-0">Imágen</th>
                                                     <th class="border-0">Producto</th>
-                                                    <th class="border-0">Cantidad</th>
+                                                    <th class="border-0">Categoria</th>
+                                                    <th class="border-0">Marca</th>
                                                     <th class="border-0">Total vendido</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for product in top10_products %}
+                                                {% for product in ProductosEnBodega_list %}
                                                 <tr>
-                                                    <td>{{ forloop.counter }}</td>
                                                     <td>
-                                                        <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
+                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
                                                     </td>
-                                                    <td>{{ product.1.1 }}</td>
-                                                    <td>{{ product.1.0 }}</td>
-                                                    <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
+                                                    <td>{{ product.peb_product.pa_product }}</td>
+                                                    <td>{{ product.peb_product.pa_category }}</td>
+                                                    <td>{{ product.peb_product.pa_brand }}</td>
+                                                    <td>{{ product.peb_product.pa_brand }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <!-- ============================================================== -->
-                        <!-- end most sold products  -->
+                        <!-- end productos en bodega  -->
                         <!-- ============================================================== -->
                         <!-- ============================================================== -->
                         <!-- selected products statistics -->
