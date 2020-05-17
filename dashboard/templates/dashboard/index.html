@@ -245,14 +245,12 @@
                                     <div class="ct-chart-category ct-golden-section"></div>
                                     <script src="{% static 'dashboard/js/decimal.min.js' %}"></script>
                                     <script>
-                                        var most_sold_products = {{ most_sold_products|safe }};
-                                        console.log(most_sold_products);
-                                        console.log("most_sold_products");
-                                        console.log(most_sold_products[0]);
-                                        console.log(most_sold_products[1]);
-                                        console.log(most_sold_products[0][0]);
-                                        console.log(most_sold_products[0][1]);
-                                        console.log(most_sold_products[1][0]);
+                                        {% for product in most_sold_products %}
+                                            {{ product.1.2 }}
+                                            console.log({{ product.1.2 }});
+                                        {% endfor %}
+                                        
+                                        
                                     </script>
                                     <div class="text-center m-t-10">
                                         {% for product in most_sold_products %}
