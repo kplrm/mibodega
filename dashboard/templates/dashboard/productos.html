@@ -158,7 +158,7 @@
         form = document.getElementById("products_to_update");
         console.log($("#products_to_update").validate().form());
         //if ($("#products_to_update").validate().form()) {
-        if ($("#products_to_update").validate()) {
+        if ($("#products_to_update").validate().form()) {
             alert("Form is valid");
         } else {
             alert("Form is NOT valid");
@@ -169,6 +169,7 @@
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.validate.min.js' %}"></script>
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'dashboard/js/jquery.slimscroll.js' %}"></script>
 <script src="{% static 'dashboard/js/main-js.js' %}"></script>
