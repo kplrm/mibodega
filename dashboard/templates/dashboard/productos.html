@@ -209,7 +209,7 @@
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/save_product_changes",
+                url: "/dashboard/save_product_changes",
                 type: "POST",
                 dataType: "json",
                 data: {dict}
