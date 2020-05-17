@@ -80,6 +80,9 @@ def productos(request):
             return HttpResponseRedirect(reverse('main:homepage'))
         ####################################################################################
         ################################### PAGE CONTENT ###################################
+        if request.method =='POST':
+            pass
+
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
