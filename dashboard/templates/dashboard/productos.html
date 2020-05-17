@@ -162,7 +162,7 @@
         }),
         input.addEventListener('keyup', function(e) {
             var string = (e.target.value).toString;
-            if (string.includes('-')) {
+            if (string.indexOf("-") < 0) {
                 e.target.value = 0;
             }
         })
