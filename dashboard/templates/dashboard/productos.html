@@ -72,7 +72,11 @@
                                                     <th class="border-0">Producto</th>
                                                     <th class="border-0">Categoria</th>
                                                     <th class="border-0">Marca</th>
-                                                    <th class="border-0">Total vendido</th>
+                                                    <th class="border-0">Precio regular</th>
+                                                    <th class="border-0">Precio con descuento</th>
+                                                    <th class="border-0">¿Vender con descuento?</th>
+                                                    <th class="border-0">% Descuento</th>
+                                                    <th class="border-0">¿Disponible?</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -84,7 +88,11 @@
                                                     <td>{{ product.peb_product.pa_product }}</td>
                                                     <td>{{ product.peb_product.pa_category }}</td>
                                                     <td>{{ product.peb_product.pa_brand }}</td>
-                                                    <td>{{ product.peb_product.pa_brand }}</td>
+                                                    <td>{{ product.peb_product.peb_regular_price }}</td>
+                                                    <td>{{ product.peb_product.peb_discount_price }}</td>
+                                                    <td>{{ product.peb_product.peb_discount_status }}</td>
+                                                    <td>{{ product.peb_product.peb_discount_rate }}</td>
+                                                    <td>{{ product.peb_product.peb_status }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
