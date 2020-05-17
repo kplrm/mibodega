@@ -242,7 +242,8 @@
                             <div class="card">
                                 <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
                                 <div class="card-body">
-                                    <div class="ct-chart-category ct-golden-section"></div>
+                                    <!--<div class="ct-chart-category ct-golden-section"></div>-->
+                                    <div class="ct-pie-chart-category ct-golden-section"></div>
                                     <!--<script src="{% static 'dashboard/js/decimal.min.js' %}"></script>-->
                                     <script type="text/javascript">
                                         var series_most_sold_products = [];
@@ -250,12 +251,16 @@
 
                                         {% for product in most_sold_products %}
                                             //series_most_sold_products.push("{{ product.1.2 }}");
-                                            labels_most_sold_products.push("{{ product.1.1 }}");
+                                            //labels_most_sold_products.push("{{ product.1.1 }}");
 
-                                            series_dict = {
-                                                meta: '{{ product.1.1 }}', value: {{ product.1.2 }}
-                                            };
-                                            series_most_sold_products.push(series_dict);
+                                            //series_dict = {
+                                            //    meta: '{{ product.1.1 }}', value: {{ product.1.2 }}
+                                            //};
+                                            //series_most_sold_products.push(series_dict);
+                                            
+                                            series_most_sold_products.push( {{ product.1.2 }} );
+                                            labels_most_sold_products.push( {{ product.1.1 }} );
+
                                         {% endfor %}
                                     </script>
                                     <div class="text-center m-t-10">
@@ -280,7 +285,6 @@
                             <div class="card">
                                 <h5 class="card-header">Ventas por producto en los últimos 30 días</h5>
                                 <div class="card-body">
-                                    <div class="ct-legend ct-legend-inside"></div>
                                     <div class="c3chart_category ct-legend"></div>
                                 </div>
                             </div>
@@ -310,6 +314,7 @@
 <script src="{% static 'dashboard/js/C3chartjs.js' %}"></script>
 <script src="{% static 'dashboard/js/chartist-plugin-legend.js' %}"></script>
 <script src="{% static 'dashboard/js/chartist-plugin-tooltip.min.js' %}"></script>
+<script src="{% static 'dashboard/js/chartjs.js' %}"></script>
 <script src="{% static 'dashboard/js/jquery.slicknav.js' %}"></script> <!-- Needed for mobile navigation header -->
 <script src="{% static 'dashboard/js/dashboard-ecommerce.js' %}"></script>
 <script src="{% static 'dashboard/js/main.js' %}"></script>

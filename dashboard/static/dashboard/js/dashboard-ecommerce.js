@@ -35,6 +35,32 @@
     // ============================================================== 
     // Ventas por producto en los últimos 30 días
     // ============================================================== 
+
+    data = {
+        datasets: [{
+            //data: [10, 20, 30]
+            data: series_most_sold_products
+        }],
+    
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        //labels: [
+        //    'Red',
+        //    'Yellow',
+        //    'Blue'
+        //]
+        labels: labels_most_sold_products
+    };
+
+    options = {
+        
+    };
+
+    var myPieChart = new Chart('.ct-pie-chart-category', {
+        type: 'pie',
+        data: data,
+        options: options
+    });
+
     var chart = new Chartist.Pie('.ct-chart-category', {
         //series: [60, 30, 30],
         //labels: ['Bananas', 'Apples', 'Grapes']
