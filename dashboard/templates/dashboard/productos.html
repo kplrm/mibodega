@@ -155,8 +155,10 @@
 <script type="text/javascript">
     function save_product_changes() {
         console.log("entering save_product_changes");
+        form = document.getElementById("products_to_update");
+        console.log(form);
         //if ($("#products_to_update").validate().form()) {
-        if ($("#products_to_update").valid()) {
+        if ($("#products_to_update").validate()) {
             alert("Form is valid");
         } else {
             alert("Form is NOT valid");
