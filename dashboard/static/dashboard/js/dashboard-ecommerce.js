@@ -36,7 +36,7 @@
     // Ventas por producto en los últimos 30 días
     // ============================================================== 
 
-    data = {
+    var data = {
         datasets: [{
             data: series_most_sold_products,
             backgroundColor: labels_backgroundColors
@@ -46,24 +46,27 @@
 
     var options = {
         tooltips: {
-            enabled: false
+          enabled: false
         },
         plugins: {
-            datalabels: {
-                formatter: (value, ctx) => {
-                    let sum = 0;
-                    let dataArr = ctx.chart.data.datasets[0].data;
-                    dataArr.map(data => {
-                        sum += data;
-                    });
-                    let percentage = (value*100 / sum).toFixed(2)+"%";
-                    return percentage;
-                },
-                color: '#fff',
-            }
+          datalabels: {
+            formatter: (value, ctx) => {
+     
+              let datasets = ctx.chart.data.datasets;
+     
+              if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+                let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+                let percentage = Math.round((value / sum) * 100) + '%';
+                return percentage;
+              } else {
+                return percentage;
+              }
+            },
+            color: '#fff',
+          }
         }
-    };
-
+      };
+     
     var ctx = document.getElementById('myPieChart').getContext('2d');
     var myPieChart = new Chart(ctx, {
         type: 'pie',
