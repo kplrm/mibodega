@@ -60,15 +60,6 @@
                         <!-- ============================================================== -->
                         <!-- productos en bodega  -->
                         <!-- ============================================================== -->
-                        <script>
-                            function save_product_changes() {
-                                if $("#products_to_update").validate().form() {
-                                    alert("Form is valid");
-                                } else {
-                                    alert("Form is NOT valid");
-                                };
-                            }
-                        </script>
                         <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Todos los productos en mi bodega</h5>
@@ -90,7 +81,16 @@
                                             </thead>
                                             <tbody>
                                                 <form id="products_to_update" action="">
-                                                {% csrf_token %}
+                                                <script>
+                                                    function save_product_changes() {
+                                                        alert("entering save_product_changes");
+                                                        if $("#products_to_update").validate().form() {
+                                                            alert("Form is valid");
+                                                        } else {
+                                                            alert("Form is NOT valid");
+                                                        };
+                                                    }
+                                                </script>
                                                 {% for product in ProductosEnBodega_list %}
                                                 <tr>
                                                     <td>
