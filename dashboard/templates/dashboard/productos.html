@@ -178,8 +178,11 @@
             var dict = [];
             for (i = 0; i < regular_price.length; i++) {
                 data = {
-                    key:   String(regular_price[i].id),
-                    value: (regular_price[i].value, discount_price[i].value, discount_status[i].checked, peb_status[i].checked)
+                    key:                String(regular_price[i].id),
+                    regular_price:      regular_price[i].value, 
+                    discount_price:     discount_price[i].value,
+                    discount_status:    discount_status[i].checked,
+                    peb_status:         peb_status[i].checked
                 }
                 dict.push(data);
                 console.log(data);
