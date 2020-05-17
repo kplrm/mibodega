@@ -40,7 +40,8 @@
         datasets: [{
             data: series_most_sold_products
         }],
-        labels: labels_most_sold_products
+        labels: labels_most_sold_products,
+        backgroundColor: labels_backgroundColors
     };
 
     options = {
