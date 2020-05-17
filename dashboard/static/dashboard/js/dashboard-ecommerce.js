@@ -41,8 +41,8 @@
         series: series_most_sold_products,
         labels: labels_most_sold_products
     }, {
-        //donut: true,
-        //showLabel: false,
+        donut: true,
+        showLabel: false,
         donutWidth: 20,
         low: 0,
         high: 8,
