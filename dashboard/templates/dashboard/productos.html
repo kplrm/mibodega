@@ -94,7 +94,7 @@
                                                     <td>{{ product.peb_discount_rate|floatformat:2|intcomma }}</td>
                                                     <td>
                                                         <input type="checkbox" class="form-check-input" checked="{% if product.peb_status == 'True' %}checked{% endif %}">
-                                                        {% if product.peb_status == 'True' %}<span class="badge-dot badge-success mr-1"></span>Sí{% else %}<span class="badge-dot badge-danger mr-1"></span>No
+                                                        {% if product.peb_status == True %}<span class="badge-dot badge-success mr-1"></span>Sí{% else %}<span class="badge-dot badge-danger mr-1"></span>No
                                                         {% endif %}
                                                     </td>
                                                 </tr>
