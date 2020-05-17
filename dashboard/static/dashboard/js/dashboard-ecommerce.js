@@ -39,7 +39,13 @@
         //series: [60, 30, 30],
         //labels: ['Bananas', 'Apples', 'Grapes']
         series: series_most_sold_products,
-        labels: labels_most_sold_products
+        labels: labels_most_sold_products,
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            }
+        }
     }, {
         donut: true,
         showLabel: false,
@@ -49,14 +55,7 @@
         fullWidth: true,
         plugins: [
             Chartist.plugins.tooltip()
-        ],
-        options: {
-            legend: {
-                display: true,
-                position: 'bottom'
-            }
-        },
-        
+        ],        
     });
 
     chart.on('draw', function(data) {
