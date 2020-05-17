@@ -53,7 +53,9 @@
                     if (label) {
                         label += ': ';
                     }
+                    label += "hola";
                     // Calculate total volume
+                    /*
                     var sales_volumen = 0
                     for(var i = 0, size = series_most_sold_products.length; i < size ; i++){
                         var item = series_most_sold_products[i];
@@ -61,7 +63,7 @@
                     }
                     if (label) {
                         label += sales_volumen;
-                    }
+                    }*/
                     return label;
                 }
             }
