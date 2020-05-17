@@ -116,7 +116,7 @@
                                                 </tr>
                                                 {% endfor %}
                                                 <tr>
-                                                    <td colspan="9"><a class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#verTodos">Ver todos</a></td>
+                                                    <td colspan="9"><a class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#saveChanges">Guardar</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -132,37 +132,9 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Productos más vendidos en los últimos 30 días</h5>
+                                <h5 class="card-header">Ventas por producto</h5>
                                 <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="bg-light">
-                                                <tr class="border-0">
-                                                    <th class="border-0">#</th>
-                                                    <th class="border-0">Imagen</th>
-                                                    <th class="border-0">Producto</th>
-                                                    <th class="border-0">Cantidad</th>
-                                                    <th class="border-0">Total vendido</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for product in top10_products %}
-                                                <tr>
-                                                    <td>{{ forloop.counter }}</td>
-                                                    <td>
-                                                        <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
-                                                    </td>
-                                                    <td>{{ product.1.1 }}</td>
-                                                    <td>{{ product.1.0 }}</td>
-                                                    <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                                <tr>
-                                                    <td colspan="9"><a class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#verTodos">Ver todos</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -190,5 +162,5 @@
 <script src="{% static 'dashboard/js/jquery.slicknav.js' %}"></script> <!-- NEEDED FOR MOBILE NAVIGATION HEADER -->
 <script src="{% static 'dashboard/js/dashboard-ecommerce.js' %}"></script> <!-- NEEDED FOR CURRENT SITE RENDERING -->
 <script src="{% static 'dashboard/js/main.js' %}"></script>
-<script src="{% static 'dashboard/js/update_product.js' %}"></script>
+<script src="{% static 'dashboard/js/product_detail.js' %}"></script>
 {% endblock %}
