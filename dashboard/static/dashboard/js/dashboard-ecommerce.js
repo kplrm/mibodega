@@ -48,10 +48,17 @@
         tooltips: {
             callbacks: {
                 label: function(tooltipItem, data) {
+                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    if (label) {
+                        label += ': ';
+                    }
+
                     var dataset = data['datasets'][0];
                     var temp = (dataset['data'][tooltipItem['index']]/sales_volumen_last_30)*10000;
                     var percent = Math.round(temp)/100;
-                    return '(' + percent + '%)';
+
+                    label += '(' + percent + '%)';
+                    return label;
                   }
             }
         }
