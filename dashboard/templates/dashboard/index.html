@@ -246,12 +246,18 @@
                                     <!--<script src="{% static 'dashboard/js/decimal.min.js' %}"></script>-->
                                     <script type="text/javascript">
                                         var series_most_sold_products = [];
-                                        var series_most_sold_products = [];
                                         var labels_most_sold_products = [];
 
                                         {% for product in most_sold_products %}
-                                            series_most_sold_products.push("{{ product.1.2 }}");
-                                            labels_most_sold_products.push("{{ product.1.1 }}");
+                                            //series_most_sold_products.push("{{ product.1.2 }}");
+                                            //labels_most_sold_products.push("{{ product.1.1 }}");
+
+                                            series_dict = {
+                                                meta: '{{ product.1.1 }}', value: {{ product.1.2 }}
+                                            };
+                                            series_most_sold_products.push(series_dict);
+                                            console.log(series_dict);
+                                            console.log(series_most_sold_products);
                                         {% endfor %}
                                     </script>
                                     <div class="text-center m-t-10">
