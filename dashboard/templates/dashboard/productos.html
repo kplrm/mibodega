@@ -203,7 +203,7 @@
             };
             console.log(dict_changes);
             //console.log(product_data);
-            //let product_changes = JSON.stringify(dict_changes);
+            let product_changes = JSON.stringify(dict_changes);
             //console.log(product_changes);
 
             $.ajax({
@@ -212,8 +212,8 @@
                 type: "POST",
                 dataType: "json",
                 data: {
-                    changes: dict_changes
-                    //changes: product_changes
+                    //changes: dict_changes
+                    changes: product_changes
                 }
             });
         } else {
