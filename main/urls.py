@@ -26,7 +26,7 @@ urlpatterns = [
     path("submit_checkout", views.submit_checkout, name="submit_checkout"),
 
     # Dashboard
-    path("dashboard", views.dashboard, name="dashboard"),
+    path("dashboard/", views.dashboard, name="dashboard"),
     path("dashboard/productos", views.productos, name="productos"),
     path("dashboard/save_product_changes", views.save_product_changes, name="save_product_changes"),
 ]
