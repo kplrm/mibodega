@@ -223,14 +223,13 @@ def find_most_sold_products(OrderItem_list):
 def save_product_changes(changes, ProductosEnBodega_list):
     for product_changes in changes:
         for producto in ProductosEnBodega_list:
-            print(producto.peb_ID)
-            print(product_changes['key'])
             if str(producto.peb_ID) == str(product_changes['key']):
                 print("producto encontrado")
                 producto.peb_regular_price = product_changes['regular_price']
                 producto.peb_discount_price = product_changes['discount_price']
                 producto.peb_discount_status = product_changes['discount_status']
                 producto.peb_status = product_changes['peb_status']
+                producto.save()
                 break
         
 
