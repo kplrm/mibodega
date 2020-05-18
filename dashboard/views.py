@@ -223,7 +223,11 @@ def save_product_changes(request):
         changes = json.loads(changes)
         for product_changes in changes:
             print("============")
-            print(product_changes)
+            print(product_changes['key'])
+            print(product_changes['regular_price'])
+            print(product_changes['discount_price'])
+            print(product_changes['discount_status'])
+            print(product_changes['peb_status'])
 
         #changes = request.POST['changes']
         #print(changes)
