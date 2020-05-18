@@ -910,8 +910,6 @@ def dashboard(request):
                         OrderItem_list.append(item)
         except:
             pass
-        print("BodegaOrders_list? ", len(BodegaOrders_list))
-        print("OrderItem_list? ", len(OrderItem_list))
 
         # Update BodegaDashboard values
         update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
