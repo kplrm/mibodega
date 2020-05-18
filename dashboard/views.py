@@ -219,7 +219,7 @@ def save_product_changes(request):
         print("Working POST")
         changes = request.POST.get('changes',False)
         for product_changes in changes:
-            print"(============")
+            print("============")
             print(product_changes)
 
         #changes = request.POST['changes']
