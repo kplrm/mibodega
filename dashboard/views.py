@@ -217,8 +217,8 @@ def find_most_sold_products(OrderItem_list):
 def save_product_changes(request):
     if request.method== "POST" and request.is_ajax():
         print("yups a post")
-        dict_changes = request.POST.get('dict_changes',False)
-        print(dict_changes)
+        changes = request.POST.get('changes',False)
+        print(changes)
         #changes = request.POST['changes']
         #print(changes)
 #        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
