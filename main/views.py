@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404 # to redirect the user
-from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, BodegaOrders, OrderItem
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404 # to redirect the user
+from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, BodegaOrders, OrderItem, BodegaDashboard
 from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm
@@ -868,3 +868,266 @@ def update_price(cart_obj):
             total_price += item.ci_quantity * item.ci_product.peb_regular_price
     cart_obj.crt_total_price = total_price
     cart_obj.save()
+
+
+
+
+
+
+#############################################################################
+###############################   DASHBOARD   ###############################
+#############################################################################
+
+#@login_required(login_url='/accounts/login/')
+def dashboard(request):
+    if request.user.is_authenticated:
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+        # Render only if it's bodega
+        # To avoid any rendering or calculation if it's not a bodega
+        if cliente.cl_is_bodega == False:
+            return HttpResponseRedirect(reverse('main:homepage'))
+        ####################################################################################
+        ################################### PAGE CONTENT ###################################
+        # Search for client's bodega and it's data
+        bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
+        BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
+        print("created? ", created)
+
+        # Find BodegaOrders with their corresponding OrderItem
+        try:
+            BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        except:
+            BodegaOrders_list = None
+
+        OrderItem_list = []
+        try:
+            for bodega_order in BodegaOrders_list:
+                item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
+                for item in item_list:
+                    if item in OrderItem_list:
+                        pass
+                    else:
+                        OrderItem_list.append(item)
+        except:
+            pass
+
+        # Update BodegaDashboard values
+        try:
+            update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+        except:
+            pass
+
+        # Find the most sold products
+        try:
+            most_sold_products = find_most_sold_products(OrderItem_list)
+        except:
+            most_sold_products = []
+
+        try:
+            top_list_size = 10
+            if len(most_sold_products) > top_list_size:
+                top10_products = list(most_sold_products)[0:len(most_sold_products)]
+            else:
+                top10_products = list(most_sold_products)[0:top_list_size]
+        except:
+            top10_products = []
+        most_sold_products = list(most_sold_products)
+
+        ################################# PAGE CONTENT END #################################
+        ####################################################################################
+        # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
+        if cliente.cl_is_bodega:
+            context = {
+                        'STATIC_URL': STATIC_URL,
+                        'BodegaDashboard_obj': BodegaDashboard_obj,
+                        'OrderItem_list': OrderItem_list,
+                        'cliente': cliente,
+                        'bodega': bodega,
+                        'most_sold_products': most_sold_products,
+                        'top10_products': top10_products
+                    }
+            return render(request=request,template_name="main/d-index.html",context=context)
+        else:
+            return HttpResponseRedirect(reverse('main:homepage'))
+
+    else:
+        return HttpResponseRedirect(reverse('main:homepage'))
+
+def productos(request):
+    if request.user.is_authenticated:
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+        # Render only if it's bodega
+        # To avoid any rendering or calculation if it's not a bodega
+        if cliente.cl_is_bodega == False:
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
+        ####################################################################################
+        ################################### PAGE CONTENT ###################################
+        # Search for client's bodega and it's data
+        bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
+        BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
+        print("created? ", created)
+
+        # Find ProductosEnBodega
+        try:
+            ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
+        except:
+            ProductosEnBodega_list = None
+        # If save_product_changes was posted, apply changes
+        if request.method== "POST" and request.is_ajax() and ProductosEnBodega_list != None:
+            changes = request.POST.get('changes',False)
+            changes = json.loads(changes)
+            save_product_changes(changes,ProductosEnBodega_list)
+
+        # Find BodegaOrders with their corresponding OrderItem
+        try:
+            BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        except:
+            BodegaOrders_list = None
+        OrderItem_list = []
+        try:
+            for bodega_order in BodegaOrders_list:
+                item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
+                for item in item_list:
+                    if item in OrderItem_list:
+                        pass
+                    else:
+                        OrderItem_list.append(item)
+        except:
+            pass
+
+        # Update BodegaDashboard values
+        try:
+            update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+        except:
+            pass
+
+        # Find the most sold products
+        try:
+            most_sold_products = find_most_sold_products(OrderItem_list)
+        except:
+            most_sold_products = []
+
+        try:
+            top_list_size = 10
+            if len(most_sold_products) > top_list_size:
+                top10_products = list(most_sold_products)[0:len(most_sold_products)]
+            else:
+                top10_products = list(most_sold_products)[0:top_list_size]
+        except:
+            top10_products = []
+        most_sold_products = list(most_sold_products)
+
+        ################################# PAGE CONTENT END #################################
+        ####################################################################################
+        # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
+        if cliente.cl_is_bodega:
+            context = {
+                        'STATIC_URL': STATIC_URL,
+                        'ProductosEnBodega_list': ProductosEnBodega_list,
+                        'BodegaDashboard_obj': BodegaDashboard_obj,
+                        'OrderItem_list': OrderItem_list,
+                        'cliente': cliente,
+                        'bodega': bodega,
+                        'most_sold_products': most_sold_products,
+                        'top10_products': top10_products
+                    }
+            return render(request=request,template_name="main/d-productos.html",context=context)
+        else:
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
+
+    else:
+        return HttpResponseRedirect(reverse('main:homepage'))
+
+####################################################################################
+################################# PYTHON FUNCTIONS #################################
+
+def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
+#        print("Today's week: ", date.today().isocalendar()[1]) # (ISO Year, ISO Week Number, ISO Weekday), always start on monday
+#        print("order.bo_date_created: ", order.bo_date_created.strftime('%W')) # %W week starts on monday, %w starts on sunday
+
+    today_sales = 0
+    week_sales = 0
+    month_sales = 0
+    last_day_sales = 0
+    last_week_sales = 0
+    last_month_sales = 0
+    for order in BodegaOrders_list:
+        # Daily sales
+        if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()):
+            today_sales += order.bo_total_price
+        # Weekly sales
+        if str(int(order.bo_date_created.strftime('%W'))+1) == str(date.today().isocalendar()[1]):
+            week_sales += order.bo_total_price
+        # Monthly sales
+        if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format(date.today().month)):
+            month_sales += order.bo_total_price
+        # Previos Daily sales
+        if str(order.bo_date_created.strftime('%Y-%m-%d')) == str(date.today()+relativedelta(days=-1)):
+            last_day_sales += order.bo_total_price
+        # Previos Weekly sales
+        if str(int(order.bo_date_created.strftime('%W'))+1) == str((date.today()+relativedelta(weeks=-1)).isocalendar()[1]):
+            last_week_sales += order.bo_total_price
+        # Previos Monthly sales
+        if str(order.bo_date_created.strftime('%Y-%m')) == str( str(date.today().year)+"-"+"{:02d}".format((date.today()+relativedelta(months=-1)).month) ):
+            last_month_sales += order.bo_total_price
+    # Sale changes
+    if last_day_sales != 0:
+        daily_change_sales = (today_sales - last_day_sales)/last_day_sales*100
+    else:
+        daily_change_sales = 0
+    if last_week_sales != 0:
+        weekly_change_sales = (week_sales - last_week_sales)/last_week_sales*100
+    else:
+        weekly_change_sales = 0
+    if last_month_sales != 0:
+        monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
+    else:
+        daily_change_sales = 0
+
+    # Save object
+    BodegaDashboard_obj.bd_daily_sales = today_sales
+    BodegaDashboard_obj.bd_weekly_sales = week_sales
+    BodegaDashboard_obj.bd_monthly_sales = month_sales
+    BodegaDashboard_obj.bd_last_day_sales = last_day_sales
+    BodegaDashboard_obj.bd_last_week_sales = last_week_sales
+    BodegaDashboard_obj.bd_last_month_sales = last_month_sales
+    BodegaDashboard_obj.bd_daily_change_sales = daily_change_sales
+    BodegaDashboard_obj.bd_weekly_change_sales = weekly_change_sales
+    BodegaDashboard_obj.bd_monthly_change_sales = monthly_change_sales
+    BodegaDashboard_obj.save()
+
+def find_most_sold_products(OrderItem_list):
+    most_sold_products = dict()
+    for item in OrderItem_list:
+        if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
+            if item.oi_id_product in most_sold_products:
+                # Tuple can not be updated, so convert it to list before updating a value
+                temp = list(most_sold_products[str(item.oi_id_product)])
+                temp[0] += int(item.oi_quantity)
+                temp[2] += Decimal(item.oi_prod_total)
+                most_sold_products[str(item.oi_id_product)] = tuple(temp)
+            else:
+                most_sold_products.update({
+                    str(item.oi_id_product): ( int(item.oi_quantity), str(item.oi_product), Decimal(item.oi_prod_total) )
+                })
+    most_sold_products = sorted(most_sold_products.items(), key=lambda x: x[1][0], reverse=True)
+
+    # In case adding enumeration is needed
+#    ranked_most_sold_products = enumerate(list(most_sold_products)[0:list_size],start=1)
+#    print(most_sold_products[1][:])
+    return most_sold_products
+
+def save_product_changes(changes, ProductosEnBodega_list):
+    for product_changes in changes:
+        for producto in ProductosEnBodega_list:
+            if str(producto.peb_ID) == str(product_changes['key']):
+                print("producto encontrado")
+                producto.peb_regular_price = product_changes['regular_price']
+                producto.peb_discount_price = product_changes['discount_price']
+                producto.peb_discount_status = product_changes['discount_status']
+                producto.peb_status = product_changes['peb_status']
+                producto.save()
+                break
+        
+
+    return redirect('dashboard:productos')
