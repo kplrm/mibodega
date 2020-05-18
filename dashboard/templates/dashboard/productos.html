@@ -211,6 +211,12 @@
                 dataType: "json",
                 data: {
                     changes: product_changes
+                },
+                success: function(){
+                    location.reload();
+                },
+                error: function(){
+                    location.reload();
                 }
             });
         } else {
