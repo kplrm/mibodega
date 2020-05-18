@@ -225,6 +225,8 @@ def save_product_changes(changes, ProductosEnBodega_list):
         for producto in ProductosEnBodega_list:
             if str(producto.peb_ID) == str(product_changes['key']):
                 print("producto encontrado")
+                print("discount_status",product_changes['discount_status'])
+                print("peb_status",product_changes['peb_status'])
                 producto.peb_regular_price = product_changes['regular_price']
                 producto.peb_discount_price = product_changes['discount_price']
                 producto.peb_discount_status = product_changes['discount_status']
