@@ -221,17 +221,20 @@ def find_most_sold_products(OrderItem_list):
     return most_sold_products
 
 def save_product_changes(changes, ProductosEnBodega_list):
-    print(ProductosEnBodega_list)
     for product_changes in changes:
-        for producto in ProductosEnBodega_list:
-            if producto.pk == product_changes['key']:
-                print("producto encontrado")
-                break
         print("============")
         print(product_changes['key'])
         print(product_changes['regular_price'])
         print(product_changes['discount_price'])
         print(product_changes['discount_status'])
         print(product_changes['peb_status'])
+        print("============")
+        for producto in ProductosEnBodega_list:
+            print(producto.peb_ID)
+            print(product_changes['key'])
+            if producto.peb_ID == product_changes['key']:
+                print("producto encontrado")
+                break
+        
 
     return redirect('dashboard:productos')
