@@ -232,7 +232,7 @@ def save_product_changes(changes, ProductosEnBodega_list):
         for producto in ProductosEnBodega_list:
             print(producto.peb_ID)
             print(product_changes['key'])
-            if producto.peb_ID == product_changes['key']:
+            if str(producto.peb_ID) == str(product_changes['key']):
                 print("producto encontrado")
                 break
         
