@@ -10,7 +10,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('main.urls')),
-    path("dashboard", views.dashboard, name="dashboard"),
+    path("dashboard/", include('mibodega.dashboard.urls')),
 ]
 
 #if settings.DEBUG:
