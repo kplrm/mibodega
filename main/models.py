@@ -107,10 +107,10 @@ class ProductosEnBodega(models.Model):
     def save(self,*args,**kwargs):
         try:
             sav_object = ProductosEnBodega.objects.get(pk=self.pk)
-#            print("object exists")
+            print("object exists")
             self.pk = sav_object.pk
         except:
-#            print("object DO NOT exists")
+            print("object DO NOT exists")
             pass
 
         if (self.peb_regular_price!=0) and (self.peb_discount_price!=0) and self.peb_discount_price!=None:# and isinstance(self.peb_discount_price,float):
