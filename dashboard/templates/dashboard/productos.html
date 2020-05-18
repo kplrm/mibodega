@@ -190,7 +190,7 @@
             discount_status = document.getElementsByName("discount_status");
             peb_status = document.getElementsByName("peb_status");
             
-            var dict = [];
+            var dict_changes = [];
             for (i = 0; i < regular_price.length; i++) {
                 data = {
                     key:                String(regular_price[i].id),
@@ -199,11 +199,11 @@
                     discount_status:    discount_status[i].checked,
                     peb_status:         peb_status[i].checked
                 }
-                dict.push(data);
+                dict_changes.push(data);
             };
-            console.log(dict);
+            console.log(dict_changes);
             //console.log(product_data);
-            //let product_changes = JSON.stringify(dict);
+            //let product_changes = JSON.stringify(dict_changes);
             //console.log(product_changes);
 
             $.ajax({
@@ -212,7 +212,7 @@
                 type: "POST",
                 dataType: "json",
                 data: {
-                    dict
+                    dict_changes
                     //changes: product_changes
                 }
             });
