@@ -201,10 +201,7 @@
                 }
                 dict_changes.push(data);
             };
-            console.log(dict_changes);
-            //console.log(product_data);
             let product_changes = JSON.stringify(dict_changes);
-            //console.log(product_changes);
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -212,7 +209,6 @@
                 type: "POST",
                 dataType: "json",
                 data: {
-                    //changes: dict_changes
                     changes: product_changes
                 }
             });
