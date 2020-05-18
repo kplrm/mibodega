@@ -221,8 +221,6 @@ def find_most_sold_products(OrderItem_list):
 
 def save_product_changes(changes, ProductosEnBodega_list):
     print("Working POST")
-    changes = request.POST.get('changes',False)
-    changes = json.loads(changes)
     for product_changes in changes:
         print("============")
         print(product_changes['key'])
