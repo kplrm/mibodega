@@ -203,16 +203,18 @@
             };
             console.log(dict);
             //var dict = JSON.parse(dict);
-            let product_data = JSON.stringify(dict);
             //console.log(product_data);
-            console.log(product_data);
+            //let product_data = JSON.stringify(dict);
+            //console.log(product_data);
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/save_product_changes",
                 type: "POST",
                 dataType: "json",
-                data: {product_data}
+                data: {
+                    changes: data
+                }
             });
         } else {
             alert("Verifique los datos ingresados");
