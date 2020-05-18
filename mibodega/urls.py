@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from ..dashboard import views
+from .dashboard import views
 
 #DG
 from django.conf import settings
