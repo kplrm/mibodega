@@ -968,36 +968,53 @@ def productos(request):
         print("created? ", created)
 
         # Find ProductosEnBodega
-        ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
+        try:
+            ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
+        except:
+            ProductosEnBodega_list = None
         # If save_product_changes was posted, apply changes
-        if request.method== "POST" and request.is_ajax():
+        if request.method== "POST" and request.is_ajax() and ProductosEnBodega_list != None:
             changes = request.POST.get('changes',False)
             changes = json.loads(changes)
             save_product_changes(changes,ProductosEnBodega_list)
 
         # Find BodegaOrders with their corresponding OrderItem
-        BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        try:
+            BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        except:
+            BodegaOrders_list = None
         OrderItem_list = []
-        for bodega_order in BodegaOrders_list:
-            item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
-            for item in item_list:
-                if item in OrderItem_list:
-                    pass
-                else:
-                    OrderItem_list.append(item)
-        print("BodegaOrders_list? ", len(BodegaOrders_list))
-        print("OrderItem_list? ", len(OrderItem_list))
+        try:
+            for bodega_order in BodegaOrders_list:
+                item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
+                for item in item_list:
+                    if item in OrderItem_list:
+                        pass
+                    else:
+                        OrderItem_list.append(item)
+        except:
+            pass
 
         # Update BodegaDashboard values
-        update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+        try:
+            update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+        except:
+            pass
 
         # Find the most sold products
-        most_sold_products = find_most_sold_products(OrderItem_list)
-        top_list_size = 2 #10
-        if len(most_sold_products) > top_list_size:
-            top10_products = list(most_sold_products)[0:len(most_sold_products)]
-        else:
-            top10_products = list(most_sold_products)[0:top_list_size]
+        try:
+            most_sold_products = find_most_sold_products(OrderItem_list)
+        except:
+            most_sold_products = []
+
+        try:
+            top_list_size = 10
+            if len(most_sold_products) > top_list_size:
+                top10_products = list(most_sold_products)[0:len(most_sold_products)]
+            else:
+                top10_products = list(most_sold_products)[0:top_list_size]
+        except:
+            top10_products = []
         most_sold_products = list(most_sold_products)
 
         ################################# PAGE CONTENT END #################################
