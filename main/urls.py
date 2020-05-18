@@ -1,7 +1,6 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
-from ..dashboard import views as dashboard_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,6 +24,4 @@ urlpatterns = [
     path("checkout", views.checkout, name="checkout"),
     path("save_store_location", views.save_store_location, name="save_store_location"),
     path("submit_checkout", views.submit_checkout, name="submit_checkout"),
-
-    path("dashboard", dashboard_views.dashboard, name="dashboard"),
 ]
