@@ -900,13 +900,16 @@ def dashboard(request):
             BodegaOrders_list = None
 
         OrderItem_list = []
-        for bodega_order in BodegaOrders_list:
-            item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
-            for item in item_list:
-                if item in OrderItem_list:
-                    pass
-                else:
-                    OrderItem_list.append(item)
+        try:
+            for bodega_order in BodegaOrders_list:
+                item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
+                for item in item_list:
+                    if item in OrderItem_list:
+                        pass
+                    else:
+                        OrderItem_list.append(item)
+        except:
+            pass
         print("BodegaOrders_list? ", len(BodegaOrders_list))
         print("OrderItem_list? ", len(OrderItem_list))
 
