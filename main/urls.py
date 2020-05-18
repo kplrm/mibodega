@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import url
 from . import views
 from ..dashboard import views as dashboard_views
@@ -26,5 +26,5 @@ urlpatterns = [
     path("save_store_location", views.save_store_location, name="save_store_location"),
     path("submit_checkout", views.submit_checkout, name="submit_checkout"),
 
-    path("dashboard", dashboard_views.dashboard, name="dashboard"),
+    path("dashboard", include('dashboard.urls')),
 ]
