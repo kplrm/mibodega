@@ -894,7 +894,11 @@ def dashboard(request):
         print("created? ", created)
 
         # Find BodegaOrders with their corresponding OrderItem
-        BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        try:
+            BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+        except Worlds.DoesNotExist:
+            BodegaOrders_list = None
+
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
             item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
