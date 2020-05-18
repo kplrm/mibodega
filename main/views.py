@@ -896,7 +896,7 @@ def dashboard(request):
         # Find BodegaOrders with their corresponding OrderItem
         try:
             BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
-        except Worlds.DoesNotExist:
+        except:
             BodegaOrders_list = None
 
         OrderItem_list = []
