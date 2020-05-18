@@ -218,6 +218,7 @@ def save_product_changes(request):
     if request.method== "POST" and request.is_ajax():
         print("Working POST")
         changes = request.POST.get('changes',False)
+        changes = json.dumps(changes)
         for product_changes in changes:
             print("============")
             print(product_changes)
