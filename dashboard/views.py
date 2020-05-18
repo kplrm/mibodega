@@ -79,7 +79,7 @@ def productos(request):
         # Render only if it's bodega
         # To avoid any rendering or calculation if it's not a bodega
         if cliente.cl_is_bodega == False:
-            return HttpResponseRedirect(reverse('main:homepage'))
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
         ####################################################################################
         ################################### PAGE CONTENT ###################################
         # Search for client's bodega and it's data
@@ -136,7 +136,7 @@ def productos(request):
                     }
             return render(request=request,template_name="dashboard/productos.html",context=context)
         else:
-            return HttpResponseRedirect(reverse('main:homepage'))
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
 
     else:
         return HttpResponseRedirect(reverse('main:homepage'))
