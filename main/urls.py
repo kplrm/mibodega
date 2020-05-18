@@ -1,7 +1,6 @@
 from django.urls import path, include
 from django.conf.urls import url
 from . import views
-from ..dashboard import views as dashboard_views
 
 from django.conf import settings
 from django.conf.urls.static import static
