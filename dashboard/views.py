@@ -82,9 +82,6 @@ def productos(request):
             return HttpResponseRedirect(reverse('main:homepage'))
         ####################################################################################
         ################################### PAGE CONTENT ###################################
-        if request.method =='POST':
-            pass
-
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
@@ -92,6 +89,19 @@ def productos(request):
 
         # Find BodegaOrders, ProductosEnBodega and the corresponding OrderItem
         ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
+        if request.method== "POST" and request.is_ajax():
+            print("Working POST2")
+            changes = request.POST.get('changes',False)
+            changes = json.loads(changes)
+            for product_changes in changes:
+                print("***************")
+                print(product_changes['key'])
+                print(product_changes['regular_price'])
+                print(product_changes['discount_price'])
+                print(product_changes['discount_status'])
+                print(product_changes['peb_status'])
+                return redirect('dashboard:productos')
+                
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
