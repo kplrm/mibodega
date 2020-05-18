@@ -93,15 +93,8 @@ def productos(request):
             print("Working POST2")
             changes = request.POST.get('changes',False)
             changes = json.loads(changes)
-            for product_changes in changes:
-                print("***************")
-                print(product_changes['key'])
-                print(product_changes['regular_price'])
-                print(product_changes['discount_price'])
-                print(product_changes['discount_status'])
-                print(product_changes['peb_status'])
-                return redirect('dashboard:productos')
-                
+            save_product_changes(changes,ProductosEnBodega_list)
+
         BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
         OrderItem_list = []
         for bodega_order in BodegaOrders_list:
@@ -226,20 +219,16 @@ def find_most_sold_products(OrderItem_list):
 #    print(most_sold_products[1][:])
     return most_sold_products
 
-def save_product_changes(request):
-    if request.method== "POST" and request.is_ajax():
-        print("Working POST")
-        changes = request.POST.get('changes',False)
-        changes = json.loads(changes)
-        for product_changes in changes:
-            print("============")
-            print(product_changes['key'])
-            print(product_changes['regular_price'])
-            print(product_changes['discount_price'])
-            print(product_changes['discount_status'])
-            print(product_changes['peb_status'])
+def save_product_changes(changes, ProductosEnBodega_list):
+    print("Working POST")
+    changes = request.POST.get('changes',False)
+    changes = json.loads(changes)
+    for product_changes in changes:
+        print("============")
+        print(product_changes['key'])
+        print(product_changes['regular_price'])
+        print(product_changes['discount_price'])
+        print(product_changes['discount_status'])
+        print(product_changes['peb_status'])
 
-        #changes = request.POST['changes']
-        #print(changes)
-#        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
     return redirect('dashboard:productos')
