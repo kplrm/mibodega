@@ -219,4 +219,4 @@ def save_product_changes(request):
         print("yups a post")
 #        cart_obj_id = request.POST['cart_obj_id']
 #        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
-    return redirect('dashboard:productos')
+    return redirect('dashboard/productos')
