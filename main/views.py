@@ -773,7 +773,7 @@ def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
             
     form = RegistrationForm() # Rerender form
     cl_form = ClientForm() # Rerender form
-    return render(request, 'main/registro.html', context={"form":form,"cl_form":cl_form})
+    return render(request, 'main/register.html', context={"form":form,"cl_form":cl_form})
 
 def logout_request(request):
     auth_logout(request)
