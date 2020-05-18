@@ -912,15 +912,25 @@ def dashboard(request):
             pass
 
         # Update BodegaDashboard values
-        update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+        try:
+            update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+        except:
+            pass
 
         # Find the most sold products
-        most_sold_products = find_most_sold_products(OrderItem_list)
-        top_list_size = 2 #10
-        if len(most_sold_products) > top_list_size:
-            top10_products = list(most_sold_products)[0:len(most_sold_products)]
-        else:
-            top10_products = list(most_sold_products)[0:top_list_size]
+        try:
+            most_sold_products = find_most_sold_products(OrderItem_list)
+        except:
+            most_sold_products = []
+
+        try:
+            top_list_size = 10
+            if len(most_sold_products) > top_list_size:
+                top10_products = list(most_sold_products)[0:len(most_sold_products)]
+            else:
+                top10_products = list(most_sold_products)[0:top_list_size]
+        except:
+            top10_products = []
         most_sold_products = list(most_sold_products)
 
         ################################# PAGE CONTENT END #################################
