@@ -352,7 +352,7 @@
                     bodega_id: "{{ bodega.bd_ID }}"
                 },
                 success: function(response) {
-                    $("#price_detail").append("55.55");
+                    $("#price_detail").reset().append("55.55");
                 },
                 error: function(){
                     location.reload();
