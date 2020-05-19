@@ -80,7 +80,7 @@
                                     <table class="table">
                                         <thead class="bg-light">
                                             <tr class="border-0">
-                                                <th class="border-0">#</th>
+                                                <th class="border-0">Añadir</th>
                                                 <th class="border-0">Imagen</th>
                                                 <th class="border-0">Producto</th>
                                                 <th class="border-0">Categoría</th>
@@ -90,7 +90,7 @@
                                         <tbody>
                                             {% for product_faltante in ProductosAprobados_missing %}
                                             <tr>
-                                                <td>{{ forloop.counter }}</td>
+                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
                                                 <td>
                                                     <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product_faltante.pa_category}}/{{product_faltante.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
                                                 </td>
