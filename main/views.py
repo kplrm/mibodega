@@ -997,11 +997,13 @@ def productos(request):
         if request.method== "POST" and request.is_ajax() and ProductosEnBodega_list != None:
             # Changes
             changes = request.POST.get('changes',False)
+            print(changes)
             if changes != False:
                 changes = json.loads(changes)
                 save_product_changes(changes,ProductosEnBodega_list)
             # Add product
             additions = request.POST.get('additions',False)
+            print(additions)
             if additions != False:
                 additions = json.loads(additions)
                 save_additions(additions,bodega,ProductosAprobados_all)
