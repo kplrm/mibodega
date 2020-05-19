@@ -974,19 +974,18 @@ def productos(request):
             ProductosEnBodega_list = None
         # Get all missing productos aprobados
         ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).all()
-
+        ProductosAprobados_missing = []
         try:
-            ProductosAprobados_missing = []
-            if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
-                for producto_aprobado in ProductosAprobados_all:
-                    if producto_aprobado in ProductosEnBodega_list:
-                        pass
-                    else:
-                        ProductosAprobados_missing.append(producto_aprobado)
-            else:
+            if ProductosEnBodega_list == None: # ProductosEnBodega_list is empty
                 ProductosAprobados_missing = ProductosAprobados_all
+            else:
+                for producto_aprobado in ProductosAprobados_all:
+                    if !(producto_aprobado in ProductosEnBodega_list):
+                        ProductosAprobados_missing.append(producto_aprobado)
+                    else:
+                        pass
         except:
-            ProductosAprobados_missing = None
+            pass
 
 
 
@@ -1124,22 +1123,11 @@ def save_product_changes(changes, ProductosEnBodega_list):
 
 def save_additions(additions, bodega, ProductosAprobados_all):
     print("saving...")
-
     for product_to_add in additions:
         print("saving2...")
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
-        print(producto_aprobado)
-        print(type(producto_aprobado))
-        print(type(bodega))
         new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
         print("Creado new item? ", created)
-#    for product_changes in additions:
-#        for producto in ProductosEnBodega_list:
-#            if str(producto.peb_ID) == str(product_additions['key']):
-#                print("producto encontrado")
-#                producto.peb_regular_price = product_additions['regular_price']
-#                producto.save()
-#                break
     return redirect('main:productos')
 
 
