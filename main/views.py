@@ -1123,9 +1123,11 @@ def save_product_changes(changes, ProductosEnBodega_list):
     return redirect('dashboard:productos')
 
 def save_additions(additions, bodega, ProductosAprobados_all):
+    print("saving...")
     for product_to_add in additions:
+        print("saving...")
         orders_obj = ProductosEnBodega.objects.create(peb_bodega=bodega,peb_product=ProductosAprobados_all.filter(pa_ID=product_to_add['key']).first())
-        print("producto añadido")
+        print(orders_obj)
         print(ProductosAprobados_all.filter(pa_ID=product_to_add['key']).first())
 #    for product_changes in additions:
 #        for producto in ProductosEnBodega_list:
