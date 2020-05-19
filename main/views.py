@@ -981,9 +981,10 @@ def productos(request):
             if ProductosEnBodega_list == None: # ProductosEnBodega_list is empty
                 ProductosAprobados_missing = ProductosAprobados_all
             else:
-                print("entering for loop")
                 print("ProductosEnBodega_list: ",ProductosEnBodega_list)
                 for producto_en_bodega in ProductosEnBodega_list: # delete all producto_en_bodega from ProductosAprobados_all
+                    print("entering delete logic:")
+                    print("producto_en_bodega: ",producto_en_bodega)
                     print("ProductosAprobados_all_1: ",ProductosAprobados_all)
                     ProductosAprobados_all = ProductosAprobados_all.filter(~Q(pa_ID = producto_en_bodega.peb_product.pa_ID))
                     print("ProductosAprobados_all_2: ",ProductosAprobados_all)
