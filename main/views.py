@@ -991,6 +991,7 @@ def productos(request):
             print("This store has nothing")
             print(ProductosAprobados_missing)
             print(type(ProductosAprobados_missing))
+            print(type(ProductosEnBodega_list))
             print("=========")
         #except:
             #print("excepting...")
