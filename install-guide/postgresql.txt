@@ -48,9 +48,9 @@ sudo service postgresql start
 exit
 
 #Create db
-sudo -u postgres createdb mibodega
+sudo -u postgres createdb mibodega;
 #Connect to the database
-sudo -u postgres psql -d mibodega
+sudo -u postgres psql -d mibodega;
 #Enable postgis extension
 CREATE EXTENSION postgis;
 #Check installed version
