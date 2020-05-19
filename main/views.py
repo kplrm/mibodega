@@ -980,7 +980,9 @@ def productos(request):
             if ProductosEnBodega_list == None: # ProductosEnBodega_list is empty
                 ProductosAprobados_missing = ProductosAprobados_all
             else:
+                print("entering for loop")
                 for producto_aprobado in ProductosAprobados_all:
+                    print("producto_aprobado: ", producto_aprobado)
                     if producto_aprobado in ProductosEnBodega_list:
                         print("producto ya en tienda")
                         pass
