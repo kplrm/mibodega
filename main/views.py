@@ -1010,44 +1010,7 @@ def productos(request):
 
 
 
-        # Find BodegaOrders with their corresponding OrderItem
-        try:
-            BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
-        except:
-            BodegaOrders_list = None
-        OrderItem_list = []
-        try:
-            for bodega_order in BodegaOrders_list:
-                item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False) # Take out the 'anulados'
-                for item in item_list:
-                    if item in OrderItem_list:
-                        pass
-                    else:
-                        OrderItem_list.append(item)
-        except:
-            pass
-
-        # Update BodegaDashboard values
-        try:
-            update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
-        except:
-            pass
-
-        # Find the most sold products
-        try:
-            most_sold_products = find_most_sold_products(OrderItem_list)
-        except:
-            most_sold_products = []
-
-        try:
-            top_list_size = 10
-            if len(most_sold_products) > top_list_size:
-                top10_products = list(most_sold_products)[0:len(most_sold_products)]
-            else:
-                top10_products = list(most_sold_products)[0:top_list_size]
-        except:
-            top10_products = []
-        most_sold_products = list(most_sold_products)
+        
 
         ################################# PAGE CONTENT END #################################
         ####################################################################################
@@ -1057,12 +1020,8 @@ def productos(request):
                         'STATIC_URL': STATIC_URL,
                         'ProductosAprobados_missing': ProductosAprobados_missing,
                         'ProductosEnBodega_list': ProductosEnBodega_list,
-                        'BodegaDashboard_obj': BodegaDashboard_obj,
-                        'OrderItem_list': OrderItem_list,
                         'cliente': cliente,
                         'bodega': bodega,
-                        'most_sold_products': most_sold_products,
-                        'top10_products': top10_products
                     }
             return render(request=request,template_name="main/d-productos.html",context=context)
         else:
