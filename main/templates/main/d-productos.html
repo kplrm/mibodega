@@ -145,7 +145,7 @@
                                                     <td>
                                                         <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
                                                     </td>
-                                                    <td>{{ product.peb_product.pa_product }}</td>
+                                                    <td><a onclick="delete_item(this); return false;">{{ product.peb_product.pa_product }}</a></td>
                                                     <td>{{ product.peb_product.pa_category }}</td>
                                                     <td>{{ product.peb_product.pa_brand }}</td>
                                                     <td>
@@ -198,7 +198,7 @@
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Ventas por producto</h5>
-                                <div class="card-body p-0">
+                                <div class="card-body p-0" id="product_sales">
                                     
                                 </div>
                             </div>
