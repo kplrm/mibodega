@@ -88,6 +88,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <form id="products_to_add" action="">
                                             {% for product_faltante in ProductosAprobados_missing %}
                                             <tr>
                                                 <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
@@ -99,11 +100,12 @@
                                                 <td>{{ product_faltante.pa_brand }}</td>
                                             </tr>
                                             {% endfor %}
+                                            </form>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_product(); return false;">+Añadir producto</button>
+                                    <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_products(); return false;">+Añadir producto</button>
                                 </div>
                             </div>
                             </div>
@@ -210,24 +212,6 @@
 </div>
 
 <script type="text/javascript">
-    /*
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    var csrftoken = getCookie('csrftoken');*/
-
     const numInputs = document.querySelectorAll('input[type=number]');
     numInputs.forEach(function(input) {
         input.addEventListener('change', function(e) {
@@ -267,6 +251,39 @@
                 dataType: "json",
                 data: {
                     changes: product_changes
+                },
+                success: function(){
+                    location.reload();
+                },
+                error: function(){
+                    location.reload();
+                }
+            });
+        } else {
+            alert("Verifique los datos ingresados");
+        };
+    }
+    function add_new_products() {
+        if ($("#products_to_add").validate().form()) {
+            item_to_add = document.getElementsByName("item_to_add");
+            
+            var dict_to_add = [];
+            for (i = 0; i < item_to_add.length; i++) {
+                data = {
+                    key:                String(item_to_add[i].id),
+                }
+                dict_to_add.push(data);
+            };
+            let product_additions = JSON.stringify(dict_to_add);
+
+            $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                //url: "/dashboard/save_product_changes",
+                url: "/dashboard/productos",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    additions: product_additions
                 },
                 success: function(){
                     location.reload();
