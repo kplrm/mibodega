@@ -974,21 +974,22 @@ def productos(request):
             ProductosEnBodega_list = None
         # Get all missing productos aprobados
         ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).all()
-        try:
-            print("trying...")
-            ProductosAprobados_missing = []
-            if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
-                for producto_aprobado in ProductosAprobados_all:
-                    print(producto_aprobado)
-                    if producto_aprobado in ProductosEnBodega_list:
-                        pass
-                    else:
-                        ProductosAprobados_missing.append(item)
-            else:
-                ProductosAprobados_missing = ProductosAprobados_all
-        except:
-            print("excepting...")
-            ProductosAprobados_missing = None
+
+        #try:
+        print("trying...")
+        ProductosAprobados_missing = []
+        if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
+            for producto_aprobado in ProductosAprobados_all:
+                print(producto_aprobado)
+                if producto_aprobado in ProductosEnBodega_list:
+                    pass
+                else:
+                    ProductosAprobados_missing.append(item)
+        else:
+            ProductosAprobados_missing = ProductosAprobados_all
+        #except:
+            #print("excepting...")
+            #ProductosAprobados_missing = None
 
 
 
