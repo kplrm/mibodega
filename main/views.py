@@ -980,7 +980,7 @@ def productos(request):
                 ProductosAprobados_missing = ProductosAprobados_all
             else:
                 for producto_aprobado in ProductosAprobados_all:
-                    if !(producto_aprobado in ProductosEnBodega_list):
+                    if (producto_aprobado in ProductosEnBodega_list) == False:
                         ProductosAprobados_missing.append(producto_aprobado)
                     else:
                         pass
