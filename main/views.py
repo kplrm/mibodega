@@ -1007,7 +1007,7 @@ def productos(request):
                 save_additions(additions,bodega,ProductosAprobados_all)
 
 
-
+        print(ProductosAprobados_missing)
 
 
         
