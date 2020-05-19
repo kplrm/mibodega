@@ -973,21 +973,24 @@ def productos(request):
         except:
             ProductosEnBodega_list = None
         # Get all missing productos aprobados
-        try:
-            print("trying...")
-            ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).first()
-            print(ProductosAprobados_all)
-            ProductosAprobados_missing = []
-            for producto_aprobado in ProductosAprobados_all:
-                print(producto_aprobado)
-                if producto_aprobado in ProductosEnBodega_list:
-                    print("ya se encuentra el producto en la bodega")
-                else:
-                    print("es un nuevo producto")
-                    ProductosAprobados_missing.append(item)
-        except:
-            print("excepting...")
-            ProductosAprobados_missing = None
+        #try:
+        print("trying...")
+        ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).first()
+        print(ProductosAprobados_all)
+        ProductosAprobados_missing = []
+        for producto_aprobado in ProductosAprobados_all:
+            print(producto_aprobado)
+            if producto_aprobado in ProductosEnBodega_list:
+                print("ya se encuentra el producto en la bodega")
+            else:
+                print("es un nuevo producto")
+                ProductosAprobados_missing.append(item)
+        #except:
+            #print("excepting...")
+            #ProductosAprobados_missing = None
+
+
+
         # If save_product_changes was posted, apply changes
         if request.method== "POST" and request.is_ajax() and ProductosEnBodega_list != None:
             # Changes
