@@ -973,29 +973,21 @@ def productos(request):
         except:
             ProductosEnBodega_list = None
         # Get all missing productos aprobados
-        #try:
-        print("trying...")
         ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).all()
-        print(ProductosAprobados_all)
-        ProductosAprobados_missing = []
-        if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
-            for producto_aprobado in ProductosAprobados_all:
-                print(producto_aprobado)
-                if producto_aprobado in ProductosEnBodega_list:
-                    print("ya se encuentra el producto en la bodega")
-                else:
-                    print("es un nuevo producto")
-                    ProductosAprobados_missing.append(item)
-        else:
-            ProductosAprobados_missing = ProductosAprobados_all
-            print("This store has nothing")
-            print(ProductosAprobados_missing)
-            print(type(ProductosAprobados_missing))
-            print(type(ProductosEnBodega_list))
-            print("=========")
-        #except:
-            #print("excepting...")
-            #ProductosAprobados_missing = None
+        try:
+            print("trying...")
+            ProductosAprobados_missing = []
+            if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
+                for producto_aprobado in ProductosAprobados_all:
+                    print(producto_aprobado)
+                    if producto_aprobado in ProductosEnBodega_list:
+                    else:
+                        ProductosAprobados_missing.append(item)
+            else:
+                ProductosAprobados_missing = ProductosAprobados_all
+        except:
+            print("excepting...")
+            ProductosAprobados_missing = None
 
 
 
@@ -1010,7 +1002,11 @@ def productos(request):
             additions = request.POST.get('additions',False)
             if additions != False:
                 additions = json.loads(additions)
-                save_additions(additions,bodega)
+                save_additions(additions,bodega,ProductosAprobados_all)
+
+
+
+
 
         # Find BodegaOrders with their corresponding OrderItem
         try:
@@ -1165,8 +1161,11 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 break
     return redirect('dashboard:productos')
 
-def save_additions(additions, ProductosEnBodega_list):
-    pass
+def save_additions(additions, bodega, ProductosAprobados_all):
+    for product_to_add in additions:
+        orders_obj = ProductosEnBodega.objects.create(peb_bodega=bodega,peb_product=ProductosAprobados_all.filter(pa_ID=product_to_add['key']).first())
+        print("producto añadido")
+        print(ProductosAprobados_all.filter(pa_ID=product_to_add['key']).first())
 #    for product_changes in additions:
 #        for producto in ProductosEnBodega_list:
 #            if str(producto.peb_ID) == str(product_additions['key']):
