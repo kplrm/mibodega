@@ -1123,7 +1123,7 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 producto.peb_status = product_changes['peb_status']
                 producto.save()
                 break
-    return redirect('dashboard:productos')
+    return redirect('main:productos')
 
 def save_additions(additions, bodega, ProductosAprobados_all):
     print("saving...")
@@ -1142,7 +1142,7 @@ def save_additions(additions, bodega, ProductosAprobados_all):
 #                producto.peb_regular_price = product_additions['regular_price']
 #                producto.save()
 #                break
-    return redirect('dashboard:productos')
+    return redirect('main:productos')
 
 
 
