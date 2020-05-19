@@ -1131,3 +1131,13 @@ def save_product_changes(changes, ProductosEnBodega_list):
         
 
     return redirect('dashboard:productos')
+
+
+
+
+
+
+def landingpage(request):
+    return render(request=request, # to reference request
+                  template_name="main/landingpage.html", # where to find the specifix template
+                  )
