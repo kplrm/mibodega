@@ -988,6 +988,7 @@ def productos(request):
                     print("ProductosAprobados_all_1: ",ProductosAprobados_all)
                     ProductosAprobados_all = ProductosAprobados_all.filter(~Q(pa_ID = producto_en_bodega.peb_product.pa_ID))
                     print("ProductosAprobados_all_2: ",ProductosAprobados_all)
+                ProductosAprobados_missing = list(ProductosAprobados_all)
 #                for producto_aprobado in ProductosAprobados_all:
 #                    print("producto_aprobado: ", producto_aprobado)
 #                    #if producto_aprobado in ProductosEnBodega_list:
