@@ -135,6 +135,7 @@
                                                     <th class="border-0">¿Vender con descuento?</th>
                                                     <th class="border-0">Descuento</th>
                                                     <th class="border-0">¿Disponible?</th>
+                                                    <th class="border-0">¿Eliminar?</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -171,6 +172,10 @@
                                                             <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input">
                                                             <span class="badge-dot badge-danger mr-1"></span>No
                                                         {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-outline-danger float-right" onclick="delete_item(this); return false;">Eliminar</button>
+                                                        <!--<input type="checkbox" name="peb_delete" id="{{ product.peb_ID }}" class="form-check-input">-->
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
@@ -262,7 +267,7 @@
         } else {
             alert("Verifique los datos ingresados");
         };
-    }
+    };
     function add_new_products() {
         if ($("#products_to_add").validate().form()) {
             item_to_add = document.getElementsByName("item_to_add");
@@ -299,6 +304,9 @@
         } else {
             alert("Verifique los datos ingresados");
         };
+    };
+    function delete_item(item_to_delete) {
+        console.log(item_to_delete);
     }
 </script>
 
@@ -314,5 +322,5 @@
 <script src="{% static 'main/js/jquery.slicknav.js' %}"></script> <!-- NEEDED FOR MOBILE NAVIGATION HEADER -->
 <script src="{% static 'main/js/dashboard-ecommerce.js' %}"></script> <!-- NEEDED FOR CURRENT SITE RENDERING -->
 <script src="{% static 'main/js/main.js' %}"></script>
-<script src="{% static 'main/js/product_detail.js' %}"></script>
+<script src="{% static 'main/js/dasboard_product.js' %}"></script>
 {% endblock %}
