@@ -1119,9 +1119,6 @@ def save_additions(additions, bodega, ProductosAprobados_all):
         new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
     return redirect('main:productos')
 
-
-
-
 def remove_product(request):
     if request.method == "POST" and request.is_ajax():
         remove_product_id = request.POST.get('key',False)
@@ -1135,14 +1132,47 @@ def remove_product(request):
 def see_sales_detail(request):
     if request.method == "POST" and request.is_ajax():
         print("posting_see...")
-        product_id = request.POST.get('key',False)
-        print(product_id)
-        if product_id != False:
-            rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=product_id)
-            rm_obj.delete()
-            return JsonResponse({"success": ""}, status=200)
+        product_id = request.POST.get('product_id',False)
+        bodega_id = request.POST.get('bodega_id',False)
+        if product_id != False and bodega_id != False:
+            print("product_id ",product_id)
+            print("bodega_id", bodega_id)
+            
+            # Retrieve bodega
+            bodega = get_object_or_404(Bodega,bd_ID=bodega_id)
+            try:
+                BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+            except:
+                BodegaOrders_list = []
+
+            OrderItem_list = []
+            try:
+                for bodega_order in BodegaOrders_list:
+                    item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id)) # Take out the 'anulados'
+                    for item in item_list:
+                        if item in OrderItem_list:
+                            pass
+                        else:
+                            OrderItem_list.append(item)
+            except:
+                pass
+            
+            products_details = dict()
+            for item in OrderItem_list:
+                if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
+                    if item.oi_price in products_details:
+                        products_details[str(item.oi_price)] += int(item.oi_quantity)
+                    else:
+                        products_details.update({
+                            str(item.oi_price): int(item.oi_quantity)
+                        })
+            products_details = sorted(products_details.items(), key=lambda x: x[0], reverse=True)
+            print("products_details: ",products_details)
+            json_products_details = json.dumps(products_details)
+            print("json:", json_products_details)
+            return JsonResponse(json_products_details, status=200)
         else:
-            return JsonResponse({"error": "no product to delete"}, status=400)
+            return JsonResponse({"error": "no product detail"}, status=400)
 
 def landingpage(request):
     return render(request=request, # to reference request
