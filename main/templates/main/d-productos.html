@@ -68,54 +68,47 @@
                         <!-- Modal add product -->
                         <!-- ============================================================== -->
                         <div class="modal fade" id="add_product_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">-->
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            
-
-                                
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle" style="text-align:center;">Añadir producto</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                </div>
-                                <div class="modal-body">
-                                    <table class="table">
-                                        <thead class="bg-light">
-                                            <tr class="border-0">
-                                                <th class="border-0">Añadir</th>
-                                                <th class="border-0">Imagen</th>
-                                                <th class="border-0">Producto</th>
-                                                <th class="border-0">Categoría</th>
-                                                <th class="border-0">Marca</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <form id="products_to_add" action="">
-                                            {% for product_faltante in ProductosAprobados_missing %}
-                                            <tr>
-                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product_faltante.pa_category}}/{{product_faltante.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
-                                                </td>
-                                                <td>{{ product_faltante.pa_product }}</td>
-                                                <td>{{ product_faltante.pa_category }}</td>
-                                                <td>{{ product_faltante.pa_brand }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            </form>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_products(); return false;">+Añadir producto</button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle" style="text-align:center;">Añadir producto</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                                <tr class="border-0">
+                                                    <th class="border-0">Añadir</th>
+                                                    <th class="border-0">Imagen</th>
+                                                    <th class="border-0">Producto</th>
+                                                    <th class="border-0">Categoría</th>
+                                                    <th class="border-0">Marca</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <form id="products_to_add" action="">
+                                                {% for product_faltante in ProductosAprobados_missing %}
+                                                <tr>
+                                                    <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
+                                                    <td>
+                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product_faltante.pa_category}}/{{product_faltante.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                    </td>
+                                                    <td>{{ product_faltante.pa_product }}</td>
+                                                    <td>{{ product_faltante.pa_category }}</td>
+                                                    <td>{{ product_faltante.pa_brand }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                </form>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_products(); return false;">+Añadir producto</button>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            </div>
-                            <!--</div>-->
                         </div>
                         <!-- ============================================================== -->
                         <!-- end modal add product -->
