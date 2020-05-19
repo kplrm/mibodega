@@ -1135,8 +1135,8 @@ def see_sales_detail(request):
         product_id = request.POST.get('product_id',False)
         bodega_id = request.POST.get('bodega_id',False)
         if product_id != False and bodega_id != False:
-            print("product_id ",product_id)
-            print("bodega_id", bodega_id)
+            print("product_id: ",product_id)
+            print("bodega_id: ", bodega_id)
             
             # Retrieve bodega
             bodega = get_object_or_404(Bodega,bd_ID=bodega_id)
@@ -1156,20 +1156,24 @@ def see_sales_detail(request):
                             OrderItem_list.append(item)
             except:
                 pass
-            
+            print("BodegaOrders_list: ", BodegaOrders_list)
+            print("OrderItem_list: ", OrderItem_list)
+
             products_details = dict()
             for item in OrderItem_list:
                 if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
                     if item.oi_price in products_details:
+                        print("updating quantity")
                         products_details[str(item.oi_price)] += int(item.oi_quantity)
                     else:
+                        print("new price")
                         products_details.update({
                             str(item.oi_price): int(item.oi_quantity)
                         })
             products_details = sorted(products_details.items(), key=lambda x: x[0], reverse=True)
             print("products_details: ",products_details)
             json_products_details = json.dumps(products_details)
-            print("json:", json_products_details)
+            print("json: ", json_products_details)
             return JsonResponse(json_products_details, status=200)
         else:
             return JsonResponse({"error": "no product detail"}, status=400)
