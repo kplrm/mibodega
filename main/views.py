@@ -972,11 +972,29 @@ def productos(request):
             ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
         except:
             ProductosEnBodega_list = None
+        # Get all missing productos aprobados
+        try:
+            ProductosAprobados_all = ProductosEnBodega.objects.all()
+            ProductosAprobados_missing = []
+            for producto_aprobado in ProductosAprobados_all:
+                if producto_aprobado in ProductosEnBodega_list:
+                    print("ya se encuentra el producto en la bodega")
+                else:
+                    ProductosAprobados_missing.append(item)
+        except:
+            ProductosAprobados_missing = None
         # If save_product_changes was posted, apply changes
         if request.method== "POST" and request.is_ajax() and ProductosEnBodega_list != None:
+            # Changes
             changes = request.POST.get('changes',False)
-            changes = json.loads(changes)
-            save_product_changes(changes,ProductosEnBodega_list)
+            if changes != False:
+                changes = json.loads(changes)
+                save_product_changes(changes,ProductosEnBodega_list)
+            # Add product
+            #add_product = request.POST.get('add_product',False)
+            #if add_product != False:
+            #    add_product = json.loads(add_product)
+            #    save_add_product(add_product,ProductosEnBodega_list)
 
         # Find BodegaOrders with their corresponding OrderItem
         try:
@@ -1023,6 +1041,7 @@ def productos(request):
         if cliente.cl_is_bodega:
             context = {
                         'STATIC_URL': STATIC_URL,
+                        'ProductosAprobados_missing': ProductosAprobados_missing,
                         'ProductosEnBodega_list': ProductosEnBodega_list,
                         'BodegaDashboard_obj': BodegaDashboard_obj,
                         'OrderItem_list': OrderItem_list,
@@ -1128,8 +1147,19 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 producto.peb_status = product_changes['peb_status']
                 producto.save()
                 break
-        
+    return redirect('dashboard:productos')
 
+def save_add_product(changes, ProductosEnBodega_list):
+    for product_changes in changes:
+        for producto in ProductosEnBodega_list:
+            if str(producto.peb_ID) == str(product_changes['key']):
+                print("producto encontrado")
+                producto.peb_regular_price = product_changes['regular_price']
+                producto.peb_discount_price = product_changes['discount_price']
+                producto.peb_discount_status = product_changes['discount_status']
+                producto.peb_status = product_changes['peb_status']
+                producto.save()
+                break
     return redirect('dashboard:productos')
 
 
