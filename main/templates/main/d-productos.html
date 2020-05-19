@@ -303,35 +303,30 @@
         };
     };
     function delete_item(item_to_delete) {
-        id_product = item_to_delete.id;
-        console.log(id_product);
-        product_rows = document.getElementsByName("product_row");
-        for (i = 0; i < product_rows.length; i++) {
-            if (product_rows[i].id == item_to_delete.id) {
-                var row_to_delete = product_rows[i];
-                break;
-            } else {}
-        };
-        console.log(row_to_delete);
-        row_to_delete.remove();
-        /*
+        
         $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                //url: "/dashboard/save_product_changes",
-                url: "/dashboard/productos",
+                url: "/dashboard/remove_product",
                 type: "POST",
                 dataType: "json",
                 data: {
                     key: item_to_delete.id
                 },
                 success: function(){
-                    row_to_delete = document.getElementsByName("product_row");
-                    console.log(row_to_delete);
+                    product_rows = document.getElementsByName("product_row");
+                    for (i = 0; i < product_rows.length; i++) {
+                        if (product_rows[i].id == item_to_delete.id) {
+                            var row_to_delete = product_rows[i];
+                            break;
+                        } else {}
+                    };
+                    row_to_delete.remove();
                 },
                 error: function(){
-                    location.reload();
+                    ;
+                    //location.reload();
                 }
-            });*/
+            });
     }
 </script>
 
