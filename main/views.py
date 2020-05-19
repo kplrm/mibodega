@@ -985,7 +985,7 @@ def productos(request):
                 print("ProductosEnBodega_list: ",ProductosEnBodega_list)
                 for producto_en_bodega in ProductosEnBodega_list: # delete all producto_en_bodega from ProductosAprobados_all
                     print("ProductosAprobados_all: ",ProductosAprobados_all)
-                    ProductosAprobados_all = ProductosAprobados_all.filter(~Q(pa_ID = producto_en_bodega.peb_product.pa_ID)):
+                    ProductosAprobados_all = ProductosAprobados_all.filter(~Q(pa_ID = producto_en_bodega.peb_product.pa_ID))
 #                for producto_aprobado in ProductosAprobados_all:
 #                    print("producto_aprobado: ", producto_aprobado)
 #                    #if producto_aprobado in ProductosEnBodega_list:
