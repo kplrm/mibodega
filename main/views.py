@@ -1007,10 +1007,10 @@ def productos(request):
                 changes = json.loads(changes)
                 save_product_changes(changes,ProductosEnBodega_list)
             # Add product
-            #add_product = request.POST.get('add_product',False)
-            #if add_product != False:
-            #    add_product = json.loads(add_product)
-            #    save_add_product(add_product,ProductosEnBodega_list)
+            additions = request.POST.get('additions',False)
+            if additions != False:
+                additions = json.loads(additions)
+                save_additions(additions,bodega)
 
         # Find BodegaOrders with their corresponding OrderItem
         try:
@@ -1165,17 +1165,15 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 break
     return redirect('dashboard:productos')
 
-def save_add_product(changes, ProductosEnBodega_list):
-    for product_changes in changes:
-        for producto in ProductosEnBodega_list:
-            if str(producto.peb_ID) == str(product_changes['key']):
-                print("producto encontrado")
-                producto.peb_regular_price = product_changes['regular_price']
-                producto.peb_discount_price = product_changes['discount_price']
-                producto.peb_discount_status = product_changes['discount_status']
-                producto.peb_status = product_changes['peb_status']
-                producto.save()
-                break
+def save_additions(additions, ProductosEnBodega_list):
+    pass
+#    for product_changes in additions:
+#        for producto in ProductosEnBodega_list:
+#            if str(producto.peb_ID) == str(product_additions['key']):
+#                print("producto encontrado")
+#                producto.peb_regular_price = product_additions['regular_price']
+#                producto.save()
+#                break
     return redirect('dashboard:productos')
 
 
