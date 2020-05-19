@@ -1177,12 +1177,8 @@ def see_sales_detail(request):
                             str(item.oi_price): int(item.oi_quantity)
                         })
             products_details = sorted(products_details.items(), key=lambda x: x[0], reverse=True)
-            print("products_details: ",products_details)
-            json_products_details = ""
-            for i in range(0,len(products_details)):
-                json_products_details += json.dumps(products_details[i])
-            print("json: ", json_products_details)
-            return JsonResponse(json_products_details, status=200)
+            json_products_details += json.dumps(products_details)
+            return JsonResponse({"success": json_products_details}, status=200)
         else:
             return JsonResponse({"error": "no product detail"}, status=400)
 
