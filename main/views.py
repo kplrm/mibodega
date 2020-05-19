@@ -972,7 +972,6 @@ def productos(request):
             ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
         except:
             ProductosEnBodega_list = None
-        print("ProductosEnBodega_list: ",ProductosEnBodega_list)
         # Get all missing productos aprobados
         ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).all()
         ProductosAprobados_missing = []
@@ -981,9 +980,12 @@ def productos(request):
                 ProductosAprobados_missing = ProductosAprobados_all
             else:
                 print("entering for loop")
+                print("ProductosEnBodega_list: ",ProductosEnBodega_list)
+                print("ProductosAprobados_all: ",ProductosAprobados_all)
                 for producto_aprobado in ProductosAprobados_all:
                     print("producto_aprobado: ", producto_aprobado)
                     if producto_aprobado in ProductosEnBodega_list:
+                    #if filter(foo_color='green').exists():
                         print("producto ya en tienda")
                         pass
                     else:
