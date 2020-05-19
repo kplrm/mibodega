@@ -1127,12 +1127,12 @@ def save_product_changes(changes, ProductosEnBodega_list):
 
 def save_additions(additions, bodega, ProductosAprobados_all):
     print("saving...")
-    print(additions)
-    print(bodega)
-    print(ProductosAprobados_all)
+
     for product_to_add in additions:
-        print("saving...")
-        new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=str(product_to_add['key']))
+        print("saving2...")
+        producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
+        print(producto_aprobado)
+        new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
         print("Creado new item? ", created)
 #    for product_changes in additions:
 #        for producto in ProductosEnBodega_list:
