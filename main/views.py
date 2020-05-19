@@ -1149,6 +1149,7 @@ def see_sales_detail(request):
             try:
                 for bodega_order in BodegaOrders_list:
                     item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id)) # Take out the 'anulados'
+                    print("item_list: ",item_list)
                     for item in item_list:
                         if item in OrderItem_list:
                             pass
