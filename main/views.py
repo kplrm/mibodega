@@ -22,6 +22,8 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
 
+from django.db.models import Q
+
 import base64
 import requests
 
@@ -981,16 +983,18 @@ def productos(request):
             else:
                 print("entering for loop")
                 print("ProductosEnBodega_list: ",ProductosEnBodega_list)
-                print("ProductosAprobados_all: ",ProductosAprobados_all)
-                for producto_aprobado in ProductosAprobados_all:
-                    print("producto_aprobado: ", producto_aprobado)
-                    if producto_aprobado in ProductosEnBodega_list:
-                    #if filter(foo_color='green').exists():
-                        print("producto ya en tienda")
-                        pass
-                    else:
-                        print("adding to missing producto")
-                        ProductosAprobados_missing.append(producto_aprobado)
+                for producto_en_bodega in ProductosEnBodega_list: # delete all producto_en_bodega from ProductosAprobados_all
+                    print("ProductosAprobados_all: ",ProductosAprobados_all)
+                    ProductosAprobados_all = ProductosAprobados_all.filter(~Q(pa_ID = producto_en_bodega.peb_product.pa_ID)):
+#                for producto_aprobado in ProductosAprobados_all:
+#                    print("producto_aprobado: ", producto_aprobado)
+#                    #if producto_aprobado in ProductosEnBodega_list:
+#                    #if filter(foo_color='green').exists():
+#                        print("producto ya en tienda")
+#                        pass
+#                    else:
+#                        print("adding to missing producto")
+#                        ProductosAprobados_missing.append(producto_aprobado)
         except:
             pass
         
