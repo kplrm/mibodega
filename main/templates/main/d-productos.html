@@ -174,7 +174,7 @@
                                                         {% endif %}
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-outline-danger float-right" onclick="delete_item(this); return false;">Eliminar</button>
+                                                        <button type="button" class="btn btn-outline-danger float-right" id="{{ product.peb_ID }}" onclick="delete_item(this); return false;">Eliminar</button>
                                                         <!--<input type="checkbox" name="peb_delete" id="{{ product.peb_ID }}" class="form-check-input">-->
                                                     </td>
                                                 </tr>
@@ -307,6 +307,7 @@
     };
     function delete_item(item_to_delete) {
         console.log(item_to_delete);
+        console.log(item_to_delete.id);
     }
 </script>
 
