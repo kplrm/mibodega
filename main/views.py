@@ -1129,11 +1129,14 @@ def save_additions(additions, bodega, ProductosAprobados_all):
 def remove_product(request):
     if request.method == "POST" and request.is_ajax():
             print("posting_rm...")
-            remove_product = request.POST.get('key',False)
-            print(remove_product)
-            #if remove_product != False:
-            #    remove_product = json.loads(remove_product)
-            #    get_object_or_404(ProductosEnBodega,peb_ID=remove_product[])
+            remove_product_id = request.POST.get('key',False)
+            print(remove_product_id)
+            if remove_product_id != False:
+                rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=remove_product_id)
+                rm_obj.delete()
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=404)
 
 def landingpage(request):
     return render(request=request, # to reference request
