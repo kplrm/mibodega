@@ -980,11 +980,10 @@ def productos(request):
         ProductosAprobados_missing = []
         if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
             for producto_aprobado in ProductosAprobados_all:
-                print(producto_aprobado)
                 if producto_aprobado in ProductosEnBodega_list:
                     pass
                 else:
-                    ProductosAprobados_missing.append(item)
+                    ProductosAprobados_missing.append(producto_aprobado)
         else:
             ProductosAprobados_missing = ProductosAprobados_all
         #except:
