@@ -1134,9 +1134,9 @@ def remove_product(request):
             if remove_product_id != False:
                 rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=remove_product_id)
                 rm_obj.delete()
-                return HttpResponse(status=200)
+                return JsonResponse({"success": ""}, status=200)
             else:
-                return HttpResponse(status=404)
+                return JsonResponse({"error": "no product to delete"}, status=400)
 
 def landingpage(request):
     return render(request=request, # to reference request
