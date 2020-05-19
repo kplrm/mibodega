@@ -304,10 +304,9 @@
     };
     function delete_item(item_to_delete) {
         console.log(item_to_delete.id);
-        row_to_delete = document.getElementsByName("product_row");
+        row_to_delete = document.getElementsByName("product_row").getElementsByID(item_to_delete.id);
         //console.log(row_to_delete);
         console.log(row_to_delete);
-        console.log(row_to_delete.item_to_delete.id);
         /*
         $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
