@@ -975,7 +975,7 @@ def productos(request):
         # Get all missing productos aprobados
         try:
             print("trying...")
-            ProductosAprobados_all = ProductosAprobados.objects.all()
+            ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).first()
             print(ProductosAprobados_all)
             ProductosAprobados_missing = []
             for producto_aprobado in ProductosAprobados_all:
