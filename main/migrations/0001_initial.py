@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('peb_ID', models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, verbose_name='ID Productos en bodegas')),
                 ('peb_regular_price', models.FloatField(default=0, verbose_name='Precio regular')),
-                ('peb_discount_price', models.FloatField(blank=True, default='', null=True, verbose_name='Precio con descuento')),
+                ('peb_discount_price', models.FloatField(default=0, verbose_name='Precio con descuento')),
                 ('peb_discount_status', models.BooleanField(default=False, verbose_name='Vender con descuento')),
                 ('peb_discount_rate', models.FloatField(default=0, editable=False, verbose_name="'%' de descuento")),
                 ('peb_status', models.BooleanField(default=True, verbose_name='Disponible')),
