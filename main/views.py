@@ -994,7 +994,7 @@ def productos(request):
 
 
         # If save_product_changes was posted, apply changes
-        if request.method== "POST" and request.is_ajax() and ProductosEnBodega_list != None:
+        if request.method == "POST" and request.is_ajax():
             # Changes
             changes = request.POST.get('changes',False)
             print(changes)
