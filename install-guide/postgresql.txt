@@ -55,7 +55,7 @@ sudo -u postgres psql -d mibodega;
 CREATE EXTENSION postgis;
 #Check installed version
 SELECT PostGIS_version();
-DROP DATABASE mibodega; 
+DROP DATABASE mibodega;
 
 #To check login into
 http://localhost/pgadmin4/
