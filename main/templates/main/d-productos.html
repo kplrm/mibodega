@@ -141,7 +141,7 @@
                                             <tbody>
                                                 <form id="products_to_update" action="">
                                                 {% for product in ProductosEnBodega_list %}
-                                                <tr>
+                                                <tr name="product_row" id="{{ product.peb_ID }}">
                                                     <td>
                                                         <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
                                                     </td>
@@ -271,7 +271,6 @@
     function add_new_products() {
         if ($("#products_to_add").validate().form()) {
             item_to_add = document.getElementsByName("item_to_add");
-            console.log(item_to_add);
             var dict_to_add = [];
             for (i = 0; i < item_to_add.length; i++) {
                 if (item_to_add[i].checked == true) {
@@ -281,9 +280,7 @@
                     dict_to_add.push(data);
                 } else {}
             };
-            console.log(dict_to_add);
             let product_additions = JSON.stringify(dict_to_add);
-            console.log(product_additions);
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -306,8 +303,27 @@
         };
     };
     function delete_item(item_to_delete) {
-        console.log(item_to_delete);
         console.log(item_to_delete.id);
+        row_to_delete = document.getElementsByName("product_row");
+        //console.log(row_to_delete);
+        console.log(row_to_delete);
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                //url: "/dashboard/save_product_changes",
+                url: "/dashboard/productos",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    key: item_to_delete.id
+                },
+                success: function(){
+                    row_to_delete = document.getElementsByName("product_row");
+                    console.log(row_to_delete);
+                },
+                error: function(){
+                    location.reload();
+                }
+            });
     }
 </script>
 
