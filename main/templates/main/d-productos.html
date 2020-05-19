@@ -196,7 +196,7 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Cantidad vendida según precio</h5>
+                                <h5 class="card-header">Detalle de venta precio</h5>
                                 <div class="card-body p-0">
                                     <table class="table">
                                         <thead class="bg-light">
@@ -351,9 +351,8 @@
                     product_id: product_detail.id,
                     bodega_id: "{{ bodega.bd_ID }}"
                 },
-                success: function(){
-                    
-                    ;
+                success: function(response) {
+                    $("#price_detail").append("55.55");
                 },
                 error: function(){
                     location.reload();
