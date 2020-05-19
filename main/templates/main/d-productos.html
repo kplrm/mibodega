@@ -309,10 +309,11 @@
         for (i = 0; i < product_rows.length; i++) {
             if (product_rows[i].id == item_to_delete.id) {
                 var row_to_delete = product_rows[i];
+                break;
             } else {}
         };
         console.log(row_to_delete);
-        
+        row_to_delete.remove();
         /*
         $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
