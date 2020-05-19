@@ -989,16 +989,13 @@ def productos(request):
 
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
-            print("posting..")
             # Changes
             changes = request.POST.get('changes',False)
-            print(changes)
             if changes != False:
                 changes = json.loads(changes)
                 save_product_changes(changes,ProductosEnBodega_list)
             # Add product
             additions = request.POST.get('additions',False)
-            print(additions)
             if additions != False:
                 additions = json.loads(additions)
                 save_additions(additions,bodega,ProductosAprobados_all)
@@ -1129,7 +1126,14 @@ def save_additions(additions, bodega, ProductosAprobados_all):
 
 
 
-
+def remove_product(request):
+    if request.method == "POST" and request.is_ajax():
+            print("posting_rm...")
+            remove_product = request.POST.get('key',False)
+            print(remove_product)
+            #if remove_product != False:
+            #    remove_product = json.loads(remove_product)
+            #    get_object_or_404(ProductosEnBodega,peb_ID=remove_product[])
 
 def landingpage(request):
     return render(request=request, # to reference request

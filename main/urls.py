@@ -29,6 +29,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("dashboard/productos", views.productos, name="productos"),
     path("dashboard/save_product_changes", views.save_product_changes, name="save_product_changes"),
+    path("dashboard/remove_product", views.remove_product, name="remove_product"),
 
     # Landing page
     path("landingpage", views.landingpage, name="landingpage"),
