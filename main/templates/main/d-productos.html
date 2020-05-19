@@ -71,7 +71,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle" style="text-align:center;">Todos los productos más vendidos en los últimos 30 días</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle" style="text-align:center;">Añadir producto</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -83,20 +83,20 @@
                                                 <th class="border-0">#</th>
                                                 <th class="border-0">Imagen</th>
                                                 <th class="border-0">Producto</th>
-                                                <th class="border-0">Cantidad</th>
-                                                <th class="border-0">Ventas por producto</th>
+                                                <th class="border-0">Categoría</th>
+                                                <th class="border-0">Marca</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for product in most_sold_products %}
+                                            {% for product_faltante in ProductosAprobados_missing %}
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
                                                 <td>
-                                                    <div class="m-r-10"><img src="" alt="user" class="rounded" width="45"></div>
+                                                    <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product_faltante.pa_category}}/{{product_faltante.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
                                                 </td>
-                                                <td>{{ product.1.1 }}</td>
-                                                <td>{{ product.1.0 }}</td>
-                                                <td>S/.{{ product.1.2|floatformat:2|intcomma }}</td>
+                                                <td>{{ product_faltante.pa_product }}</td>
+                                                <td>{{ product_faltante.pa_category }}</td>
+                                                <td>{{ product_faltante.pa_brand }}</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
