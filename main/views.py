@@ -1132,8 +1132,9 @@ def save_additions(additions, bodega, ProductosAprobados_all):
         print("saving2...")
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
         print(producto_aprobado)
-        new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
-        print("Creado new item? ", created)
+        print(type(producto_aprobado))
+        #new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
+        #print("Creado new item? ", created)
 #    for product_changes in additions:
 #        for producto in ProductosEnBodega_list:
 #            if str(producto.peb_ID) == str(product_additions['key']):
