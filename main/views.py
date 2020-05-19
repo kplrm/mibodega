@@ -972,6 +972,7 @@ def productos(request):
             ProductosEnBodega_list = get_list_or_404(ProductosEnBodega,peb_bodega=bodega)
         except:
             ProductosEnBodega_list = None
+        print("ProductosEnBodega_list: ",ProductosEnBodega_list)
         # Get all missing productos aprobados
         ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).all()
         ProductosAprobados_missing = []
