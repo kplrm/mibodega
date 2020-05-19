@@ -978,13 +978,20 @@ def productos(request):
         ProductosAprobados_all = ProductosAprobados.objects.all().filter(pa_status=True).all()
         print(ProductosAprobados_all)
         ProductosAprobados_missing = []
-        for producto_aprobado in ProductosAprobados_all:
-            print(producto_aprobado)
-            if producto_aprobado in ProductosEnBodega_list:
-                print("ya se encuentra el producto en la bodega")
-            else:
-                print("es un nuevo producto")
-                ProductosAprobados_missing.append(item)
+        if ProductosEnBodega_list != None: # ProductosEnBodega_list is not empty
+            for producto_aprobado in ProductosAprobados_all:
+                print(producto_aprobado)
+                if producto_aprobado in ProductosEnBodega_list:
+                    print("ya se encuentra el producto en la bodega")
+                else:
+                    print("es un nuevo producto")
+                    ProductosAprobados_missing.append(item)
+        else:
+            ProductosAprobados_missing = ProductosAprobados_all
+            print("This store has nothing")
+            print(ProductosAprobados_missing)
+            print(type(ProductosAprobados_missing))
+            print("=========")
         #except:
             #print("excepting...")
             #ProductosAprobados_missing = None
