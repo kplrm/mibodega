@@ -981,29 +981,11 @@ def productos(request):
             if ProductosEnBodega_list == None: # ProductosEnBodega_list is empty
                 ProductosAprobados_missing = ProductosAprobados_all
             else:
-                print("ProductosEnBodega_list: ",ProductosEnBodega_list)
                 for producto_en_bodega in ProductosEnBodega_list: # delete all producto_en_bodega from ProductosAprobados_all
-                    print("entering delete logic:")
-                    print("producto_en_bodega: ",producto_en_bodega)
-                    print("ProductosAprobados_all_1: ",ProductosAprobados_all)
                     ProductosAprobados_all = ProductosAprobados_all.filter(~Q(pa_ID = producto_en_bodega.peb_product.pa_ID))
-                    print("ProductosAprobados_all_2: ",ProductosAprobados_all)
                 ProductosAprobados_missing = list(ProductosAprobados_all)
-#                for producto_aprobado in ProductosAprobados_all:
-#                    print("producto_aprobado: ", producto_aprobado)
-#                    #if producto_aprobado in ProductosEnBodega_list:
-#                    #if filter(foo_color='green').exists():
-#                        print("producto ya en tienda")
-#                        pass
-#                    else:
-#                        print("adding to missing producto")
-#                        ProductosAprobados_missing.append(producto_aprobado)
         except:
             pass
-        
-        print("ProductosAprobados_missing: ", ProductosAprobados_missing)
-
-
 
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
@@ -1021,8 +1003,6 @@ def productos(request):
                 additions = json.loads(additions)
                 save_additions(additions,bodega,ProductosAprobados_all)
 
-
-        print(ProductosAprobados_missing)
 
 
         
