@@ -1105,7 +1105,6 @@ def save_product_changes(changes, ProductosEnBodega_list):
     for product_changes in changes:
         for producto in ProductosEnBodega_list:
             if str(producto.peb_ID) == str(product_changes['key']):
-                print("producto encontrado")
                 producto.peb_regular_price = product_changes['regular_price']
                 producto.peb_discount_price = product_changes['discount_price']
                 producto.peb_discount_status = product_changes['discount_status']
@@ -1115,12 +1114,9 @@ def save_product_changes(changes, ProductosEnBodega_list):
     return redirect('main:productos')
 
 def save_additions(additions, bodega, ProductosAprobados_all):
-    print("saving...")
     for product_to_add in additions:
-        print("saving2...")
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
         new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
-        print("Creado new item? ", created)
     return redirect('main:productos')
 
 
@@ -1128,15 +1124,25 @@ def save_additions(additions, bodega, ProductosAprobados_all):
 
 def remove_product(request):
     if request.method == "POST" and request.is_ajax():
-            print("posting_rm...")
-            remove_product_id = request.POST.get('key',False)
-            print(remove_product_id)
-            if remove_product_id != False:
-                rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=remove_product_id)
-                rm_obj.delete()
-                return JsonResponse({"success": ""}, status=200)
-            else:
-                return JsonResponse({"error": "no product to delete"}, status=400)
+        remove_product_id = request.POST.get('key',False)
+        if remove_product_id != False:
+            rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=remove_product_id)
+            rm_obj.delete()
+            return JsonResponse({"success": ""}, status=200)
+        else:
+            return JsonResponse({"error": "no product to delete"}, status=400)
+
+def see_sales_detail(request):
+    if request.method == "POST" and request.is_ajax():
+        print("posting_see...")
+        product_id = request.POST.get('key',False)
+        print(product_id)
+        if product_id != False:
+            rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=product_id)
+            rm_obj.delete()
+            return JsonResponse({"success": ""}, status=200)
+        else:
+            return JsonResponse({"error": "no product to delete"}, status=400)
 
 def landingpage(request):
     return render(request=request, # to reference request

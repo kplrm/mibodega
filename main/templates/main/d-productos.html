@@ -145,7 +145,7 @@
                                                     <td>
                                                         <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
                                                     </td>
-                                                    <td><a style="text-decoration:underline;" onclick="see_sale_details(this); return false;">{{ product.peb_product.pa_product }}</a></td>
+                                                    <td><a id="{{ product.peb_ID }}" style="text-decoration:underline;" onclick="see_sales_detail(this); return false;">{{ product.peb_product.pa_product }}</a></td>
                                                     <td>{{ product.peb_product.pa_category }}</td>
                                                     <td>{{ product.peb_product.pa_brand }}</td>
                                                     <td>
@@ -303,7 +303,6 @@
         };
     };
     function delete_item(item_to_delete) {
-        
         $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/remove_product",
@@ -323,14 +322,34 @@
                     row_to_delete.remove();
                 },
                 error: function(){
-                    ;
                     location.reload();
                 }
             }
         );
     };
-    function see_sale_details(product_detail) {
-        console.log(product_detail)
+    function see_sales_detail(product_detail) {
+        console.log( {{ bodega }} );
+        let bodega_json = JSON.stringify({{ bodega }});
+        console.log(bodega_json);
+
+        /*
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/dashboard/see_sales_detail",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: product_detail.id
+                },
+                success: function(){
+                    
+                    ;
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );*/
     }
 
 </script>
