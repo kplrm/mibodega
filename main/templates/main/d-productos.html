@@ -206,9 +206,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="border-0">
-                                                <th class="border-0" id="price_detail">S/.10.00</th>
-                                                <th class="border-0" id="quantity_detail">100</th>
+                                            <tr class="border-0" id="product_details">
+                                                <th class="border-0">S/.10.00</th>
+                                                <th class="border-0">100</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -352,7 +352,8 @@
                     bodega_id: "{{ bodega.bd_ID }}"
                 },
                 success: function(response) {
-                    $("#price_detail").reset().append("55.55");
+                    console.log(response);
+                    $("#price_detail").append('<th class="border-0">S/.'+ ' a ' +'</th><th class="border-0">100</th>)';
                 },
                 error: function(){
                     location.reload();
