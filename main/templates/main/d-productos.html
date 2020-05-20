@@ -352,7 +352,7 @@
                     bodega_id: "{{ bodega.bd_ID }}"
                 },
                 success: function(response) {
-                    var details = JSON.parse(response);
+                    var details = JSON.parse(response.success);
                     console.log(details);
                     for (i = 0; i < details.length; i++) {
                         console.log(details[i]);
