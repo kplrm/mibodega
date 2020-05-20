@@ -353,14 +353,11 @@
                 },
                 success: function(response) {
                     var details = JSON.parse(response.success);
-                    console.log(details);
+                    $("#product_details").html();
                     for (i = 0; i < details.length; i++) {
-                        $("#product_details").html('<tr class="border-0"><th class="border-0">S/.'+ details[i][0] +'</th><th class="border-0">'+ details[i][0] +'</th>)</tr>');
+                        $("#product_details").append('<tr class="border-0"><th class="border-0">S/.'+ details[i][0] +'</th><th class="border-0">'+ details[i][0] +'</th>)</tr>');
                         console.log(details[i][0]);
                         console.log(details[i][1]);
-                        //if (response.success[i].id == item_to_delete.id) {
-                        //    var row_to_delete = product_rows[i];
-                        //    break;
                     };
                 },
                 error: function(){
