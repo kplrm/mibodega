@@ -1145,38 +1145,19 @@ def see_sales_detail(request):
                 BodegaOrders_list = []
 
             OrderItem_list = []
-            #try:
-            print("trying...")
             for bodega_order in BodegaOrders_list:
-                print("entering for...")
-                print("bodega_order: ",bodega_order)
-                print("product_id: ",product_id)
-                #item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
                 try:
                     item = get_object_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
                     OrderItem_list.append(item)
                 except:
                     pass
-                #print("item_list: ",item_list)
-                print("item: ",item)
-                #for item in item_list:
-                #    if item in OrderItem_list:
-                #        pass
-                #    else:
-                #        OrderItem_list.append(item)
-            #except:
-            #    pass
-            print("BodegaOrders_list: ", BodegaOrders_list)
-            print("OrderItem_list: ", OrderItem_list)
 
             products_details = dict()
             for item in OrderItem_list:
                 if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
                     if item.oi_price in products_details:
-                        print("updating quantity")
                         products_details[str(item.oi_price)] += int(item.oi_quantity)
                     else:
-                        print("new price")
                         products_details.update({
                             str(item.oi_price): int(item.oi_quantity)
                         })
