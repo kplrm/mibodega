@@ -353,7 +353,7 @@
                 },
                 success: function(response) {
                     var details = JSON.parse(response.success);
-                    $("#product_details").html();
+                    $("#product_details").html('');
                     for (i = 0; i < details.length; i++) {
                         $("#product_details").append('<tr class="border-0"><th class="border-0">S/.'+ details[i][0] +'</th><th class="border-0">'+ details[i][0] +'</th>)</tr>');
                         console.log(details[i][0]);
