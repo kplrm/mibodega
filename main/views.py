@@ -1151,13 +1151,14 @@ def see_sales_detail(request):
                 print("entering for...")
                 print("bodega_order: ",bodega_order)
                 print("product_id: ",product_id)
-                item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id)) # Take out the 'anulados'
+                #item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
+                OrderItem_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
                 print("item_list: ",item_list)
-                for item in item_list:
-                    if item in OrderItem_list:
-                        pass
-                    else:
-                        OrderItem_list.append(item)
+                #for item in item_list:
+                #    if item in OrderItem_list:
+                #        pass
+                #    else:
+                #        OrderItem_list.append(item)
             #except:
             #    pass
             print("BodegaOrders_list: ", BodegaOrders_list)
