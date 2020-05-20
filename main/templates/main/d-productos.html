@@ -352,9 +352,10 @@
                     bodega_id: "{{ bodega.bd_ID }}"
                 },
                 success: function(response) {
-                    console.log(response.success);
-                    for (i = 0; i < response.success.length; i++) {
-                        console.log(response.success[i]);
+                    var details = JSON.parse(response);
+                    console.log(details);
+                    for (i = 0; i < details.length; i++) {
+                        console.log(details[i]);
                         //if (response.success[i].id == item_to_delete.id) {
                         //    var row_to_delete = product_rows[i];
                         //    break;
