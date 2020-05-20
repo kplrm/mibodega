@@ -339,8 +339,6 @@
         );
     };
     function see_sales_detail(product_detail) {
-        console.log( "{{ bodega.bd_ID }}" );
-        
         $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/see_sales_detail",
@@ -355,8 +353,6 @@
                     $("#product_details").html('');
                     for (i = 0; i < details.length; i++) {
                         $("#product_details").append('<tr class="border-0"><th class="border-0">S/.'+ details[i][0] +'</th><th class="border-0">'+ details[i][0] +'</th>)</tr>');
-                        console.log(details[i][0]);
-                        console.log(details[i][1]);
                     };
                 },
                 error: function(){
