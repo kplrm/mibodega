@@ -93,7 +93,11 @@
                                                 <tr>
                                                     <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
                                                     <td>
-                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product_faltante.pa_category}}/{{product_faltante.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            {% if product_faltante.pa_image %}
+                                                                <img src="{{product_faltante.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                            {% endif %}
+                                                        </div>
                                                     </td>
                                                     <td>{{ product_faltante.pa_product }}</td>
                                                     <td>{{ product_faltante.pa_category }}</td>
@@ -143,7 +147,11 @@
                                                 {% for product in ProductosEnBodega_list %}
                                                 <tr name="product_row" id="{{ product.peb_ID }}">
                                                     <td>
-                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            {% if product.peb_product.pa_image %}
+                                                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                            {% endif %}
+                                                        </div>
                                                     </td>
                                                     <td><a id="{{ product.peb_product.pa_ID }}" style="text-decoration:underline;" onclick="see_sales_detail(this); return false;">{{ product.peb_product.pa_product }}</a></td>
                                                     <td>{{ product.peb_product.pa_category }}</td>
