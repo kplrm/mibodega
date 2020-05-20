@@ -352,7 +352,14 @@
                     bodega_id: "{{ bodega.bd_ID }}"
                 },
                 success: function(response) {
-                    console.log(response);
+                    console.log(response.success);
+                    for (i = 0; i < response.success.length; i++) {
+                        if (product_rows[i].id == item_to_delete.id) {
+                            var row_to_delete = product_rows[i];
+                            break;
+                        } else {}
+                    };
+                    
                     $("#price_detail").append('<th class="border-0">S/.'+ ' a ' +'</th><th class="border-0">100</th>)');
                 },
                 error: function(){
