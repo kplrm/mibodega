@@ -1152,8 +1152,11 @@ def see_sales_detail(request):
                 print("bodega_order: ",bodega_order)
                 print("product_id: ",product_id)
                 #item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
-                item = get_object_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
-                OrderItem_list.append(item)
+                try:
+                    item = get_object_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
+                    OrderItem_list.append(item)
+                except:
+                    pass
                 #print("item_list: ",item_list)
                 print("item: ",item)
                 #for item in item_list:
