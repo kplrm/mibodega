@@ -125,7 +125,9 @@
                     {% for product in result_list %}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
+                            {% if product.peb_product.pa_image %}
+                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                            {% endif %}
                             <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
                             <ul>
                                 <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}

@@ -169,7 +169,11 @@
                                                 <tr>
                                                     <td>{{ forloop.counter }}</td>
                                                     <td>
-                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            {% if product.peb_product.pa_image %}
+                                                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                            {% endif %}
+                                                        </div>
                                                     </td>
                                                     <td>{{ product.1.1 }}</td>
                                                     <td>{{ product.1.0 }}</td>
