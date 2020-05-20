@@ -44,9 +44,9 @@ class ProductosAprobados(models.Model):
     pa_description = models.TextField(default='sinDsescripción',verbose_name="Descripción")
     pa_rating = models.IntegerField(default='0',verbose_name="Calificación (0-5)") # 1 low 5 top
     pa_status = models.BooleanField(default=True,null=False,verbose_name="Activo") # if it is currently being offered
-    pa_photo_full = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto grande") # Link to large size photos
-    pa_photo_mid = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto mediana") # Link to mid size photos
-    pa_photo_small = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto pequeña") # Link to small size photos
+    #pa_photo_full = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto grande") # Link to large size photos
+    #pa_photo_mid = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto mediana") # Link to mid size photos
+    #pa_photo_small = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto pequeña") # Link to small size photos
     pa_reg_sanitario = models.CharField(max_length=100,blank=True,default="",verbose_name="Registro sanitario")
     pa_iamge = models.ImageField(upload_to='img_productos',blank=True)
 
