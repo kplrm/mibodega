@@ -1134,13 +1134,9 @@ def remove_product(request):
 
 def see_sales_detail(request):
     if request.method == "POST" and request.is_ajax():
-        print("posting_see...")
         product_id = request.POST.get('product_id',False)
         bodega_id = request.POST.get('bodega_id',False)
-        if product_id != False and bodega_id != False:
-            print("product_id: ",product_id)
-            print("bodega_id: ", bodega_id)
-            
+        if product_id != False and bodega_id != False:            
             # Retrieve bodega
             bodega = get_object_or_404(Bodega,bd_ID=bodega_id)
             try:
@@ -1153,6 +1149,8 @@ def see_sales_detail(request):
             print("trying...")
             for bodega_order in BodegaOrders_list:
                 print("entering for...")
+                print("bodega_order: ",bodega_order)
+                print("product_id: ",product_id)
                 item_list = get_list_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id)) # Take out the 'anulados'
                 print("item_list: ",item_list)
                 for item in item_list:
