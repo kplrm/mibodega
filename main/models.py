@@ -48,6 +48,7 @@ class ProductosAprobados(models.Model):
     pa_photo_mid = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto mediana") # Link to mid size photos
     pa_photo_small = models.CharField(max_length=200,blank=True,default='noPhoto',verbose_name="Foto pequeña") # Link to small size photos
     pa_reg_sanitario = models.CharField(max_length=100,blank=True,default="",verbose_name="Registro sanitario")
+    pa_iamge = models.ImageField(upload_to='img_productos',blank=True)
 
     @property
     def ProductosAprobados(self):
