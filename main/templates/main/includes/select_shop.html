@@ -23,9 +23,7 @@
             }
                 
             function getLocation() {
-
                 if(navigator.geolocation) {
-                
                 // timeout at 60000 milliseconds (60 seconds)
                 var options = {timeout:60000};
                 navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
@@ -35,8 +33,12 @@
             }
 
 
-
-            var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+            if (latitude != null) and (longitude != null) {
+                var map = L.map('mapid').setView([ latitude, longitude ], 14);
+            } else {
+                var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+            }
+                
         
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
