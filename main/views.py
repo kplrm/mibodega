@@ -46,12 +46,13 @@ def save_store_location(request):
         id_bodega = request.POST['id_bodega']
         request.session['id_bodega'] = id_bodega
         if request.user.is_authenticated:
-            print("Cliente identificado")
+#            print("Cliente identificado")
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             cliente.cl_bodega_ID = id_bodega
             cliente.save()
         else:
-            print("Usuario no identificado")
+            pass
+#            print("Usuario no identificado")
     else:
         message = "Not Ajax"
     return HttpResponse("")
@@ -68,14 +69,14 @@ def homepage(request):
     # Locate user and shops nearby.
     try:
         if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            print("Approx user location is known")
+#            print("Approx user location is known")
             user_longitude = request.session['user_longitude']
             user_latitude = request.session['user_latitude']
         else:
-            print("Approx user location is NOT known")
+#            print("Approx user location is NOT known")
             user_longitude, user_latitude = locate_user()
     except:
-        print("Location does not exist in the session")
+#        print("Location does not exist in the session")
         user_longitude, user_latitude = locate_user()
         request.session['user_longitude'] = user_longitude
         request.session['user_latitude'] = user_latitude
@@ -86,19 +87,19 @@ def homepage(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     try:
         if request.session['id_bodega'] == "Cercanas":
-            print("id_bodega is Empty")
+ #           print("id_bodega is Empty")
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True)[:20]
         elif request.session['id_bodega'] != "Cercanas":
-            print("There is an id_bodega in session")
+#            print("There is an id_bodega in session")
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
-            print("id_bodega is None")
+#            print("id_bodega is None")
     except:
-        print("id_bodega does not exist in the session")
+#        print("id_bodega does not exist in the session")
         request.session['id_bodega'] = "Cercanas"
         request.session['bodega_name'] = "Cercanas"
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-        print(str(":")+str(request.session['id_bodega'])+str(":"))
+#        print(str(":")+str(request.session['id_bodega'])+str(":"))
 
     # Bodega name to display
     if request.session['bodega_name'] == "Cercanas":
@@ -106,7 +107,8 @@ def homepage(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
     
     # Random shuffle the discount products
     temp = list(result_list)
@@ -163,7 +165,8 @@ def embutidos(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -237,7 +240,8 @@ def lacteos(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -311,7 +315,8 @@ def abarrotes(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -385,7 +390,8 @@ def limpieza(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
     
     # Paginator
     page = request.GET.get('page', 1)
@@ -459,7 +465,8 @@ def licores(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -533,7 +540,8 @@ def vegetales(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -588,7 +596,7 @@ def checkout(request):
 
     # Check if user is logged in
     if request.user.is_authenticated:
-        print("Cliente identificado")
+#        print("Cliente identificado")
         cliente = Cliente.objects.all().filter(cl_user=request.user).first()
     else:
         cliente = Cliente
@@ -614,7 +622,7 @@ def checkout(request):
             else:
                 subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
 
-    print(subtotal_bodegas)
+#    print(subtotal_bodegas)
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
                   context={'cliente': cliente,
@@ -682,7 +690,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     email.attach_alternative(html_content, "text/html")
     res = email.send()
 
-    print("Email enviado")
+#    print("Email enviado")
     return HttpResponse('%s'%res)
 
 def submit_checkout(request):
@@ -703,13 +711,15 @@ def submit_checkout(request):
         
         # Saves user data if there is a user
         if request.user.is_authenticated:
-            print("Cliente identificado")
+            pass
+#            print("Cliente identificado")
             # Lines to update clients data           ord_user
             #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             #cliente.cl_bodega_ID = id_bodega
             #cliente.save()
         else:
-            print("Usuario no identificado")
+            pass
+#            print("Usuario no identificado")
         
         # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
@@ -751,7 +761,8 @@ def submit_checkout(request):
         send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
     else:
-        print("Not Ajax")
+        pass
+#        print("Not Ajax")
     return redirect('main:homepage')
 
 def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
@@ -811,9 +822,11 @@ def session_cart_load_or_create(request):
 
 def remove_cart(request):
     if request.method== "GET":
-        print("a GET message arrived")
+        pass
+#        print("a GET message arrived")
     if request.method== "POST":
-        print("a POST message arrived")
+        pass
+#        print("a POST message arrived")
         
     item_pk = request.POST.get('item_pk', None)
     #url_to_redirect = request.POST.get('url_to_redirect', None)
@@ -838,7 +851,7 @@ def remove_cart(request):
     #return HttpResponse("")
 
 def cart_add(request):
-    print("Entrando en el update!")
+#    print("Entrando en el update!")
     # Retrieve on which object it was clicked
     product_pk = request.POST.get('product_id', None)
     if product_pk is not None:
@@ -846,16 +859,16 @@ def cart_add(request):
         product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
         cart_obj, new_obj =  Cart.objects.new_or_get(request)
         # Check if the product is already in the cart
-        print(product_obj)
+#        print(product_obj)
         qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
         if qs.count() == 1:
-            print("Ya está en el coche")
+#            print("Ya está en el coche")
             # INCREASE QUANTITY BY ONE
             cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
             cart_item.ci_quantity += 1
             cart_item.save()
         else:
-            print("Nuevo item en el coche!")
+#            print("Nuevo item en el coche!")
             cart_obj.crt_product.add(product_obj) # Add product to the cart
             cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
             cart_obj.crt_item.add(cart_item)
@@ -896,7 +909,6 @@ def dashboard(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
-        print("created? ", created)
 
         # Find BodegaOrders with their corresponding OrderItem
         try:
@@ -913,26 +925,20 @@ def dashboard(request):
                         pass
                     else:
                         OrderItem_list.append(item)
-            print("trying 0...")
         except:
             pass
-        print("OrderItem_list: ", OrderItem_list)
 
         # Update BodegaDashboard values
         try:
             update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
-            print("trying 0.1 ...")
         except:
             pass
 
         # Find the most sold products
-#        try:
-        most_sold_products = find_most_sold_products(OrderItem_list)
-        print("trying 1...")
-#        except:
-#            most_sold_products = []
-
-        print("most_sold_products: ", most_sold_products)
+        try:
+            most_sold_products = find_most_sold_products(OrderItem_list)
+        except:
+            most_sold_products = []
 
         try:
             top_list_size = 10
@@ -940,10 +946,8 @@ def dashboard(request):
                 top10_products = list(most_sold_products)[0:len(most_sold_products)]
             else:
                 top10_products = list(most_sold_products)[0:top_list_size]
-            print("trying 2...")
         except:
             top10_products = []
-        print("top10_products: ", top10_products)
 
         most_sold_products = list(most_sold_products)
 
@@ -979,7 +983,6 @@ def productos(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
-        print("created? ", created)
 
         # Find ProductosEnBodega
         try:
