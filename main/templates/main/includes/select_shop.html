@@ -8,16 +8,25 @@
         
         <div id="mapid"></div>
         <script type = "text/javascript">
+            // Initializes map
             var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
+            const customMarkerIcon = L.AwesomeMarkers.icon({
+                "extraClasses": "fa-rotate-0", 
+                "icon": "shopping-cart", 
+                "iconColor": "white", 
+                "markerColor": "orange", 
+                "prefix": "glyphicon"
+            });	
 
-            // Geolocation
+            // Get user geolocation
             function showLocation(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
                 map.panTo(new L.LatLng(latitude, longitude));
+                // Request for shops nearby user
                 $.ajax({
                     headers: {'X-CSRFToken': '{{ csrf_token }}'},
                     url: "/get_nearby_shops",
@@ -27,12 +36,22 @@
                         'latitude': latitude,
                         'longitude': longitude
                     },
-                    success: function(response){
-                        var msg = "";
+                    success: function(response){ // make a marker at the shops nearby
                         console.log(response);
+                        for (i = 0; i < response.success.length; i++) {
+                            
+                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {
+                            icon: customMarkerIcon
+                        }).addTo(map)
+                            .bindPopup( "{{ shop.bd_name }}" )
+                            .closePopup()
+                            //.on('click', function onClick(shop) {
+                            //    document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
+                            //    document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
+                            //});
+                        };
                     },
                     error: function(response){ // This triggers in case all items in the basket get unavailable
-                        var msg = "";
                         console.log(response);
                     }
                 });
@@ -54,23 +73,9 @@
                 }
             }
 
-            const customMarkerIcon = L.AwesomeMarkers.icon({
-                "extraClasses": "fa-rotate-0", 
-                "icon": "shopping-cart", 
-                "iconColor": "white", 
-                "markerColor": "orange", 
-                "prefix": "glyphicon"
-            });	
+            
             
             {% for shop in shops %}
-            var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
-                icon: customMarkerIcon
-            }).addTo(map)
-                .bindPopup( "{{ shop.bd_name }}" )
-                .closePopup()
-                .on('click', function onClick(shop) {
-                    document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
-                    document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
-                });
+            
             {% endfor %}
         </script>
