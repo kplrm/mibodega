@@ -1209,7 +1209,7 @@ def see_sales_detail(request):
 
 def unete(request):
     return render(request=request, # to reference request
-                  template_name="main/landingpage.html", # where to find the specifix template
+                  template_name="main/unete.html", # where to find the specifix template
                   )
 
 def get_nearby_shops(request):
