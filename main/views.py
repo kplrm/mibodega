@@ -152,7 +152,7 @@ def embutidos(request):
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
         elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega'],peb_status=True).all()
         else:
             pass
     except:
