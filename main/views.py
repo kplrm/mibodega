@@ -725,9 +725,12 @@ def submit_checkout(request):
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
             response_data = {"error": not_available_items }
+            print(response_data)
             return JsonResponse(response_data, status=400)
         elif cart_obj.crt_total_price >= 0:
+            print("cart is NOT empty!")
             response_data = {"success": not_available_items }
+            print(response_data)
             return JsonResponse(response_data, status=200)
 
         # Creates a new order
