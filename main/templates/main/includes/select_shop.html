@@ -18,8 +18,24 @@
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
                 map.panTo(new L.LatLng(latitude, longitude));
-                //alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
-            }
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/get_nearby_shops",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        'latitude': latitude,
+                        'longitude': longitude
+                    },
+                    success: function(response){
+                        var msg = "";
+                        console.log(response);
+                    },
+                    error: function(response){ // This triggers in case all items in the basket get unavailable
+                        var msg = "";
+                        console.log(response);
+                    }
+                });
             function errorHandler(err) {
                 if(err.code == 1) {
                 alert("Error: Access is denied!");
@@ -36,9 +52,7 @@
                 alert("Sorry, browser does not support geolocation!");
                 }
             }
-        
-            
-        
+
             const customMarkerIcon = L.AwesomeMarkers.icon({
                 "extraClasses": "fa-rotate-0", 
                 "icon": "shopping-cart", 
