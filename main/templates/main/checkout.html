@@ -463,9 +463,9 @@
                                 $("#popupModalBody").html('');
                                 $("#popupModalBody").append('Gracias por su compra');
                                 $('#popup_modal').modal({ show: true });
-                            } else if (response.success.length >= 0) {
-                                for (i = 0; i < response.responseJSON.success.length; i++) {
-                                    msg += "<li>" + String(response.responseJSON.success[i]) + "</li>"
+                            } else if (response.success.length > 0) {
+                                for (i = 0; i < response.success.length; i++) {
+                                    msg += "<li>" + String(response.success[i]) + "</li>"
                                 };
                                 $("#popupModalLabel").html('');
                                 $("#popupModalLabel").append('Su compra ha sido procesada');
