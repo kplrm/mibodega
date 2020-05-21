@@ -919,18 +919,19 @@ def dashboard(request):
         print("OrderItem_list: ", OrderItem_list)
 
         # Update BodegaDashboard values
-#        try:
-        update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
-        print("trying 0.1 ...")
-#        except:
-#            pass
+        try:
+            update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+            print("trying 0.1 ...")
+        except:
+            pass
 
         # Find the most sold products
-        try:
-            most_sold_products = find_most_sold_products(OrderItem_list)
-            print("trying 1...")
-        except:
-            most_sold_products = []
+#        try:
+        most_sold_products = find_most_sold_products(OrderItem_list)
+        print("trying 1...")
+#        except:
+#            most_sold_products = []
+
         print("most_sold_products: ", most_sold_products)
 
         try:
