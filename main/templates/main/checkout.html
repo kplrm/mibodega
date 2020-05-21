@@ -400,11 +400,11 @@
         </form>
         
         <!-- Modal -->
-        <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="trailModalLabel" aria-hidden="true">
+        <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="trailModalLabel">Trail</h5>
+                <h5 class="modal-title" id="popupModalLabel">Trail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -413,7 +413,7 @@
                 ...
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
             </div>
@@ -453,6 +453,7 @@
                             ;
                         },
                         error: function(response){
+                            $("#popupModalLabel").html('');
                             $('#popup_modal').modal({ show: true });
                             //alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:\r\n"+String(response.responseJSON.error));
                         },
