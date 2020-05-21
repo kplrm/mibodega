@@ -453,10 +453,16 @@
                             ;
                         },
                         error: function(response){
+                            var msg = "";
+                            for (i = 0; i < response.responseJSON.error.length; i++) {
+                                msg += String(response.responseJSON.error)
+                                msg += "<br>"
+                            };
+                            for 
                             $("#popupModalLabel").html('');
                             $("#popupModalLabel").append('Su compra ha sido procesada');
                             $("#popupModalBody").html('');
-                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+String(response.responseJSON.error));
+                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                             $('#popup_modal').modal({ show: true });
                         },
                         complete: function(response){
