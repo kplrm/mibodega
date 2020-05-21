@@ -455,7 +455,7 @@
                             console.log(response.success.length);
                             var msg = "";
                             try {
-                                for (i = 0; i < response.responseJSON..length; i++) {
+                                for (i = 0; i < response.responseJSON.success.length; i++) {
                                     msg += "<li>" + String(response.responseJSON.success[i]) + "</li>"
                                 };
                                 $("#popupModalLabel").html('');
