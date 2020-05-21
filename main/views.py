@@ -921,6 +921,7 @@ def dashboard(request):
         # Update BodegaDashboard values
         try:
             update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list)
+            print("trying 0.1 ...")
         except:
             pass
 
