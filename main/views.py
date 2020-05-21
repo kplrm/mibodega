@@ -722,7 +722,7 @@ def submit_checkout(request):
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
-            serialized_msg = json.dumps(not_available_items)
+            serialized_msg = list(json.dumps(not_available_items)) # always turn first to list  before serializing
             print(serialized_msg)
             return JsonResponse({"error": { "cart is empty", serialized_msg } }, status=400)
 
