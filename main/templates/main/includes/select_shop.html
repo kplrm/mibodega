@@ -33,7 +33,7 @@
             }
 
 
-            if (latitude != null) and (longitude != null) {
+            if ((latitude != null) && (longitude != null)) {
                 var map = L.map('mapid').setView([ latitude, longitude ], 14);
             } else {
                 var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
