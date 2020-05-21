@@ -1211,3 +1211,11 @@ def landingpage(request):
     return render(request=request, # to reference request
                   template_name="main/landingpage.html", # where to find the specifix template
                   )
+
+def get_nearby_shops(request):
+    if request.method == "POST" and request.is_ajax():
+        user_location = Point(user_longitude,user_latitude,srid=4326)
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        return JsonResponse({"success": tuple(shops)}, status=200)
+    else:
+        return JsonResponse({"error": "unknown"}, status=400)
