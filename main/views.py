@@ -709,6 +709,7 @@ def submit_checkout(request):
         # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
+        print("cart_list: ",cart_list)
         # Check for not available items
         not_available_items = []
         for item in cart_list:
@@ -720,7 +721,7 @@ def submit_checkout(request):
                 item.delete()
                 update_price(cart_obj)
         not_available_items = tuple(not_available_items)
-        print("not_available_items: ", not_available_items)
+        print("cart_list: ",cart_list)
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
