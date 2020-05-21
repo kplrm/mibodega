@@ -127,9 +127,11 @@
         <form id="checkout_form" action="" class="checkout-form">
             <div class="row">
                 <div class="col-lg-6">
+                    {% if user.is_authenticated == False %}
                     <div class="checkout-content">
                         <a href="/login" class="content-btn">Inicie sesión</a>
                     </div>
+                    {% endif %}
                     <h4>Sus datos</h4>
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
@@ -251,9 +253,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    {% if user.is_authenticated == False %}
                     <div class="checkout-content">
                         <a href="/register" class="content-btn">Regístrese</a>
                     </div>
+                    {% endif %}
 
                     <!-- CHECKOUT CART SECTION BEGIN -->
                     <script>
