@@ -710,15 +710,19 @@ def submit_checkout(request):
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
         # Check for not available items
+        not_available_items = []
         for item in cart_list:
             if item.ci_product.peb_status == False:
+                not_available_items.append( str(item.ci_product.peb_product.pa_product) )
                 peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
                 cart_obj.crt_product.remove(peb) # remove crt_product
                 cart_obj.crt_item.remove(item) # remove crt_item
                 item.delete()
                 update_price(cart_obj)
-                print("crt_total_price: ",cart_obj.crt_total_price)
-                # MISSING TO UPDATE PRICE
+
+        if cart_obj.crt_total_price == 0:
+            print("cart is empty!")
+            return JsonResponse({"error": "cart is empty", "removed": json.dumps(not_available_items)}, status=400)
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
