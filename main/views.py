@@ -1220,8 +1220,13 @@ def get_nearby_shops(request):
         print("user_longitude: ",user_longitude)
         user_location = Point(float(user_latitude),float(user_longitude),srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-        print("shops: ", shops)
-        print("shops[0]: ", shops[0])
-        return JsonResponse({"success": tuple(shops)}, status=200)
+        json_response = []
+        for shop in shops:
+            json_response.append( tuple(shop.bd_geolocation.x, shop.bd_geolocation.y) )
+            print("shop.bd_geolocation: ", shop.bd_geolocation)
+            print("shop.bd_geolocation.x: ", shop.bd_geolocation.x)
+            print("shop.bd_geolocation.y: ", shop.bd_geolocation.y)
+
+        return JsonResponse({"success": tuple(json_response)}, status=200)
     else:
         return JsonResponse({"error": "unknown"}, status=400)
