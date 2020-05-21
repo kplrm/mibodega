@@ -93,6 +93,7 @@ def homepage(request):
 #            print("There is an id_bodega in session")
             result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
+            pass
 #            print("id_bodega is None")
     except:
 #        print("id_bodega does not exist in the session")
