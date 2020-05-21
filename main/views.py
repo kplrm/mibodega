@@ -725,16 +725,16 @@ def submit_checkout(request):
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
-            response_data = {}
+            response_data = {"error": not_available_items }
             print("test 1")
-            response_data['error'] = 'error'
-            print("test 2")
-            response_data['message'] = not_available_items
-            print("test 3")
-            serialized_msg = json.dumps(not_available_items) # always turn first to list  before serializing
-            print("test 4")
-            print(serialized_msg)
-            return JsonResponse(serialized_msg, status=400)
+            #response_data['error'] = 'error'
+            #print("test 2")
+            #response_data['message'] = not_available_items
+            #print("test 3")
+            #serialized_msg = json.dumps(not_available_items) # always turn first to list  before serializing
+            #print("test 4")
+            #print(serialized_msg)
+            return JsonResponse(response_data, status=400)
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
