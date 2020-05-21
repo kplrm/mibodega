@@ -458,7 +458,7 @@
                                 console.log(err.message);
                             }
 
-                            if (response.success.length == 0) {
+                            if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                                 $("#popupModalLabel").html('');
                                 $("#popupModalLabel").append('Su compra ha sido procesada');
                                 $("#popupModalBody").html('');
@@ -471,11 +471,11 @@
                                 $("#popupModalLabel").html('');
                                 $("#popupModalLabel").append('Su compra ha sido procesada');
                                 $("#popupModalBody").html('');
-                                $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                                $("#popupModalBody").append('Gracias por su compra.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                                 $('#popup_modal').modal({ show: true });
                             }
                         },
-                        error: function(response){
+                        error: function(response){ // This triggers in case all items in the basket get unavailable
                             var msg = "";
                             for (i = 0; i < response.responseJSON.error.length; i++) {
                                 msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
@@ -485,15 +485,12 @@
                             $("#popupModalBody").html('');
                             $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                             $('#popup_modal').modal({ show: true });
-                        },
-                        complete: function(response){
-                            ;
                         }
                     });
-                } else if ({{cart_obj.crt_total_price}} == 0) {
+                } else if ({{cart_obj.crt_total_price}} == 0) { // In case basket is empty
                     alert("Su cesta se encuentra vacía");
                 } else {
-                    alert("Seleccione en el mapa su ubicación");
+                    alert("Seleccione en el mapa su ubicación"); // In case missing to select position
                 }
             }
         </script>
