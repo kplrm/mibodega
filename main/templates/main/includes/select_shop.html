@@ -8,7 +8,15 @@
             
         <div id="mapid"></div>
         <script>
-            var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            };
+
+            var map = L.map('mapid').setView([ position.coords.latitude, position.coords.longitude ], 14);
         
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
