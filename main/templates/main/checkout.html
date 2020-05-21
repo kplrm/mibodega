@@ -436,10 +436,13 @@
                             ;
                         },
                         error: function(response){
-                            var details = JSON.parse(response.error);
+                            //var details = JSON.parse(response.error);
                             console.log("error");
-                            console.log(details);
-                            alert(details);
+                            console.log(response);
+                            console.log(response['error']);
+                            //console.log(details);
+                            //alert(details);
+                            alert("error wujuuuu");
                         },
                         complete: function(response){
                             var details = JSON.parse(response.removed);
