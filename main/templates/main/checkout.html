@@ -450,6 +450,13 @@
                             // spare line to send confirmation if user wants to update his preferences
                         },
                         success: function(response){
+                            try {
+                                var res = response.success.length;
+                                console.log(res);
+                            } catch(err) {
+                                console.log(err.message);
+                            }
+
                             if (response.success.length == 0) {
                                 $("#popupModalLabel").html('');
                                 $("#popupModalLabel").append('Su compra ha sido procesada');
