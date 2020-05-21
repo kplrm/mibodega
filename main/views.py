@@ -708,8 +708,6 @@ def submit_checkout(request):
 
         # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-
-        print("cart_list 1: ",cart_list)
         # Check for not available items
         not_available_items = []
         for item in cart_list:
@@ -721,21 +719,15 @@ def submit_checkout(request):
                 item.delete()
                 update_price(cart_obj)
         not_available_items = tuple(not_available_items)
+        # Reload items from the basket after purging not available items
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-        print("cart_list 2: ",cart_list)
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
             response_data = {"error": not_available_items }
-            print("test 1")
-            #response_data['error'] = 'error'
-            #print("test 2")
-            #response_data['message'] = not_available_items
-            #print("test 3")
-            #serialized_msg = json.dumps(not_available_items) # always turn first to list  before serializing
-            #print("test 4")
-            #print(serialized_msg)
             return JsonResponse(response_data, status=400)
+        elif cart_obj.crt_total_price >= 0:
+            response_data = {"success": not_available_items }
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
