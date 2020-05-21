@@ -712,7 +712,7 @@ def submit_checkout(request):
 
         # Check for not available items
         for item in cart_list:
-            if item.ci_product.peb_status = False:
+            if item.ci_product.peb_status == False:
                 print("delete object")
                 item.delete()
 
