@@ -728,6 +728,7 @@ def submit_checkout(request):
             return JsonResponse(response_data, status=400)
         elif cart_obj.crt_total_price >= 0:
             response_data = {"success": not_available_items }
+            return JsonResponse(response_data, status=200)
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
