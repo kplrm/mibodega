@@ -158,7 +158,7 @@ def embutidos(request):
     except:
         request.session['id_bodega'] = "Cercanas"
         request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_status=True)[:20]
 
     # Bodega name to display
     if request.session['bodega_name'] == "Cercanas":
