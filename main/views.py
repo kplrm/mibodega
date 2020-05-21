@@ -713,14 +713,12 @@ def submit_checkout(request):
         not_available_items = []
         for item in cart_list:
             if item.ci_product.peb_status == False:
-                print("item: ", item.ci_product.peb_product.pa_product)
                 not_available_items.append( str(item.ci_product.peb_product.pa_product) )
                 peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
                 cart_obj.crt_product.remove(peb) # remove crt_product
                 cart_obj.crt_item.remove(item) # remove crt_item
                 item.delete()
                 update_price(cart_obj)
-        print("not_available_items: ", not_available_items)
         not_available_items = tuple(not_available_items)
         print("not_available_items: ", not_available_items)
 
