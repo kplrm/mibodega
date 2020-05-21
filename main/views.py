@@ -719,6 +719,9 @@ def submit_checkout(request):
                 cart_obj.crt_item.remove(item) # remove crt_item
                 item.delete()
                 update_price(cart_obj)
+        print("not_available_items: ", not_available_items)
+        not_available_items = tuple(not_available_items)
+        print("not_available_items: ", not_available_items)
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
@@ -728,7 +731,7 @@ def submit_checkout(request):
             print("test 2")
             response_data['message'] = not_available_items
             print("test 3")
-            serialized_msg = json.dumps(list(not_available_items)) # always turn first to list  before serializing
+            serialized_msg = json.dumps(not_available_items) # always turn first to list  before serializing
             print("test 4")
             print(serialized_msg)
             return JsonResponse(serialized_msg, status=400)
