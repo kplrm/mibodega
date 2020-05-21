@@ -913,8 +913,10 @@ def dashboard(request):
                         pass
                     else:
                         OrderItem_list.append(item)
+            print("trying 0...")
         except:
             pass
+        print("OrderItem_list: ", OrderItem_list)
 
         # Update BodegaDashboard values
         try:
