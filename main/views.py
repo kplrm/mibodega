@@ -88,10 +88,10 @@ def homepage(request):
     try:
         if request.session['id_bodega'] == "Cercanas":
  #           print("id_bodega is Empty")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True)[:20]
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
         elif request.session['id_bodega'] != "Cercanas":
 #            print("There is an id_bodega in session")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
             pass
 #            print("id_bodega is None")
@@ -222,7 +222,7 @@ def lacteos(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -297,7 +297,7 @@ def abarrotes(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -372,7 +372,7 @@ def limpieza(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -447,7 +447,7 @@ def licores(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -522,7 +522,7 @@ def vegetales(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
