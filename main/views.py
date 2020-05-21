@@ -714,6 +714,7 @@ def submit_checkout(request):
         for item in cart_list:
             if item.ci_product.peb_status == False:
                 print("delete object")
+                cart_obj.remove(item)
                 item.delete()
 
         # Creates a new order
