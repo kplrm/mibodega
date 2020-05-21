@@ -596,7 +596,6 @@ def checkout(request):
 
     # Check if user is logged in
     if request.user.is_authenticated:
-#        print("Cliente identificado")
         cliente = Cliente.objects.all().filter(cl_user=request.user).first()
     else:
         cliente = Cliente
@@ -706,6 +705,16 @@ def submit_checkout(request):
         usr_phone = request.POST['usr_phone']
         usr_comments = request.POST['usr_comments']
 
+        # Get items from the basket
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        print("cart_list",cart_list)
+
+        # Check for not available items
+        for item in cart_list:
+            if item.ci_product.peb_status = False:
+                print("delete object")
+                item.delete()
+
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
         
@@ -721,8 +730,7 @@ def submit_checkout(request):
             pass
 #            print("Usuario no identificado")
         
-        # Get items from the basket
-        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        
 
         # Crate a new bodegaorder for every bodega in the basket
         bodegas = dict()
