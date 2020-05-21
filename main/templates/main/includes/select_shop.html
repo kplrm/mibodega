@@ -8,30 +8,6 @@
         
         <div id="mapid"></div>
         <script type = "text/javascript">
-            function showLocation(position) {    
-                document.getElementById("Latitude").value = position.coords.latitude;
-                document.getElementById("Longitude").value = longitude = position.coords.longitude;
-                alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
-            }
-
-            function errorHandler(err) {
-                if(err.code == 1) {
-                alert("Error: Access is denied!");
-                } else if( err.code == 2) {
-                alert("Error: Position is unavailable!");
-                }
-            }
-                
-            function getLocation() {
-                if(navigator.geolocation) {
-                // timeout at 60000 milliseconds (60 seconds)
-                var options = {timeout:60000};
-                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-                } else {
-                alert("Sorry, browser does not support geolocation!");
-                }
-            }
-
             console.log("WWWWWWW");
             console.log(document.getElementById("Latitude").value);
             console.log(document.getElementById("Longitude").value);
