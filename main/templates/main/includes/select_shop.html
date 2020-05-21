@@ -7,15 +7,30 @@
         <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled> <!--change to type hidden to hide-->
             
         <div id="mapid"></div>
-        <script>
-            function showPosition() {
+        <script type = "text/javascript">
+            function showLocation(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                alert("Latitude : " + latitude + " Longitude: " + longitude);
+            }
+
+            function errorHandler(err) {
+                if(err.code == 1) {
+                alert("Error: Access is denied!");
+                } else if( err.code == 2) {
+                alert("Error: Position is unavailable!");
+                }
+            }
+                
+            function getLocation() {
+
                 if(navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
-                        document.getElementById("result").innerHTML = positionInfo;
-                    });
+                
+                // timeout at 60000 milliseconds (60 seconds)
+                var options = {timeout:60000};
+                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
                 } else {
-                    alert("Sorry, your browser does not support HTML5 geolocation.");
+                alert("Sorry, browser does not support geolocation!");
                 }
             }
 
