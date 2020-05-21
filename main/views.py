@@ -714,9 +714,10 @@ def submit_checkout(request):
             if item.ci_product.peb_status == False:
                 print("delete object")
                 peb = ProductosEnBodega.objects.all().filter(pk=item.ci_product.pk).all()
-                cart_obj.remove(peb) # remove crt_product
-                cart_obj.remove(item) # remove crt_item
+                cart_obj.crt_product.remove(peb) # remove crt_product
+                cart_obj.crt_item.remove(item) # remove crt_item
                 item.delete()
+                # MISSING TO UPDATE PRICE
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
