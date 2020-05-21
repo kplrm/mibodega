@@ -34,5 +34,5 @@ urlpatterns = [
     path("dashboard/remove_product", views.remove_product, name="remove_product"),
 
     # Landing page
-    path("landingpage", views.landingpage, name="landingpage"),
+    path("unete", views.unete, name="unete"),
 ]

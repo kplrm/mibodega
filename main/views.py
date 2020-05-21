@@ -1207,7 +1207,7 @@ def see_sales_detail(request):
         else:
             return JsonResponse({"error": "no product detail"}, status=400)
 
-def landingpage(request):
+def unete(request):
     return render(request=request, # to reference request
                   template_name="main/landingpage.html", # where to find the specifix template
                   )
@@ -1216,17 +1216,11 @@ def get_nearby_shops(request):
     if request.method == "POST" and request.is_ajax():
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
-        print("user_latitude: ",user_latitude)
-        print("user_longitude: ",user_longitude)
         user_location = Point(float(user_latitude),float(user_longitude),srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         json_response = []
         for shop in shops:
             json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x) )
-            print("shop.bd_geolocation: ", shop.bd_geolocation)
-            print("shop.bd_geolocation.x: ", shop.bd_geolocation.x)
-            print("shop.bd_geolocation.y: ", shop.bd_geolocation.y)
-
         return JsonResponse({"success": tuple(json_response)}, status=200)
     else:
         return JsonResponse({"error": "unknown"}, status=400)
