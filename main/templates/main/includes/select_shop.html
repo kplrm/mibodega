@@ -11,14 +11,9 @@
         <input type="hidden" id="Longitude" disabled>
         <div id="mapid"></div>
         <script type = "text/javascript">
-            
-            var latitude = 0;
-            var longitude = 0;
-            
             function showLocation(position) {    
                 document.getElementById("Latitude").value = position.coords.latitude;
                 document.getElementById("Longitude").value = longitude = position.coords.longitude;
-                
                 alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
             }
 
@@ -40,8 +35,8 @@
                 }
             }
 
-            console.log(latitude);
-            console.log(longitude);
+            console.log(document.getElementById("Latitude").value);
+            console.log(document.getElementById("Longitude").value);
             if ((document.getElementById("Latitude").value != "") && (document.getElementById("Longitude").value != "")) {
                 var map = L.map('mapid').setView([ latitude, longitude ], 14);
             } else {
