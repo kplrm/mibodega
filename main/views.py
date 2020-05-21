@@ -1218,7 +1218,7 @@ def get_nearby_shops(request):
         user_longitude = request.POST.get('longitude',False)
         print("user_latitude: ",user_latitude)
         print("user_latitude: ",user_latitude)
-        user_location = Point(user_latitude,user_longitude,srid=4326)
+        user_location = Point(float(user_latitude),float(user_longitude),srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         return JsonResponse({"success": tuple(shops)}, status=200)
     else:
