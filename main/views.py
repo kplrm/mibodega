@@ -722,9 +722,12 @@ def submit_checkout(request):
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
-            serialized_msg = list(json.dumps(not_available_items)) # always turn first to list  before serializing
+            response_data = {}
+            response_data['error'] = 'error'
+            response_data['message'] = not_available_items
+            serialized_msg = json.dumps(not_available_items) # always turn first to list  before serializing
             print(serialized_msg)
-            return JsonResponse({"error": { "cart is empty", serialized_msg } }, status=400)
+            return JsonResponse(serialized_msg, status=400)
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
