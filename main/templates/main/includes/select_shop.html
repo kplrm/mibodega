@@ -8,15 +8,30 @@
         
         <div id="mapid"></div>
         <script type = "text/javascript">
-            console.log("WWWWWWW");
-            console.log(document.getElementById("Latitude").value);
-            console.log(document.getElementById("Longitude").value);
-            if ((document.getElementById("Latitude").value == "") && (document.getElementById("Longitude").value == "")) {
-                var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
-            } else {
+            var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+            // Geolocation
+            function showLocation(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
                 var map = L.map('mapid').setView([ latitude, longitude ], 14);
+                //alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
             }
-                
+            function errorHandler(err) {
+                if(err.code == 1) {
+                alert("Error: Access is denied!");
+                } else if( err.code == 2) {
+                alert("Error: Position is unavailable!");
+                }
+            }
+            function getLocation() {
+                if(navigator.geolocation) {
+                // timeout at 60000 milliseconds (60 seconds)
+                var options = {timeout:60000};
+                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+                } else {
+                alert("Sorry, browser does not support geolocation!");
+                }
+            }
         
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
