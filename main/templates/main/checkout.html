@@ -398,10 +398,27 @@
                 </div>
             </div>
         </form>
-        <!--
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        -->
+        
+        <!-- Modal -->
+        <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="trailModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="trailModalLabel">Trail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                ...
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
         <script type="text/javascript">
             function submit_checkout() {
                 cart_obj_id = {{ cart_obj.crt_ID }};
@@ -436,13 +453,8 @@
                             ;
                         },
                         error: function(response){
-                            //var details = JSON.parse(response.error);
-                            console.log("error");
-                            console.log(response);
-                            console.log(response.responseJSON.error);
-                            //console.log(details);
-                            //alert(details);
-                            alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:\r\n"+String(response.responseJSON.error));
+                            $('#popup_modal').modal({ show: true });
+                            //alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:\r\n"+String(response.responseJSON.error));
                         },
                         complete: function(response){
                             ;
