@@ -5,16 +5,21 @@
         <input type="text" class="form-control" id="bodega_name" value="Cercanas" disabled>
         <p><br></p>
         <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled> <!--change to type hidden to hide-->
-            
+        
+
+        <input type="hidden" id="Latitude" disabled>
+        <input type="hidden" id="Longitude" disabled>
         <div id="mapid"></div>
         <script type = "text/javascript">
+            
             var latitude = 0;
             var longitude = 0;
             
             function showLocation(position) {    
-                latitude = position.coords.latitude;
-                longitude = position.coords.longitude;
-                alert("Latitude : " + latitude + " Longitude: " + longitude);
+                document.getElementById("Latitude").value = position.coords.latitude;
+                document.getElementById("Longitude").value = longitude = position.coords.longitude;
+                
+                alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
             }
 
             function errorHandler(err) {
@@ -37,7 +42,7 @@
 
             console.log(latitude);
             console.log(longitude);
-            if ((latitude != 0) && (longitude != 0)) {
+            if ((document.getElementById("Latitude").value != "") && (document.getElementById("Longitude").value != "")) {
                 var map = L.map('mapid').setView([ latitude, longitude ], 14);
             } else {
                 var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
