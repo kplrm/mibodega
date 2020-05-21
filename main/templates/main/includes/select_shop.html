@@ -38,10 +38,10 @@
             console.log("WWWWWWW");
             console.log(document.getElementById("Latitude").value);
             console.log(document.getElementById("Longitude").value);
-            if ((document.getElementById("Latitude").value != "") && (document.getElementById("Longitude").value != "")) {
-                var map = L.map('mapid').setView([ latitude, longitude ], 14);
-            } else {
+            if ((document.getElementById("Latitude").value == "") && (document.getElementById("Longitude").value == "")) {
                 var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+            } else {
+                var map = L.map('mapid').setView([ latitude, longitude ], 14);
             }
                 
         
