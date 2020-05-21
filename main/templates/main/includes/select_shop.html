@@ -13,7 +13,7 @@
             function showLocation(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
-                var map = L.map('mapid').setView([ latitude, longitude ], 14);
+                map = L.map('mapid').setView([ latitude, longitude ], 14);
                 //alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
             }
             function errorHandler(err) {
