@@ -456,7 +456,7 @@
                             $("#popupModalLabel").html('');
                             $("#popupModalLabel").append('Su compra ha sido procesada');
                             $("#popupModalBody").html('');
-                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:\r\n'+String(response.responseJSON.error));
+                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+String(response.responseJSON.error));
                             $('#popup_modal').modal({ show: true });
                         },
                         complete: function(response){
