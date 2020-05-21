@@ -442,7 +442,7 @@
                             console.log(response.responseJSON.error);
                             //console.log(details);
                             //alert(details);
-                            alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:" + newLine + response.responseJSON.error);
+                            alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:" + newLine + String(response.responseJSON.error));
                         },
                         complete: function(response){
                             ;
