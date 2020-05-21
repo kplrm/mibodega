@@ -1216,7 +1216,7 @@ def get_nearby_shops(request):
     if request.method == "POST" and request.is_ajax():
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
-        user_location = Point(user_longitude,user_latitude,srid=4326)
+        user_location = Point(user_latitude,user_longitude,srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         return JsonResponse({"success": tuple(shops)}, status=200)
     else:
