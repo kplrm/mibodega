@@ -716,8 +716,11 @@ def submit_checkout(request):
                 peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all()
                 print("step 1")
                 cart_obj.crt_product.remove(peb) # remove crt_product
+                print("step 2")
                 cart_obj.crt_item.remove(item) # remove crt_item
+                print("step 3")
                 item.delete()
+                print("step 4")
                 # MISSING TO UPDATE PRICE
 
         # Creates a new order
