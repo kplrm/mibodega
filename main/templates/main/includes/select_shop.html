@@ -9,11 +9,15 @@
         <div id="mapid"></div>
         <script type = "text/javascript">
             var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
             // Geolocation
             function showLocation(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
-                map = L.map('mapid').panTo([ latitude, longitude ], 14);
+                map.panTo(new L.LatLng(latitude, longitude));
                 //alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
             }
             function errorHandler(err) {
@@ -33,9 +37,7 @@
                 }
             }
         
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+            
         
             const customMarkerIcon = L.AwesomeMarkers.icon({
                 "extraClasses": "fa-rotate-0", 
