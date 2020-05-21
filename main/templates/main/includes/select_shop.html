@@ -8,13 +8,19 @@
             
         <div id="mapid"></div>
         <script>
-            function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition);
+            function showPosition() {
+                if(navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var positionInfo = "Your current position is (" + "Latitude: " + position.coords.latitude + ", " + "Longitude: " + position.coords.longitude + ")";
+                        document.getElementById("result").innerHTML = positionInfo;
+                    });
                 } else {
-                    x.innerHTML = "Geolocation is not supported by this browser.";
+                    alert("Sorry, your browser does not support HTML5 geolocation.");
                 }
-            };
+            }
+
+
+            
             console.log(position.coords.latitude);
             console.log(position.coords.longitude);
             var map = L.map('mapid').setView([ position.coords.latitude, position.coords.longitude ], 14);
