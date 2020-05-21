@@ -15,7 +15,8 @@
                     x.innerHTML = "Geolocation is not supported by this browser.";
                 }
             };
-
+            console.log(position.coords.latitude);
+            console.log(position.coords.longitude);
             var map = L.map('mapid').setView([ position.coords.latitude, position.coords.longitude ], 14);
         
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
