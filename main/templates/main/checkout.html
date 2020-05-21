@@ -450,7 +450,7 @@
                             // spare line to send confirmation if user wants to update his preferences
                         },
                         success: function(response){
-                            console.log(response.responseJSON);
+                            console.log(response.responseJSON.success.length);
                             var msg = "";
                             for (i = 0; i < response.responseJSON.success.length; i++) {
                                 msg += "<li>" + String(response.responseJSON.success[i]) + "</li>"
