@@ -1077,7 +1077,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     if last_month_sales != 0:
         monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
     else:
-        daily_change_sales = 0
+        monthly_change_sales = 0
 
     # Save object
     BodegaDashboard_obj.bd_daily_sales = today_sales
