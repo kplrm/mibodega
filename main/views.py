@@ -29,7 +29,7 @@ from dateutil.relativedelta import relativedelta
 
 import base64
 import requests
-import decimal
+from decimal import *
 import re # regex
 
 import json
