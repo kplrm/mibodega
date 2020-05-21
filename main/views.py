@@ -712,15 +712,12 @@ def submit_checkout(request):
         # Check for not available items
         for item in cart_list:
             if item.ci_product.peb_status == False:
-                print("delete object")
                 peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
-                print("step 1")
                 cart_obj.crt_product.remove(peb) # remove crt_product
-                print("step 2")
                 cart_obj.crt_item.remove(item) # remove crt_item
-                print("step 3")
                 item.delete()
-                print("step 4")
+                update_price(cart_obj)
+                print("crt_total_price: ",cart_obj.crt_total_price)
                 # MISSING TO UPDATE PRICE
 
         # Creates a new order
@@ -775,11 +772,13 @@ def submit_checkout(request):
             order_item.save()
 
         send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+        return JsonResponse({"success": ""}, status=200)
 
     else:
-        pass
+        return JsonResponse({"error": "something went wrong"}, status=400)
 #        print("Not Ajax")
-    return redirect('main:homepage')
+    #return redirect('main:homepage')
+    
 
 def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
