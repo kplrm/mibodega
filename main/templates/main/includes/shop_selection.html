@@ -1,35 +1,6 @@
 <div class="col-lg-5 col-md-5 col-sm-3 align-self-center text-right">
     {% if id_bodega_text == "Cercanas" %}Seleccione su bodega{% else %}{{ id_bodega_text }}{% endif %}
 </div>
-<!-- Geolocation -->
-<input type="text" id="Latitude" disabled>
-<input type="text" id="Longitude" disabled>
-<script>
-    function showLocation(position) {
-        document.getElementById("Latitude").value = position.coords.latitude;
-        document.getElementById("Longitude").value = longitude = position.coords.longitude;
-        alert("Latitude : " + document.getElementById("Latitude").value + " Longitude: " + document.getElementById("Longitude").value);
-    }
-
-    function errorHandler(err) {
-        if(err.code == 1) {
-        alert("Error: Access is denied!");
-        } else if( err.code == 2) {
-        alert("Error: Position is unavailable!");
-        }
-    }
-        
-    function getLocation() {
-        if(navigator.geolocation) {
-        // timeout at 60000 milliseconds (60 seconds)
-        var options = {timeout:60000};
-        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-        } else {
-        alert("Sorry, browser does not support geolocation!");
-        }
-    }
-</script>
-
 <div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
     <ul class="nav-right">
         <li class="heart-icon">
