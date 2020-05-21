@@ -147,18 +147,18 @@ def embutidos(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
         elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega'],peb_status=True).all()
+            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
         else:
             pass
     except:
         request.session['id_bodega'] = "Cercanas"
         request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_status=True)[:20]
+        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
 
     # Bodega name to display
     if request.session['bodega_name'] == "Cercanas":
