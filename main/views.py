@@ -925,8 +925,10 @@ def dashboard(request):
         # Find the most sold products
         try:
             most_sold_products = find_most_sold_products(OrderItem_list)
+            print("trying 1...")
         except:
             most_sold_products = []
+        print("most_sold_products: ", most_sold_products)
 
         try:
             top_list_size = 10
@@ -934,8 +936,11 @@ def dashboard(request):
                 top10_products = list(most_sold_products)[0:len(most_sold_products)]
             else:
                 top10_products = list(most_sold_products)[0:top_list_size]
+            print("trying 2...")
         except:
             top10_products = []
+        print("top10_products: ", top10_products)
+
         most_sold_products = list(most_sold_products)
 
         ################################# PAGE CONTENT END #################################
