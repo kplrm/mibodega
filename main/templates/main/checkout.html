@@ -442,13 +442,10 @@
                             console.log(response.responseJSON.error);
                             //console.log(details);
                             //alert(details);
-                            alert("error wujuuuu");
+                            alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:" + newLine + response.responseJSON.error);
                         },
                         complete: function(response){
-                            var details = JSON.parse(response.removed);
-                            console.log("removed");
-                            console.log(details);
-                            alert(details);
+                            ;
                         }
                     });
                 } else {
