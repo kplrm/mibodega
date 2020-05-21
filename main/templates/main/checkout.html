@@ -437,10 +437,14 @@
                         },
                         error: function(response){
                             var details = JSON.parse(response.error);
+                            console.log("error");
+                            console.log(details);
                             alert(details);
                         },
                         removed: function(response){
                             var details = JSON.parse(response.removed);
+                            console.log("removed");
+                            console.log(details);
                             alert(details);
                         }
                     });

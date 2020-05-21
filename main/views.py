@@ -722,7 +722,7 @@ def submit_checkout(request):
 
         if cart_obj.crt_total_price == 0:
             print("cart is empty!")
-            return JsonResponse({"error": "cart is empty", "removed": json.dumps(not_available_items)}, status=400)
+            return JsonResponse({"error": "cart is empty", "removed": str(json.dumps(not_available_items))}, status=400)
 
         # Creates a new order
         orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
