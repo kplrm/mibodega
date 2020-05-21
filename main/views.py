@@ -708,13 +708,14 @@ def submit_checkout(request):
 
         # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-        print("cart_list",cart_list)
 
         # Check for not available items
         for item in cart_list:
             if item.ci_product.peb_status == False:
                 print("delete object")
-                cart_obj.remove(item)
+                peb = ProductosEnBodega.objects.all().filter(pk=item.ci_product.pk).all()
+                cart_obj.remove(peb) # remove crt_product
+                cart_obj.remove(item) # remove crt_item
                 item.delete()
 
         # Creates a new order
