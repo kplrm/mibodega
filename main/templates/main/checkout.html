@@ -454,6 +454,7 @@
                         },
                         error: function(response){
                             $("#popupModalLabel").html('');
+                            $("#popupModalLabel").append('Titulo');
                             $('#popup_modal').modal({ show: true });
                             //alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:\r\n"+String(response.responseJSON.error));
                         },
