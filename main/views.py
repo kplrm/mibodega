@@ -713,7 +713,7 @@ def submit_checkout(request):
         for item in cart_list:
             if item.ci_product.peb_status == False:
                 print("delete object")
-                peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all()
+                peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
                 print("step 1")
                 cart_obj.crt_product.remove(peb) # remove crt_product
                 print("step 2")
