@@ -409,7 +409,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="popupModalBody">
                 ...
                 </div>
                 <div class="modal-footer">
@@ -454,9 +454,10 @@
                         },
                         error: function(response){
                             $("#popupModalLabel").html('');
-                            $("#popupModalLabel").append('Titulo');
+                            $("#popupModalLabel").append('Su compra ha sido procesada');
+                            $("#popupModalBody").html('');
+                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:\r\n'+String(response.responseJSON.error));
                             $('#popup_modal').modal({ show: true });
-                            //alert("Su compra ha sido procesada, pero los siguientes productos ya no se enccuentran disponibles:\r\n"+String(response.responseJSON.error));
                         },
                         complete: function(response){
                             ;
