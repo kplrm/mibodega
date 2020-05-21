@@ -455,7 +455,7 @@
                         error: function(response){
                             var msg = "";
                             for (i = 0; i < response.responseJSON.error.length; i++) {
-                                msg += String(response.responseJSON.error)
+                                msg += String(response.responseJSON.error[i])
                                 msg += "<br>"
                             };
                             $("#popupModalLabel").html('');
