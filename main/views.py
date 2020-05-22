@@ -691,7 +691,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     res = email.send()
 
     print("Email enviado")
-#    return HttpResponse('%s'%res)
+    return HttpResponse('%s'%res)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
