@@ -161,7 +161,7 @@
 
                 <br>
                 <div style="padding: 25px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
-                    {{ bodegaorders_obj.bo_bodega.bd_name }}
+                    {{ bodega_obj.bd_name }}
                 </div>
                 <br>
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
@@ -186,7 +186,7 @@
                         <td>
                             <!-- BODEGA LISTING -->
                             {% for product in result_list %}
-                                {% if product.oi_id_bodega == bodegaorders_obj.bo_bodega.bd_ID %}
+                                {% if product.oi_id_bodega == bodega_obj.bd_ID %} <!-- To remove. double check necesary? -->
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
                                             <!-- LEFT COLUMN -->
@@ -264,7 +264,7 @@
                                 <td align="left" style="padding: 7px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
                                     Cualquier cambio o devolución, coordinar directamente con la bodega.
                                     <br>La bodega se contactará con ud. para coordinar el despacho o recojo en tienda de la compra.
-                                    <br>{{ bodegaorders_obj.bo_bodega.bd_name }}<a href="tel:{{ bodegaorders_obj.bo_bodega.bd_phone }}"> Tel:{{ bodegaorders_obj.bo_bodega.bd_phone }}</a>
+                                    <br>{{ bodega_obj.bd_name }}<a href="tel:{{ bodega_obj.bd_phone }}"> Tel:{{ bodega_obj.bd_phone }}</a>
                                 </td>
                             </tr>
                             <tr>
