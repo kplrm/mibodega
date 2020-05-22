@@ -39,15 +39,16 @@
                     success: function(response){ // make a marker at the shops nearby
                         console.log(response);
                         for (i = 0; i < response.success.length; i++) {
-                            
+                            var bd_name = response.success[i][2];
+                            var bd_id = response.success[i][3];
                             var marker = L.marker([ response.success[i][0],response.success[i][1] ], {
                             icon: customMarkerIcon
                         }).addTo(map)
                             .bindPopup( response.success[i][2] )
                             .closePopup()
                             .on('click', function onClick(shop) {
-                                document.getElementById("bodega_name").value = response.success[i][2];
-                                document.getElementById("bodega_id").value = response.success[i][3];
+                                document.getElementById("bodega_name").value = bd_name;
+                                document.getElementById("bodega_id").value = bd_id;
                             });
                         };
                     },
