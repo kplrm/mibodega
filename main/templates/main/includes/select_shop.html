@@ -46,7 +46,7 @@
                             var marker = L.marker([ response.success[i][0],response.success[i][1] ], {
                             icon: customMarkerIcon
                         }).addTo(map)
-                            .bindPopup( response.success[i][2] )
+                            .bindPopup( bd_name[i] )
                             .closePopup()
                             .on('click', function onClick(shop) {
                                 document.getElementById("bodega_name").value = bd_name[i];
