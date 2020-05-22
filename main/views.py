@@ -1213,7 +1213,6 @@ def unete(request):
                   )
 
 def get_nearby_shops(request):
-    
     if request.method == "POST" and request.is_ajax():
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
