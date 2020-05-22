@@ -689,20 +689,15 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
                                 to=[usr_email], body="text_body")
     email.attach_alternative(html_content, "text/html")
     res = email.send()
-    print("Email enviado a cliente")
+#    print("Email enviado a cliente")
 
     # Send mail to bodegas
     for bodega_id in bodegas:
         # Get the bodega object from bodega string
         bodega_obj = get_object_or_404(Bodega,bd_ID=bodega_id)
-        print("bodega_obj: ", bodega_obj)
         # Retrieve all corresponding cart products
-        print("bodega_obj_type: ", type(bodega_obj))
         result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID__bo_bodega=bodega_obj).all()
-        print("result_list: ", result_list)
         bodegaorder_obj = get_object_or_404(BodegaOrders,bo_order=orders_obj)
-        print("bodegaorder_obj: ", bodegaorder_obj)
-        print("bodegaorder_obj_type: ", type(bodegaorder_obj))
         context = {
             'orders_obj': orders_obj,
             'bodega_obj': bodega_obj,
@@ -726,12 +721,8 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
                                     to=[usr_email], body="text_body")
         email.attach_alternative(html_content, "text/html")
         res = email.send()
-        print("Email enviado a Bodega")
+#        print("Email enviado a Bodega")
 
-        
-
-
-    print("Email enviado")
     return HttpResponse('%s'%res)
 
 def submit_checkout(request):
@@ -824,6 +815,12 @@ def submit_checkout(request):
 
             # Send email to client and bodegas
             send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+
+            # Delete current cart and its associated items before submitting
+            cart_obj.delete()
+            for item in cart_list:
+                print(type(item))
+                item.delete()
 
             # Send JsonResponse
             response_data = {"success": not_available_items }
