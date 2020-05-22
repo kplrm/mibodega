@@ -697,7 +697,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         bodega_obj = get_object_or_404(Bodega,bd_ID=bodega_id)
         # Retrieve all corresponding cart products
         result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID__bo_bodega=bodega_obj).all()
-        bodegaorder_obj = get_object_or_404(BodegaOrders,bo_order=orders_obj)
+        bodegaorder_obj = get_object_or_404(BodegaOrders,bo_order=orders_obj,bo_bodega=bodega_obj)
         context = {
             'orders_obj': orders_obj,
             'bodega_obj': bodega_obj,
