@@ -43,14 +43,15 @@
                         for (i = 0; i < response.success.length; i++) {
                             //bd_name.push(response.success[i][2]);
                             //bd_id.push(response.success[i][3]);
-                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bodega_name: response.success[i][2]})
+                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2]})
                             .addTo(map)
                             .bindPopup( response.success[i][2] )
                             .closePopup()
                             .on('click', function onClick(e) {
-                                document.getElementById("bodega_name").value = this.bodega_name;
+                                document.getElementById("bodega_name").value = this.bd_name;
                                 //document.getElementById("bodega_id").value = bd_id[i];
                             });
+                            console.log(marker);
                         };
                     },
                     error: function(response){ // This triggers in case all items in the basket get unavailable
