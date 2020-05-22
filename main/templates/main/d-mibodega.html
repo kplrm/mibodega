@@ -161,14 +161,14 @@
         console.log("Entrando a guardar");
         if ($("#mibodega_update").validate().form()) {
             console.log("dentro de validate");
-            cl_first_name = document.getElementById("cl_first_name");
-            cl_last_name = document.getElementById("cl_last_name");
-            bd_is_active = document.getElementById("bd_is_active");
-            bd_name = document.getElementById("bd_name");
-            bd_ruc = document.getElementById("bd_ruc");
-            bd_raz_soc = document.getElementById("bd_raz_soc");
-            bd_email = document.getElementById("bd_email");
-            bd_phone = document.getElementById("bd_phone");
+            cl_first_name = document.getElementById("cl_first_name").value;
+            cl_last_name = document.getElementById("cl_last_name").value;
+            bd_is_active = document.getElementById("bd_is_active").checked;
+            bd_name = document.getElementById("bd_name").value;
+            bd_ruc = document.getElementById("bd_ruc").value;
+            bd_raz_soc = document.getElementById("bd_raz_soc").value;
+            bd_email = document.getElementById("bd_email").value;
+            bd_phone = document.getElementById("bd_phone").value;
             console.log(cl_first_name);
             console.log(cl_last_name);
             console.log(bd_is_active);
