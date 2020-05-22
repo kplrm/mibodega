@@ -1117,8 +1117,6 @@ def mibodega(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
 
-
-
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
             # Update changes
@@ -1133,14 +1131,20 @@ def mibodega(request):
             print("Inside ajax yeeeee")
             print("bd_is_active: ", bd_is_active)
 
-            client.cl_first_name = cl_first_name
-            client.cl_last_name = cl_last_name
+            cliente.cl_first_name = cl_first_name
+            cliente.cl_last_name = cl_last_name
             bodega.bd_is_active = bd_is_active
             bodega.bd_name = bd_name
             bodega.bd_ruc = bd_ruc
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
+
+            context = {
+                'success': '',
+            }
+
+            return render(request=request,template_name="main/d-mibodega.html",context=context)
 
         ################################# PAGE CONTENT END #################################
         ####################################################################################
