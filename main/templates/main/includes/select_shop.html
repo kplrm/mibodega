@@ -46,8 +46,8 @@
                             .bindPopup( response.success[i][2] )
                             .closePopup()
                             .on('click', function onClick(shop) {
-                                document.getElementById("bodega_name").value = String(response.success[i][2]);
-                                document.getElementById("bodega_id").value = String(response.success[i][3]);
+                                document.getElementById("bodega_name").value = response.success[i][2];
+                                document.getElementById("bodega_id").value = response.success[i][3];
                             });
                         };
                     },
