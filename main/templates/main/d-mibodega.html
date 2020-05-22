@@ -157,35 +157,30 @@
 </div>
 
 <script type="text/javascript">
-    /*
     function save_mibodega_changes() {
         if ($("#mibodega_update").validate().form()) {
-            regular_price = document.getElementsByName("regular_price");
-            discount_price = document.getElementsByName("discount_price");
-            discount_status = document.getElementsByName("discount_status");
-            peb_status = document.getElementsByName("peb_status");
-            
-            var dict_changes = [];
-            for (i = 0; i < regular_price.length; i++) {
-                data = {
-                    key:                String(regular_price[i].id),
-                    regular_price:      regular_price[i].value, 
-                    discount_price:     discount_price[i].value,
-                    discount_status:    discount_status[i].checked,
-                    peb_status:         peb_status[i].checked
-                }
-                dict_changes.push(data);
-            };
-            let product_changes = JSON.stringify(dict_changes);
-
+            cl_first_name = document.getElementById("cl_first_name");
+            cl_last_name = document.getElementById("cl_last_name");
+            bd_is_active = document.getElementById("bd_is_active");
+            bd_name = document.getElementById("bd_name");
+            bd_ruc = document.getElementById("bd_ruc");
+            bd_raz_soc = document.getElementById("bd_raz_soc");
+            bd_email = document.getElementById("bd_email");
+            bd_phone = document.getElementById("bd_phone");
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                //url: "/dashboard/save_product_changes",
-                url: "/dashboard/productos",
+                url: "/save_mibodega_changes",
                 type: "POST",
                 dataType: "json",
                 data: {
-                    changes: product_changes
+                    "cl_first_name": cl_first_name,
+                    "cl_last_name": cl_first_name,
+                    "bd_is_active": bd_is_active,
+                    "bd_name": bd_name,
+                    "bd_ruc": bd_ruc,
+                    "bd_raz_soc": bd_raz_soc,
+                    "bd_email": bd_email,
+                    "bd_phone": bd_phone,
                 },
                 success: function(){
                     location.reload();
@@ -197,7 +192,7 @@
         } else {
             alert("Verifique los datos ingresados");
         };
-    };*/
+    };
 </script>
 
 <!-- Latest Blog Section End -->
