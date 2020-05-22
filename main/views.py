@@ -690,7 +690,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
     email.attach_alternative(html_content, "text/html")
     res = email.send()
 
-#    print("Email enviado")
+    print("Email enviado")
 #    return HttpResponse('%s'%res)
 
 def submit_checkout(request):
