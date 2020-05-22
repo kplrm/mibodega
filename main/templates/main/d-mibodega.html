@@ -158,9 +158,9 @@
 
 <script type="text/javascript">
     function save_mibodega_changes() {
-        console.log("Entrando a guardar")
+        console.log("Entrando a guardar");
         if ($("#mibodega_update").validate().form()) {
-            console.log("dentro de validate")
+            console.log("dentro de validate");
             cl_first_name = document.getElementById("cl_first_name");
             cl_last_name = document.getElementById("cl_last_name");
             bd_is_active = document.getElementById("bd_is_active");
@@ -169,6 +169,14 @@
             bd_raz_soc = document.getElementById("bd_raz_soc");
             bd_email = document.getElementById("bd_email");
             bd_phone = document.getElementById("bd_phone");
+            console.log(cl_first_name);
+            console.log(cl_last_name);
+            console.log(bd_is_active);
+            console.log(bd_name);
+            console.log(bd_ruc);
+            console.log(bd_raz_soc);
+            console.log(bd_email);
+            console.log(bd_phone);
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/mibodega",
