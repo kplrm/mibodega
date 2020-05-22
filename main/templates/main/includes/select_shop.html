@@ -48,7 +48,7 @@
                             .bindPopup( response.success[i][2] )
                             .closePopup()
                             .on('click', function onClick(e) {
-                                document.getElementById("bodega_name").value = this.bd_name;
+                                document.getElementById("bodega_name").value = this.options.bd_name;
                                 //document.getElementById("bodega_id").value = bd_id[i];
                             });
                             console.log(marker);
