@@ -695,6 +695,18 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
+        # Saves user data if there is a user
+        if request.user.is_authenticated:
+            pass
+#            print("Cliente identificado")
+            # Lines to update clients data           ord_user
+            #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+            #cliente.cl_bodega_ID = id_bodega
+            #cliente.save()
+        else:
+            pass
+#            print("Usuario no identificado")
+
         # Stores variables in session
         cart_obj_id = request.POST['cart_obj_id']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
@@ -722,81 +734,67 @@ def submit_checkout(request):
         # Reload items from the basket after purging not available items
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
+        # Send json response
         if cart_obj.crt_total_price == 0:
-            print("cart is empty!")
             response_data = {"error": not_available_items }
             print(response_data)
             return JsonResponse(response_data, status=400)
-        elif cart_obj.crt_total_price >= 0:
-            print("cart is NOT empty!")
+        # In case shopping cart is not empty
+        elif cart_obj.crt_total_price > 0:
+            # Creates a new order
+            orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
+
+            # Crate a new bodegaorder for every bodega in the basket
+            bodegas = dict()
+            for item in cart_list:
+                if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
+                    pass
+                else:
+                    bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
+                    bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
+            
+            # Create every order item
+            for item in cart_list:
+                order_item = OrderItem.objects.create(oi_ID=orders_obj)
+                order_item.oi_id_product = item.ci_product.peb_product.pa_ID
+                order_item.oi_product = item.ci_product.peb_product.pa_product
+                order_item.oi_quantity = item.ci_quantity
+                order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
+                order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
+                order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
+                order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
+                if item.ci_product.peb_discount_status:
+                    order_item.oi_price = item.ci_product.peb_discount_price
+                else:
+                    order_item.oi_price = item.ci_product.peb_regular_price
+                order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
+                # Adds bodegaorders_obj to order_item
+                for bodega in bodegas:
+                    if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
+                        order_item.oi_bo_ID = bodegas[str(bodega)]
+                        # Updates bodega order total price
+                        bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
+                        bodegas[str(bodega)].save()
+                        break
+                order_item.save()
+
+            # Send mail to client
+            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+
+            # Send mail to stores
+            for bodega_id, bodegaorders_obj in bodegas:
+                print("bodega_id: ", bodega_id)
+                print("bodegaorders_obj: ", bodegaorders_obj)
+
+            # Send JsonResponse
             response_data = {"success": not_available_items }
-            print(response_data)
             return JsonResponse(response_data, status=200)
-
-        # Creates a new order
-        orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
-        
-        # Saves user data if there is a user
-        if request.user.is_authenticated:
-            pass
-#            print("Cliente identificado")
-            # Lines to update clients data           ord_user
-            #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
-            #cliente.cl_bodega_ID = id_bodega
-            #cliente.save()
         else:
-            pass
-#            print("Usuario no identificado")
-        
-        
-        # Crate a new bodegaorder for every bodega in the basket
-        bodegas = dict()
-        for item in cart_list:
-            if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
-                pass
-            else:
-                bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
-                bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
-        
-        # Create every order item
-        for item in cart_list:
-            order_item = OrderItem.objects.create(oi_ID=orders_obj)
-            order_item.oi_id_product = item.ci_product.peb_product.pa_ID
-            order_item.oi_product = item.ci_product.peb_product.pa_product
-            order_item.oi_quantity = item.ci_quantity
-            order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
-            order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
-            order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
-            order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
-            if item.ci_product.peb_discount_status:
-                order_item.oi_price = item.ci_product.peb_discount_price
-            else:
-                order_item.oi_price = item.ci_product.peb_regular_price
-            order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
-            # Adds bodegaorders_obj to order_item
-            for bodega in bodegas:
-                if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
-                    order_item.oi_bo_ID = bodegas[str(bodega)]
-                    # Updates bodega order total price
-                    bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
-                    bodegas[str(bodega)].save()
-                    break
-            order_item.save()
-
-        # Send mail to client
-        send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
-        # Send mail to stores
-        for bodega_id, bodegaorders_obj in bodegas:
-            print("bodega_id: ",bodega_id)
-            print("bodegaorders_obj: ",bodegaorders_obj)
-            pass
-        return JsonResponse({"success": ""}, status=200)
-
+            return JsonResponse({"error": "Invalid cart value"}, status=400)
+    
+    # In case is not post neither ajax
     else:
         return JsonResponse({"error": "something went wrong"}, status=400)
-#        print("Not Ajax")
-    #return redirect('main:homepage')
-    
 
 def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
