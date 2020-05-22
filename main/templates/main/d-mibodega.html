@@ -169,14 +169,6 @@
             bd_raz_soc = document.getElementById("bd_raz_soc").value;
             bd_email = document.getElementById("bd_email").value;
             bd_phone = document.getElementById("bd_phone").value;
-            console.log(cl_first_name);
-            console.log(cl_last_name);
-            console.log(bd_is_active);
-            console.log(bd_name);
-            console.log(bd_ruc);
-            console.log(bd_raz_soc);
-            console.log(bd_email);
-            console.log(bd_phone);
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/mibodega",
