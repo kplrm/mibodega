@@ -179,7 +179,7 @@
             console.log(bd_phone);
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/mibodega",
+                url: "/dashboard/mibodega",
                 type: "POST",
                 dataType: "json",
                 data: {
