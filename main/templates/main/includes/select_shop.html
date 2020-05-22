@@ -43,12 +43,12 @@
                             var marker = L.marker([ response.success[i][0],response.success[i][1] ], {
                             icon: customMarkerIcon
                         }).addTo(map)
-                            .bindPopup( "{{ shop.bd_name }}" )
+                            .bindPopup( response.success[i][2] )
                             .closePopup()
-                            //.on('click', function onClick(shop) {
-                            //    document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
-                            //    document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
-                            //});
+                            .on('click', function onClick(shop) {
+                                document.getElementById("bodega_name").value = response.success[i][2];
+                                document.getElementById("bodega_id").value = response.success[i][3];
+                            });
                         };
                     },
                     error: function(response){ // This triggers in case all items in the basket get unavailable
