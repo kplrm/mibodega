@@ -22,8 +22,6 @@
             });	
 
             // Get user geolocation
-            var bd_name = []
-            var bd_id = []
             function showLocation(position) {
                 var latitude = position.coords.latitude;
                 var longitude = position.coords.longitude;
@@ -40,6 +38,8 @@
                     },
                     success: function(response){ // make a marker at the shops nearby
                         console.log(response);
+                        var bd_name = []
+                        var bd_id = []
                         for (i = 0; i < response.success.length; i++) {
                             bd_name.push(response.success[i][2]);
                             bd_id.push(response.success[i][3]);
@@ -47,7 +47,7 @@
                             .addTo(map)
                             .bindPopup( bd_name[i] )
                             .closePopup()
-                            .on('click', function onClick() {
+                            .on('click', function onClick(bd_name) {
                                 document.getElementById("bodega_name").value = bd_name[i];
                                 document.getElementById("bodega_id").value = bd_id[i];
                             });
