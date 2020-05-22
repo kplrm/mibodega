@@ -38,18 +38,18 @@
                     },
                     success: function(response){ // make a marker at the shops nearby
                         console.log(response);
-                        var bd_name = []
-                        var bd_id = []
+                        //var bd_name = []
+                        //var bd_id = []
                         for (i = 0; i < response.success.length; i++) {
-                            bd_name.push(response.success[i][2]);
-                            bd_id.push(response.success[i][3]);
-                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bodega_name: bd_name[i]})
+                            //bd_name.push(response.success[i][2]);
+                            //bd_id.push(response.success[i][3]);
+                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bodega_name: response.success[i][2]})
                             .addTo(map)
-                            .bindPopup( bd_name[i] )
+                            .bindPopup( response.success[i][2] )
                             .closePopup()
                             .on('click', function onClick(e) {
                                 document.getElementById("bodega_name").value = this.bodega_name;
-                                document.getElementById("bodega_id").value = bd_id[i];
+                                //document.getElementById("bodega_id").value = bd_id[i];
                             });
                         };
                     },
