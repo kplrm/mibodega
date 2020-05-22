@@ -700,9 +700,13 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         print("bodega_obj_type: ", type(bodega_obj))
         result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID__bo_bodega=bodega_obj).all()
         print("result_list: ", result_list)
+        bodegaorder_obj = get_object_or_404(BodegaOrders,bo_order=orders_obj)
+        print("bodegaorder_obj: ", bodegaorder_obj)
+        print("bodegaorder_obj_type: ", type(bodegaorder_obj))
         context = {
             'orders_obj': orders_obj,
-            'bodegaorders_obj': bodegaorders_obj,
+            'bodega_obj': bodega_obj,
+            'bodegaorder_obj': bodegaorder_obj,
             'result_list': result_list,
             'usr_first': usr_first,
             'usr_last': usr_last,
