@@ -1121,17 +1121,26 @@ def mibodega(request):
 
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
-            # Changes
-            #changes = request.POST.get('changes',False)
-            #if changes != False:
-            #    changes = json.loads(changes)
-            #    save_product_changes(changes,ProductosEnBodega_list)
-            # Add product
-            pass
+            # Update changes
+            cl_first_name = request.POST.get('cl_first_name',False)
+            cl_last_name = request.POST.get('cl_last_name',False)
+            bd_is_active = request.POST.get('bd_is_active',False)
+            bd_name = request.POST.get('bd_name',False)
+            bd_ruc = request.POST.get('bd_ruc',False)
+            bd_raz_soc = request.POST.get('bd_raz_soc',False)
+            bd_email = request.POST.get('bd_email',False)
+            bd_phone = request.POST.get('bd_phone',False)
+            print("Inside ajax yeeeee")
+            print("bd_is_active: ", bd_is_active)
 
-
-
-
+            client.cl_first_name = cl_first_name
+            client.cl_last_name = cl_last_name
+            bodega.bd_is_active = bd_is_active
+            bodega.bd_name = bd_name
+            bodega.bd_ruc = bd_ruc
+            bodega.bd_raz_soc = bd_raz_soc
+            bodega.bd_email = bd_email
+            bodega.bd_phone = bd_phone
 
         ################################# PAGE CONTENT END #################################
         ####################################################################################
