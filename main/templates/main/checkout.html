@@ -455,12 +455,14 @@
                         },
                         success: function(response){
                             var msg = "";
+                            /*
                             try {
                                 var res = response.success.length;
                                 console.log(res);
                             } catch(err) {
                                 console.log(err.message);
                             }
+                            */
 
                             if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                                 $("#popupModalLabel").html('');
@@ -468,6 +470,7 @@
                                 $("#popupModalBody").html('');
                                 $("#popupModalBody").append('Gracias por su compra');
                                 $('#popup_modal').modal({ show: true });
+                                location.reload();
                             } else if (response.success.length > 0) {
                                 for (i = 0; i < response.success.length; i++) {
                                     msg += "<li>" + String(response.success[i]) + "</li>"
