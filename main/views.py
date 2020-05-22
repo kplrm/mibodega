@@ -689,6 +689,40 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
                                 to=[usr_email], body="text_body")
     email.attach_alternative(html_content, "text/html")
     res = email.send()
+    print("Email enviado a cliente")
+
+    # Send mail to bodegas
+    for bodegaorders_obj in bodegas:
+        print("bodegaorders_obj: ", bodegaorders_obj)
+        # Retrieve all corresponding cart products
+        result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID=bodegaorders_obj).all()
+        print("result_list: ", result_list)
+        context = {
+            'orders_obj': orders_obj,
+            'bodegaorders_obj': bodegaorders_obj,
+            'result_list': result_list,
+            'usr_first': usr_first,
+            'usr_last': usr_last,
+            'usr_street': usr_street,
+            'usr_geolocation': usr_geolocation,
+            'usr_map': usr_map,
+            'usr_email': usr_email,
+            'usr_phone': usr_phone,
+            'usr_comments': usr_comments
+        }
+        # Add email subject
+        subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
+
+        # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
+        html_content = render_to_string('main/customer_order_confirmation.html', context)
+        email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
+                                    to=[usr_email], body="text_body")
+        email.attach_alternative(html_content, "text/html")
+        res = email.send()
+        print("Email enviado a cliente")
+
+        
+
 
     print("Email enviado")
     return HttpResponse('%s'%res)
@@ -781,13 +815,13 @@ def submit_checkout(request):
                         break
                 order_item.save()
 
-            # Send mail to client and bodegas
+            # Send email to client and bodegas
             send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
-            #send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
+            # Send email to bodegas
             for bodegaorders_obj in bodegas:
                 print("bodegaorders_obj: ", bodegaorders_obj)
-                send_order_mail(bodegaorders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+                #send_order_mail_to_bodega(bodegaorders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Send JsonResponse
             response_data = {"success": not_available_items }
