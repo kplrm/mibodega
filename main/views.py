@@ -749,7 +749,6 @@ def submit_checkout(request):
 #            print("Usuario no identificado")
         
         
-
         # Crate a new bodegaorder for every bodega in the basket
         bodegas = dict()
         for item in cart_list:
@@ -784,7 +783,13 @@ def submit_checkout(request):
                     break
             order_item.save()
 
+        # Send mail to client
         send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+        # Send mail to stores
+        for bodega_id, bodegaorders_obj in bodegas:
+            print("bodega_id: ",bodega_id)
+            print("bodegaorders_obj: ",bodegaorders_obj)
+            pass
         return JsonResponse({"success": ""}, status=200)
 
     else:
