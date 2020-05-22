@@ -734,7 +734,7 @@ def submit_checkout(request):
         # Reload items from the basket after purging not available items
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-        # Send json response
+        # SEND JSON RESPONSE!!!!!!!!!!!
         if cart_obj.crt_total_price == 0:
             response_data = {"error": not_available_items }
             print(response_data)
@@ -782,8 +782,9 @@ def submit_checkout(request):
             send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Send mail to stores
-            for bodega_id, bodegaorders_obj in bodegas:
-                print("bodega_id: ", bodega_id)
+            print("bodegas: ",bodegas)
+            for bodegaorders_obj in bodegas:
+                #print("bodega_id: ", bodega_id)
                 print("bodegaorders_obj: ", bodegaorders_obj)
 
             # Send JsonResponse
