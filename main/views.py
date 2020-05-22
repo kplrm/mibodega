@@ -1128,9 +1128,10 @@ def mibodega(request):
             bd_raz_soc = request.POST.get('bd_raz_soc',False)
             bd_email = request.POST.get('bd_email',False)
             bd_phone = request.POST.get('bd_phone',False)
-            print("Inside ajax yeeeee")
-            print("bd_is_active: ", bd_is_active)
-
+            if bd_is_active == "true":
+                bd_is_active = True
+            else:
+                bd_is_active = False
             cliente.cl_first_name = cl_first_name
             cliente.cl_last_name = cl_last_name
             bodega.bd_is_active = bd_is_active
@@ -1139,6 +1140,8 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
+            cliente.save()
+            bodega.save()
 
             context = {
                 'success': '',
