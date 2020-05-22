@@ -169,25 +169,25 @@
             bd_phone = document.getElementById("bd_phone");
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/save_mibodega_changes",
+                url: "/mibodega",
                 type: "POST",
                 dataType: "json",
                 data: {
                     "cl_first_name": cl_first_name,
-                    "cl_last_name": cl_first_name,
+                    "cl_last_name": cl_last_name,
                     "bd_is_active": bd_is_active,
                     "bd_name": bd_name,
                     "bd_ruc": bd_ruc,
                     "bd_raz_soc": bd_raz_soc,
                     "bd_email": bd_email,
-                    "bd_phone": bd_phone,
-                },
+                    "bd_phone": bd_phone
+                }/*,
                 success: function(){
                     location.reload();
                 },
                 error: function(){
                     location.reload();
-                }
+                }*/
             });
         } else {
             alert("Verifique los datos ingresados");
