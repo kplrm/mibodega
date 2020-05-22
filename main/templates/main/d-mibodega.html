@@ -62,7 +62,7 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Todos los productos en mi bodega</h5>
+                                <h5 class="card-header">Mis datos y los de mi bodega</h5>
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
                                         <table class="table">
@@ -71,8 +71,8 @@
                                             <tbody>
                                                 <form id="mibodega_update" action="">
                                                     <tr class="border-0">
-                                                        <th class="border-0">Usuario</th>
-                                                        <input type="text" class="form-control" id="bodega_name" value="Cercanas" disabled>
+                                                        <th class="border-0" style="text-align:right;">Usuario</th>
+                                                        <th class="border-0" style="text-align:left;"><input type="text" class="form-control" id="bodega_name" value="{{ cliente.cl_user }}" disabled></th>
                                                     </tr>
                                                     <tr class="border-0">
                                                         <th class="border-0">¿Está activa tu bodega?</th>
