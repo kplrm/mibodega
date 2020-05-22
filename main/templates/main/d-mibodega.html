@@ -95,25 +95,40 @@
                                                                 <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked>
                                                                 <span class="badge-dot badge-success mr-1"></span>Sí
                                                             {% else %}
-                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" >
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input">
                                                                 <span class="badge-dot badge-danger mr-1"></span>No
                                                             {% endif %}
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">Nombre de bodega</th>
+                                                        <th class="border-0" style="text-align:right;">Nombre de bodega</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_name" value="{{ bodega.bd_name }}" required>
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">RUC o DNI</th>
+                                                        <th class="border-0" style="text-align:right;">RUC o DNI</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_ruc" value="{{ bodega.bd_ruc }}" disabled required>
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">Razón social</th>
+                                                        <th class="border-0" style="text-align:right;">Razón social</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_raz_soc" value="{{ bodega.bd_raz_soc }}">
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">E-mail</th>
+                                                        <th class="border-0" style="text-align:right;">E-mail</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_email" value="{{ bodega.bd_email }}" required>
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">Teléfono</th>
+                                                        <th class="border-0" style="text-align:right;">Teléfono</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_phone" value="{{ bodega.bd_phone }}" required>
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
                                                         <th class="border-0">bd_geolocation</th>
