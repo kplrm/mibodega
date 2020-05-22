@@ -695,6 +695,7 @@ def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
+        print("in submit_checkout")
         # Saves user data if there is a user
         if request.user.is_authenticated:
             pass
@@ -736,11 +737,13 @@ def submit_checkout(request):
 
         # SEND JSON RESPONSE!!!!!!!!!!!
         if cart_obj.crt_total_price == 0:
+            print("in price = 0")
             response_data = {"error": not_available_items }
             print(response_data)
             return JsonResponse(response_data, status=400)
         # In case shopping cart is not empty
         elif cart_obj.crt_total_price > 0:
+            print("in price > 0")
             # Creates a new order
             orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
 
@@ -790,6 +793,7 @@ def submit_checkout(request):
             response_data = {"success": not_available_items }
             return JsonResponse(response_data, status=200)
         else:
+            print("in price < 0")
             return JsonResponse({"error": "Invalid cart value"}, status=400)
     
     # In case is not post neither ajax
