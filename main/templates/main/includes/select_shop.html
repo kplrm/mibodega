@@ -43,12 +43,11 @@
                         for (i = 0; i < response.success.length; i++) {
                             bd_name.push(response.success[i][2]);
                             bd_id.push(response.success[i][3]);
-                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {
-                            icon: customMarkerIcon
-                        }).addTo(map)
+                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon})
+                            .addTo(map)
                             .bindPopup( bd_name[i] )
                             .closePopup()
-                            .on('click', function onClick(shop) {
+                            .on('click', function onClick() {
                                 document.getElementById("bodega_name").value = bd_name[i];
                                 document.getElementById("bodega_id").value = bd_id[i];
                             });
