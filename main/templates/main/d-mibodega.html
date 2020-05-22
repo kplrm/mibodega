@@ -160,6 +160,7 @@
     function save_mibodega_changes() {
         console.log("Entrando a guardar")
         if ($("#mibodega_update").validate().form()) {
+            console.log("dentro de validate")
             cl_first_name = document.getElementById("cl_first_name");
             cl_last_name = document.getElementById("cl_last_name");
             bd_is_active = document.getElementById("bd_is_active");
