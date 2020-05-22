@@ -37,21 +37,15 @@
                         'longitude': longitude
                     },
                     success: function(response){ // make a marker at the shops nearby
-                        console.log(response);
-                        //var bd_name = []
-                        //var bd_id = []
                         for (i = 0; i < response.success.length; i++) {
-                            //bd_name.push(response.success[i][2]);
-                            //bd_id.push(response.success[i][3]);
-                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2]})
+                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
                             .addTo(map)
                             .bindPopup( response.success[i][2] )
                             .closePopup()
                             .on('click', function onClick(e) {
                                 document.getElementById("bodega_name").value = this.options.bd_name;
-                                //document.getElementById("bodega_id").value = bd_id[i];
+                                document.getElementById("bodega_id").value = this.options.bd_id;
                             });
-                            console.log(marker);
                         };
                     },
                     error: function(response){ // This triggers in case all items in the basket get unavailable
