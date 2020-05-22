@@ -12,7 +12,7 @@
                         {% for product in cart_list %}
                         <tr>
                             <td class="si-pic">
-                                {% if product.peb_product.pa_image %}
+                                {% if product.ci_product.peb_product.pa_image %}
                                     <img src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
                                 {% endif %}
                             </td>
