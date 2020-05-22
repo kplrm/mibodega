@@ -695,6 +695,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     for bodegaorders_obj in bodegas:
         print("bodegaorders_obj: ", bodegaorders_obj)
         # Retrieve all corresponding cart products
+        print("bodegaorders_obj_type: ", type(bodegaorders_obj))
         result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID=bodegaorders_obj).all()
         print("result_list: ", result_list)
         context = {
@@ -817,11 +818,6 @@ def submit_checkout(request):
 
             # Send email to client and bodegas
             send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
-
-            # Send email to bodegas
-            for bodegaorders_obj in bodegas:
-                print("bodegaorders_obj: ", bodegaorders_obj)
-                #send_order_mail_to_bodega(bodegaorders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Send JsonResponse
             response_data = {"success": not_available_items }
