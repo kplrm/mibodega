@@ -692,11 +692,13 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     print("Email enviado a cliente")
 
     # Send mail to bodegas
-    for bodegaorders_obj in bodegas:
-        print("bodegaorders_obj: ", bodegaorders_obj)
+    for bodega_id in bodegas:
+        # Get the bodega object from bodega string
+        bodega_obj = get_object_or_404(Bodega,bd_ID=bodega_id)
+        print("bodega_obj: ", bodega_obj)
         # Retrieve all corresponding cart products
-        print("bodegaorders_obj_type: ", type(bodegaorders_obj))
-        result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID=bodegaorders_obj).all()
+        print("bodega_obj_type: ", type(bodega_obj))
+        result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID__bo_bodega=bodega_obj).all()
         print("result_list: ", result_list)
         context = {
             'orders_obj': orders_obj,
