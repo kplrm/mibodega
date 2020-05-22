@@ -72,10 +72,33 @@
                                                 <form id="mibodega_update" action="">
                                                     <tr class="border-0">
                                                         <th class="border-0" style="text-align:right;">Usuario</th>
-                                                        <th class="border-0" style="text-align:left;"><input type="text" class="form-control" id="bodega_name" value="{{ cliente.cl_user }}" disabled></th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" value="{{ cliente.cl_user }}" disabled>
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">¿Está activa tu bodega?</th>
+                                                        <th class="border-0" style="text-align:right;">Nombre</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="cl_first_name" value="{{ cliente.cl_first_name }}">
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Apellido</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="cl_last_name" value="{{ cliente.cl_last_name }}">
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿Está activa tu bodega?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            {% if bodega.bd_is_active == True %}
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked>
+                                                                <span class="badge-dot badge-success mr-1"></span>Sí
+                                                            {% else %}
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" >
+                                                                <span class="badge-dot badge-danger mr-1"></span>No
+                                                            {% endif %}
+                                                        </th>
                                                     </tr>
                                                     <tr class="border-0">
                                                         <th class="border-0">Nombre de bodega</th>
