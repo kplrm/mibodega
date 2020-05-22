@@ -717,12 +717,12 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
 
         # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
-        html_content = render_to_string('main/customer_order_confirmation.html', context)
+        html_content = render_to_string('main/bodega_order_confirmation.html', context)
         email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
                                     to=[usr_email], body="text_body")
         email.attach_alternative(html_content, "text/html")
         res = email.send()
-        print("Email enviado a cliente")
+        print("Email enviado a Bodega")
 
         
 
