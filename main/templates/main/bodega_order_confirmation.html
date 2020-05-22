@@ -186,7 +186,6 @@
                         <td>
                             <!-- BODEGA LISTING -->
                             {% for product in result_list %}
-                                {% if product.oi_id_bodega == bodega_obj.bd_ID %} <!-- To remove. double check necesary? -->
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
                                             <!-- LEFT COLUMN -->
@@ -199,7 +198,6 @@
                                             <td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_prod_total|floatformat:2|intcomma }}</td>
                                         </tr>
                                     </table>
-                                {% endif %}
                             {% endfor %}
                         </td>
                     </tr>
