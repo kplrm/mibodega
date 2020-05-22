@@ -47,7 +47,7 @@
                             .addTo(map)
                             .bindPopup( bd_name[i] )
                             .closePopup()
-                            .on('click', function onClick(bd_name[i]) {
+                            .on('click', function onClick(bd_id) {
                                 document.getElementById("bodega_name").value = bd_name[i];
                                 document.getElementById("bodega_id").value = bd_id[i];
                             });
