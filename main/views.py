@@ -633,7 +633,7 @@ def checkout(request):
                   'subtotal_bodegas': subtotal_bodegas,
                   'STATIC_URL': STATIC_URL})
 
-def send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
+def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
     # Retrieve all corresponding cart products
     result_list = OrderItem.objects.all().filter(oi_ID=orders_obj).all()
 
@@ -782,12 +782,12 @@ def submit_checkout(request):
                 order_item.save()
 
             # Send mail to client and bodegas
-            #send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
-            send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+            #send_order_mail(orders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             for bodegaorders_obj in bodegas:
                 print("bodegaorders_obj: ", bodegaorders_obj)
-                send_order_mail(bodegaorders_obj,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+                send_order_mail(bodegaorders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Send JsonResponse
             response_data = {"success": not_available_items }
