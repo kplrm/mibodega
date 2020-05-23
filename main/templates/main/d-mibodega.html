@@ -170,6 +170,11 @@
         "prefix": "glyphicon"
     });
     map.on('click', function onClick(e) {
+        try {
+            map.removeLayer(newMarker)
+        } catch {
+            ;
+        }
         var newMarker = new L.marker(e.latlng);
         map.addLayer(newMarker);
     });
