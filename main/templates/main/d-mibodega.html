@@ -180,6 +180,7 @@
         };
         marker = new L.marker(e.latlng).addTo(map);
         document.getElementById("bd_geolocation").value = marker;
+        console.log(marker);
     }
     map.on('click', onMapClick);
 
