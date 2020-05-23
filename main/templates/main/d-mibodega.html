@@ -65,11 +65,11 @@
                                 <h5 class="card-header">Mis datos y los de mi bodega</h5>
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
-                                        <form id="mibodega_update" action="">
-                                            <table class="table">
-                                                <thead class="bg-light">
-                                                </thead>
-                                                <tbody>
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                            </thead>
+                                            <tbody>
+                                                <form id="mibodega_update" action="">
                                                     <tr class="border-0">
                                                         <th class="border-0" style="text-align:right;">Usuario</th>
                                                         <th class="border-0" style="text-align:left;">
@@ -130,16 +130,16 @@
                                                             <input type="text" class="form-control" id="bd_phone" value="{{ bodega.bd_phone }}" required>
                                                         </th>
                                                     </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Ubica tu bodega</th>
+                                                        <th class="border-0" style="text-align:right;"><div id="mapid"></div></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="9"><button type="button" class="btn btn-outline-primary float-right" onclick="save_mibodega_changes(); return false;">Guardar</button></td>
+                                                    </tr>
                                                 </form>
-                                                <tr>
-                                                    <td colspan="9"><button type="button" class="btn btn-outline-primary float-right" onclick="save_mibodega_changes(); return false;">Guardar</button></td>
-                                                </tr>
-                                                
                                             </tbody>
                                         </table>
-                                        <div class="border-0" style="text-align:Center;">Ubica tu bodega</div>
-                                        <div id="mapid"></div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
