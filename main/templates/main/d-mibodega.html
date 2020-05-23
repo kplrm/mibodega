@@ -173,7 +173,7 @@
         "prefix": "glyphicon"
     });
     map.on('click', function onClick(e) {
-        map.removeLayer(marker)
+        map.removeLayer(marker);
         var marker = new L.marker(e.latlng);
         map.addLayer(marker);
     });
