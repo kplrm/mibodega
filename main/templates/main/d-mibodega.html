@@ -93,10 +93,10 @@
                                                         <th class="border-0" style="text-align:left;">
                                                             {% if bodega.bd_is_active == True %}
                                                                 <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked>
-                                                                <span class="badge-dot badge-success mr-1"></span>Sí
+                                                                <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>
                                                             {% else %}
                                                                 <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input">
-                                                                <p style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
+                                                                <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
                                                             {% endif %}
                                                         </th>
                                                     </tr>
@@ -168,6 +168,9 @@
         "iconColor": "white", 
         "markerColor": "orange", 
         "prefix": "glyphicon"
+    });
+    map.on('click', function onClick(e) {
+        var newMarker = new L.marker(e.latlng).addTo(map);
     });
 
     // Get user geolocation
