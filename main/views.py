@@ -1144,7 +1144,7 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
-            user_location = Point(float(bd_geolocation_lat),float(bd_geolocation_lng),srid=4326)
+            user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
             bodega.bd_geolocation = user_location
             cliente.save()
             bodega.save()
