@@ -373,6 +373,9 @@
     function peb_status_change(input) {
         console.log(input.id);
         console.log(input.name);
+        element_to_change = document.getElementsByName(input.name);
+        console.log(element_to_change);
+        console.log($(this));
         if(input.checked == true) {
             input.html('');
             input.append('<span class="badge-dot badge-success mr-1"></span>Sí');
