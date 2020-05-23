@@ -372,6 +372,7 @@
     };
     function peb_status_change(input) {
         console.log($(input));
+        //var input = $(input)[0];
         //console.log($(input)[0].outerHTML);
         //console.log($(input)[0].outerHTML+'<span class="badge-dot badge-success mr-1"></span>Sí');
         /*console.log(input.id);
@@ -383,10 +384,10 @@
         console.log(parent);
         if(input.checked == true) {
             $(input).parent().html('');
-            $(parent)[0].append($(input)[0].outerHTML+'<span class="badge-dot badge-success mr-1"></span>Sí');
+            $(parent)[0].append($(input)[0].textContent +'<span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
             $(input).parent().html('');
-            $(parent)[0].append($(input)[0].outerHTML+'<span class="badge-dot badge-danger mr-1"></span>No');
+            $(parent)[0].append($(input)[0].textContent +'<span class="badge-dot badge-danger mr-1"></span>No');
         }
     }
 </script>
