@@ -182,7 +182,8 @@
         document.getElementById("bd_geolocation").value = marker;
         console.log(marker);
         console.log(marker._latlng);
-        console.log(marker.lng);
+        console.log(marker._latlng.lat);
+        console.log(marker._latlng.lng);
     }
     map.on('click', onMapClick);
 
