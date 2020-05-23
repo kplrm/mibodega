@@ -161,7 +161,7 @@
                                                     </td>
                                                     <td>
                                                         {% if product.peb_discount_status == True %}
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked>
+                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked/>
                                                             <span class="badge-dot badge-success mr-1"></span>Sí
                                                         {% else %}
                                                             <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input">
@@ -174,7 +174,7 @@
                                                     <td>{{ product.peb_discount_rate|floatformat:0|intcomma }}%</td>
                                                     <td>
                                                         {% if product.peb_status == True %}
-                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked>
+                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked/>
                                                             <span class="badge-dot badge-success mr-1"></span>Sí
                                                         {% else %}
                                                             <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input">
