@@ -1130,6 +1130,8 @@ def mibodega(request):
             bd_phone = request.POST.get('bd_phone',False)
             bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
             bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
+            print(bd_geolocation_lat)
+            print(bd_geolocation_lng)
             if bd_is_active == "true":
                 bd_is_active = True
             else:
@@ -1142,8 +1144,8 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
-            bd_geolocation_lat = bd_geolocation_lat
-            bd_geolocation_lng = bd_geolocation_lng
+            user_location = Point(float(bd_geolocation_lat),float(bd_geolocation_lng),srid=4326)
+            bodega.bd_geolocation = user_location
             cliente.save()
             bodega.save()
 
