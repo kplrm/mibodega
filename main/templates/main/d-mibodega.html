@@ -182,7 +182,8 @@
             map.removeLayer(marker);
         };
         marker = new L.marker(e.latlng).addTo(map);
-        document.getElementById("bd_geolocation").value = marker;
+        document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
+        document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
         console.log(marker);
         console.log(marker._latlng);
         console.log(marker._latlng.lat);
