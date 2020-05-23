@@ -132,8 +132,8 @@
                                                 <tr class="border-0">
                                                     <th class="border-0">Imágen</th>
                                                     <th class="border-0">Producto</th>
-                                                    <th class="border-0">Categoria</th>
-                                                    <th class="border-0">Marca</th>
+                                                    <!--<th class="border-0">Categoria</th>
+                                                    <th class="border-0">Marca</th>-->
                                                     <th class="border-0">Precio regular</th>
                                                     <th class="border-0">Precio con descuento</th>
                                                     <th class="border-0">¿Vender con descuento?</th>
@@ -154,8 +154,8 @@
                                                         </div>
                                                     </td>
                                                     <td><a id="{{ product.peb_product.pa_ID }}" style="text-decoration:underline;" onclick="see_sales_detail(this); return false;">{{ product.peb_product.pa_product }}</a></td>
-                                                    <td>{{ product.peb_product.pa_category }}</td>
-                                                    <td>{{ product.peb_product.pa_brand }}</td>
+                                                    <!--<td>{{ product.peb_product.pa_category }}</td>
+                                                    <td>{{ product.peb_product.pa_brand }}</td>-->
                                                     <td>
                                                         <input type="number" step="0.01" name="regular_price" id="{{ product.peb_ID }}" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ product.peb_regular_price|floatformat:2|intcomma }}" required>
                                                     </td>
