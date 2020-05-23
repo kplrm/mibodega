@@ -95,7 +95,7 @@
                                                                 <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked>
                                                                 <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>
                                                             {% else %}
-                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input">
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" onclick="bd_activity(this)">
                                                                 <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
                                                             {% endif %}
                                                         </th>
@@ -219,7 +219,7 @@
         alert("Sorry, browser does not support geolocation!");
         }
     }
-    $(document).ready(function() {
+    function bd_activity(input) {
         $('#bd_is_active').change(function() {
             if(this.checked != true)
             {
@@ -227,7 +227,7 @@
                 //<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
             }
         });
-    });
+    }
 </script>
 <script type="text/javascript">
     function save_mibodega_changes() {
