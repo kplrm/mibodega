@@ -161,7 +161,13 @@
 </div>
 <script type = "text/javascript">
     // Initializes map
-    var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.x }}", "{{ bodega.bd_geolocation.y }}" ], 14);
+    if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
+        var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.x }}", "{{ bodega.bd_geolocation.y }}" ], 14);
+    } else {
+        var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+        getLocation();
+    }
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -188,7 +194,7 @@
     map.on('click', onMapClick);
 
     // Get geolocation on page load
-    getLocation();
+    //getLocation();
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
