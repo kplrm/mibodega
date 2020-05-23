@@ -377,11 +377,11 @@
         console.log(element_to_change);
         console.log($(input));
         if(input.checked == true) {
-            input.html('');
-            input.append('<span class="badge-dot badge-success mr-1"></span>Sí');
+            $(input).html('');
+            $(input).append('<span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
-            input.html('');
-            input.append('<span class="badge-dot badge-danger mr-1"></span>No');
+            $(input).html('');
+            $(input).append('<span class="badge-dot badge-danger mr-1"></span>No');
         }
     }
 </script>
