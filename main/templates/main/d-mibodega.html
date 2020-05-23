@@ -96,7 +96,7 @@
                                                                 <span class="badge-dot badge-success mr-1"></span>Sí
                                                             {% else %}
                                                                 <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input">
-                                                                <span class="badge-dot badge-danger mr-1"></span>No
+                                                                <span class="badge-dot badge-danger mr-1">No</span>No
                                                             {% endif %}
                                                         </th>
                                                     </tr>
@@ -169,6 +169,7 @@
         "markerColor": "orange", 
         "prefix": "glyphicon"
     });
+
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
