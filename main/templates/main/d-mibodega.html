@@ -220,12 +220,12 @@
         }
     }
     function bd_activity(input) {
-        if(input.checked != true)
-        {
-            $("#bodega_is_active").html('vvvv');
-            //<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
+        if(input.checked == true) {
+            $("#bodega_is_active").html('');
+            $("#bodega_is_active").append('<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>');
         } else {
-            $("#bodega_is_active").html('aaaa');
+            $("#bodega_is_active").html('');
+            $("#bodega_is_active").append('<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>');
         }
     }
 </script>
