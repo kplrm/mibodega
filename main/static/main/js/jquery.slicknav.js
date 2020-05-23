@@ -114,7 +114,7 @@
         $this.mobileNav.attr('class', prefix + '_nav');
         menuBar = $('<div class="' + prefix + '_menu"></div>');
 		if (settings.brand !== '') {
-			var brand = $('<div class="' + prefix + '_brand">'+settings.brand+'</div>');
+			var brand = $('<div class="' + prefix + '_brand" style="padding:50px;">'+settings.brand+'</div>');
 			$(menuBar).append(brand);
 		}
         $this.btn = $(
@@ -167,7 +167,7 @@
                 });
 
                 var wrapElement = $(
-                    '<' + settings.parentTag + ' role="menuitem" aria-haspopup="true" tabindex="-1" class="' + prefix + '_item" style="padding:50px;"/>'
+                    '<' + settings.parentTag + ' role="menuitem" aria-haspopup="true" tabindex="-1" class="' + prefix + '_item"/>'
                 );
 
                 // wrap item text with tag and add classes unless we are separating parent links
