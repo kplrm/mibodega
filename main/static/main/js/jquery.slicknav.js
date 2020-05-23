@@ -111,8 +111,8 @@
         }
 
         // create menu bar
-        $this.mobileNav.attr('class', prefix + '_nav' +  'style="padding:50px;"');
-        menuBar = $('<div class="' + prefix + '_menu"></div>');
+        $this.mobileNav.attr('class', prefix + '_nav');
+        menuBar = $('<div class="' + prefix + '_menu"' + 'style="padding:50px;"' + '></div>');
 		if (settings.brand !== '') {
 			var brand = $('<div class="' + prefix + '_brand">'+settings.brand+'</div>');
 			$(menuBar).append(brand);
