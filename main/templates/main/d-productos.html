@@ -387,7 +387,7 @@
             //$(parent)[0].append('"'+$(input)[0].outerHTML+'"');
             //$(parent)[0].append( +'<span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
-            $(input).parent().html('"'+$(input)[0].outerHTML+'"');
+            $(input).parent().html($(input)[0].outerHTML+'<span class="badge-dot badge-danger mr-1"></span>No');
             //$(parent)[0].append($(input)[0].outerHTML);
             //$(parent)[0].append($(input)[0].textContent +'<span class="badge-dot badge-danger mr-1"></span>No');
         }
