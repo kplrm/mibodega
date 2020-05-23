@@ -157,7 +157,6 @@
     <!-- ============================================================== -->
 </div>
 <script type = "text/javascript">
-    getLocation();
     // Initializes map
     var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -183,7 +182,8 @@
     }
     map.on('click', onMapClick);
 
-
+    // Get geolocation on load
+    getLocation();
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
