@@ -181,6 +181,8 @@
         marker = new L.marker(e.latlng).addTo(map);
         document.getElementById("bd_geolocation").value = marker;
         console.log(marker);
+        console.log(marker.lat);
+        console.log(marker.lng);
     }
     map.on('click', onMapClick);
 
