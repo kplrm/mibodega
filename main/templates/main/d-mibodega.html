@@ -220,13 +220,13 @@
         }
     }
     function bd_activity(input) {
-        $('#bd_is_active').change(function() {
-            if(this.checked != true)
-            {
-                this.html('');
-                //<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
-            }
-        });
+        if(input.checked != true)
+        {
+            this.html('');
+            //<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
+        } else {
+            this.html('aaaa');
+        }
     }
 </script>
 <script type="text/javascript">
