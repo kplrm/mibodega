@@ -372,12 +372,13 @@
     };
     function peb_status_change(input) {
         console.log(input);
-        console.log($(input)+'<span class="badge-dot badge-success mr-1"></span>Sí');
+        console.log($(input));
+        console.log(String(input)+'<span class="badge-dot badge-success mr-1"></span>Sí');
         /*console.log(input.id);
         console.log(input.name);
         element_to_change = document.getElementsByName(input.name);
         console.log(element_to_change);
-        console.log($(input));
+        
         console.log($(input).parent());*/
         if(input.checked == true) {
             $(input).parent().html('');
