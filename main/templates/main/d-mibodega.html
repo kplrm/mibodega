@@ -233,6 +233,8 @@
             bd_phone = document.getElementById("bd_phone").value;
             bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
             bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
+            console.log(bd_geolocation_lat);
+            console.log(bd_geolocation_lng);
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/mibodega",
