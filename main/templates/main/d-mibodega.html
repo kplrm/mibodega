@@ -172,17 +172,13 @@
         "markerColor": "orange", 
         "prefix": "glyphicon"
     });
-    var clickCircle;
+    var marker;
 
     function onMapClick(e) {
-        if (clickCircle != undefined) {
-        map.removeLayer(clickCircle);
+        if (marker != undefined) {
+            map.removeLayer(marker);
         };
-        clickCircle = L.circle(e.latlng, 1609 * 3, {
-        color: '#f07300',
-        fillOpacity: 0,
-        opacity: 0.5
-        }).addTo(map);
+        marker = new L.marker(e.latlng).addTo(map);
     }
 
     map.on('click', onMapClick);
