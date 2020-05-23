@@ -166,9 +166,9 @@
     var marker;
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
         var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
+        marker = new L.marker(e.latlng).addTo(map);
     } else {
         var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
-        marker = new L.marker(e.latlng).addTo(map);
         getLocation();
     }
     
