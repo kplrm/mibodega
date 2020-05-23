@@ -162,8 +162,8 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    var marker = L.marker([-12.046374, -77.0427934]);
-    map.addLayer(marker);
+    //var marker = L.marker([-12.046374, -77.0427934]);
+    //map.addLayer(marker);
 
     const customMarkerIcon = L.AwesomeMarkers.icon({
         "extraClasses": "fa-rotate-0", 
@@ -172,19 +172,21 @@
         "markerColor": "orange", 
         "prefix": "glyphicon"
     });
-    map.on('click', function onClick(e) {
-        layerClicked = window[event.target.value];
-        if (map.hasLayer(layerClicked)) {
-            map.removeLayer(layerClicked);
-        }
-        else{
-            map.addLayer(layerClicked);
-        } ;
+    var clickCircle;
 
-        //map.removeLayer(marker);
-        //var marker = new L.marker(e.latlng);
-        //map.addLayer(marker);
-    });
+    function onMapClick(e) {
+        if (clickCircle != undefined) {
+        map.removeLayer(clickCircle);
+        };
+        clickCircle = L.circle(e.latlng, 1609 * 3, {
+        color: '#f07300',
+        fillOpacity: 0,
+        opacity: 0.5
+        }).addTo(map);
+    }
+
+    map.on('click', onMapClick);
+
 
     // Get user geolocation
     function showLocation(position) {
