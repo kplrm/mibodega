@@ -161,6 +161,8 @@
 </div>
 <script type = "text/javascript">
     // Initializes map
+    console.log("{{ bodega.bd_geolocation.x }}");
+    console.log("{{ bodega.bd_geolocation.y }}");
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
         var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.x }}", "{{ bodega.bd_geolocation.y }}" ], 14);
     } else {
