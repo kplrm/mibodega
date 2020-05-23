@@ -371,7 +371,7 @@
         );
     };
     function peb_status_change(input) {
-        console.log(input.parent());
+        console.log(input.id);
         if(input.checked == true) {
             input.html('');
             input.append('<span class="badge-dot badge-success mr-1"></span>Sí');
