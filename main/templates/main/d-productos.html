@@ -376,6 +376,7 @@
         element_to_change = document.getElementsByName(input.name);
         console.log(element_to_change);
         console.log($(input));
+        console.log($(input).parent());
         if(input.checked == true) {
             $(input).html('');
             $(input).append('<span class="badge-dot badge-success mr-1"></span>Sí');
