@@ -131,12 +131,16 @@
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0">bd_geolocation</th>
+                                                        <th class="border-0" style="text-align:right;">Ubica tu bodega</th>
                                                     </tr>
                                                 </form>
                                                 <tr>
+                                                    <div id="mapid"></div>
+                                                </tr>
+                                                <tr>
                                                     <td colspan="9"><button type="button" class="btn btn-outline-primary float-right" onclick="save_mibodega_changes(); return false;">Guardar</button></td>
                                                 </tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -158,9 +162,7 @@
 
 <script type="text/javascript">
     function save_mibodega_changes() {
-        console.log("Entrando a guardar");
         if ($("#mibodega_update").validate().form()) {
-            console.log("dentro de validate");
             cl_first_name = document.getElementById("cl_first_name").value;
             cl_last_name = document.getElementById("cl_last_name").value;
             bd_is_active = document.getElementById("bd_is_active").checked;
@@ -186,17 +188,50 @@
                 },
                 success: function(){
                     ;
-                }/*,
-                error: function(){
-                    location.reload();
-                }*/
+                }
             });
         } else {
             alert("Verifique los datos ingresados");
         };
     };
 </script>
+<script type = "text/javascript">
+    // Initializes map
+    var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    const customMarkerIcon = L.AwesomeMarkers.icon({
+        "extraClasses": "fa-rotate-0", 
+        "icon": "shopping-cart", 
+        "iconColor": "white", 
+        "markerColor": "orange", 
+        "prefix": "glyphicon"
+    });	
 
+    // Get user geolocation
+    function showLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        map.panTo(new L.LatLng(latitude, longitude));
+    }
+    function errorHandler(err) {
+        if(err.code == 1) {
+        alert("Error: Access is denied!");
+        } else if( err.code == 2) {
+        alert("Error: Position is unavailable!");
+        }
+    }
+    function getLocation() {
+        if(navigator.geolocation) {
+        // timeout at 60000 milliseconds (60 seconds)
+        var options = {timeout:60000};
+        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+        } else {
+        alert("Sorry, browser does not support geolocation!");
+        }
+    }
+</script>
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
