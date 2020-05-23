@@ -374,8 +374,7 @@
         console.log(input.checked);
         console.log($(input)[0]);
         console.log($(input).parent().html($(input)[0].outerHTML+'<span class="badge-dot badge-success mr-1"></span>Sí'));
-        <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/>
-        
+        //$(input)[0].checked = false;
         
         if(input.checked == true) {
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
