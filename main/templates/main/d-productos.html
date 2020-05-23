@@ -384,11 +384,11 @@
         console.log(parent);
         if(input.checked == true) {
             $(input).parent().html('');
-            $(parent)[0].append('"'+$(input)[0].text()+'"');
+            $(parent)[0].append('"'+$(input)[0].outerHTML+'"');
             //$(parent)[0].append( +'<span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
             $(input).parent().html('');
-            $(parent)[0].append($(input)[0].text());
+            $(parent)[0].append($(input)[0].outerHTML);
             //$(parent)[0].append($(input)[0].textContent +'<span class="badge-dot badge-danger mr-1"></span>No');
         }
     }
