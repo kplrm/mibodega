@@ -161,8 +161,6 @@
 </div>
 <script type = "text/javascript">
     // Initializes map
-    console.log("{{ bodega.bd_geolocation.x }}");
-    console.log("{{ bodega.bd_geolocation.y }}");
     var marker;
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
         var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
@@ -233,6 +231,8 @@
             bd_raz_soc = document.getElementById("bd_raz_soc").value;
             bd_email = document.getElementById("bd_email").value;
             bd_phone = document.getElementById("bd_phone").value;
+            bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
+            bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/mibodega",
@@ -246,7 +246,9 @@
                     "bd_ruc": bd_ruc,
                     "bd_raz_soc": bd_raz_soc,
                     "bd_email": bd_email,
-                    "bd_phone": bd_phone
+                    "bd_phone": bd_phone,
+                    "bd_geolocation_lat": bd_geolocation_lat,
+                    "bd_geolocation_lng": bd_geolocation_lng
                 },
                 success: function(){
                     ;
