@@ -161,10 +161,10 @@
                                                     </td>
                                                     <td>
                                                         {% if product.peb_status == True %}
-                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;" onclick="peb_status(this)"/>
+                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/>
                                                             <span class="badge-dot badge-success mr-1"></span>Sí
                                                         {% else %}
-                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" style="position:relative;" onclick="peb_status(this)"/>
+                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" style="position:relative;" onclick="peb_status_change(this)"/>
                                                             <span class="badge-dot badge-danger mr-1"></span>No
                                                         {% endif %}
                                                     </td>
@@ -370,7 +370,7 @@
             }
         );
     };
-    function peb_status(input) {
+    function peb_status_change(input) {
         if(input.checked == true) {
             input.html('');
             input.append('<span class="badge-dot badge-success mr-1"></span>Sí');
