@@ -162,6 +162,9 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    var marker = L.marker([-12.046374, -77.0427934]);
+    map.addLayer(marker);
+
     const customMarkerIcon = L.AwesomeMarkers.icon({
         "extraClasses": "fa-rotate-0", 
         "icon": "shopping-cart", 
@@ -170,13 +173,9 @@
         "prefix": "glyphicon"
     });
     map.on('click', function onClick(e) {
-        try {
-            map.removeLayer(newMarker)
-        } catch {
-            ;
-        }
-        var newMarker = new L.marker(e.latlng);
-        map.addLayer(newMarker);
+        map.removeLayer(marker)
+        var marker = new L.marker(e.latlng);
+        map.addLayer(marker);
     });
 
     // Get user geolocation
