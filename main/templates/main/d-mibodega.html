@@ -157,6 +157,7 @@
     <!-- ============================================================== -->
 </div>
 <script type = "text/javascript">
+    getLocation();
     // Initializes map
     var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -180,7 +181,6 @@
         };
         marker = new L.marker(e.latlng).addTo(map);
     }
-
     map.on('click', onMapClick);
 
 
