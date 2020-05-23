@@ -373,12 +373,15 @@
     function peb_status_change(input) {
         console.log(input.checked);
         console.log($(input)[0]);
-        console.log($(input).parent().html($(input)[0].outerHTML+'<span class="badge-dot badge-success mr-1"></span>Sí'));
+        console.log($(input)[0].checked);
+        //console.log($(input).parent().html($(input)[0].outerHTML+'<span class="badge-dot badge-success mr-1"></span>Sí'));
         //$(input)[0].checked = false;
         
         if(input.checked == true) {
+            console.log("DG true");
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
+            console.log("DG false");
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-danger mr-1"></span>No');
         }
     }
