@@ -161,7 +161,7 @@
 </div>
 <script type = "text/javascript">
     // Initializes map
-    var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+    var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.x }}", "{{ bodega.bd_geolocation.y }}" ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -184,10 +184,6 @@
         marker = new L.marker(e.latlng).addTo(map);
         document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
         document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
-        console.log(marker);
-        console.log(marker._latlng);
-        console.log(marker._latlng.lat);
-        console.log(marker._latlng.lng);
     }
     map.on('click', onMapClick);
 
