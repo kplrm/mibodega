@@ -1130,8 +1130,6 @@ def mibodega(request):
             bd_phone = request.POST.get('bd_phone',False)
             bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
             bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
-            print(bd_geolocation_lat)
-            print(bd_geolocation_lng)
             if bd_is_active == "true":
                 bd_is_active = True
             else:

@@ -219,6 +219,15 @@
         alert("Sorry, browser does not support geolocation!");
         }
     }
+    $(document).ready(function() {
+        $('#bd_is_active').change(function() {
+            if(this.checked != true)
+            {
+                this.html('');
+                //<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
+            }
+        });
+    });
 </script>
 <script type="text/javascript">
     function save_mibodega_changes() {
@@ -233,8 +242,6 @@
             bd_phone = document.getElementById("bd_phone").value;
             bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
             bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
-            console.log(bd_geolocation_lat);
-            console.log(bd_geolocation_lng);
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/mibodega",
