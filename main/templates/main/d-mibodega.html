@@ -182,6 +182,7 @@
         marker = new L.marker(e.latlng).addTo(map);
         document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
         document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
+        save_mibodega_changes();
     }
     map.on('click', onMapClick);
 
@@ -221,7 +222,7 @@
 </script>
 <script type="text/javascript">
     // Listener of input type text chages
-    const numInputs = document.querySelectorAll('input');//[type=text]
+    const numInputs = document.querySelectorAll('input[type=text]');
     numInputs.forEach(function(input) {
         input.addEventListener('change', function(e) {
             save_mibodega_changes();
