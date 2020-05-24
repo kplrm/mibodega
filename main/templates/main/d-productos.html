@@ -265,19 +265,16 @@
         {% endfor %}
         console.log(product_faltante);
 
-        // Print search results
-        //m_products = document.getElementById('products_to_add');
-        //console.log(m_products);
-        //for (i = 0; i < m_products.length; i++) {
-        //    console.log(m_products[i]);
-        //    m_products[i].html('');
-        //    m_products[i].append('hola');
-        //}
-        //console.log($("#products_to_add")[0]);
+        // Print remove current results and add new search results
         $("tr").remove(".c_products_to_add");
-        //console.log($("#products_to_add").children().prevObject[0]);
-        //$("#products_to_add")[0].empty();
-        
+        {% for product_faltante in ProductosAprobados_missing %}
+            for (i = 0; i < product_faltante.length; i++) {
+                if (String("{{ product_faltante.pa_ID }}") == String(product_faltante[i].id)) {
+                    console.log("Voll treffer!");
+                    console.log(product_faltante[i].id);
+                }
+            }
+        {% endfor %}
     };
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
