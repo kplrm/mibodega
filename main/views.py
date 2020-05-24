@@ -24,9 +24,12 @@ from ipregistry import IpregistryClient, NoCache
 
 from django.db.models import Q
 
+from datetime import date, datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
 import base64
 import requests
-
+from decimal import *
 import re # regex
 
 import json
@@ -43,12 +46,13 @@ def save_store_location(request):
         id_bodega = request.POST['id_bodega']
         request.session['id_bodega'] = id_bodega
         if request.user.is_authenticated:
-            print("Cliente identificado")
+#            print("Cliente identificado")
             cliente = Cliente.objects.all().filter(cl_user=request.user).first()
             cliente.cl_bodega_ID = id_bodega
             cliente.save()
         else:
-            print("Usuario no identificado")
+            pass
+#            print("Usuario no identificado")
     else:
         message = "Not Ajax"
     return HttpResponse("")
@@ -65,14 +69,14 @@ def homepage(request):
     # Locate user and shops nearby.
     try:
         if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            print("Approx user location is known")
+#            print("Approx user location is known")
             user_longitude = request.session['user_longitude']
             user_latitude = request.session['user_latitude']
         else:
-            print("Approx user location is NOT known")
+#            print("Approx user location is NOT known")
             user_longitude, user_latitude = locate_user()
     except:
-        print("Location does not exist in the session")
+#        print("Location does not exist in the session")
         user_longitude, user_latitude = locate_user()
         request.session['user_longitude'] = user_longitude
         request.session['user_latitude'] = user_latitude
@@ -83,19 +87,20 @@ def homepage(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     try:
         if request.session['id_bodega'] == "Cercanas":
-            print("id_bodega is Empty")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True)[:20]
+ #           print("id_bodega is Empty")
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
         elif request.session['id_bodega'] != "Cercanas":
-            print("There is an id_bodega in session")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
+#            print("There is an id_bodega in session")
+            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
         else:
-            print("id_bodega is None")
+            pass
+#            print("id_bodega is None")
     except:
-        print("id_bodega does not exist in the session")
+#        print("id_bodega does not exist in the session")
         request.session['id_bodega'] = "Cercanas"
         request.session['bodega_name'] = "Cercanas"
         result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-        print(str(":")+str(request.session['id_bodega'])+str(":"))
+#        print(str(":")+str(request.session['id_bodega'])+str(":"))
 
     # Bodega name to display
     if request.session['bodega_name'] == "Cercanas":
@@ -103,7 +108,8 @@ def homepage(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
     
     # Random shuffle the discount products
     temp = list(result_list)
@@ -141,7 +147,7 @@ def embutidos(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="embutidos",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -160,7 +166,8 @@ def embutidos(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -215,7 +222,7 @@ def lacteos(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -234,7 +241,8 @@ def lacteos(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -289,7 +297,7 @@ def abarrotes(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -308,7 +316,8 @@ def abarrotes(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -363,7 +372,7 @@ def limpieza(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -382,7 +391,8 @@ def limpieza(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
     
     # Paginator
     page = request.GET.get('page', 1)
@@ -437,7 +447,7 @@ def licores(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -456,7 +466,8 @@ def licores(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -511,7 +522,7 @@ def vegetales(request):
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales").all()
+    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales",peb_status=True).all()
     try:
         if request.session['id_bodega'] == "Cercanas":
             result_list = productos_en_bodegas.all()
@@ -530,7 +541,8 @@ def vegetales(request):
     elif request.session['bodega_name'] != "Cercanas":
         id_bodega_text = request.session['bodega_name']
     else:
-        print("What is this?")
+        pass
+#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -585,7 +597,6 @@ def checkout(request):
 
     # Check if user is logged in
     if request.user.is_authenticated:
-        print("Cliente identificado")
         cliente = Cliente.objects.all().filter(cl_user=request.user).first()
     else:
         cliente = Cliente
@@ -611,7 +622,7 @@ def checkout(request):
             else:
                 subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
 
-    print(subtotal_bodegas)
+#    print(subtotal_bodegas)
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
                   context={'cliente': cliente,
@@ -678,12 +689,57 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
                                 to=[usr_email], body="text_body")
     email.attach_alternative(html_content, "text/html")
     res = email.send()
+#    print("Email enviado a cliente")
 
-    print("Email enviado")
+    # Send mail to bodegas
+    for bodega_id in bodegas:
+        # Get the bodega object from bodega string
+        bodega_obj = get_object_or_404(Bodega,bd_ID=bodega_id)
+        # Retrieve all corresponding cart products
+        result_list = OrderItem.objects.all().filter(oi_ID=orders_obj,oi_bo_ID__bo_bodega=bodega_obj).all()
+        bodegaorder_obj = get_object_or_404(BodegaOrders,bo_order=orders_obj,bo_bodega=bodega_obj)
+        context = {
+            'orders_obj': orders_obj,
+            'bodega_obj': bodega_obj,
+            'bodegaorder_obj': bodegaorder_obj,
+            'result_list': result_list,
+            'usr_first': usr_first,
+            'usr_last': usr_last,
+            'usr_street': usr_street,
+            'usr_geolocation': usr_geolocation,
+            'usr_map': usr_map,
+            'usr_email': usr_email,
+            'usr_phone': usr_phone,
+            'usr_comments': usr_comments
+        }
+        # Add email subject
+        subject = "Orden de compra #"+str(orders_obj.ord_ID).zfill(8)
+
+        # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
+        html_content = render_to_string('main/bodega_order_confirmation.html', context)
+        email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
+                                    to=[usr_email], body="text_body")
+        email.attach_alternative(html_content, "text/html")
+        res = email.send()
+#        print("Email enviado a Bodega")
+
     return HttpResponse('%s'%res)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
+        print("in submit_checkout")
+        # Saves user data if there is a user
+        if request.user.is_authenticated:
+            pass
+#            print("Cliente identificado")
+            # Lines to update clients data           ord_user
+            #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+            #cliente.cl_bodega_ID = id_bodega
+            #cliente.save()
+        else:
+            pass
+#            print("Usuario no identificado")
+
         # Stores variables in session
         cart_obj_id = request.POST['cart_obj_id']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
@@ -695,61 +751,87 @@ def submit_checkout(request):
         usr_phone = request.POST['usr_phone']
         usr_comments = request.POST['usr_comments']
 
-        # Creates a new order
-        orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
-        
-        # Saves user data if there is a user
-        if request.user.is_authenticated:
-            print("Cliente identificado")
-            # Lines to update clients data           ord_user
-            #cliente = Cliente.objects.all().filter(cl_user=request.user).first()
-            #cliente.cl_bodega_ID = id_bodega
-            #cliente.save()
-        else:
-            print("Usuario no identificado")
-        
         # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-
-        # Crate a new bodegaorder for every bodega in the basket
-        bodegas = dict()
+        # Check for not available items
+        not_available_items = []
         for item in cart_list:
-            if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
-                pass
-            else:
-                bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
-                bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
-        
-        # Create every order item
-        for item in cart_list:
-            order_item = OrderItem.objects.create(oi_ID=orders_obj)
-            order_item.oi_id_product = item.ci_product.peb_product.pa_ID
-            order_item.oi_product = item.ci_product.peb_product.pa_product
-            order_item.oi_quantity = item.ci_quantity
-            order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
-            order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
-            order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
-            order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
-            if item.ci_product.peb_discount_status:
-                order_item.oi_price = item.ci_product.peb_discount_price
-            else:
-                order_item.oi_price = item.ci_product.peb_regular_price
-            order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
-            # Adds bodegaorders_obj to order_item
-            for bodega in bodegas:
-                if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
-                    order_item.oi_bo_ID = bodegas[str(bodega)]
-                    # Updates bodega order total price
-                    bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
-                    bodegas[str(bodega)].save()
-                    break
-            order_item.save()
+            if item.ci_product.peb_status == False:
+                not_available_items.append( str(item.ci_product.peb_product.pa_product) )
+                peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
+                cart_obj.crt_product.remove(peb) # remove crt_product
+                cart_obj.crt_item.remove(item) # remove crt_item
+                item.delete()
+                update_price(cart_obj)
+        not_available_items = tuple(not_available_items)
+        # Reload items from the basket after purging not available items
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-        send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+        # SEND JSON RESPONSE!!!!!!!!!!!
+        if cart_obj.crt_total_price == 0:
+            print("in price = 0")
+            response_data = {"error": not_available_items }
+            print(response_data)
+            return JsonResponse(response_data, status=400)
+        # In case shopping cart is not empty
+        elif cart_obj.crt_total_price > 0:
+            print("in price > 0")
+            # Creates a new order
+            orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
 
+            # Crate a new bodegaorder for every bodega in the basket
+            bodegas = dict()
+            for item in cart_list:
+                if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
+                    pass
+                else:
+                    bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
+                    bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
+            
+            # Create every order item
+            for item in cart_list:
+                order_item = OrderItem.objects.create(oi_ID=orders_obj)
+                order_item.oi_id_product = item.ci_product.peb_product.pa_ID
+                order_item.oi_product = item.ci_product.peb_product.pa_product
+                order_item.oi_quantity = item.ci_quantity
+                order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
+                order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
+                order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
+                order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
+                if item.ci_product.peb_discount_status:
+                    order_item.oi_price = item.ci_product.peb_discount_price
+                else:
+                    order_item.oi_price = item.ci_product.peb_regular_price
+                order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
+                # Adds bodegaorders_obj to order_item
+                for bodega in bodegas:
+                    if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
+                        order_item.oi_bo_ID = bodegas[str(bodega)]
+                        # Updates bodega order total price
+                        bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
+                        bodegas[str(bodega)].save()
+                        break
+                order_item.save()
+
+            # Send email to client and bodegas
+            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+
+            # Delete current cart and its associated items before submitting
+            cart_obj.delete()
+            for item in cart_list:
+                print(type(item))
+                item.delete()
+
+            # Send JsonResponse
+            response_data = {"success": not_available_items }
+            return JsonResponse(response_data, status=200)
+        else:
+            print("in price < 0")
+            return JsonResponse({"error": "Invalid cart value"}, status=400)
+    
+    # In case is not post neither ajax
     else:
-        print("Not Ajax")
-    return redirect('main:homepage')
+        return JsonResponse({"error": "something went wrong"}, status=400)
 
 def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
@@ -808,9 +890,11 @@ def session_cart_load_or_create(request):
 
 def remove_cart(request):
     if request.method== "GET":
-        print("a GET message arrived")
+        pass
+#        print("a GET message arrived")
     if request.method== "POST":
-        print("a POST message arrived")
+        pass
+#        print("a POST message arrived")
         
     item_pk = request.POST.get('item_pk', None)
     #url_to_redirect = request.POST.get('url_to_redirect', None)
@@ -835,7 +919,7 @@ def remove_cart(request):
     #return HttpResponse("")
 
 def cart_add(request):
-    print("Entrando en el update!")
+#    print("Entrando en el update!")
     # Retrieve on which object it was clicked
     product_pk = request.POST.get('product_id', None)
     if product_pk is not None:
@@ -843,16 +927,16 @@ def cart_add(request):
         product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
         cart_obj, new_obj =  Cart.objects.new_or_get(request)
         # Check if the product is already in the cart
-        print(product_obj)
+#        print(product_obj)
         qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
         if qs.count() == 1:
-            print("Ya está en el coche")
+#            print("Ya está en el coche")
             # INCREASE QUANTITY BY ONE
             cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
             cart_item.ci_quantity += 1
             cart_item.save()
         else:
-            print("Nuevo item en el coche!")
+#            print("Nuevo item en el coche!")
             cart_obj.crt_product.add(product_obj) # Add product to the cart
             cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
             cart_obj.crt_item.add(cart_item)
@@ -893,7 +977,6 @@ def dashboard(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
-        print("created? ", created)
 
         # Find BodegaOrders with their corresponding OrderItem
         try:
@@ -933,6 +1016,7 @@ def dashboard(request):
                 top10_products = list(most_sold_products)[0:top_list_size]
         except:
             top10_products = []
+
         most_sold_products = list(most_sold_products)
 
         ################################# PAGE CONTENT END #################################
@@ -967,7 +1051,6 @@ def productos(request):
         # Search for client's bodega and it's data
         bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
         BodegaDashboard_obj, created = BodegaDashboard.objects.get_or_create(bd_ID=bodega,bd_user=cliente)
-        print("created? ", created)
 
         # Find ProductosEnBodega
         try:
@@ -989,16 +1072,13 @@ def productos(request):
 
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
-            print("posting..")
             # Changes
             changes = request.POST.get('changes',False)
-            print(changes)
             if changes != False:
                 changes = json.loads(changes)
                 save_product_changes(changes,ProductosEnBodega_list)
             # Add product
             additions = request.POST.get('additions',False)
-            print(additions)
             if additions != False:
                 additions = json.loads(additions)
                 save_additions(additions,bodega,ProductosAprobados_all)
@@ -1019,6 +1099,98 @@ def productos(request):
                         'bodega': bodega,
                     }
             return render(request=request,template_name="main/d-productos.html",context=context)
+        else:
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
+
+    else:
+        return HttpResponseRedirect(reverse('main:homepage'))
+
+def mibodega(request):
+    if request.user.is_authenticated:
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+        # Render only if it's bodega
+        # To avoid any rendering or calculation if it's not a bodega
+        if cliente.cl_is_bodega == False:
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
+        ####################################################################################
+        ################################### PAGE CONTENT ###################################
+        # Search for client's bodega and it's data
+        bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
+
+        # If save_product_changes was posted, apply changes
+        if request.method == "POST" and request.is_ajax():
+            # Update changes
+            cl_first_name = request.POST.get('cl_first_name',False)
+            cl_last_name = request.POST.get('cl_last_name',False)
+            bd_is_active = request.POST.get('bd_is_active',False)
+            bd_name = request.POST.get('bd_name',False)
+            bd_ruc = request.POST.get('bd_ruc',False)
+            bd_raz_soc = request.POST.get('bd_raz_soc',False)
+            bd_email = request.POST.get('bd_email',False)
+            bd_phone = request.POST.get('bd_phone',False)
+            bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
+            bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
+            if bd_is_active == "true":
+                bd_is_active = True
+            else:
+                bd_is_active = False
+            cliente.cl_first_name = cl_first_name
+            cliente.cl_last_name = cl_last_name
+            bodega.bd_is_active = bd_is_active
+            bodega.bd_name = bd_name
+            bodega.bd_ruc = bd_ruc
+            bodega.bd_raz_soc = bd_raz_soc
+            bodega.bd_email = bd_email
+            bodega.bd_phone = bd_phone
+            user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
+            bodega.bd_geolocation = user_location
+            cliente.save()
+            bodega.save()
+
+            context = {
+                'success': '',
+            }
+
+            return render(request=request,template_name="main/d-mibodega.html",context=context)
+
+        ################################# PAGE CONTENT END #################################
+        ####################################################################################
+        # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
+        if cliente.cl_is_bodega:
+            context = {
+                        'cliente': cliente,
+                        'bodega': bodega,
+                    }
+            return render(request=request,template_name="main/d-mibodega.html",context=context)
+        else:
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
+
+    else:
+        return HttpResponseRedirect(reverse('main:homepage'))
+
+def pedidos(request):
+    if request.user.is_authenticated:
+        cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+        # Render only if it's bodega
+        # To avoid any rendering or calculation if it's not a bodega
+        if cliente.cl_is_bodega == False:
+            return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
+        ####################################################################################
+        ################################### PAGE CONTENT ###################################
+        # Search for client's bodega and it's data
+        bodega = Bodega.objects.all().filter(bd_ID=cliente.cl_default_bodega).first()
+
+        
+
+        ################################# PAGE CONTENT END #################################
+        ####################################################################################
+        # Second check in the footer to render only if cl_is_bodega, and avoid None or any other value
+        if cliente.cl_is_bodega:
+            context = {
+                        'cliente': cliente,
+                        'bodega': bodega,
+                    }
+            return render(request=request,template_name="main/d-pedidos.html",context=context)
         else:
             return HttpResponseRedirect(reverse('main:homepage')) # pending to redirect to client page
 
@@ -1069,7 +1241,7 @@ def update_values_BodegaDashboard(BodegaDashboard_obj, BodegaOrders_list):
     if last_month_sales != 0:
         monthly_change_sales = (month_sales - last_month_sales)/last_month_sales*100
     else:
-        daily_change_sales = 0
+        monthly_change_sales = 0
 
     # Save object
     BodegaDashboard_obj.bd_daily_sales = today_sales
@@ -1108,7 +1280,6 @@ def save_product_changes(changes, ProductosEnBodega_list):
     for product_changes in changes:
         for producto in ProductosEnBodega_list:
             if str(producto.peb_ID) == str(product_changes['key']):
-                print("producto encontrado")
                 producto.peb_regular_price = product_changes['regular_price']
                 producto.peb_discount_price = product_changes['discount_price']
                 producto.peb_discount_status = product_changes['discount_status']
@@ -1118,20 +1289,70 @@ def save_product_changes(changes, ProductosEnBodega_list):
     return redirect('main:productos')
 
 def save_additions(additions, bodega, ProductosAprobados_all):
-    print("saving...")
     for product_to_add in additions:
-        print("saving2...")
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
         new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
-        print("Creado new item? ", created)
     return redirect('main:productos')
 
+def remove_product(request):
+    if request.method == "POST" and request.is_ajax():
+        remove_product_id = request.POST.get('key',False)
+        if remove_product_id != False:
+            rm_obj = get_object_or_404(ProductosEnBodega,peb_ID=remove_product_id)
+            rm_obj.delete()
+            return JsonResponse({"success": ""}, status=200)
+        else:
+            return JsonResponse({"error": "no product to delete"}, status=400)
 
+def see_sales_detail(request):
+    if request.method == "POST" and request.is_ajax():
+        product_id = request.POST.get('product_id',False)
+        bodega_id = request.POST.get('bodega_id',False)
+        if product_id != False and bodega_id != False:            
+            # Retrieve bodega
+            bodega = get_object_or_404(Bodega,bd_ID=bodega_id)
+            try:
+                BodegaOrders_list = get_list_or_404(BodegaOrders,bo_bodega=bodega)
+            except:
+                BodegaOrders_list = []
 
+            OrderItem_list = []
+            for bodega_order in BodegaOrders_list:
+                try:
+                    item = get_object_or_404(OrderItem,oi_bo_ID=bodega_order,oi_is_anulado=False,oi_id_product=str(product_id))
+                    OrderItem_list.append(item)
+                except:
+                    pass
 
+            products_details = dict()
+            for item in OrderItem_list:
+                if item.oi_date_created.date() > (date.today()+timedelta(days = -30)):
+                    if item.oi_price in products_details:
+                        products_details[str(item.oi_price)] += int(item.oi_quantity)
+                    else:
+                        products_details.update({
+                            str(item.oi_price): int(item.oi_quantity)
+                        })
+            products_details = sorted(products_details.items(), key=lambda x: x[0], reverse=True)
+            json_products_details = json.dumps(products_details)
+            return JsonResponse({"success": json_products_details}, status=200)
+        else:
+            return JsonResponse({"error": "no product detail"}, status=400)
 
-
-def landingpage(request):
+def unete(request):
     return render(request=request, # to reference request
-                  template_name="main/landingpage.html", # where to find the specifix template
+                  template_name="main/unete.html", # where to find the specifix template
                   )
+
+def get_nearby_shops(request):
+    if request.method == "POST" and request.is_ajax():
+        user_latitude = request.POST.get('latitude',False)
+        user_longitude = request.POST.get('longitude',False)
+        user_location = Point(float(user_latitude),float(user_longitude),srid=4326)
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        json_response = []
+        for shop in shops:
+            json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x, shop.bd_name, shop.bd_ID) )
+        return JsonResponse({"success": tuple(json_response)}, status=200)
+    else:
+        return JsonResponse({"error": "unknown"}, status=400)

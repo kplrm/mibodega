@@ -12,23 +12,13 @@
 -->
 <!-- Header Section Begin -->
 <header class="header-section">
-    <!-- BOTTOM BAR-->
-    <div class="nav-item">
-        <div class="container">
-            <nav class="nav-menu mobile-menu">
-                <ul>
-                    <li class="active"><a href="/dashboard">Tablero</a></li>
-                    <li><a href="/dashboard/productos">Productos</a></li>
-                    <li><a href="/dashboard/pedidos">Pedidos</a>
-                    <li><a href="/dashboard/mibodega">Mi bodega</a></li>
-                    <li><a href="../logout">Salir</a></li>
-                    </li>
-                </ul>
-            </nav>
-            <!-- Mobile version-->
-           <div id="mobile-menu-wrap"></div>
-        </div>
-    </div>
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active" href="/dashboard">Tablero</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/productos">Productos</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/pedidos">Pedidos</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/mibodega">Mi bodega</a>
+        <a class="nav-item nav-link" style="background: white;" href="../logout">Salir</a>
+    </nav>
 </header>
 <!-- Header End -->
 
@@ -45,9 +35,9 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">Hola {{ cliente.cl_first_name }} {{ cliente.cl_last_name }}. Bienvenido a tu bodega {{ bodega.bd_name }}</h2>
+                            <h2 class="pageheader-title">Hola {{ cliente.cl_first_name }} {{ cliente.cl_last_name }}.<br>Bienvenido a tu bodega {{ bodega.bd_name }}</h2>
                             <p class="pageheader-text">
-                                Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.
+                                Mi tablero en Alimentos.pe
                             </p>
                         </div>
                     </div>
@@ -169,7 +159,11 @@
                                                 <tr>
                                                     <td>{{ forloop.counter }}</td>
                                                     <td>
-                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            {% if product.peb_product.pa_image %}
+                                                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                            {% endif %}
+                                                        </div>
                                                     </td>
                                                     <td>{{ product.1.1 }}</td>
                                                     <td>{{ product.1.0 }}</td>
@@ -277,16 +271,44 @@
     <!-- end wrapper  -->
     <!-- ============================================================== -->
 </div>
-
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.slimscroll.js' %}"></script>
-<script src="{% static 'main/js/main-js.js' %}"></script>
 <script src="{% static 'main/js/Chart.bundle.min.js' %}"></script> <!-- NEEDED FOR DRAWING CHARTS -->
 <script src="{% static 'main/js/Chart.js' %}"></script> <!-- NEEDED FOR DRAWING CHARTS -->
-<script src="{% static 'main/js/jquery.slicknav.js' %}"></script> <!-- NEEDED FOR MOBILE NAVIGATION HEADER -->
-<script src="{% static 'main/js/dashboard-ecommerce.js' %}"></script> <!-- NEEDED FOR CURRENT SITE RENDERING -->
-<script src="{% static 'main/js/dmain.js' %}"></script>
+<script>
+    var data = {
+        datasets: [{
+            data: series_most_sold_products,
+            backgroundColor: labels_backgroundColors
+        }],
+        labels: labels_most_sold_products
+    };
+
+    var options = {
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var label = data['labels'][tooltipItem['index']];
+                    if (label) {
+                        label += ': ';
+                    }
+                    var dataset = data['datasets'][0];
+                    var temp = (dataset['data'][tooltipItem['index']]/sales_volumen_last_30)*10000;
+                    var percent = Math.round(temp)/100;
+                    label += '(' + percent + '%)';
+                    return label;
+                  }
+            }
+        }
+    };
+     
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: options
+    });
+</script>
 {% endblock %}

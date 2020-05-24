@@ -75,7 +75,7 @@
                         <!--<span>Bag,kids</span>-->
                         <h1 style="background-color:white; opacity: 0.8">Ahora en todo el Perú</h1>
                         <h3 style="background-color:white; opacity: 0.8">La bodega de tu cuadra ahora está en internet</h3>
-                        <a href="/landingpage" class="primary-btn">¡Únete!</a>
+                        <a href="/unete" class="primary-btn">¡Únete!</a>
                     </div>
                 </div>
                 <div class="off-card">
@@ -90,7 +90,7 @@
                         <!--<span>Bag,kids</span>-->
                         <h1 style="background-color:white; opacity: 0.8">Afilia tu bodega gratis</h1>
                         <h3 style="background-color:white; opacity: 0.8">Ahora puedes vender por internet</h3>
-                        <a href="/landingpage" class="primary-btn">¡Únete!</a>
+                        <a href="/unete" class="primary-btn">¡Únete!</a>
                     </div>
                 </div>
                 <div class="off-card">
@@ -125,7 +125,9 @@
                     {% for product in result_list %}
                     <div class="product-item">
                         <div class="pi-pic">
-                            <img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG">
+                            {% if product.peb_product.pa_image %}
+                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                            {% endif %}
                             <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
                             <ul>
                                 <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}

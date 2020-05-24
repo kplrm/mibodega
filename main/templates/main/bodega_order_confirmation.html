@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Su pedido de Alimentos.pe</title>
+<title>Un pedido de Alimentos.pe</title>
 <!--
 
     An email present from your friends at Litmus (@litmusapp)
@@ -141,13 +141,13 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td align="center" style="font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">
-                                    Su pedido fue aceptado y está siendo procesado.
+                                    Tiene un nuevo pedido.
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="padding: 20px 0 0 0; font-size: 20px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
                                     <span style="font-weight: bold;">Pedido #{{ orders_obj.ord_ID|stringformat:"08d" }}</span>
-                                    <br>La bodega ahora preparará su pedido.
+                                    <br>Contacte al cliente y prepare su pedido.
                                 </td>
                             </tr>
                         </table>
@@ -158,14 +158,10 @@
     </tr>
     <tr>
         <td bgcolor="#ffffff" align="center" style="padding: 15px;" class="padding">
-            {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
+
                 <br>
                 <div style="padding: 25px 0 10px 0; font-family: Arial, sans-serif; color: #333333; font-size: 20px;">
-                    {% for key, value in bodega_names.items %}
-                        {% if key == bodega_id %}
-                            {{ value }}
-                        {% endif %}
-                    {% endfor %}
+                    {{ bodega_obj.bd_name }}
                 </div>
                 <br>
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
@@ -190,7 +186,6 @@
                         <td>
                             <!-- BODEGA LISTING -->
                             {% for product in result_list %}
-                                {% if product.oi_id_bodega == bodega_id %}
                                     <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                         <tr>
                                             <!-- LEFT COLUMN -->
@@ -203,7 +198,6 @@
                                             <td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_prod_total|floatformat:2|intcomma }}</td>
                                         </tr>
                                     </table>
-                                {% endif %}
                             {% endfor %}
                         </td>
                     </tr>
@@ -218,35 +212,14 @@
                                     <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">Subtotal</td>
                                     <!-- RIGHT COLUMN -->
                                     <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 20%; font-family: Arial, sans-serif; color: #333333; font-size: 16px; font-weight: bold;">S/.
-                                        {% for key, value in subtotal_bodegas.items %}
-                                            {% if key == bodega_id %}
-                                                {{value|floatformat:2|intcomma}}
-                                            {% endif %}
-                                        {% endfor %}
+                                        {{ bodegaorder_obj.bo_total_price|floatformat:2|intcomma }}
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                 </table>
-            {% endfor %}
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#ffffff" align="center" style="padding: 15px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 500px;" class="responsive-table">
-                <tr>
-                    <td>
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td align="center" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #e7ab3c; padding-top: 0px; font-weight: bold;" class="padding-copy">
-                                    Total S/.{{orders_obj.ord_total_price|floatformat:2|intcomma}}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+
         </td>
     </tr>
     <tr>
@@ -261,7 +234,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td align="left" style="padding: 0 0 0 0; font-size: 14px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color: #aaaaaa; font-style: italic;" class="padding-copy">
-                                                En caso algún producto esté agotado, se anulará la compra de dicho producto.
+                                                En caso algún producto esté agotado, anule ese producto de la lista de compra e informe al cliente antes de despachar.
                                             </td>
                                         </tr>
                                     </table>
@@ -282,25 +255,14 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td align="left" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 16px; font-weight: bold;" class="padding-copy">
-                                    Indicaciones
+                                    Indicaciones dadas al cliente
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="padding: 7px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
                                     Cualquier cambio o devolución, coordinar directamente con la bodega.
                                     <br>La bodega se contactará con ud. para coordinar el despacho o recojo en tienda de la compra.
-                                    {% for bodega_id, bodega_ruc in bodegas_en_cesta.items %}
-                                        {% for key, value in bodega_names.items %}
-                                            {% if key == bodega_id %}
-                                                <br>{{ value }}
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% for key, value in bodega_phones.items %}
-                                            {% if key == bodega_id %}
-                                                <a href="tel:{{ value }}"> Tel:{{ value }}</a>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endfor %}
+                                    <br>{{ bodega_obj.bd_name }}<a href="tel:{{ bodega_obj.bd_phone }}"> Tel:{{ bodega_obj.bd_phone }}</a>
                                 </td>
                             </tr>
                             <tr>

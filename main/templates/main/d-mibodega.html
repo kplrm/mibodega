@@ -1,0 +1,274 @@
+{% extends 'main/d-header.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<!-- Page Preloder -->
+<!--
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+-->
+<!-- Header Section Begin -->
+<header class="header-section">
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard">Tablero</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/productos">Productos</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/pedidos">Pedidos</a>
+        <a class="nav-item nav-link active" href="/dashboard/mibodega">Mi bodega</a>
+        <a class="nav-item nav-link" style="background: white;" href="../logout">Salir</a>
+    </nav>
+</header>
+<!-- Header End -->
+
+<div class="dashboard-main-wrapper">
+    <!-- ============================================================== -->
+    <!-- wrapper  -->
+    <!-- ============================================================== -->
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content ">
+                <!-- ============================================================== -->
+                <!-- pageheader  -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">Hola {{ cliente.cl_first_name }} {{ cliente.cl_last_name }}.<br>Bienvenido a tu bodega {{ bodega.bd_name }}</h2>
+                            <p class="pageheader-text">
+                                Mi bodega en Alimentos.pe
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader  -->
+                <!-- ============================================================== -->
+                <div class="ecommerce-widget">
+                    <div class="row">
+                        <!-- ============================================================== -->
+                        <!-- Form MiBodega  -->
+                        <!-- ============================================================== -->
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">Mis datos y los de mi bodega</h5>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                            </thead>
+                                            <tbody>
+                                                <form id="mibodega_update" action="">
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Usuario</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" value="{{ cliente.cl_user }}" disabled>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Nombre</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="cl_first_name" value="{{ cliente.cl_first_name }}">
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Apellido</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="cl_last_name" value="{{ cliente.cl_last_name }}">
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿Está activa tu bodega?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            {% if bodega.bd_is_active == True %}
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked onclick="bd_activity(this)">
+                                                                <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>
+                                                            {% else %}
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" onclick="bd_activity(this)">
+                                                                <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
+                                                            {% endif %}
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Nombre de bodega</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_name" value="{{ bodega.bd_name }}" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">RUC o DNI</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_ruc" value="{{ bodega.bd_ruc }}" disabled required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Razón social</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_raz_soc" value="{{ bodega.bd_raz_soc }}">
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">E-mail</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_email" value="{{ bodega.bd_email }}" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Teléfono</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_phone" value="{{ bodega.bd_phone }}" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Ubica tu bodega en el mapa.</th>
+                                                        <th class="border-0" style="text-align:left;">Búscala y haz click.
+                                                            <input type="hidden" class="form-control" id="bd_geolocation_lat" value="{{ bodega.bd_geolocation.y }}">
+                                                            <input type="hidden" class="form-control" id="bd_geolocation_lng" value="{{ bodega.bd_geolocation.x }}">
+                                                        </th>
+                                                    </tr>
+                                                </form>
+                                            </tbody>
+                                        </table>
+                                        <div id="mapid"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- end Form MiBodega  -->
+                        <!-- ============================================================== -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- end wrapper  -->
+    <!-- ============================================================== -->
+</div>
+<script type = "text/javascript">
+    // Initializes map
+    var marker;
+    if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
+        var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
+        marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"]);
+        map.addLayer(marker);
+    } else {
+        var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+        getLocation();
+    }
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    //var marker = L.marker([-12.046374, -77.0427934]);
+    //map.addLayer(marker);
+
+    const customMarkerIcon = L.AwesomeMarkers.icon({
+        "extraClasses": "fa-rotate-0", 
+        "icon": "shopping-cart", 
+        "iconColor": "white", 
+        "markerColor": "orange", 
+        "prefix": "glyphicon"
+    });
+    
+    function onMapClick(e) {
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker(e.latlng).addTo(map);
+        document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
+        document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
+        save_mibodega_changes();
+    }
+    map.on('click', onMapClick);
+
+    // Get geolocation on page load
+    //getLocation();
+    // Get user geolocation
+    function showLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        map.panTo(new L.LatLng(latitude, longitude));
+    }
+    function errorHandler(err) {
+        if(err.code == 1) {
+        alert("Error: Access is denied!");
+        } else if( err.code == 2) {
+        alert("Error: Position is unavailable!");
+        }
+    }
+    function getLocation() {
+        if(navigator.geolocation) {
+        // timeout at 60000 milliseconds (60 seconds)
+        var options = {timeout:60000};
+        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+        } else {
+        alert("Sorry, browser does not support geolocation!");
+        }
+    }
+    function bd_activity(input) {
+        if(input.checked == true) {
+            $("#bodega_is_active").html('');
+            $("#bodega_is_active").append('<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>');
+        } else {
+            $("#bodega_is_active").html('');
+            $("#bodega_is_active").append('<p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>');
+        }
+        save_mibodega_changes();
+    }
+</script>
+<script type="text/javascript">
+    // Listener of input type text chages
+    const numInputs = document.querySelectorAll('input[type=text]');
+    numInputs.forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            save_mibodega_changes();
+        })
+    });
+    // Save changes function
+    function save_mibodega_changes() {
+        if ($("#mibodega_update").validate().form()) {
+            cl_first_name = document.getElementById("cl_first_name").value;
+            cl_last_name = document.getElementById("cl_last_name").value;
+            bd_is_active = document.getElementById("bd_is_active").checked;
+            bd_name = document.getElementById("bd_name").value;
+            bd_ruc = document.getElementById("bd_ruc").value;
+            bd_raz_soc = document.getElementById("bd_raz_soc").value;
+            bd_email = document.getElementById("bd_email").value;
+            bd_phone = document.getElementById("bd_phone").value;
+            bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
+            bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
+            $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/dashboard/mibodega",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "cl_first_name": cl_first_name,
+                    "cl_last_name": cl_last_name,
+                    "bd_is_active": bd_is_active,
+                    "bd_name": bd_name,
+                    "bd_ruc": bd_ruc,
+                    "bd_raz_soc": bd_raz_soc,
+                    "bd_email": bd_email,
+                    "bd_phone": bd_phone,
+                    "bd_geolocation_lat": bd_geolocation_lat,
+                    "bd_geolocation_lng": bd_geolocation_lng
+                },
+                success: function(){
+                    ;
+                }
+            });
+        } else {
+            alert("Verifique los datos ingresados");
+        };
+    };
+</script>
+<!-- Latest Blog Section End -->
+<!-- Js Plugins -->
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
+<script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+{% endblock %}
