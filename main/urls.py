@@ -30,6 +30,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("dashboard/productos", views.productos, name="productos"),
     path("dashboard/mibodega", views.mibodega, name="mibodega"),
+    path("dashboard/pedidos", views.pedidos, name="pedidos"),
     path("dashboard/save_product_changes", views.save_product_changes, name="save_product_changes"),
     path("dashboard/see_sales_detail", views.see_sales_detail, name="see_sales_detail"),
     path("dashboard/remove_product", views.remove_product, name="remove_product"),
