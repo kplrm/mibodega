@@ -240,7 +240,6 @@
         })
     });
     function search_missing_product() {
-        console.log(document.getElementById("search-box").value);
         var product_faltante = [];
         var dict = {};
         {% for product_faltante in ProductosAprobados_missing %}
@@ -253,6 +252,10 @@
             console.log("{{ product_faltante.pa_product }}");
         {% endfor %}
         console.log(product_faltante);
+        search_words = document.getElementById("search-box").value
+        console.log(search_words);
+        var reg_ex = new RegExp('^(.*?(' + search_words + ')[^$]*)$', 'i')
+        console.log(reg_ex);
     };
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
