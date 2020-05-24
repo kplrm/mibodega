@@ -12,12 +12,12 @@
 <nav>
     <div class = "nav-wrapper">
         <!--<ul id="nav-mobile" class="left hide-on-med-and-down">-->
-        <ul id="nav-mobile" class="row">
-          <li class="col xl3 l3 m3 s3"><a href = "/"><img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="LOGO"></a></li>
-          <li class="col xl1 l1 m1 s1"><i class="white-text material-icons prefix">search</i></li>
-          <li class="col xl5 l5 m5 s5"><input type="text" class="white-text"/></li>
-          <li class="col xl3 l3 m3 s3">{% include 'main/includes/shop_selection.html' %}</li>
-       </ul>
+        <div id="nav-mobile" class="row">
+          <div class="col xl3 l3 m3 s3"><a href = "/"><img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="LOGO"></a></div>
+          <div class="col xl1 l1 m1 s1"><i class="white-text material-icons prefix">search</i></div>
+          <div class="col xl5 l5 m5 s5"><input type="text" class="white-text"/></div>
+          <div class="col xl3 l3 m3 s3">{% include 'main/includes/shop_selection.html' %}</div>
+       </div>
     </div>
  </nav>       
         <!-- SEARCHBOX BEGIN -->
