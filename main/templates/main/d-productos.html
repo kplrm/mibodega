@@ -241,14 +241,18 @@
     });
     function search_missing_product() {
         console.log(document.getElementById("search-box").value);
-        
         var product_faltante = [];
+        var dict = {};
         {% for product_faltante in ProductosAprobados_missing %}
+            dict = {
+                id: "{{ product_faltante.pa_ID }}",
+                product: "{{ product_faltante.pa_product }}"
+            };
+            product_faltante.push(dict);
             console.log("{{ product_faltante.pa_ID }}");
+            console.log("{{ product_faltante.pa_product }}");
         {% endfor %}
-        
-        //for (i = 0; i < {{ProductosAprobados_missing}})
-
+        console.log(product_faltante);
     };
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
