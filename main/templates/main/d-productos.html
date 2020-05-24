@@ -240,12 +240,11 @@
         })
     });
     function search_missing_product() {
-        console.log("begin");
+        // Get search words
         search_text = document.getElementById("search-box").value
         search_words = search_text.split(" ");
-        //console.log(search_words);
-        //var reg_ex = new RegExp('^(.*?(' + search_words + ')[^$]*)$', 'i')
 
+        // Look for those words in current object
         var product_faltante = [];
         var dict = {};
         {% for product_faltante in ProductosAprobados_missing %}
@@ -265,6 +264,9 @@
             }
         {% endfor %}
         console.log(product_faltante);
+
+        // Print search results
+        $("#products_to_update").html('');
         
     };
     function save_product_changes() {
