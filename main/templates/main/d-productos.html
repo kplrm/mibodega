@@ -170,11 +170,11 @@
                                                     </td>
                                                     <td>
                                                         {% if product.peb_discount_status == True %}
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;"/>
+                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;" onclick="discount_status_change(this)"/>
                                                             <span class="badge-dot badge-success mr-1"></span>Sí
                                                         {% else %}
                                                             <!--<input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" style="padding:0px;"/>-->
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" style="position:relative;"/>
+                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" style="position:relative;" onclick="discount_status_change(this)"/>
                                                             <span class="badge-dot badge-danger mr-1"></span>No
                                                         {% endif %}
                                                     </td>
@@ -377,6 +377,14 @@
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-danger mr-1"></span>No');
+        }
+        save_product_changes();
+    }
+    function discount_status_change(input) {        
+        if(input.checked == true) {
+            $(input).parent().html('<input type="checkbox" name="discount_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="discount_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
+        } else {
+            $(input).parent().html('<input type="checkbox" name="discount_status" id="'+input.id+'" class="form-check-input" style="position:relative;" onclick="discount_status_change(this)"/><span class="badge-dot badge-danger mr-1"></span>No');
         }
         save_product_changes();
     }
