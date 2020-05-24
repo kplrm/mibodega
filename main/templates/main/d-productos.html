@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="input-field" style="position: relative; box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);border-bottom: 2px solid #00bbec;">
-                                            <input id="search-box" type="text" placeholder="Escriba aquí el producto que quiere buscar" style="width: 100%; box-sizing: border-box;"/>
+                                            <input id="search-box" type="text" onkeyup="search_missing_product()" placeholder="Escriba aquí el producto que quiere buscar" style="width: 100%; box-sizing: border-box;"/>
                                         </div>
                                         <table class="table">
                                             <thead class="bg-light">
@@ -239,10 +239,10 @@
             save_product_changes();
         })
     });
-    document.getElementById("search-box").addEventListener('onkeyup', function(){
+    function search_missing_product() {
         //console.log(document.getElementById("search-box").value);
         alert("hola");
-    });
+    };
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
             regular_price = document.getElementsByName("regular_price");
