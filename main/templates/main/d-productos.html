@@ -67,6 +67,15 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <select name="foods" data-selectr-opts='{ "title": "Your Expertise? (select max 5)", "placeholder": "Search skills", "maxSelection": 5 }'  multiple>
+                                            <option data-selectr-color="rgb(1000, 163, 150)" value="Bootstrap">Bootstrap Framework</option>
+                                            <option data-selectr-color="rgb(255, 105, 158)" value="jQuery" selected>jQuery</option>
+                                            <option data-selectr-color="rgb(155, 0, 133)" value="HTML">HTML</option>
+                                            <option data-selectr-color="rgb(185, 48, 122)" value="CSS">CSS</option>
+                                            <option data-selectr-color="rgb(123, 182, 101)" value="PHP" selected>PHP</option>
+                                            <option data-selectr-color="rgb(229, 183, 55)" value="MySQL">MySQL</option>
+                                            <option data-selectr-color="rgb(135, 214, 139)" value="ReactJS">ReactJS</option>
+                                        </select>
                                         <table class="table">
                                             <thead class="bg-light">
                                                 <tr class="border-0">
@@ -376,6 +385,14 @@
         }
         save_product_changes();
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $("select").selectr({
+            title: 'What are your expertise?',
+            placeholder: 'Search Expertise'
+        });
+    });
 </script>
 
 <!-- Latest Blog Section End -->
