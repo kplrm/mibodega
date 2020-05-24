@@ -272,6 +272,8 @@
                 if (String("{{ product_faltante.pa_ID }}") == String(product_faltante[i].id)) {
                     console.log("Voll treffer!");
                     console.log(product_faltante[i].product);
+
+                    $("#products_to_add").append("hola");
                 }
             }
         {% endfor %}
