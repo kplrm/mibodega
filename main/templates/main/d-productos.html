@@ -83,7 +83,7 @@
                                             <tbody>
                                                 <form id="products_to_add" action="">
                                                 {% for product_faltante in ProductosAprobados_missing %}
-                                                <tr>
+                                                <tr id="missing_products">
                                                     <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
                                                     <td>
                                                         <div class="m-r-10">
@@ -266,8 +266,9 @@
         console.log(product_faltante);
 
         // Print search results
-        console.log($("#products_to_add"));
-        $("#products_to_add").append('hola');
+        console.log($("#missing_products"));
+        $("#missing_products").html('hola');
+        $("#missing_products").append('chau');
         
     };
     function save_product_changes() {
