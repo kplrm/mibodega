@@ -242,12 +242,17 @@
     function search_missing_product() {
         search_text = document.getElementById("search-box").value
         search_words = search_text.split(" ");
-        console.log(search_words);
+        //console.log(search_words);
         //var reg_ex = new RegExp('^(.*?(' + search_words + ')[^$]*)$', 'i')
 
         var product_faltante = [];
         var dict = {};
         {% for product_faltante in ProductosAprobados_missing %}
+            search_score = 0;
+            for (i = 0; i < search_words.length; i++) {
+                reg_ex = new RegExp('^(.*?(' + search_words[i] + ')[^$]*)$', 'i');
+                console.log(reg_ex);
+            };
             dict = {
                 id: "{{ product_faltante.pa_ID }}",
                 product: "{{ product_faltante.pa_product }}",
