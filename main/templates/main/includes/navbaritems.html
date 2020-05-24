@@ -31,16 +31,13 @@
 
     <!-- TOP BAR MATERIALIZE -->
     <div class="row">
-        <div class="col s1">1</div>
-        <div class="col s1">2</div>
-        <div class="col s1">3</div>
-        <div class="col s1">4</div>
-        <div class="col s1">5</div>
-        <div class="col s1">6</div>
-        <div class="col s1">7</div>
-        <div class="col s1">8</div>
-        <div class="col s1">9</div>
-        <div class="col s1">10</div>
-        <div class="col s1">11</div>
-        <div class="col s1">12</div>
+        <div class="col s3">hola@alimentos.pe</div>
+        <div class="col s3">Perú</div>
+        {% if user.is_authenticated %}
+            <div class="col s3"><a href="/logout">Salir</a></div>
+            <div class="col s3"><a href="/dashboard">{{user.username}}</a></div>
+        {% else %}
+        <div class="col s3"><a href="/login">Accede</a></div>
+        <div class="col s3"><a href="/registro">Regrístrate</a></div>
+        {% endif %}
     </div>
