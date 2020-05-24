@@ -80,9 +80,9 @@
                                                     <th class="border-0">Marca</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <form id="products_to_add" action="">
-                                                    <div class="container" id="products_to_add_container">
+                                            <form id="products_to_add" action="">
+                                                <tbody id="products_to_add_container">
+                                                    <!--<div class="container" id="products_to_add_container">-->
                                                         {% for product_faltante in ProductosAprobados_missing %}
                                                             <tr name="missing_products" class="c_products_to_add">
                                                                 <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
@@ -98,9 +98,9 @@
                                                                 <td>{{ product_faltante.pa_brand }}</td>
                                                             </tr>
                                                         {% endfor %}
-                                                    </div>
-                                                </form>
-                                            </tbody>
+                                                    <!--</div>-->
+                                                </tbody>
+                                            </form>
                                         </table>
                                     </div>
                                     <div class="modal-footer">
