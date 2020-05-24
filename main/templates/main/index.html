@@ -12,10 +12,10 @@
 <nav>
     <div class = "nav-wrapper">
        <ul id = "nav-mobile" class = "left hide-on-med-and-down">
-          <li><a href = "/"><img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="LOGO"></a></li>
-          <li><i class="white-text material-icons prefix">search</i></li>
-          <li><input type="text" class="white-text"/></li>
-          <li>{% include 'main/includes/shop_selection.html' %}</li>
+          <li class="col s3"><a href = "/"><img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="LOGO"></a></li>
+          <li class="col s3"><i class="white-text material-icons prefix">search</i></li>
+          <li class="col s3"><input type="text" class="white-text"/></li>
+          <li class="col s3">{% include 'main/includes/shop_selection.html' %}</li>
        </ul>
     </div>
  </nav>       
