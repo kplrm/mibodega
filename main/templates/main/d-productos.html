@@ -81,9 +81,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <form class="c_products_to_add" id="products_to_add" action="">
+                                                <form id="products_to_add" action="">
                                                 {% for product_faltante in ProductosAprobados_missing %}
-                                                    <tr name="missing_products">
+                                                    <tr name="missing_products" class="c_products_to_add">
                                                         <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
                                                         <td>
                                                             <div class="m-r-10">
@@ -273,8 +273,8 @@
         //    m_products[i].html('');
         //    m_products[i].append('hola');
         //}
-        console.log($("#products_to_add")[0]);
-        $("form").remove(".c_products_to_add");
+        //console.log($("#products_to_add")[0]);
+        $("tr").remove(".c_products_to_add");
         //console.log($("#products_to_add").children().prevObject[0]);
         //$("#products_to_add")[0].empty();
         
