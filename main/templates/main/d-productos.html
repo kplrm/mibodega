@@ -81,21 +81,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <form id="products_to_add" action="">
+                                                <form class="c_products_to_add" id="products_to_add" action="">
                                                 {% for product_faltante in ProductosAprobados_missing %}
-                                                <tr name="missing_products">
-                                                    <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
-                                                    <td>
-                                                        <div class="m-r-10">
-                                                            {% if product_faltante.pa_image %}
-                                                                <img src="{{product_faltante.pa_image.url}}" alt="IMG" class="rounded" width="45">
-                                                            {% endif %}
-                                                        </div>
-                                                    </td>
-                                                    <td>{{ product_faltante.pa_product }}</td>
-                                                    <!--<td>{{ product_faltante.pa_category }}</td>-->
-                                                    <td>{{ product_faltante.pa_brand }}</td>
-                                                </tr>
+                                                    <tr name="missing_products">
+                                                        <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
+                                                        <td>
+                                                            <div class="m-r-10">
+                                                                {% if product_faltante.pa_image %}
+                                                                    <img src="{{product_faltante.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                                {% endif %}
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ product_faltante.pa_product }}</td>
+                                                        <!--<td>{{ product_faltante.pa_category }}</td>-->
+                                                        <td>{{ product_faltante.pa_brand }}</td>
+                                                    </tr>
                                                 {% endfor %}
                                                 </form>
                                             </tbody>
@@ -274,7 +274,7 @@
         //    m_products[i].append('hola');
         //}
         console.log($("#products_to_add")[0]);
-        $("#products_to_add")[0].remove();
+        $("form").remove(".c_products_to_add");
         //console.log($("#products_to_add").children().prevObject[0]);
         //$("#products_to_add")[0].empty();
         
