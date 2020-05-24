@@ -24,12 +24,17 @@ urlpatterns = [
     path("checkout", views.checkout, name="checkout"),
     path("save_store_location", views.save_store_location, name="save_store_location"),
     path("submit_checkout", views.submit_checkout, name="submit_checkout"),
+    path("get_nearby_shops", views.get_nearby_shops, name="get_nearby_shops"),
 
     # Dashboard
     path("dashboard/", views.dashboard, name="dashboard"),
     path("dashboard/productos", views.productos, name="productos"),
+    path("dashboard/mibodega", views.mibodega, name="mibodega"),
+    path("dashboard/pedidos", views.pedidos, name="pedidos"),
     path("dashboard/save_product_changes", views.save_product_changes, name="save_product_changes"),
+    path("dashboard/see_sales_detail", views.see_sales_detail, name="see_sales_detail"),
+    path("dashboard/remove_product", views.remove_product, name="remove_product"),
 
     # Landing page
-    path("landingpage", views.landingpage, name="landingpage"),
+    path("unete", views.unete, name="unete"),
 ]

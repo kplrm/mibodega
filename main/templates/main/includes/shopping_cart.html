@@ -11,7 +11,11 @@
                         {% load humanize %}
                         {% for product in cart_list %}
                         <tr>
-                            <td class="si-pic"><img src="{{ STATIC_URL }}main/img/{{product.ci_product.peb_product.pa_category}}/{{product.ci_product.peb_product.pa_photo_small}}" alt=""></td>
+                            <td class="si-pic">
+                                {% if product.ci_product.peb_product.pa_image %}
+                                    <img src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG" style="width:100px;height:50px;">
+                                {% endif %}
+                            </td>
                             <td class="si-text">
                                 <div class="product-selected">
                                     <p>S/. 
@@ -23,7 +27,6 @@
                             </td>
                             <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
                                 <td class="si-close">
-                                    {{product.pk}}
                                     <input type="hidden" name='item_pk' value='{{product.pk}}'>
                                     <button type='submit'><i class="ti-close"></i></button>
                                 </td>

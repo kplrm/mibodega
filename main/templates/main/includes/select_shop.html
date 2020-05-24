@@ -5,15 +5,14 @@
         <input type="text" class="form-control" id="bodega_name" value="Cercanas" disabled>
         <p><br></p>
         <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled> <!--change to type hidden to hide-->
-            
-        <div id="mapid"></div>
-        <script>
-            var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 14);
         
+        <div id="mapid"></div>
+        <script type = "text/javascript">
+            // Initializes map
+            var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-        
             const customMarkerIcon = L.AwesomeMarkers.icon({
                 "extraClasses": "fa-rotate-0", 
                 "icon": "shopping-cart", 
@@ -21,16 +20,53 @@
                 "markerColor": "orange", 
                 "prefix": "glyphicon"
             });	
-            
-            {% for shop in shops %}
-            var marker = L.marker([{{ shop.bd_geolocation.y }},{{ shop.bd_geolocation.x }}], {
-                icon: customMarkerIcon
-            }).addTo(map)
-                .bindPopup( "{{ shop.bd_name }}" )
-                .closePopup()
-                .on('click', function onClick(shop) {
-                    document.getElementById("bodega_name").value = "{{ shop.bd_name }}";
-                    document.getElementById("bodega_id").value = "{{ shop.bd_ID }}";
+
+            // Get user geolocation
+            function showLocation(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                map.panTo(new L.LatLng(latitude, longitude));
+                // Request for shops nearby user
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/get_nearby_shops",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        'latitude': latitude,
+                        'longitude': longitude
+                    },
+                    success: function(response){ // make a marker at the shops nearby
+                        for (i = 0; i < response.success.length; i++) {
+                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
+                            .addTo(map)
+                            .bindPopup( response.success[i][2] )
+                            .closePopup()
+                            .on('click', function onClick(e) {
+                                document.getElementById("bodega_name").value = this.options.bd_name;
+                                document.getElementById("bodega_id").value = this.options.bd_id;
+                            });
+                        };
+                    },
+                    error: function(response){ // This triggers in case all items in the basket get unavailable
+                        console.log(response);
+                    }
                 });
-            {% endfor %}
+            }
+            function errorHandler(err) {
+                if(err.code == 1) {
+                alert("Error: Access is denied!");
+                } else if( err.code == 2) {
+                alert("Error: Position is unavailable!");
+                }
+            }
+            function getLocation() {
+                if(navigator.geolocation) {
+                // timeout at 60000 milliseconds (60 seconds)
+                var options = {timeout:60000};
+                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+                } else {
+                alert("Sorry, browser does not support geolocation!");
+                }
+            }
         </script>

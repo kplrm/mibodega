@@ -127,9 +127,11 @@
         <form id="checkout_form" action="" class="checkout-form">
             <div class="row">
                 <div class="col-lg-6">
+                    {% if user.is_authenticated == False %}
                     <div class="checkout-content">
                         <a href="/login" class="content-btn">Inicie sesión</a>
                     </div>
+                    {% endif %}
                     <h4>Sus datos</h4>
                     <div class="row" style="text-align:Left">
                         <div class="col-lg-6">
@@ -251,9 +253,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    {% if user.is_authenticated == False %}
                     <div class="checkout-content">
                         <a href="/register" class="content-btn">Regístrese</a>
                     </div>
+                    {% endif %}
 
                     <!-- CHECKOUT CART SECTION BEGIN -->
                     <script>
@@ -398,10 +402,27 @@
                 </div>
             </div>
         </form>
-        <!--
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        -->
+        
+        <!-- Modal -->
+        <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="popupModalLabel">Trail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" id="popupModalBody" style="text-align:left;">
+                ...
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
         <script type="text/javascript">
             function submit_checkout() {
                 cart_obj_id = {{ cart_obj.crt_ID }};
@@ -420,21 +441,63 @@
                         url: "/submit_checkout",
                         type: "POST",
                         dataType: "json",
-                        data:   {
-                                    'csrfmiddlewaretoken': csrftoken,
-                                    'cart_obj_id': cart_obj_id.toString(),
-                                    'usr_first': usr_first,
-                                    'usr_last': usr_last,
-                                    'usr_street': usr_street,
-                                    'usr_geolocation': usr_geolocation,
-                                    'usr_email': usr_email,
-                                    'usr_phone': usr_phone,
-                                    'usr_comments': usr_comments,
-                                    // spare line to send confirmation if user wants to update his preferences
-                                }
+                        data: {
+                            'csrfmiddlewaretoken': csrftoken,
+                            'cart_obj_id': cart_obj_id.toString(),
+                            'usr_first': usr_first,
+                            'usr_last': usr_last,
+                            'usr_street': usr_street,
+                            'usr_geolocation': usr_geolocation,
+                            'usr_email': usr_email,
+                            'usr_phone': usr_phone,
+                            'usr_comments': usr_comments,
+                            // spare line to send confirmation if user wants to update his preferences
+                        },
+                        success: function(response){
+                            var msg = "";
+                            /*
+                            try {
+                                var res = response.success.length;
+                                console.log(res);
+                            } catch(err) {
+                                console.log(err.message);
+                            }
+                            */
+
+                            if (response.success.length == 0) { // This triggers when at least there is one item in the basket
+                                $("#popupModalLabel").html('');
+                                $("#popupModalLabel").append('Su compra ha sido procesada');
+                                $("#popupModalBody").html('');
+                                $("#popupModalBody").append('Gracias por su compra');
+                                $('#popup_modal').modal({ show: true });
+                                location.reload();
+                            } else if (response.success.length > 0) {
+                                for (i = 0; i < response.success.length; i++) {
+                                    msg += "<li>" + String(response.success[i]) + "</li>"
+                                };
+                                $("#popupModalLabel").html('');
+                                $("#popupModalLabel").append('Su compra ha sido procesada');
+                                $("#popupModalBody").html('');
+                                $("#popupModalBody").append('Gracias por su compra.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                                $('#popup_modal').modal({ show: true });
+                            }
+                        },
+                        error: function(response){ // This triggers in case all items in the basket get unavailable
+                            var msg = "";
+                            for (i = 0; i < response.responseJSON.error.length; i++) {
+                                msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
+                            };
+                            $("#popupModalLabel").html('');
+                            $("#popupModalLabel").append('No ha podido procesarse su compra');
+                            $("#popupModalBody").html('');
+                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                            $('#popup_modal').modal({ show: true });
+                        }
                     });
+                } else if ({{cart_obj.crt_total_price}} == 0) { // In case basket is empty
+                    alert("Su cesta se encuentra vacía");
                 } else {
-                    alert("Seleccione en el mapa su ubicación");
+                    alert("Seleccione en el mapa su ubicación"); // In case missing to select position
                 }
             }
         </script>

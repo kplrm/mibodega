@@ -12,23 +12,13 @@
 -->
 <!-- Header Section Begin -->
 <header class="header-section">
-    <!-- BOTTOM BAR-->
-    <div class="nav-item">
-        <div class="container">
-            <nav class="nav-menu mobile-menu">
-                <ul>
-                    <li><a href="/dashboard">Tablero</a></li>
-                    <li class="active"><a href="/dashboard/productos">Productos</a></li>
-                    <li><a href="/dashboard/pedidos">Pedidos</a>
-                    <li><a href="/dashboard/mibodega">Mi bodega</a></li>
-                    <li><a href="../logout">Salir</a></li>
-                    </li>
-                </ul>
-            </nav>
-            <!-- Mobile version-->
-           <div id="mobile-menu-wrap"></div>
-        </div>
-    </div>
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard">Tablero</a>
+        <a class="nav-item nav-link active" href="/dashboard/productos">Productos</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/pedidos">Pedidos</a>
+        <a class="nav-item nav-link" style="background: white;" href="/dashboard/mibodega">Mi bodega</a>
+        <a class="nav-item nav-link" style="background: white;" href="../logout">Salir</a>
+    </nav>
 </header>
 <!-- Header End -->
 
@@ -45,9 +35,9 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">Hola {{ cliente.cl_first_name }} {{ cliente.cl_last_name }}. Bienvenido a tu bodega {{ bodega.bd_name }}</h2>
+                            <h2 class="pageheader-title">Hola {{ cliente.cl_first_name }} {{ cliente.cl_last_name }}.<br>Bienvenido a tu bodega {{ bodega.bd_name }}</h2>
                             <p class="pageheader-text">
-                                Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.
+                                Mis productos en Alimentos.pe
                             </p>
                         </div>
                     </div>
@@ -93,7 +83,11 @@
                                                 <tr>
                                                     <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
                                                     <td>
-                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product_faltante.pa_category}}/{{product_faltante.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            {% if product_faltante.pa_image %}
+                                                                <img src="{{product_faltante.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                            {% endif %}
+                                                        </div>
                                                     </td>
                                                     <td>{{ product_faltante.pa_product }}</td>
                                                     <td>{{ product_faltante.pa_category }}</td>
@@ -128,56 +122,62 @@
                                                 <tr class="border-0">
                                                     <th class="border-0">Imágen</th>
                                                     <th class="border-0">Producto</th>
-                                                    <th class="border-0">Categoria</th>
-                                                    <th class="border-0">Marca</th>
-                                                    <th class="border-0">Precio regular</th>
-                                                    <th class="border-0">Precio con descuento</th>
-                                                    <th class="border-0">¿Vender con descuento?</th>
-                                                    <th class="border-0">Descuento</th>
+                                                    <!--<th class="border-0">Categoria</th>
+                                                    <th class="border-0">Marca</th>-->
+                                                    <th class="border-0" style="min-width:90px">Precio regular</th>
                                                     <th class="border-0">¿Disponible?</th>
+                                                    <th class="border-0">¿Vender con descuento?</th>
+                                                    <th class="border-0">Precio con descuento</th>
+                                                    <th class="border-0">Descuento</th>
+                                                    <th class="border-0">¿Eliminar?</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <form id="products_to_update" action="">
                                                 {% for product in ProductosEnBodega_list %}
-                                                <tr>
+                                                <tr name="product_row" id="{{ product.peb_ID }}">
                                                     <td>
-                                                        <div class="m-r-10"><img src="{{STATIC_URL}}main/img/{{product.peb_product.pa_category}}/{{product.peb_product.pa_photo_small}}" alt="IMG" class="rounded" width="45"></div>
+                                                        <div class="m-r-10">
+                                                            {% if product.peb_product.pa_image %}
+                                                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                            {% endif %}
+                                                        </div>
                                                     </td>
-                                                    <td>{{ product.peb_product.pa_product }}</td>
-                                                    <td>{{ product.peb_product.pa_category }}</td>
-                                                    <td>{{ product.peb_product.pa_brand }}</td>
-                                                    <td>
+                                                    <td><a id="{{ product.peb_product.pa_ID }}" style="text-decoration:underline;" onclick="see_sales_detail(this); return false;">{{ product.peb_product.pa_product }}</a></td>
+                                                    <!--<td>{{ product.peb_product.pa_category }}</td>
+                                                    <td>{{ product.peb_product.pa_brand }}</td>-->
+                                                    <td style="min-width:90px">
                                                         <input type="number" step="0.01" name="regular_price" id="{{ product.peb_ID }}" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ product.peb_regular_price|floatformat:2|intcomma }}" required>
+                                                    </td>
+                                                    <td>
+                                                        {% if product.peb_status == True %}
+                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/>
+                                                            <span class="badge-dot badge-success mr-1"></span>Sí
+                                                        {% else %}
+                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" style="position:relative;" onclick="peb_status_change(this)"/>
+                                                            <span class="badge-dot badge-danger mr-1"></span>No
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        {% if product.peb_discount_status == True %}
+                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked style="position:relative;" onclick="discount_status_change(this)"/>
+                                                            <span class="badge-dot badge-success mr-1"></span>Sí
+                                                        {% else %}
+                                                            <!--<input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" style="padding:0px;"/>-->
+                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" style="position:relative;" onclick="discount_status_change(this)"/>
+                                                            <span class="badge-dot badge-danger mr-1"></span>No
+                                                        {% endif %}
                                                     </td>
                                                     <td>
                                                         <input type="number" step="0.01"  name="discount_price" id="{{ product.peb_ID }}" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
                                                     </td>
-                                                    <td>
-                                                        {% if product.peb_discount_status == True %}
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input" checked>
-                                                            <span class="badge-dot badge-success mr-1"></span>Sí
-                                                        {% else %}
-                                                            <input type="checkbox" name="discount_status" id="{{ product.peb_ID }}" class="form-check-input">
-                                                            <span class="badge-dot badge-danger mr-1"></span>No
-                                                        {% endif %}
-                                                    </td>
                                                     <td>{{ product.peb_discount_rate|floatformat:0|intcomma }}%</td>
                                                     <td>
-                                                        {% if product.peb_status == True %}
-                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input" checked>
-                                                            <span class="badge-dot badge-success mr-1"></span>Sí
-                                                        {% else %}
-                                                            <input type="checkbox" name="peb_status" id="{{ product.peb_ID }}" class="form-check-input">
-                                                            <span class="badge-dot badge-danger mr-1"></span>No
-                                                        {% endif %}
+                                                        <button type="button" class="btn btn-outline-danger float-right" id="{{ product.peb_ID }}" onclick="delete_item(this); return false;">Eliminar</button>
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
                                                 </form>
-                                                <tr>
-                                                    <td colspan="9"><button type="button" class="btn btn-outline-primary float-right" onclick="save_product_changes(); return false;">Guardar</button></td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -192,9 +192,21 @@
                         <!-- ============================================================== -->
                         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Ventas por producto</h5>
+                                <h5 class="card-header">Precios de venta por producto (últimos 30 días)</h5>
                                 <div class="card-body p-0">
-                                    
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">Precio</th>
+                                                <th class="border-0">Cantidad vendida</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="product_details">
+                                            <tr class="border-0">
+                                                <th class="border-0">Haz click en un producto para ver el cuántos fueron vendidos y a qué precio.</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -221,6 +233,7 @@
             if (e.target.value < 0) {
                 e.target.value = 0;
             }
+            save_product_changes();
         })
     });
     function save_product_changes() {
@@ -253,20 +266,21 @@
                     changes: product_changes
                 },
                 success: function(){
-                    location.reload();
+                    //location.reload();
+                    ;
                 },
                 error: function(){
-                    location.reload();
+                    //location.reload();
+                    ;
                 }
             });
         } else {
             alert("Verifique los datos ingresados");
         };
-    }
+    };
     function add_new_products() {
         if ($("#products_to_add").validate().form()) {
             item_to_add = document.getElementsByName("item_to_add");
-            console.log(item_to_add);
             var dict_to_add = [];
             for (i = 0; i < item_to_add.length; i++) {
                 if (item_to_add[i].checked == true) {
@@ -276,9 +290,7 @@
                     dict_to_add.push(data);
                 } else {}
             };
-            console.log(dict_to_add);
             let product_additions = JSON.stringify(dict_to_add);
-            console.log(product_additions);
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -299,6 +311,70 @@
         } else {
             alert("Verifique los datos ingresados");
         };
+    };
+    function delete_item(item_to_delete) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/dashboard/remove_product",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    key: item_to_delete.id
+                },
+                success: function(){
+                    product_rows = document.getElementsByName("product_row");
+                    for (i = 0; i < product_rows.length; i++) {
+                        if (product_rows[i].id == item_to_delete.id) {
+                            var row_to_delete = product_rows[i];
+                            break;
+                        } else {}
+                    };
+                    row_to_delete.remove();
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+    function see_sales_detail(product_detail) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/dashboard/see_sales_detail",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: product_detail.id,
+                    bodega_id: "{{ bodega.bd_ID }}"
+                },
+                success: function(response) {
+                    var details = JSON.parse(response.success);
+                    $("#product_details").html('');
+                    for (i = 0; i < details.length; i++) {
+                        $("#product_details").append('<tr class="border-0"><th class="border-0">S/.'+ parseFloat(details[i][0]).toFixed(2) +'</th><th class="border-0">'+ parseFloat(details[i][1]) +'</th>)</tr>');
+                    };
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+    function peb_status_change(input) {        
+        if(input.checked == true) {
+            $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
+        } else {
+            $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-danger mr-1"></span>No');
+        }
+        save_product_changes();
+    }
+    function discount_status_change(input) {        
+        if(input.checked == true) {
+            $(input).parent().html('<input type="checkbox" name="discount_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="discount_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
+        } else {
+            $(input).parent().html('<input type="checkbox" name="discount_status" id="'+input.id+'" class="form-check-input" style="position:relative;" onclick="discount_status_change(this)"/><span class="badge-dot badge-danger mr-1"></span>No');
+        }
+        save_product_changes();
     }
 </script>
 
@@ -307,12 +383,4 @@
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
 <script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.slimscroll.js' %}"></script>
-<script src="{% static 'main/js/main-js.js' %}"></script>
-<script src="{% static 'main/js/Chart.bundle.min.js' %}"></script> <!-- NEEDED FOR DRAWING CHARTS -->
-<script src="{% static 'main/js/Chart.js' %}"></script> <!-- NEEDED FOR DRAWING CHARTS -->
-<script src="{% static 'main/js/jquery.slicknav.js' %}"></script> <!-- NEEDED FOR MOBILE NAVIGATION HEADER -->
-<script src="{% static 'main/js/dashboard-ecommerce.js' %}"></script> <!-- NEEDED FOR CURRENT SITE RENDERING -->
-<script src="{% static 'main/js/main.js' %}"></script>
-<script src="{% static 'main/js/product_detail.js' %}"></script>
 {% endblock %}
