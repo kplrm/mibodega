@@ -239,7 +239,7 @@
             save_product_changes();
         })
     });
-    document.getElementById("search-box").addEventListener("change", function(){
+    document.getElementById("search-box").addEventListener('onkeyup', function(){
         console.log(document.getElementById("search-box").value);
     });
     function save_product_changes() {
