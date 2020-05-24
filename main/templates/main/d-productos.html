@@ -266,9 +266,10 @@
         console.log(product_faltante);
 
         // Print search results
-        console.log($("#missing_products"));
-        $("#missing_products").html('hola');
-        $("#missing_products").append('chau');
+        m_products = document.getElementsByName('nameOfElement');
+        console.log(m_products);
+        m_products.html('hola');
+        //$("#missing_products").append('chau');
         
     };
     function save_product_changes() {
