@@ -224,12 +224,6 @@
     const numInputs = document.querySelectorAll('input[type=text]');
     numInputs.forEach(function(input) {
         input.addEventListener('change', function(e) {
-            if (e.target.value == '') {
-                e.target.value = 0;
-            }
-            if (e.target.value < 0) {
-                e.target.value = 0;
-            }
             save_mibodega_changes();
         })
     });
