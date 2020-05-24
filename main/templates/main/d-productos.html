@@ -254,13 +254,12 @@
                 console.log("inside for");
                 reg_ex = new RegExp('^(.*?(' + search_words[i] + ')[^$]*)$', 'i');
                 n = String("{{ product_faltante.pa_product }}").search(reg_ex);
-                console.log(reg_ex);
-                console.log(n);
+                search_score += n;
             };
             dict = {
                 id: "{{ product_faltante.pa_ID }}",
                 product: "{{ product_faltante.pa_product }}",
-                score: ""
+                score: search_score
             };
             product_faltante.push(dict);
             //console.log("{{ product_faltante.pa_ID }}");
