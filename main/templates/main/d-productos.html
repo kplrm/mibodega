@@ -83,7 +83,7 @@
                                             <tbody>
                                                 <form id="products_to_add" action="">
                                                 {% for product_faltante in ProductosAprobados_missing %}
-                                                <tr id="missing_products">
+                                                <tr name="missing_products">
                                                     <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
                                                     <td>
                                                         <div class="m-r-10">
