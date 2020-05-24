@@ -240,22 +240,25 @@
         })
     });
     function search_missing_product() {
+        search_text = document.getElementById("search-box").value
+        search_words = search_text.split(" ");
+        console.log(search_words);
+        //var reg_ex = new RegExp('^(.*?(' + search_words + ')[^$]*)$', 'i')
+
         var product_faltante = [];
         var dict = {};
         {% for product_faltante in ProductosAprobados_missing %}
             dict = {
                 id: "{{ product_faltante.pa_ID }}",
-                product: "{{ product_faltante.pa_product }}"
+                product: "{{ product_faltante.pa_product }}",
+                score: ""
             };
             product_faltante.push(dict);
             console.log("{{ product_faltante.pa_ID }}");
             console.log("{{ product_faltante.pa_product }}");
         {% endfor %}
         console.log(product_faltante);
-        search_words = document.getElementById("search-box").value
-        console.log(search_words);
-        var reg_ex = new RegExp('^(.*?(' + search_words + ')[^$]*)$', 'i')
-        console.log(reg_ex);
+        
     };
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
