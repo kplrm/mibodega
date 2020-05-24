@@ -267,16 +267,12 @@
                 product_faltante.push(dict);
             }
         {% endfor %}
-        console.log(product_faltante);
 
         // Print remove current results and add new search results
         $("tr").remove(".c_products_to_add");
         {% for product_faltante in ProductosAprobados_missing %}
             for (i = 0; i < product_faltante.length; i++) {
                 if (String("{{ product_faltante.pa_ID }}") == String(product_faltante[i].id)) {
-                    console.log("Voll treffer!");
-                    console.log(product_faltante[i].product);
-
                     $("#products_to_add_container").append('<tr name="missing_products" class="c_products_to_add"><td><input type="checkbox" name="item_to_add" id="'+String(product_faltante[i].id)+'" class="form-check-input"></td><td><div class="m-r-10"><img src="'+String(product_faltante[i].img)+'" alt="IMG" class="rounded" width="45"></div></td><td>'+String(product_faltante[i].product)+'</td><td>'+String(product_faltante[i].brand)+'</td></tr>');
                 }
             }
