@@ -271,7 +271,7 @@
             for (i = 0; i < product_faltante.length; i++) {
                 if (String("{{ product_faltante.pa_ID }}") == String(product_faltante[i].id)) {
                     console.log("Voll treffer!");
-                    console.log(product_faltante[i].id);
+                    console.log(product_faltante[i].product);
                 }
             }
         {% endfor %}
