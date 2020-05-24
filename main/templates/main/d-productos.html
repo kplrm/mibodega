@@ -278,10 +278,12 @@
                     changes: product_changes
                 },
                 success: function(){
-                    location.reload();
+                    //location.reload();
+                    ;
                 },
                 error: function(){
-                    location.reload();
+                    //location.reload();
+                    ;
                 }
             });
         } else {
@@ -372,12 +374,11 @@
     };
     function peb_status_change(input) {        
         if(input.checked == true) {
-            console.log("inside true");
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" checked style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-success mr-1"></span>Sí');
         } else {
-            console.log("inside false");
             $(input).parent().html('<input type="checkbox" name="peb_status" id="'+input.id+'" class="form-check-input" style="position:relative;" onclick="peb_status_change(this)"/><span class="badge-dot badge-danger mr-1"></span>No');
         }
+        save_product_changes();
     }
 </script>
 
