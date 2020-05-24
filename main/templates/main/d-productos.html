@@ -241,8 +241,12 @@
     });
     function search_missing_product() {
         console.log(document.getElementById("search-box").value);
-        console.log({{ProductosAprobados_missing}});
+        
         var product_faltante = [];
+        {% for product_faltante in ProductosAprobados_missing %}
+            console.log({{ product_faltante.pa_ID }});
+        {% endfor %}
+        
         //for (i = 0; i < {{ProductosAprobados_missing}})
 
     };
