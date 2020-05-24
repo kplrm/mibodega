@@ -268,7 +268,10 @@
         // Print search results
         m_products = document.getElementsByName('nameOfElement');
         console.log(m_products);
-        m_products.html('hola');
+        for (i = 0; i < m_products.length; i++) {
+            m_products[i].html('hola');;
+        }
+        //m_products.html('hola');
         //$("#missing_products").append('chau');
         
     };
