@@ -8,17 +8,29 @@
     <div class="loader"></div>
 </div>-->
 
+<!-- MIDDLE BAR MATERIALIZE -->
+<div class="row">
+    <div class="col s4">hola@alimentos.pe</div>
+    <div class="col s3"><img class="responsive-img" src="{% static 'main/img/flag-1.jpg' %}"> Perú</div>
+    <div class="col s1"></div>
+    {% if user.is_authenticated %}
+        <div class="col s2"><a href="/dashboard">{{user.username}}</a></div>
+        <div class="col s2"><a href="/logout">Salir</a></div>
+    {% else %}
+        <div class="col s2"><a href="/registro">Regrístrate</a></div>
+        <div class="col s2"><a href="/login">Accede</a></div>
+    {% endif %}
+</div>
+
 <!-- Header Section Begin -->
-<header class="header-section">
+<!--<header class="header-section">-->
     <!-- MIDDLE BAR -->
-    <div class="container">
+    <!--<div class="container">
         <div class="inner-header">
             <div class="row">
                 <div class="col-lg-2 col-md-2">
                     <div class="logo">
-                        <!-- <a href="./index.html"> -->
                             <img src="{% static 'main/img/logo.png' %}" alt="">
-                        <!-- </a> -->
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -30,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 text-right col-md-4">
-                    <div class="row">
+                    <div class="row">-->
                         <!-- SHOP SELECTION BEGIN -->
                         {% include 'main/includes/shop_selection.html' %}
                         <!-- SHOP SELECTION END -->
@@ -38,13 +50,13 @@
                         <!-- SHOPPING CART -->
                         {% include 'main/includes/shopping_cart.html' %}
                         <!-- SHOPPING CART -->
-                    </div>
+                    <!--</div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- BOTTOM BAR-->
-    <div class="nav-item">
+    <!--<div class="nav-item">
         <div class="container">
             <nav class="nav-menu mobile-menu">
                 <ul>
@@ -57,12 +69,12 @@
                     <li><a href="/licores">Licores</a>
                     </li>
                 </ul>
-            </nav>
+            </nav>-->
             <!-- Mobile version-->
-           <div id="mobile-menu-wrap"></div>
+           <!--<div id="mobile-menu-wrap"></div>
         </div>
     </div>
-</header>
+</header>-->
 <!-- Header End -->
 
 <!-- Hero Section Begin -->
