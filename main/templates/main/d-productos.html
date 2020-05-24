@@ -260,6 +260,8 @@
                 dict = {
                     id: "{{ product_faltante.pa_ID }}",
                     product: "{{ product_faltante.pa_product }}",
+                    img: "{{ product_faltante.pa_image.url }}",
+                    brand: "{{ product_faltante.pa_brand }}",
                     score: search_score
                 };
                 product_faltante.push(dict);
@@ -275,7 +277,7 @@
                     console.log("Voll treffer!");
                     console.log(product_faltante[i].product);
 
-                    $("#products_to_add_container").append("hola");
+                    $("#products_to_add_container").append('<tr name="missing_products" class="c_products_to_add"><td><input type="checkbox" name="item_to_add" id="'+String(product_faltante[i].id)+'" class="form-check-input"></td><td><div class="m-r-10"><img src="'+String(product_faltante[i].img)+'" alt="IMG" class="rounded" width="45"></div></td><td>'+String(product_faltante[i].product)+'</td><td>'+String(product_faltante[i].brand)+'</td></tr>');
                 }
             }
         {% endfor %}
