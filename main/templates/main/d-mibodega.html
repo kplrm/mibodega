@@ -220,6 +220,20 @@
     }
 </script>
 <script type="text/javascript">
+    // Listener of input type text chages
+    const numInputs = document.querySelectorAll('input[type=text]');
+    numInputs.forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            if (e.target.value == '') {
+                e.target.value = 0;
+            }
+            if (e.target.value < 0) {
+                e.target.value = 0;
+            }
+            save_mibodega_changes();
+        })
+    });
+    // Save changes function
     function save_mibodega_changes() {
         if ($("#mibodega_update").validate().form()) {
             cl_first_name = document.getElementById("cl_first_name").value;
