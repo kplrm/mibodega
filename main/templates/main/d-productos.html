@@ -176,7 +176,7 @@
                                                     <td style="min-width:90px">
                                                         <input type="number" step="0.01"  name="discount_price" id="{{ product.peb_ID }}" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
                                                     </td>
-                                                    <td>{{ product.peb_discount_rate|floatformat:0|intcomma }}%</td>
+                                                    <td name="discount_rate" id="{{ product.peb_ID }}">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</td>
                                                     <td>
                                                         <button type="button" class="btn btn-outline-danger float-right" id="{{ product.peb_ID }}" onclick="delete_item(this); return false;">Eliminar</button>
                                                     </td>
@@ -284,17 +284,22 @@
             discount_price = document.getElementsByName("discount_price");
             discount_status = document.getElementsByName("discount_status");
             peb_status = document.getElementsByName("peb_status");
+            discount_rate = document.getElementsByName("discount_rate");
             
+            var new_discount_rate = 0;
             var dict_changes = [];
             for (i = 0; i < regular_price.length; i++) {
+                new_discount_rate = (discount_price[i].value - regular_price[i].value)/regular_price[i].value*100;
                 data = {
                     key:                String(regular_price[i].id),
                     regular_price:      regular_price[i].value, 
                     discount_price:     discount_price[i].value,
                     discount_status:    discount_status[i].checked,
-                    peb_status:         peb_status[i].checked
+                    peb_status:         peb_status[i].checked,
+                    n_discount_rate:    new_discount_rate
                 }
                 dict_changes.push(data);
+                console.log($(discount_rate[i]));
             };
             let product_changes = JSON.stringify(dict_changes);
 
