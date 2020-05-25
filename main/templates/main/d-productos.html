@@ -85,7 +85,7 @@
                                                     <!--<div class="container" id="products_to_add_container">-->
                                                         {% for product_faltante in ProductosAprobados_missing %}
                                                             <tr name="missing_products" class="c_products_to_add">
-                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
+                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input" onchange="add_new_products()"></td>
                                                                 <td>
                                                                     <div class="m-r-10">
                                                                         {% if product_faltante.pa_image %}
