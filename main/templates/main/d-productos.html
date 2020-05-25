@@ -228,11 +228,6 @@
     <!-- ============================================================== -->
 </div>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#add_product_modal').on('hidden.bs.modal', function () {
-            location.reload();
-        })
-    });
     // Event listener for number input
     const numInputs = document.querySelectorAll('input[type=number]');
     numInputs.forEach(function(input) {
@@ -442,4 +437,11 @@
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
 <script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('#add_product_modal').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+    });
+</script>
 {% endblock %}
