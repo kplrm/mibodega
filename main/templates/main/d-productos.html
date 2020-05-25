@@ -228,6 +228,11 @@
     <!-- ============================================================== -->
 </div>
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('#add_product_modal').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+    });
     // Event listener for number input
     const numInputs = document.querySelectorAll('input[type=number]');
     numInputs.forEach(function(input) {
