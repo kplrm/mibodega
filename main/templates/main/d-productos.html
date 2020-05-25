@@ -342,7 +342,7 @@
                         key: String(item_to_add[i].id),
                     }
                     dict_to_add.push(data);
-                    item_to_add[i].parent().remove();
+                    $(item_to_add[i]).parent().remove();
                 } else {}
             };
             let product_additions = JSON.stringify(dict_to_add);
