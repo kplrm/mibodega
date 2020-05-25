@@ -299,7 +299,6 @@
                     n_discount_rate:    new_discount_rate
                 }
                 dict_changes.push(data);
-                console.log( $(discount_rate[i])[0] );
                 $(discount_rate[i]).html(String(new_discount_rate)+'%');
             };
             let product_changes = JSON.stringify(dict_changes);
