@@ -115,7 +115,7 @@
             <div class="card">
                 <div class="card-image">
                     {% if product.peb_product.pa_image %}
-                        <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                        <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
                     {% endif %}
                     <span class="card-title">{{product.peb_product.pa_product}}</span>
                 </div>
