@@ -1,13 +1,11 @@
 {% extends 'main/header.html' %}
 {% load static %}
 
-
 {% block content %}
 <!-- Page Preloder -->
 <!--<div id="preloder">
     <div class="loader"></div>
 </div>-->
-
 
 <!-- BOTTOM BAR -->
 <nav class="nav-extended hide-on-med-and-down" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">
@@ -35,9 +33,33 @@
     <li><a href="/licores">Licores</a></li>
 </ul>
 <!-- SIDENAV END -->
+
 <div>
     {# include 'main/includes/shop_selection.html' #}
     {# include 'main/includes/shopping_cart.html' #}
+</div>
+
+<!-- SIDENAV END -->
+<div class="carousel carousel-slider center">
+    <div class="carousel-fixed-item center">
+        <a class="btn waves-effect white grey-text darken-text-2">button</a>
+    </div>
+    <div class="carousel-item white-text" style="background-color:#ff2322" href="#one!">
+        <h2>First Panel</h2>
+        <p class="white-text">This is your first panel</p>
+    </div>
+    <div class="carousel-item amber white-text" href="#two!">
+        <h2>Second Panel</h2>
+        <p class="white-text">This is your second panel</p>
+    </div>
+    <div class="carousel-item green white-text" href="#three!">
+        <h2>Third Panel</h2>
+        <p class="white-text">This is your third panel</p>
+    </div>
+    <div class="carousel-item blue white-text" href="#four!">
+        <h2>Fourth Panel</h2>
+        <p class="white-text">This is your fourth panel</p>
+    </div>
 </div>
 
 <!-- Hero Section Begin -->
