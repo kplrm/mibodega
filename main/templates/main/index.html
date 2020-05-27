@@ -228,9 +228,13 @@
         var instances = M.Slider.init(elems, {interval: 500});
         console.log(elems);
         console.log(instances);
+        console("Laika");
+        console.log(jump_to_second_slide);
         if (jump_to_second_slide == true) {
             time_to_jump(elems);
         };
+        console.log(jump_to_second_slide);
+        console("Laikota");
     });
     function time_to_jump(elems) {
         var instance = M.Slider.getInstance(elems[0]);
