@@ -3,7 +3,7 @@
     <!-- TOP BAR MATERIALIZE -->
     <div class="row" style="margin-bottom:0px;">
         <div class="col s4">hola@alimentos.pe</div>
-        <div class="col s3"><img class="responsive-img hide-on-small-only" src="{% static 'main/img/flag-1.jpg' %}"> Perú</div>
+        <div class="col s3"><img class="responsive-img" src="{% static 'main/img/flag-1.jpg' %}"><p class="hide-on-small-only"> Perú</p></div>
         <div class="col s1 hide-on-small-only"></div>
         {% if user.is_authenticated %}
             <div class="col s2"><a style="color:#000000" href="/dashboard">{{user.username}}</a></div>
