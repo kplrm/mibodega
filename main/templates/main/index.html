@@ -213,8 +213,14 @@
         });
         $('.slider').slider();
     });
-    $('.carousel.carousel-slider').next(1);
-    console.log($('.carousel.carousel-slider'));
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        var el = document.querySelector(".carousel");
+        var l = M.Carousel.getInstance(el);
+        l.next(1);
+        console.log(el);
+    });
+
     /*console.log(faulty_slide);
     console.log($("#faulty_slide"));
     $("#faulty_slide").css({'opacity' : '1','transform':'translateX(0px) translateY(0px)'});*/
