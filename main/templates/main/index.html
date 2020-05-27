@@ -53,15 +53,6 @@
         <p class="white-text">This is your second panel</p>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-        $('.carousel').carousel();
-    });
-    $('.carousel.carousel-slider').carousel({
-        fullWidth: true,
-        indicators: true
-    });
-</script>
 <!-- Hero Section Begin -->
 <section class="hero-section">
     <div class="hero-items owl-carousel">
@@ -194,7 +185,7 @@
 </section>
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
-<!--<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>-->
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
 <!--<script src="{% static 'main/js/bootstrap.min.js' %}"></script>-->
 <script src="{% static 'main/js/materialize.min.js' %}"></script>
 <!--<script src="{% static 'main/js/jquery-ui.min.js' %}"></script>-->
@@ -206,4 +197,13 @@
 <!--<script src="{% static 'main/js/owl.carousel.min.js' %}"></script>-->
 <!--<script src="{% static 'main/js/main.js' %}"></script>-->
 <script src="{% static 'main/js/store-front.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('.carousel').carousel();
+    });
+    $('.carousel.carousel-slider').carousel({
+        fullWidth: true,
+        indicators: true
+    });
+</script>
 {% endblock %}
