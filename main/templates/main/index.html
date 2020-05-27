@@ -215,14 +215,20 @@
     //var instance = M.Carousel.getInstance(elem);
     //instance.next(2);
 
-    $(document).ready(function(){
+    //$(document).ready(function(){
         /*$('.carousel.carousel-slider').carousel({
             fullWidth: true,
             duration: 500
         });*/
-        $('.slider').slider();
+        //$('.slider').slider();
+    //});
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, options);
+        console.log(elems);
+        console.log(instances);
     });
-    $('.slider').slider('next');
+    //var instance = M.Slider.getInstance(elem);
 
 </script>
 <!-- Latest Blog Section End -->
