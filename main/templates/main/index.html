@@ -225,7 +225,7 @@
     var jump_to_second_slide = true;
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
-        var instances = M.Slider.init(elems, {});
+        var instances = M.Slider.init(elems, {interval: 5000});
         console.log(elems);
         console.log(instances);
         console.log("Laika");
