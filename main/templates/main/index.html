@@ -187,11 +187,13 @@
 </section>
 <script>
     $(document).ready(function(){
-        $('.carousel').carousel();
-    });
-    $('.carousel.carousel-slider').carousel({
-        fullWidth: true,
-        indicators: true
+      $('.carousel.carousel-slider').carousel({
+          fullWidth: true,
+          duration: 500
+      });
+        $(document).ready(function(){
+          $('.slider').slider();
+        });
     });
 </script>
 <!-- Latest Blog Section End -->
