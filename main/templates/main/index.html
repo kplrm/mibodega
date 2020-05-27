@@ -224,7 +224,7 @@
     //});
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
-        var instances = M.Slider.init(elems, options);
+        var instances = M.Slider.init(elems, {duration: 100});
         console.log(elems);
         console.log(instances);
     });
