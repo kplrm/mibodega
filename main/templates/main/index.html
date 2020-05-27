@@ -206,30 +206,21 @@
     </div>
 </section>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.carousel.carousel-slider');
+        var instances = M.Carousel.init(elems, {fullWidth: true, duration: 500});
+        var instance = M.Carousel.getInstance(elem);
+        instance.next(2);
+    });
+
     $(document).ready(function(){
-        $('.carousel.carousel-slider').carousel({
+        /*$('.carousel.carousel-slider').carousel({
             fullWidth: true,
             duration: 500
-        });
+        });*/
         $('.slider').slider();
     });
 
-    //var elem = document.querySelector('.carousel.carousel-slider');
-    //var instance = M.Carousel.getInstance(elem);
-    //instance.next();
-    $('.slider').slider('next');
-
-
-    /*document.addEventListener('DOMContentLoaded', function() {
-        var el = document.querySelector(".carousel.carousel-slider");
-        var l = M.Carousel.getInstance(el);
-        l.next(1);
-        console.log(el);
-    });*/
-
-    /*console.log(faulty_slide);
-    console.log($("#faulty_slide"));
-    $("#faulty_slide").css({'opacity' : '1','transform':'translateX(0px) translateY(0px)'});*/
 </script>
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
