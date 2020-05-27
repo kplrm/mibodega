@@ -2,25 +2,37 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success'%}
-                <a onload="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
+                <script>
+                    var toastHTML = '<span>I am toast success</span>';
+                    M.toast({html: toastHTML});
+                </script>
                 <!--<div class="alert alert-success">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'info'%}
-                <a onload="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
+                <script>
+                    var toastHTML = '<span>I am toast info</span>';
+                    M.toast({html: toastHTML});
+                </script>
                 <!--<div class="alert alert-info">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'warning'%}
-                <a onload="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
+                <script>
+                    var toastHTML = '<span>I am toast warning</span>';
+                    M.toast({html: toastHTML});
+                </script>
                 <!--<div class="alert alert-warning">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'error'%}
-                <a onload="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
+                <script>
+                    var toastHTML = '<span>I am toast error</span>';
+                    M.toast({html: toastHTML});
+                </script>
                 <!--<div class="alert alert-danger">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
