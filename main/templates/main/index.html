@@ -39,7 +39,7 @@
     {# include 'main/includes/shopping_cart.html' #}
 </div>
 
-<!-- SIDENAV END -->
+<!-- SLIDER -->
 <div class="slider">
     <ul class="slides">
         <li style="background-color: #3fcc01;">
@@ -79,43 +79,53 @@
         </li>
     </ul>
 </div>
+<!-- SLIDER END -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section">
-    <div class="hero-items owl-carousel">
-        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-1.jpg' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <!--<span>Bag,kids</span>-->
-                        <h1 style="background-color:white; opacity: 0.8">Ahora en todo el Perú</h1>
-                        <h3 style="background-color:white; opacity: 0.8">La bodega de tu cuadra ahora está en internet</h3>
-                        <a href="/unete" class="primary-btn">¡Únete!</a>
-                    </div>
-                </div>
-                <div class="off-card">
-                    <h2>Ya abrimos</h2>
-                </div>
-            </div>
-        </div>
-        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-2.jpg' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <!--<span>Bag,kids</span>-->
-                        <h1 style="background-color:white; opacity: 0.8">Afilia tu bodega gratis</h1>
-                        <h3 style="background-color:white; opacity: 0.8">Ahora puedes vender por internet</h3>
-                        <a href="/unete" class="primary-btn">¡Únete!</a>
-                    </div>
-                </div>
-                <div class="off-card">
-                    <h2>Ya abrimos</h2>
-                </div>
-            </div>
+<!-- PRODUCTS -->
+{% load humanize %}
+{% for product in result_list %}
+<div class="product-item">
+    <div class="pi-pic">
+        {% if product.peb_product.pa_image %}
+            <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
+        {% endif %}
+        <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
+        <ul>
+            <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
+                <input type="hidden" name='product_id' value='{{product.pk}}'>
+                <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
+            </form>
+        </ul>
+    </div>
+    <div class="pi-text">
+        <div class="catagory-name">{{product.peb_bodega.bd_name}}</div>
+        <a href="#"><h5>{{product.peb_product.pa_product}}</h5></a>
+        <div class="product-price">
+            S/.{{product.peb_discount_price|floatformat:2|intcomma}}
+            <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
         </div>
     </div>
-</section>
-<!-- Hero Section End -->
+</div>
+{% endfor %}
+
+<div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="images/sample-1.jpg">
+          <span class="card-title">Card Title</span>
+        </div>
+        <div class="card-content">
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- PRODUCTS END-->
 
 <!-- Women Banner Section Begin -->
 <section class="women-banner spad">
