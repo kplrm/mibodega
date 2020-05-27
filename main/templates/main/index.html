@@ -113,13 +113,14 @@
     {% for product in result_list %}
         <div class="col s12 m7">
             <div class="card">
-                <div class="card-image">
+                <div class="card-image" style="align-self:center">
                     {% if product.peb_product.pa_image %}
                         <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
                     {% endif %}
                 </div>
-                <div class="card-content" style="color:#000000;font-weight:bold;">
-                    {{product.peb_bodega.bd_name}}
+                <div class="card-content" style="color:#000000;font-weight:bold;padding:0px 0px 0px 0px;">
+                    {{product.peb_bodega.bd_name}}<br>
+                    {{product.peb_bodega.pa_product}}
                 </div>
                 <div class="card-action">
                     <a href="#">This is a link</a>
