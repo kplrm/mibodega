@@ -2,27 +2,27 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success'%}
-                <a class="btn" onclick="M.toast({html: 'I am a toast', completeCallback: function(){alert('Your toast was dismissed')}})">Toast!</a>
+            <a onclick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
                 <!--<div class="alert alert-success">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'info'%}
-                <a class="btn" onclick="M.toast({html: 'I am a toast', completeCallback: function(){alert('Your toast was dismissed')}})">Toast!</a>
+            <a onclick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
 
                 <!--<div class="alert alert-info">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'warning'%}
-            <a class="btn" onclick="M.toast({html: 'I am a toast', completeCallback: function(){alert('Your toast was dismissed')}})">Toast!</a>
+            <a onclick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
 
                 <!--<div class="alert alert-warning">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'error'%}
-            <a class="btn" onclick="M.toast({html: 'I am a toast', completeCallback: function(){alert('Your toast was dismissed')}})">Toast!</a>
+            <a onclick="M.toast({html: 'I am a toast'})" class="btn">Toast!</a>
 
                 <!--<div class="alert alert-danger">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
