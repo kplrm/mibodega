@@ -42,6 +42,12 @@
 <!-- SIDENAV END -->
 <div class="slider">
     <ul class="slides">
+        <li style="background-color: #3fcc01;">
+            <div class="caption center-align">
+                <h3>¡Digital!</h3>
+                <h5 class="light grey-text text-lighten-3">Ahora la bodega de la cuadra vende online.</h5>
+            </div>
+        </li>
         <li style="background-color: #ff2322;">
             <div class="caption center-align" id="faulty_slide">
                 <h3>¡Compara!</h3>
@@ -64,12 +70,6 @@
             <div class="caption right-align">
                 <h3>¡Comodidad!</h3>
                 <h5 class="light grey-text text-lighten-3">Te traen tu compra o pasa a recogerla.</h5>
-            </div>
-        </li>
-        <li style="background-color: #3fcc01;">
-            <div class="caption center-align">
-                <h3>¡Digital!</h3>
-                <h5 class="light grey-text text-lighten-3">Ahora la bodega de la cuadra vende online.</h5>
             </div>
         </li>
     </ul>
@@ -206,42 +206,19 @@
     </div>
 </section>
 <script>
-    /*document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.carousel.carousel-slider');
-        var instances = M.Carousel.init(elems, {fullWidth: true, duration: 100});
-        console.log(elems);
-        console.log(instances);
-    });*/
-    //var instance = M.Carousel.getInstance(elem);
-    //instance.next(2);
-
-    //$(document).ready(function(){
-        /*$('.carousel.carousel-slider').carousel({
-            fullWidth: true,
-            duration: 500
-        });*/
-        //$('.slider').slider();
-    //});
     var jump_to_second_slide = true;
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
         var instances = M.Slider.init(elems, {interval: 5000});
-        console.log(elems);
-        console.log(instances);
-        console.log("Laika");
-        console.log(jump_to_second_slide);
         if (jump_to_second_slide == true) {
             time_to_jump(elems);
         };
-        console.log(jump_to_second_slide);
-        console.log("Laikota");
     });
     function time_to_jump(elems) {
         var instance = M.Slider.getInstance(elems[0]);
         instance.next();
         jump_to_second_slide = false;
-    }
-
+    };
 </script>
 <!-- Latest Blog Section End -->
 <!-- Js Plugins -->
