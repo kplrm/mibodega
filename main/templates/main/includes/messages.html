@@ -3,8 +3,11 @@
         {% for message in messages %}
             {% if message.tags == 'success'%}
                 <script>
-                    var toastHTML = '<span>I am toast success</span>';
-                    M.toast({html: toastHTML});
+                    function toast_fct() {
+                        var toastHTML = '<span>I am toast success</span>';
+                        M.toast({html: toastHTML});
+                    }
+                    window.onload=toast_fct();
                 </script>
                 <!--<div class="alert alert-success">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
@@ -12,8 +15,11 @@
                 </div>-->
             {% elif message.tags == 'info'%}
                 <script>
-                    var toastHTML = '<span>I am toast info</span>';
-                    M.toast({html: toastHTML});
+                    function toast_fct() {
+                        var toastHTML = '<span>I am toast success</span>';
+                        M.toast({html: toastHTML});
+                    }
+                    window.onload=toast_fct();
                 </script>
                 <!--<div class="alert alert-info">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
@@ -21,8 +27,11 @@
                 </div>-->
             {% elif message.tags == 'warning'%}
                 <script>
-                    var toastHTML = '<span>I am toast warning</span>';
-                    M.toast({html: toastHTML});
+                    function toast_fct() {
+                        var toastHTML = '<span>I am toast success</span>';
+                        M.toast({html: toastHTML});
+                    }
+                    window.onload=toast_fct();
                 </script>
                 <!--<div class="alert alert-warning">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
@@ -30,8 +39,11 @@
                 </div>-->
             {% elif message.tags == 'error'%}
                 <script>
-                    var toastHTML = '<span>I am toast error</span>';
-                    M.toast({html: toastHTML});
+                    function toast_fct() {
+                        var toastHTML = '<span>I am toast success</span>';
+                        M.toast({html: toastHTML});
+                    }
+                    window.onload=toast_fct();
                 </script>
                 <!--<div class="alert alert-danger">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
