@@ -209,6 +209,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.carousel.carousel-slider');
         var instances = M.Carousel.init(elems, {fullWidth: true, duration: 500});
+        console.log(elems);
         console.log(instances);
     });
     var instance = M.Carousel.getInstance(elem);
