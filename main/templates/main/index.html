@@ -214,10 +214,12 @@
         $('.slider').slider();
     });
 
-    var elem = document.querySelector('.carousel');
-    var instance = M.Carousel.getInstance(elem);
-    instance.next();
-    
+    //var elem = document.querySelector('.carousel.carousel-slider');
+    //var instance = M.Carousel.getInstance(elem);
+    //instance.next();
+    $('.carousel.carousel-slider').carousel('methodName');
+
+
     /*document.addEventListener('DOMContentLoaded', function() {
         var el = document.querySelector(".carousel.carousel-slider");
         var l = M.Carousel.getInstance(el);
