@@ -2,27 +2,27 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success'%}
-            <a onload="M.toast({html: 'I am a toast'})"></a>
+                <div class="card-panel green lighten-4 green-text text-darken-4"><b>Success!</b> This alert box indicates a successful or positive action.</div>
                 <!--<div class="alert alert-success">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'info'%}
-            <a onload="M.toast({html: 'I am a toast'})"></a>
+                <div class="card-panel blue lighten-4 blue-text text-darken-4"><b>Info!</b> This alert box indicates a neutral informative change or action.</div>
 
                 <!--<div class="alert alert-info">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'warning'%}
-            <a onload="M.toast({html: 'I am a toast'})"></a>
+                <div class="card-panel yellow lighten-4 yellow-text text-darken-4"><b>Warning!</b> This alert box indicates a warning that might need attention.</div>
 
                 <!--<div class="alert alert-warning">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
                     <strong>{{message}}</strong>
                 </div>-->
             {% elif message.tags == 'error'%}
-            <a onload="M.toast({html: 'I am a toast'})"></a>
+                <div class="card-panel red lighten-4 red-text text-darken-4"><b>Danger!</b> This alert box indicates a dangerous or potentially negative action.</div>
 
                 <!--<div class="alert alert-danger">  
                     <button type="button" class="close" data-dismiss="alert">×</button>  
