@@ -224,11 +224,13 @@
     //});
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
-        var instances = M.Slider.init(elems, {duration: 100});
+        var instances = M.Slider.init(elems, {interval: 500});
         console.log(elems);
         console.log(instances);
     });
-    //var instance = M.Slider.getInstance(elem);
+    var elems = document.querySelectorAll('.slider');
+    var instance = M.Slider.getInstance(elems[0]);
+    instance.next();
 
 </script>
 <!-- Latest Blog Section End -->
