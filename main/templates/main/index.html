@@ -43,7 +43,7 @@
 <div class="slider">
     <ul class="slides">
         <li style="background-color: #ff2322;">
-            <div class="caption center-align" style="opacity:1 !important;">
+            <div class="caption center-align" onload="change_load_opacity(this);">
                 <h3>¡Compara!</h3>
                 <h5 class="light grey-text text-lighten-3">Siempre los mejores precios de tu zona.</h5>
             </div>
@@ -206,6 +206,11 @@
     </div>
 </section>
 <script>
+    function change_load_opacity(item) {
+        console.log(item);
+        $("#item").css({'opacity' : '1'});
+    }
+    
     $(document).ready(function(){
         $('.carousel.carousel-slider').carousel({
             fullWidth: true,
