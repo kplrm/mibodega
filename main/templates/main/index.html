@@ -207,7 +207,8 @@
 </section>
 <script>
     console.log(faulty_slide);
-    $("#faulty_slide").css({'opacity' : '1'});
+    console.log($("#faulty_slide"));
+    $("#faulty_slide")[0].css({'opacity' : '1'});
     
     $(document).ready(function(){
         $('.carousel.carousel-slider').carousel({
