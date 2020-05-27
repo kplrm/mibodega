@@ -222,14 +222,21 @@
         });*/
         //$('.slider').slider();
     //});
+    var jump_to_second_slide = true;
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
         var instances = M.Slider.init(elems, {interval: 500});
         console.log(elems);
         console.log(instances);
+        if (jump_to_second_slide == true) {
+            time_to_jump(elems);
+        };
+    });
+    function time_to_jump(elems) {
         var instance = M.Slider.getInstance(elems[0]);
         instance.next();
-    });
+        jump_to_second_slide = false;
+    }
 
 </script>
 <!-- Latest Blog Section End -->
