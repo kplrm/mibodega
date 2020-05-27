@@ -214,7 +214,9 @@
         $('.slider').slider();
     });
 
-    $('.carousel').carousel('next');
+    var elem = document.querySelector('.carousel');
+    var instance = M.Carousel.getInstance(elem);
+    instance.next();
     
     /*document.addEventListener('DOMContentLoaded', function() {
         var el = document.querySelector(".carousel.carousel-slider");
