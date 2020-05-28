@@ -19,6 +19,7 @@
                     }
                     tr {
                         padding: 0px 0px 0px 0px;
+                        border-bottom: 0px solid rgba(0, 0, 0, 0.12);
                     }
                 </style>
                 {% load humanize %}
@@ -30,7 +31,7 @@
                                 <img class="responsive-img hide-on-small-only" style="max-width:100px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
                             {% endif %}
                         </td>
-                        <td>
+                        <td style="text-align:right;">
                             <h6>
                                 {% if product.ci_product.peb_discount_status == True %}S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
                                 {% if product.ci_product.peb_discount_status == False %}S/.{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
@@ -41,7 +42,7 @@
                                 <i class="material-icons">remove</i>
                             </a>
                         </td>
-                        <td>
+                        <td style="text-align:center;">
                             {{product.ci_quantity}}
                         </td>
                         <td>
@@ -66,7 +67,7 @@
                                 </td>
                             </form>-->
                         </td>
-                    </tr>
+                    </tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                 {% endfor %}
             </tbody>
           </table>
