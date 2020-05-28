@@ -103,7 +103,7 @@
                     <a href="#">
                         <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
                             <input type="hidden" name='product_id' value='{{product.pk}}'>
-                            <input class="btn" type='submit' value='Añadir a la cesta'>
+                            <input class="waves-effect waves-light btn" style="background-color: #feb100;" type='submit' value='Añadir a la cesta'>
                         </form>
                     </a>
                 </div>
