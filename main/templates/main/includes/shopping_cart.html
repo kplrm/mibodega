@@ -25,6 +25,23 @@
                 {% load humanize %}
                 {% for product in cart_list %}
                     <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
+                        <td colspan="1">
+                            <h6>{{product.ci_product.peb_product.pa_product}}</h6>
+                        </td>
+                        <td colspan="3" style="text-align:center;">
+                            <a class="btn" name="item_pk" id="{{product.pk}}" style="background-color:#ff2322;padding:3px 0px 3px 0px">
+                                <i class="material-icons">remove_shopping_cart</i>
+                            </a>
+
+                            <!--<form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
+                                <td class="si-close">
+                                    <input type="hidden" name='item_pk' value='{{product.pk}}'>
+                                    <button type='submit'><i class="ti-close"></i></button>
+                                </td>
+                            </form>-->
+                        </td>
+                    </tr>
+                    <tr>
                         <td rowspan="2">
                             {% if product.ci_product.peb_product.pa_image %}
                                 <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
@@ -49,23 +66,6 @@
                             <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
                                 <i class="material-icons">add</i>
                             </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="1">
-                            <h6>{{product.ci_product.peb_product.pa_product}}</h6>
-                        </td>
-                        <td colspan="3" style="text-align:center;">
-                            <a class="btn" name="item_pk" id="{{product.pk}}" style="background-color:#ff2322;padding:3px 0px 3px 0px">
-                                <i class="material-icons">remove_shopping_cart</i>
-                            </a>
-
-                            <!--<form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
-                                <td class="si-close">
-                                    <input type="hidden" name='item_pk' value='{{product.pk}}'>
-                                    <button type='submit'><i class="ti-close"></i></button>
-                                </td>
-                            </form>-->
                         </td>
                     </tr>
                 {% endfor %}
