@@ -118,7 +118,7 @@
                         <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
                     {% endif %}
                     <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
-                    S/.{{product.peb_discount_price|floatformat:2|intcomma}}
+                    <b style="font-size:24px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
                     <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
                 </div>
                 <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
