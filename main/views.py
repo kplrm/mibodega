@@ -922,9 +922,36 @@ def increase_quantity_cart_item(request):
             item_obj = CartItem.objects.all().filter(pk=item_pk).first()
             cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
             
-            #Increase item quantity
+            # Increase item quantity
             item_obj.ci_quantity += 1
             item_obj.save()
+            
+            # Update cart price
+            update_price(cart_obj)
+
+            return JsonResponse({"success": {"total_price": str(cart_obj.crt_total_price), "quantity": str(item_obj.ci_quantity) }}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
+
+def reduce_quantity_cart_item(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve item_pk
+        item_pk = request.POST.get('product_id',False)
+        if item_pk != False:
+            item_pk = json.loads(item_pk)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+            
+            # Reduce item quantity
+            if item_obj.ci_quantity > 1:
+                item_obj.ci_quantity -= 1
+                item_obj.save()
+            else:
+                pass
             
             # Update cart price
             update_price(cart_obj)
