@@ -100,7 +100,7 @@
                 type: "POST",
                 dataType: "json",
                 data: {
-                    product_id: String("product.id")
+                    product_id: String(product.id)
                 },
                 success: function(response) {
                     var details = JSON.parse(response.success);
