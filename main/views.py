@@ -905,6 +905,7 @@ def remove_cart_item(request):
 
             # Update cart price
             update_price(cart_obj)
+            print("crt_total_price: ",str(cart_obj.crt_total_price))
             return JsonResponse({"success": str(cart_obj.crt_total_price)}, status=200)
         else:
             return JsonResponse({"error": ""}, status=400)
