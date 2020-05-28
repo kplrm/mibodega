@@ -910,19 +910,30 @@ def remove_cart_item(request):
             return JsonResponse({"error": ""}, status=400)
     else:
         return JsonResponse({"error": ""}, status=400)
-        
-    #item_pk = request.POST.get('item_pk', None)
 
-    #item_obj = CartItem.objects.all().filter(pk=item_pk).first()
-    #cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
-    
-    #cart_obj.crt_product.remove(item_obj.ci_product)
-    #cart_obj.crt_item.remove(item_obj)
-    #item_obj.delete()
+def increase_quantity_cart_item(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve item_pk
+        item_pk = request.POST.get('product_id',False)
+        if item_pk != False:
+            item_pk = json.loads(item_pk)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+            
+            #Increase item quantity
+            item_obj.ci_quantity += 1
+            item_obj.save()
+            
+            # Update cart price
+            update_price(cart_obj)
 
-    #update_price(cart_obj)
-
-    #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+            return JsonResponse({"success": {str(cart_obj.crt_total_price), str(item_obj.ci_quantity)}}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
 
 def cart_add(request):
 #    print("Entrando en el update!")

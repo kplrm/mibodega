@@ -52,11 +52,11 @@
                                 <i class="material-icons">remove</i>
                             </a>
                         </td>
-                        <td style="text-align:center;">
+                        <td name="product_qty" id="{{product.pk}}" style="text-align:center;">
                             {{product.ci_quantity}}
                         </td>
                         <td style="text-align:center;">
-                            <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
+                            <a class="btn" name="add_pk" id="{{product.pk}}" onclick="increase_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px">
                                 <i class="material-icons">add</i>
                             </a>
                         </td>
@@ -109,11 +109,40 @@
                     $("#total_cart_price").html('S/.'+parseFloat(new_total_price).toFixed(2));
                 },
                 error: function(){
-                    /*location.reload();*/
+                    location.reload();
                 }
             }
         );
     };
+    // Increase cart item quantity
+    function increase_quantity_cart_item(product) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/increase_quantity_cart_item",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    var new_values = JSON.parse(response.success);
+                    $("#total_cart_price").html('S/.'+parseFloat(new_values[0]).toFixed(2));
+                    
+                    product_qty = document.getElementsByName("product_qty");
+                    for (i = 0; i < product_qty.length; i++) {
+                        if (String(product_qty[i].id) == product_id) {
+                            $(product_qty[i]).html('S/.'+String(new_values[1]));
+                        }
+                    }
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+    add_quantity_cart_item
+
 </script>
 
 <!--
