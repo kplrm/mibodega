@@ -128,8 +128,7 @@ def homepage(request):
                            'cart_list': cart_list, 
                            'user_location': user_location,
                            'shops': shops,
-                           'id_bodega_text': id_bodega_text,
-                           'STATIC_URL': STATIC_URL})
+                           'id_bodega_text': id_bodega_text})
 
 def embutidos(request):
     # Locate user and shops nearby.
