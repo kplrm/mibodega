@@ -25,19 +25,31 @@
                             {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
                             {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                         </td>
-                        <td>{{product.ci_quantity}}</td>
+                        <td>
+                            <a class="btn" name="add_pk" id="{{product.pk}}">
+                                <i class="material-icons">remove</i>
+                            </a>
+                            {{product.ci_quantity}}
+                            <a class="btn" name="rm_pk" id="{{product.pk}}">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                         </td>
                         <td>
-                            <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
+                            <a class="btn" name="item_pk" id="{{product.pk}}">
+                                <i class="material-icons">remove_shopping_cart</i>
+                            </a>
+
+                            <!--<form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
                                 <td class="si-close">
                                     <input type="hidden" name='item_pk' value='{{product.pk}}'>
                                     <button type='submit'><i class="ti-close"></i></button>
                                 </td>
-                            </form>
+                            </form>-->
                         </td>
                     </tr>
                 {% endfor %}
