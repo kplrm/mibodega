@@ -82,32 +82,6 @@
 <!-- SLIDER END -->
 
 <!-- PRODUCTS -->
-{% load humanize %}
-{% for product in result_list %}
-<div class="product-item">
-    <div class="pi-pic">
-        {% if product.peb_product.pa_image %}
-            <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
-        {% endif %}
-        <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
-        <ul>
-            <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                <input type="hidden" name='product_id' value='{{product.pk}}'>
-                <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
-            </form>
-        </ul>
-    </div>
-    <div class="pi-text">
-        <div class="catagory-name">{{product.peb_bodega.bd_name}}</div>
-        <a href="#"><h5>{{product.peb_product.pa_product}}</h5></a>
-        <div class="product-price">
-            S/.{{product.peb_discount_price|floatformat:2|intcomma}}
-            <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
-        </div>
-    </div>
-</div>
-{% endfor %}
-
 <div class="row">
     {% load humanize %}
     {% for product in result_list %}
@@ -126,7 +100,12 @@
                     {{product.peb_product.pa_product}}
                 </div>
                 <div class="card-action">
-                    <a href="#">This is a link</a>
+                    <a href="#">
+                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
+                            <input type="hidden" name='product_id' value='{{product.pk}}'>
+                            <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
+                        </form>
+                    </a>
                 </div>
             </div>
         </div>
