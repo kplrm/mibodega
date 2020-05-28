@@ -73,7 +73,7 @@
                         <b>Total:</b>
                     </td>
                     <td style="text-align:right;">
-                        <h5 style="color:#feb100;">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
+                        <h5 id="total_cart_price" style="color:#feb100;">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
                     </td>
                     <td style="text-align:right;">
                         <a class="btn" href="/checkout" name="buy_btn" id="buy_btn" style="background-color:#feb100;">
@@ -103,14 +103,10 @@
                     product_id: String(product.id)
                 },
                 success: function(response) {
-                    var details = JSON.parse(response.success);
+                    var new_total_price = JSON.parse(response.success);
                     product_row = document.getElementsByName(String(product.id));
-                    console.log(product_row);
-                    
                     $(product_row).html('');
-                    /*for (i = 0; i < details.length; i++) {
-                        $("#product_details").append('<tr class="border-0"><th class="border-0">S/.'+ parseFloat(details[i][0]).toFixed(2) +'</th><th class="border-0">'+ parseFloat(details[i][1]) +'</th>)</tr>');
-                    };*/
+                    $("#total_cart_price").html('S/.'+parseFloat(new_total_price).toFixed(2));
                 },
                 error: function(){
                     /*location.reload();*/
