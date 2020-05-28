@@ -8,7 +8,7 @@
             <thead>
                 <tr>
                     <th>Imagen</th>
-                    <th>Precio</th>
+                    <th>Producto</th>
                     <th colspan="3">Cantidad</th>
                 </tr>
             </thead>
@@ -48,10 +48,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align:right;">
+                        <td style="text-align:left;">
                             <h6>
-                                {% if product.ci_product.peb_discount_status == True %}S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                {% if product.ci_product.peb_discount_status == False %}S/.{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                {% if product.ci_product.peb_discount_status == True %}P.U: S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                {% if product.ci_product.peb_discount_status == False %}P.U: S/.{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                             </h6>
                         </td>
                         <td style="text-align:center;">
