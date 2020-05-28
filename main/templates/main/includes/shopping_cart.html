@@ -18,7 +18,8 @@
                     <tr>
                         <td rowspan="2">
                             {% if product.ci_product.peb_product.pa_image %}
-                                <img class="responsive-img" style="max-width:100px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
+                                <img class="responsive-img show-on-small" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
+                                <img class="responsive-img hide-on-small-only" style="max-width:100px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
                             {% endif %}
                         </td>
                         <td>S/. 
