@@ -7,27 +7,31 @@
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Item Name</th>
-                    <th>Item Price</th>
+                    <th>Imagen</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>Eclair</td>
-                    <td>$0.87</td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>Jellybean</td>
-                    <td>$3.76</td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>Lollipop</td>
-                    <td>$7.00</td>
-                </tr>
+                {% load humanize %}
+                {% for product in cart_list %}
+                    <tr>
+                        <td rowspan="2">
+                            {% if product.ci_product.peb_product.pa_image %}
+                                <img src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG" style="width:100px;height:50px;">
+                            {% endif %}
+                        </td>
+                        <td>S/. 
+                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                        </td>
+                        <td>{{product.ci_quantity}}</td>
+                    </tr>
+                    <tr>
+                        <td>Jellybean</td>
+                        <td>$3.76</td>
+                    </tr>
+                {% endfor %}
             </tbody>
           </table>
     </div>
