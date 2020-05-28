@@ -1,157 +1,120 @@
 {% extends 'main/header.html' %}
 {% load static %}
 
-
 {% block content %}
 <!-- Page Preloder -->
-<div id="preloder">
+<!--<div id="preloder">
     <div class="loader"></div>
+</div>-->
+
+<!-- BOTTOM BAR -->
+<nav class="nav-extended hide-on-med-and-down" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">
+    <div class="nav-wrapper">
+        <ul style="display:inline-flex;">
+            <li class="active"><a href="/index">Ofertas</a></li>
+            <li><a href="/embutidos">Embutidos</a></li>
+            <li><a href="/vegetales">Vegetales</a>
+            <li><a href="/lacteos">Lácteos</a></li>
+            <li><a href="/abarrotes">Abarrotes</a></li>
+            <li><a href="/limpieza">Limpieza</a></li>
+            <li><a href="/licores">Licores</a></li>
+          </ul>
+    </div>
+</nav>
+<!-- BOTTOM END -->
+<!-- SIDENAV -->
+<ul id="slide-out" class="sidenav">
+    <li class="active"><a href="/index">Ofertas</a></li>
+    <li><a href="/embutidos">Embutidos</a></li>
+    <li><a href="/vegetales">Vegetales</a>
+    <li><a href="/lacteos">Lácteos</a></li>
+    <li><a href="/abarrotes">Abarrotes</a></li>
+    <li><a href="/limpieza">Limpieza</a></li>
+    <li><a href="/licores">Licores</a></li>
+</ul>
+<!-- SIDENAV END -->
+
+<div>
+    {# include 'main/includes/shop_selection.html' #}
 </div>
 
-<!-- Header Section Begin -->
-<header class="header-section">
-    <!-- MIDDLE BAR -->
-    <div class="container">
-        <div class="inner-header">
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
-                    <div class="logo">
-                        <!-- <a href="./index.html"> -->
-                            <img src="{% static 'main/img/logo.png' %}" alt="">
-                        <!-- </a> -->
-                    </div>
+<!-- SLIDER -->
+<div class="slider">
+    <ul class="slides">
+        <li style="background-color: #3fcc01;">
+            <div class="caption center-align">
+                <h3>¡Digital!</h3>
+                <h5 class="light grey-text text-lighten-3">Ahora la bodega de la cuadra vende online.</h5>
+                <a href="/unete" class="waves-effect waves-light btn" style="background-color: #ff2322;">¡Únete!</a>
+            </div>
+        </li>
+        <li style="background-color: #ff2322;">
+            <div class="caption center-align" id="faulty_slide">
+                <h3>¡Compara!</h3>
+                <h5 class="light grey-text text-lighten-3">Te damos los mejores precios de tu zona.</h5>
+                <a href="/unete" class="waves-effect waves-light btn" style="background-color: #3fcc01;">¡Únete!</a>
+            </div>
+        </li>
+        <li style="background-color: #3fcc01;">
+            <div class="caption left-align">
+                <h3>¡Seguro!</h3>
+                <h5 class="light grey-text text-lighten-3">Paga a contraentrega.</h5>
+                <a href="/unete" class="waves-effect waves-light btn" style="background-color: #feb100;">¡Únete!</a>
+            </div>
+        </li>
+        <li style="background-color: #feb100;">
+            <div class="caption left-align">
+                <h3>¡A medida!</h3>
+                <h5 class="light grey-text text-lighten-3">Encuentra justo lo que necesitas.</h5>
+                <a href="/unete" class="waves-effect waves-light btn" style="background-color: #ff2322;">¡Únete!</a>
+            </div>
+        </li>
+        <li style="background-color: #ff2322;">
+            <div class="caption right-align">
+                <h3>¡Comodidad!</h3>
+                <h5 class="light grey-text text-lighten-3">Te traen tu compra o pasa a recogerla.</h5>
+                <a href="/unete" class="waves-effect waves-light btn" style="background-color: #3fcc01;">¡Únete!</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- SLIDER END -->
+
+<!-- PRODUCTS -->
+<div class="row">
+    {% load humanize %}
+    {% for product in result_list %}
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-image" style="align-self:center">
+                    {% if product.peb_product.pa_image %}
+                        <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                    {% endif %}
+                    <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
+                    <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
+                    <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="advanced-search">
-                        <form action="#" class="input-group">
-                            <input type="text" placeholder="Producto">
-                            <button type="button"><i class="ti-search"></i></button>
+                <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
+                    <b>{{product.peb_bodega.bd_name}}</b><br>
+                    {{product.peb_product.pa_product}}
+                </div>
+                <div class="card-action">
+                    <a href="#">
+                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
+                            <input type="hidden" name='product_id' value='{{product.pk}}'>
+                            <input class="waves-effect waves-light btn" style="background-color: #feb100;" type='submit' value='Añadir a la cesta'>
                         </form>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-lg-4 text-right col-md-4">
-                    <div class="row">
-                        <!-- SHOP SELECTION BEGIN -->
-                        {% include 'main/includes/shop_selection.html' %}
-                        <!-- SHOP SELECTION END -->
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+<!-- PRODUCTS END-->
 
-                        <!-- SHOPPING CART -->
-                        {% include 'main/includes/shopping_cart.html' %}
-                        <!-- SHOPPING CART -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BOTTOM BAR-->
-    <div class="nav-item">
-        <div class="container">
-            <nav class="nav-menu mobile-menu">
-                <ul>
-                    <li class="active"><a href="/index">Ofertas</a></li>
-                    <li><a href="/embutidos">Embutidos</a></li>
-                    <li><a href="/vegetales">Vegetales</a>
-                    <li><a href="/lacteos">Lácteos</a></li>
-                    <li><a href="/abarrotes">Abarrotes</a></li>
-                    <li><a href="/limpieza">Limpieza</a></li>
-                    <li><a href="/licores">Licores</a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- Mobile version-->
-           <div id="mobile-menu-wrap"></div>
-        </div>
-    </div>
-</header>
-<!-- Header End -->
-
-<!-- Hero Section Begin -->
-<section class="hero-section">
-    <div class="hero-items owl-carousel">
-        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-1.jpg' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <!--<span>Bag,kids</span>-->
-                        <h1 style="background-color:white; opacity: 0.8">Ahora en todo el Perú</h1>
-                        <h3 style="background-color:white; opacity: 0.8">La bodega de tu cuadra ahora está en internet</h3>
-                        <a href="/unete" class="primary-btn">¡Únete!</a>
-                    </div>
-                </div>
-                <div class="off-card">
-                    <h2>Ya abrimos</h2>
-                </div>
-            </div>
-        </div>
-        <div class="single-hero-items set-bg" data-setbg="{% static 'main/img/bodega-2.jpg' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <!--<span>Bag,kids</span>-->
-                        <h1 style="background-color:white; opacity: 0.8">Afilia tu bodega gratis</h1>
-                        <h3 style="background-color:white; opacity: 0.8">Ahora puedes vender por internet</h3>
-                        <a href="/unete" class="primary-btn">¡Únete!</a>
-                    </div>
-                </div>
-                <div class="off-card">
-                    <h2>Ya abrimos</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Hero Section End -->
-
-<!-- Women Banner Section Begin -->
-<section class="women-banner spad">
-    <div class="container-fluid">
-        <div class="row">
-            <!--<div class="col-lg-8 offset-lg-1">-->
-            <div class="col-lg-12">
-                <div class="filter-control">
-                    <ul>
-                        <li class="active">Ofertas</li>
-                        <li>Embutidos</li>
-                        <li>Vegetales</li>
-                        <li>Lácteos</li>
-                        <li>Abarrotes</li>
-                        <li>Limpieza</li>
-                        <li>Licores</li>
-                    </ul>
-                </div>
-                <div class="product-slider owl-carousel">
-                    <!-- FIRST ITEM -->
-                    {% load humanize %}
-                    {% for product in result_list %}
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            {% if product.peb_product.pa_image %}
-                                <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
-                            {% endif %}
-                            <div class="sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
-                            <ul>
-                                <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                                    <input type="hidden" name='product_id' value='{{product.pk}}'>
-                                    <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
-                                </form>
-                            </ul>
-                        </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">{{product.peb_bodega.bd_name}}</div>
-                            <a href="#"><h5>{{product.peb_product.pa_product}}</h5></a>
-                            <div class="product-price">
-                                S/.{{product.peb_discount_price|floatformat:2|intcomma}}
-                                <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Women Banner Section End -->
+<!-- SHOPPING CART -->
+{% include 'main/includes/shopping_cart.html' %}
+<!-- SHOPPING CART END -->
 
 <!-- BENEFICIOS -->
 <section class="latest-blog spad">
@@ -195,16 +158,35 @@
         </div>
     </div>
 </section>
-<!-- Latest Blog Section End -->
+
+<script>
+    // Workaroung bug on first slide
+    var jump_to_second_slide = true;
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {interval: 5000});
+        if (jump_to_second_slide == true) {
+            time_to_jump(elems);
+        };
+    });
+    function time_to_jump(elems) {
+        var instance = M.Slider.getInstance(elems[0]);
+        instance.next();
+        jump_to_second_slide = false;
+    };
+</script>
+
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'main/js/jquery-ui.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.countdown.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.nice-select.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.zoom.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.dd.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.slicknav.js' %}"></script>
-<script src="{% static 'main/js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'main/js/main.js' %}"></script>
+<!--<script src="{% static 'main/js/bootstrap.min.js' %}"></script>-->
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
+<!--<script src="{% static 'main/js/jquery-ui.min.js' %}"></script>-->
+<!--<script src="{% static 'main/js/jquery.countdown.min.js' %}"></script>-->
+<!--<script src="{% static 'main/js/jquery.nice-select.min.js' %}"></script>-->
+<!--<script src="{% static 'main/js/jquery.zoom.min.js' %}"></script>-->
+<!--<script src="{% static 'main/js/jquery.dd.min.js' %}"></script>-->
+<!--<script src="{% static 'main/js/jquery.slicknav.js' %}"></script>-->
+<!--<script src="{% static 'main/js/owl.carousel.min.js' %}"></script>-->
+<!--<script src="{% static 'main/js/main.js' %}"></script>-->
+<script src="{% static 'main/js/store-front.js' %}"></script>
 {% endblock %}

@@ -1,3 +1,107 @@
+<a class="btn-floating btn-large waves-effect waves-light modal-trigger" id="cart_btn" data-target="shopping_cart_modal" style="background-color:#feb100;position:fixed;bottom:5px;right:5px;z-index:99;">
+    <i class="material-icons">shopping_cart</i>
+</a>
+
+<div id="shopping_cart_modal" class="modal modal-fixed-footer"> <!--style="top:5% !important;height:90% !important;"-->
+    <div class="modal-content" style="padding: 7px 7px 7px 7px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Producto</th>
+                    <th colspan="3">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <style>
+                    td {
+                        padding: 0px 0px 0px 0px;
+                    }
+                    tr {
+                        padding: 0px 0px 0px 0px;
+                        border-bottom: 0px solid rgba(0, 0, 0, 0.12);
+                    }
+                </style>
+                {% load humanize %}
+                {% for product in cart_list %}
+                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
+                        <td rowspan="2">
+                            {% if product.ci_product.peb_product.pa_image %}
+                                <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
+                                <img class="responsive-img hide-on-small-only" style="max-width:100px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
+                            {% endif %}
+                        </td>
+                        <td colspan="1">
+                            <h6>{{product.ci_product.peb_product.pa_product}}</h6>
+                        </td>
+                        <td colspan="3" style="text-align:center;">
+                            <a class="btn" name="item_pk" id="{{product.pk}}" style="background-color:#ff2322;padding:3px 0px 3px 0px">
+                                <i class="material-icons">remove_shopping_cart</i>
+                            </a>
+
+                            <!--<form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
+                                <td class="si-close">
+                                    <input type="hidden" name='item_pk' value='{{product.pk}}'>
+                                    <button type='submit'><i class="ti-close"></i></button>
+                                </td>
+                            </form>-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;">
+                            <h6>
+                                {% if product.ci_product.peb_discount_status == True %}P.U: S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                {% if product.ci_product.peb_discount_status == False %}P.U: S/.{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                            </h6>
+                        </td>
+                        <td style="text-align:center;">
+                            <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
+                                <i class="material-icons">remove</i>
+                            </a>
+                        </td>
+                        <td style="text-align:center;">
+                            {{product.ci_quantity}}
+                        </td>
+                        <td style="text-align:center;">
+                            <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    <div class="modal-footer">
+        <table>
+            <tbody>
+                <tr>
+                    <td style="text-align:right;">
+                        <b>Total:</b>
+                    </td>
+                    <td style="text-align:right;">
+                        <h5 style="color:#feb100;">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
+                    </td>
+                    <td style="text-align:right;">
+                        <a class="btn" href="/checkout" name="buy_btn" id="buy_btn" style="background-color:#feb100;">
+                            <i class="material-icons">check</i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Shopping cart modal
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal.modal-fixed-footer');
+        var instances = M.Modal.init(elems, {});
+    });
+</script>
+
+<!--
 <div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
     <ul class="nav-right">
         <li class="cart-icon"><a href="#">
@@ -53,4 +157,4 @@
     <ul class="nav-right">
         <li class="cart-price">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</li>
     </ul>
-</div>
+</div>-->
