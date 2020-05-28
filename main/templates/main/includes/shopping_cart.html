@@ -126,6 +126,7 @@
                 },
                 success: function(response) {
                     var new_values = JSON.parse(response.success);
+                    console.log(new_values);
                     $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
                     
                     product_qty = document.getElementsByName("product_qty");
