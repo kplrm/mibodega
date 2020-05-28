@@ -24,8 +24,7 @@
                 </style>
                 {% load humanize %}
                 {% for product in cart_list %}
-                    <hr>
-                    <tr>
+                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
                         <td rowspan="2">
                             {% if product.ci_product.peb_product.pa_image %}
                                 <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
