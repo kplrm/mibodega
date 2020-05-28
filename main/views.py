@@ -888,35 +888,42 @@ def session_cart_load_or_create(request):
     cart_obj, new_obj =  Cart.objects.new_or_get(request)
     return cart_obj, new_obj
 
-def remove_cart(request):
-    if request.method== "GET":
-        pass
-#        print("a GET message arrived")
-    if request.method== "POST":
-        pass
-#        print("a POST message arrived")
+def remove_cart_item(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve item_pk
+        item_pk = request.POST.get('product_id',False)
+        if item_pk != False:
+            item_pk = json.loads(item_pk)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+            
+            #Remove item
+            cart_obj.crt_product.remove(item_obj.ci_product)
+            cart_obj.crt_item.remove(item_obj)
+            item_obj.delete()
+
+            # Update cart price
+            update_price(cart_obj)
+            return JsonResponse({"success": str(cart_obj.crt_total_price)}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
         
-    item_pk = request.POST.get('item_pk', None)
-    #url_to_redirect = request.POST.get('url_to_redirect', None)
+    #item_pk = request.POST.get('item_pk', None)
 
-    item_obj = CartItem.objects.all().filter(pk=item_pk).first()
-    cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+    #item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+    #cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
     
-    cart_obj.crt_product.remove(item_obj.ci_product)
-    cart_obj.crt_item.remove(item_obj)
-    item_obj.delete()
+    #cart_obj.crt_product.remove(item_obj.ci_product)
+    #cart_obj.crt_item.remove(item_obj)
+    #item_obj.delete()
 
-    update_price(cart_obj)
-    
-    #data = {'exito':"exito"}
-    #return JsonResponse(data)
-    #print("redirecting to...")
-    #print(url_to_redirect)
-    #return redirect(url_to_redirect)
+    #update_price(cart_obj)
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
-    #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    #return HttpResponse("")
+    #return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
 
 def cart_add(request):
 #    print("Entrando en el update!")
