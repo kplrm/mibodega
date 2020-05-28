@@ -23,8 +23,10 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if product.ci_product.peb_discount_status == True %}S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                            {% if product.ci_product.peb_discount_status == False %}S/.{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                            <h6>
+                                {% if product.ci_product.peb_discount_status == True %}S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                {% if product.ci_product.peb_discount_status == False %}S/.{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                            </h6>
                         </td>
                         <td>
                             <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
