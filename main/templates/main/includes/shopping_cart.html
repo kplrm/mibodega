@@ -73,7 +73,9 @@
           </table>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        <span>Total:</span>
+        <h5>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
+        <a href="/checkout" class="modal-close waves-effect waves-green btn-flat">Comprar</a>
     </div>
 </div>
 
