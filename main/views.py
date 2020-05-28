@@ -929,7 +929,7 @@ def increase_quantity_cart_item(request):
             # Update cart price
             update_price(cart_obj)
 
-            return JsonResponse({"success": (str(cart_obj.crt_total_price), str(item_obj.ci_quantity)) }, status=200)
+            return JsonResponse({"success": {"total_price": str(cart_obj.crt_total_price), "quantity": str(item_obj.ci_quantity) }}, status=200)
         else:
             return JsonResponse({"error": ""}, status=400)
     else:
