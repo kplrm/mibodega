@@ -113,9 +113,6 @@
 <!-- PRODUCTS END-->
 
 <!-- SHOPPING CART -->
-<a class="btn-floating btn-large waves-effect waves-light modal-trigger" id="cart_btn" data-target="shopping_cart_modal" style="background-color:#feb100;position:fixed;bottom:5px;right:5px;z-index:99;">
-    <i class="material-icons">shopping_cart</i>
-</a>
 {% include 'main/includes/shopping_cart.html' %}
 <!-- SHOPPING CART END -->
 
@@ -177,12 +174,6 @@
         instance.next();
         jump_to_second_slide = false;
     };
-    
-    // Shopping cart modal
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems, options);
-    });
 </script>
 
 <!-- Js Plugins -->
