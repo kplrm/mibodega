@@ -117,7 +117,7 @@
                     {% if product.peb_product.pa_image %}
                         <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
                     {% endif %}
-                    <span class="card-title" style="background-color: #ff2322;font-weight:bold;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
+                    <span class="card-title" style="background-color: #ff2322;font-weight:bold;padding:5px;font-size:16px;position:relative;left:-20px;bottom130px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
                     S/.{{product.peb_discount_price|floatformat:2|intcomma}}
                     <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
                 </div>
