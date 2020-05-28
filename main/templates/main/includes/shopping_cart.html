@@ -133,7 +133,7 @@
                     
                     product_qty = document.getElementsByName("product_qty");
                     for (i = 0; i < product_qty.length; i++) {
-                        if (String(product_qty[i].id) == product_id) {
+                        if (String(product_qty[i].id) == String(product.id)) {
                             $(product_qty[i]).html(String(new_values['quantity']));
                         }
                     }
