@@ -38,13 +38,6 @@
                             <a class="btn" name="remove_item" id="{{product.pk}}" onclick="remove_item_from_cart(this)" style="background-color:#ff2322;padding:3px 0px 3px 0px">
                                 <i class="material-icons">remove_shopping_cart</i>
                             </a>
-
-                            <!--<form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
-                                <td class="si-close">
-                                    <input type="hidden" name='item_pk' value='{{product.pk}}'>
-                                    <button type='submit'><i class="ti-close"></i></button>
-                                </td>
-                            </form>-->
                         </td>
                     </tr>
                     <tr>
@@ -155,7 +148,7 @@
                                     <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                                 </div>
                             </td>
-                            <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
+                            <form method='POST' action='{# url "main:remove_cart" #}'> {% csrf_token %}
                                 <td class="si-close">
                                     <input type="hidden" name='item_pk' value='{{product.pk}}'>
                                     <button type='submit'><i class="ti-close"></i></button>
