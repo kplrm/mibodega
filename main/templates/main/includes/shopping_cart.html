@@ -25,6 +25,12 @@
                 {% load humanize %}
                 {% for product in cart_list %}
                     <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
+                        <td rowspan="2">
+                            {% if product.ci_product.peb_product.pa_image %}
+                                <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
+                                <img class="responsive-img hide-on-small-only" style="max-width:100px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
+                            {% endif %}
+                        </td>
                         <td colspan="1">
                             <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                         </td>
@@ -42,12 +48,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td rowspan="2">
-                            {% if product.ci_product.peb_product.pa_image %}
-                                <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
-                                <img class="responsive-img hide-on-small-only" style="max-width:100px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
-                            {% endif %}
-                        </td>
                         <td style="text-align:right;">
                             <h6>
                                 {% if product.ci_product.peb_discount_status == True %}S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
