@@ -24,7 +24,7 @@
                 </style>
                 {% load humanize %}
                 {% for product in cart_list %}
-                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
+                    <tr name="{{product.pk}}" style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
                         <td rowspan="2">
                             {% if product.ci_product.peb_product.pa_image %}
                                 <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
@@ -40,7 +40,7 @@
                             </a>
                         </td>
                     </tr>
-                    <tr>
+                    <tr name="{{product.pk}}">
                         <td style="text-align:left;">
                             <h6>
                                 {% if product.ci_product.peb_discount_status == True %}P.U: S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
@@ -104,8 +104,8 @@
                 },
                 success: function(response) {
                     var details = JSON.parse(response.success);
-                    console.log("Success");
-                    console.log(details);
+                    product_row = document.getElementsByName(String(product.id));
+                    console.log(product_row);
                     
                     /*$("#product_details").html('');
                     for (i = 0; i < details.length; i++) {
