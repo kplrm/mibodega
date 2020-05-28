@@ -36,7 +36,6 @@
 
 <div>
     {# include 'main/includes/shop_selection.html' #}
-    {# include 'main/includes/shopping_cart.html' #}
 </div>
 
 <!-- SLIDER -->
@@ -114,7 +113,10 @@
 <!-- PRODUCTS END-->
 
 <!-- SHOPPING CART -->
-<a class="btn-floating btn-large waves-effect waves-light" id="cart_btn" style="background-color:#feb100;position:fixed;bottom:5px;right:5px;z-index:99;"><i class="material-icons">shopping_cart</i></a>
+<a class="btn-floating btn-large waves-effect waves-light" id="cart_btn" data-target="shopping_cart_modal" style="background-color:#feb100;position:fixed;bottom:5px;right:5px;z-index:99;">
+    <i class="material-icons">shopping_cart</i>
+</a>
+{% include 'main/includes/shopping_cart.html' %}
 <!-- SHOPPING CART END -->
 
 <!-- BENEFICIOS -->
@@ -175,14 +177,6 @@
         instance.next();
         jump_to_second_slide = false;
     };
-
-    // Floating button always in bottom right of the screen
-    /*var body = Ext.getBody();
-    var button = Ext.widget('button', {
-        text: 'Btn',
-        floating: true,
-        renderTo: body,
-    })*/
 </script>
 
 <!-- Js Plugins -->
