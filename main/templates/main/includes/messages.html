@@ -1,25 +1,46 @@
+    <!-- MSG BAR -->
+    <style>
+        .alert {
+            @extend .card-panel, .lighten-4, .text-darken-4;
+            &.alert-success {
+                @extend .green, .green-text;
+            }
+            &.alert-info {
+                @extend .blue, .blue-text;
+            }
+            &.alert-warning {
+                @extend .yellow, .yellow-text;
+            }
+            &.alert-danger {
+                @extend .red, .red-text;
+            }
+            .close {
+                position: absolute;
+                top: 50%;
+                right: 0.5rem;
+                color: inherit;
+                margin-top: -18px;
+            }
+        }
+    </style>
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success'%}
-                <div class="alert alert-success">  
-                    <button type="button" class="close" data-dismiss="alert">×</button>  
-                    <strong>{{message}}</strong>
-                </div>
+                <div class="alert alert-success"><strong>{{message}}</strong></div>
             {% elif message.tags == 'info'%}
-                <div class="alert alert-info">  
-                    <button type="button" class="close" data-dismiss="alert">×</button>  
-                    <strong>{{message}}</strong>
-                </div>
+                <div class="alert alert-info"><strong>{{message}}</strong></div>
             {% elif message.tags == 'warning'%}
-                <div class="alert alert-warning">  
-                    <button type="button" class="close" data-dismiss="alert">×</button>  
-                    <strong>{{message}}</strong>
-                </div>
+                <div class="alert alert-warning"><strong>{{message}}</strong></div>
             {% elif message.tags == 'error'%}
-                <div class="alert alert-danger">  
-                    <button type="button" class="close" data-dismiss="alert">×</button>  
-                    <strong>{{message}}</strong>
-                </div>
+                <div class="alert alert-danger"><strong>{{message}}</strong></div>
             {% endif %}
         {% endfor %}
     {% endif %}
+    <script>
+        $('.alert').append('<button class="waves-effect btn-flat close"><i class="material-icons">close</i></button>');
+        $('body').on('click', '.alert .close', function() {
+            $(this).parent().fadeOut(300, function() {
+                $(this).remove();
+            });
+        });
+    </script>

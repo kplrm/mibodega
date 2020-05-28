@@ -1284,6 +1284,7 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 producto.peb_discount_price = product_changes['discount_price']
                 producto.peb_discount_status = product_changes['discount_status']
                 producto.peb_status = product_changes['peb_status']
+                producto.peb_discount_rate = product_changes['n_discount_rate']
                 producto.save()
                 break
     return redirect('main:productos')

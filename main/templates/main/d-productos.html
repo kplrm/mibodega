@@ -85,7 +85,7 @@
                                                     <!--<div class="container" id="products_to_add_container">-->
                                                         {% for product_faltante in ProductosAprobados_missing %}
                                                             <tr name="missing_products" class="c_products_to_add">
-                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input"></td>
+                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input" onchange="add_new_products()"></td>
                                                                 <td>
                                                                     <div class="m-r-10">
                                                                         {% if product_faltante.pa_image %}
@@ -103,9 +103,9 @@
                                             </form>
                                         </table>
                                     </div>
-                                    <div class="modal-footer">
+                                    <!--<div class="modal-footer">
                                         <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_products(); return false;">+Añadir producto</button>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                                     <td style="min-width:90px">
                                                         <input type="number" step="0.01"  name="discount_price" id="{{ product.peb_ID }}" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ product.peb_discount_price|floatformat:2|intcomma }}" required>
                                                     </td>
-                                                    <td>{{ product.peb_discount_rate|floatformat:0|intcomma }}%</td>
+                                                    <td name="discount_rate" id="{{ product.peb_ID }}">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</td>
                                                     <td>
                                                         <button type="button" class="btn btn-outline-danger float-right" id="{{ product.peb_ID }}" onclick="delete_item(this); return false;">Eliminar</button>
                                                     </td>
@@ -252,8 +252,15 @@
         {% for product_faltante in ProductosAprobados_missing %}
             search_score = 0;
             for (i = 0; i < search_words.length; i++) {
-                reg_ex = new RegExp('^(.*?(' + search_words[i] + ')[^$]*)$', 'i');
-                n = String("{{ product_faltante.pa_product }}").search(reg_ex);
+                // Normalize string (eliminates accents)
+                string_producto = String("{{ product_faltante.pa_product }}");
+                string_producto = string_producto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                search_w = search_words[i];
+                search_w = search_w.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                
+                // Look for matching word
+                reg_ex = new RegExp('^(.*?(' + search_w + ')[^$]*)$', 'i');
+                n = string_producto.search(reg_ex);
                 search_score += n;
             };
             if (search_score == 0) {
@@ -284,17 +291,22 @@
             discount_price = document.getElementsByName("discount_price");
             discount_status = document.getElementsByName("discount_status");
             peb_status = document.getElementsByName("peb_status");
+            discount_rate = document.getElementsByName("discount_rate");
             
+            var new_discount_rate = 0;
             var dict_changes = [];
             for (i = 0; i < regular_price.length; i++) {
+                new_discount_rate = (discount_price[i].value - regular_price[i].value)/regular_price[i].value*100;
                 data = {
                     key:                String(regular_price[i].id),
                     regular_price:      regular_price[i].value, 
                     discount_price:     discount_price[i].value,
                     discount_status:    discount_status[i].checked,
-                    peb_status:         peb_status[i].checked
+                    peb_status:         peb_status[i].checked,
+                    n_discount_rate:    new_discount_rate
                 }
                 dict_changes.push(data);
+                $(discount_rate[i]).html(String(new_discount_rate)+'%');
             };
             let product_changes = JSON.stringify(dict_changes);
 
@@ -330,6 +342,7 @@
                         key: String(item_to_add[i].id),
                     }
                     dict_to_add.push(data);
+                    $(item_to_add[i]).parent().parent().remove();
                 } else {}
             };
             let product_additions = JSON.stringify(dict_to_add);
@@ -344,10 +357,10 @@
                     additions: product_additions
                 },
                 success: function(){
-                    location.reload();
+                    //location.reload();
                 },
                 error: function(){
-                    location.reload();
+                    //location.reload();
                 }
             });
         } else {
@@ -372,6 +385,7 @@
                         } else {}
                     };
                     row_to_delete.remove();
+                    location.reload();
                 },
                 error: function(){
                     location.reload();
@@ -425,4 +439,11 @@
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
 <script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('#add_product_modal').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+    });
+</script>
 {% endblock %}
