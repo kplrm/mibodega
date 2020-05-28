@@ -9,7 +9,7 @@
                 <tr>
                     <th>Imagen</th>
                     <th>Precio</th>
-                    <th>Cantidad</th>
+                    <th colspan="3">Cantidad</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,29 +27,21 @@
                             {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
                         </td>
                         <td>
-                            <div class="row">
-                                <div class="col s4">
-                                    <a class="btn" name="add_pk" id="{{product.pk}}">
-                                        <i class="material-icons">remove</i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s4">
-                                    {{product.ci_quantity}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s4">
-                                    <a class="btn" name="add_pk" id="{{product.pk}}">
-                                        <i class="material-icons">add</i>
-                                    </a>
-                                </div>
-                            </div>
+                            <a class="btn" name="add_pk" id="{{product.pk}}">
+                                <i class="material-icons">remove</i>
+                            </a>
+                        </td>
+                        <td>
+                            {{product.ci_quantity}}
+                        </td>
+                        <td>
+                            <a class="btn" name="add_pk" id="{{product.pk}}">
+                                <i class="material-icons">add</i>
+                            </a>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td colspan="3">
                             <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                         </td>
                         <td>
