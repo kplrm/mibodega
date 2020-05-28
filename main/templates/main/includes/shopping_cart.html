@@ -125,6 +125,7 @@
                     product_id: String(product.id)
                 },
                 success: function(response) {
+                    console.log(response.success);
                     var new_values = JSON.parse(response.success);
                     console.log(new_values);
                     //$("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
