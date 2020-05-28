@@ -126,14 +126,15 @@
                 },
                 success: function(response) {
                     console.log(response.success);
-                    var new_values = JSON.parse(response.success);
+                    new_values = response.success;
+                    //var new_values = JSON.parse(response.success);
                     console.log(new_values);
-                    //$("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                    $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
                     
                     product_qty = document.getElementsByName("product_qty");
                     for (i = 0; i < product_qty.length; i++) {
                         if (String(product_qty[i].id) == product_id) {
-                            //$(product_qty[i]).html(String(new_values['quantity']));
+                            $(product_qty[i]).html(String(new_values['quantity']));
                         }
                     }
                 },
