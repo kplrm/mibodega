@@ -4599,7 +4599,7 @@ body.keyboard-focused .dropdown-content li: focus {
     right: 0;
     background-color: #fafafa;
     padding: 0;
-    max-height: 70%;
+    max-height: 90%; /*70%*/
     width: 55%;
     margin: auto;
     overflow-y: auto;
@@ -4655,7 +4655,7 @@ body.keyboard-focused .dropdown-content li: focus {
 }
 .modal.modal-fixed-footer {
     padding: 0;
-    height: 70%
+    height: 90% /*70%*/
 }
 .modal.modal-fixed-footer .modal-content {
     position: absolute;
