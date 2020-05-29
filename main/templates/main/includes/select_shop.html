@@ -97,11 +97,13 @@
 
 
     function get_nearby_shops(latitude,longitude) {
-        console.log("shops_markers:");
+        console.log("before shops_markers:");
         console.log(shops_markers);
         if (shops_markers != undefined) {
             map.removeLayer(shops_markers);
         };
+        console.log("after shops_markers:");
+        console.log(shops_markers);
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
             url: "/get_nearby_shops",
