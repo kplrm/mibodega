@@ -6,10 +6,10 @@
 <p><br></p>
 <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled>
 -->
-<div id="mapid" style="height:inherit;"></div>
+<div id="map" style="height:inherit;"></div>
 <script type = "text/javascript">
     // Initializes map
-    var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+    var map = L.map('map').setView([ -12.046374, -77.0427934 ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -27,7 +27,7 @@
         console.log("Current location:");
         console.log(latitude);
         console.log(longitude);
-        map.panTo(new L.LatLng(latitude, longitude));
+        map.panTo(new L.LatLng(latitude, longitude), {zoom:10});
         // Request for shops nearby user
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
