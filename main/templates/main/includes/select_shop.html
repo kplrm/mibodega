@@ -9,7 +9,7 @@
 <div id="map" style="height:inherit;"></div>
 <script type = "text/javascript">
     // Initializes map
-    var map = L.map('map').invalidateSize().setView([ -12.046374, -77.0427934 ], 14);
+    var map = L.map('map').setView([ -12.046374, -77.0427934 ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -20,6 +20,8 @@
         "iconColor": "white",
         "extraClasses": "fa-rotate-0",
     });
+    map.invalidateSize();
+    map.panTo([ -12.046375, -77.0427935 ]);
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
