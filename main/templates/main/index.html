@@ -173,6 +173,7 @@
     };
     // Add product to cart
     function cart_add(product) {
+        M.toast({html: 'Producto añadido'})
         $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/cart_add",
