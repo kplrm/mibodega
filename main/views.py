@@ -977,10 +977,13 @@ def cart_add(request):
                 cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
                 cart_item.ci_quantity += 1
                 cart_item.save()
+                new_added = False # Marker for responsive cart add to tell that this item was already in the cart
             else:
-                cart_obj.crt_product.add(product_obj) # Add product to the cart
+                # Add product to the cart
+                cart_obj.crt_product.add(product_obj)
                 cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
                 cart_obj.crt_item.add(cart_item)
+                new_added = True
 
             update_price(cart_obj)
             if product_obj.peb_discount_status == True:
@@ -991,7 +994,8 @@ def cart_add(request):
                                                 "quantity": str(cart_item.ci_quantity),
                                                 "product": str(product_obj.peb_product.pa_product),
                                                 "pa_image_url": str(product_obj.peb_product.pa_image.url),
-                                                "price": str(price)
+                                                "price": str(price),
+                                                "new_added": str(new_added)
                                                  }}, status=200)
         else:
             return JsonResponse({"error": ""}, status=400)
