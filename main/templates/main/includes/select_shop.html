@@ -37,6 +37,9 @@
         map.invalidateSize();
         map.panTo(new L.LatLng(latitude, longitude));
         // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
         marker = new L.marker([ latitude, longitude ]);
         map.addLayer(marker);
         // Request for shops nearby user
