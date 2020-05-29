@@ -103,6 +103,7 @@
             for (i = 0; i < shops_markers.length; i++) {
                 map.removeLayer(shops_markers[i]);
             }
+            shops_markers = []
         };
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -123,7 +124,7 @@
                         document.getElementById("bodega_name").value = this.options.bd_name;
                         document.getElementById("bodega_id").value = this.options.bd_id;
                     });
-                    shops_markers.append(temp_shops_markers);
+                    shops_markers.push(temp_shops_markers);
                 };
             },
             error: function(response){ // This triggers in case all items in the basket get unavailable
