@@ -1412,7 +1412,8 @@ def get_nearby_shops(request):
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         ########### test
         for bod in Bodega.objects.all():
-            print("distance:", Distance(bod.bd_geolocation,user_location))
+            distance=Distance("bd_geolocation",user_location)
+            print("distance:", distance)
         ########### test
         json_response = []
         for shop in shops:
