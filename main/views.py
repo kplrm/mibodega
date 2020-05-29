@@ -38,31 +38,31 @@ from django.http import JsonResponse
 # Global variable Loads STATIC_URL
 STATIC_URL = settings.STATIC_URL
 
-def save_store_location(request):
-    if request.method== "POST" and request.is_ajax():
-        # Stores variables in session
-        bodega_name = request.POST['bodega_name']
-        request.session['bodega_name'] = bodega_name
-        id_bodega = request.POST['id_bodega']
-        request.session['id_bodega'] = id_bodega
-        if request.user.is_authenticated:
-#            print("Cliente identificado")
-            cliente = Cliente.objects.all().filter(cl_user=request.user).first()
-            cliente.cl_bodega_ID = id_bodega
-            cliente.save()
-        else:
-            pass
-#            print("Usuario no identificado")
-    else:
-        message = "Not Ajax"
-    return HttpResponse("")
+#def save_store_location(request):
+#    if request.method == "POST" and request.is_ajax():
+#        # Stores variables in session
+#        bodega_name = request.POST['bodega_name']
+#        request.session['bodega_name'] = bodega_name
+#        id_bodega = request.POST['id_bodega']
+#        request.session['id_bodega'] = id_bodega
+#        if request.user.is_authenticated:
+##            print("Cliente identificado")
+#            cliente = Cliente.objects.all().filter(cl_user=request.user).first()
+#            cliente.cl_bodega_ID = id_bodega
+#            cliente.save()
+#        else:
+#            pass
+##            print("Usuario no identificado")
+#    else:
+#        message = "Not Ajax"
+#    return HttpResponse("")
 
-def locate_user():
-    client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
-    ipInfo = client.lookup()
-    user_longitude = ipInfo.location['longitude']
-    user_latitude = ipInfo.location['latitude']
-    return user_longitude, user_latitude
+#def locate_user():
+#    client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
+#    ipInfo = client.lookup()
+#    user_longitude = ipInfo.location['longitude']
+#    user_latitude = ipInfo.location['latitude']
+#    return user_longitude, user_latitude
 
 def homepage(request):
     # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
@@ -1408,8 +1408,8 @@ def get_nearby_shops(request):
     if request.method == "POST" and request.is_ajax():
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
-        user_location = Point(float(user_latitude),float(user_longitude),srid=4326)
-        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         json_response = []
         for shop in shops:
             json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x, shop.bd_name, shop.bd_ID) )

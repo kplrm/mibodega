@@ -1,72 +1,101 @@
 
-        <h3>Seleccione su bodega</h3>
-        <p><br></p>
-        <label for="bodega_name">Bodega:</label>
-        <input type="text" class="form-control" id="bodega_name" value="Cercanas" disabled>
-        <p><br></p>
-        <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled> <!--change to type hidden to hide-->
-        
-        <div id="mapid"></div>
-        <script type = "text/javascript">
-            // Initializes map
-            var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-            const customMarkerIcon = L.AwesomeMarkers.icon({
-                "extraClasses": "fa-rotate-0", 
-                "icon": "shopping-cart", 
-                "iconColor": "white", 
-                "markerColor": "orange", 
-                "prefix": "glyphicon"
-            });	
+<!-- Data fields -->
+<!--<input type="hidden" class="form-control" id="bodega_name" value="Cercanas" disabled>
+<input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled>-->
 
-            // Get user geolocation
-            function showLocation(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                map.panTo(new L.LatLng(latitude, longitude));
-                // Request for shops nearby user
-                $.ajax({
-                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                    url: "/get_nearby_shops",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        'latitude': latitude,
-                        'longitude': longitude
-                    },
-                    success: function(response){ // make a marker at the shops nearby
-                        for (i = 0; i < response.success.length; i++) {
-                            var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
-                            .addTo(map)
-                            .bindPopup( response.success[i][2] )
-                            .closePopup()
-                            .on('click', function onClick(e) {
-                                document.getElementById("bodega_name").value = this.options.bd_name;
-                                document.getElementById("bodega_id").value = this.options.bd_id;
-                            });
-                        };
-                    },
-                    error: function(response){ // This triggers in case all items in the basket get unavailable
-                        console.log(response);
-                    }
-                });
+<!-- Map -->
+<div id="map" style="height:inherit;"></div>
+<script type = "text/javascript">
+    // Initializes map
+    var marker;
+    var shops_markers = [];
+    var map = L.map('map').setView([ -12.046374, -77.0427934 ], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    const customMarkerIcon = L.AwesomeMarkers.icon({
+        "icon": "fa-shopping-basket",
+        "prefix": "fa",
+        "markerColor": "orange",
+        "iconColor": "white",
+        "extraClasses": "fa-rotate-0",
+    });
+    // Request user location
+    function getLocation() {
+        if(navigator.geolocation) {
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+        } else {
+            alert("Sorry, browser does not support geolocation!");
+        }
+    }
+    // Permission granted. Get user location
+    function showLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        map.invalidateSize();
+        map.panTo(new L.LatLng(latitude, longitude));
+        // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker([ latitude, longitude ]);
+        map.addLayer(marker);
+        // Request for shops nearby user
+        get_nearby_shops(latitude,longitude);
+    }
+    // Permision denied
+    function errorHandler(err) {
+        map.invalidateSize();
+        if(err.code == 1) {
+            alert("Error: Access is denied!");
+        } else if( err.code == 2) {
+            alert("Error: Position is unavailable!");
+        }
+    }
+    // Click to change marker
+    function onMapClick(e) {
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker(e.latlng).addTo(map);
+        get_nearby_shops(e.latlng.lat,e.latlng.lng);
+    }
+    map.on('click', onMapClick);
+
+    function get_nearby_shops(latitude,longitude) {
+        if (shops_markers != undefined) {
+            for (i = 0; i < shops_markers.length; i++) {
+                map.removeLayer(shops_markers[i]);
             }
-            function errorHandler(err) {
-                if(err.code == 1) {
-                alert("Error: Access is denied!");
-                } else if( err.code == 2) {
-                alert("Error: Position is unavailable!");
-                }
+            shops_markers = []
+        };
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            url: "/get_nearby_shops",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'latitude': latitude,
+                'longitude': longitude
+            },
+            success: function(response){ // make a marker at the shops nearby
+                for (i = 0; i < response.success.length; i++) {
+                    var temp_shops_markers = new L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
+                    .addTo(map)
+                    .bindPopup( response.success[i][2] )
+                    .closePopup()
+                    //.on('click', function onClick(e) {
+                    //    document.getElementById("bodega_name").value = this.options.bd_name;
+                    //    document.getElementById("bodega_id").value = this.options.bd_id;
+                    //});
+                    shops_markers.push(temp_shops_markers);
+                };
+            },
+            error: function(response){ // This triggers in case all items in the basket get unavailable
+                console.log(response);
             }
-            function getLocation() {
-                if(navigator.geolocation) {
-                // timeout at 60000 milliseconds (60 seconds)
-                var options = {timeout:60000};
-                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-                } else {
-                alert("Sorry, browser does not support geolocation!");
-                }
-            }
-        </script>
+        });
+    }
+</script>
