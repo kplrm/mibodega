@@ -189,6 +189,7 @@
                     else {
                         $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
                         product_qty = document.getElementsByName("product_qty");
+                        console.log(product_qty);
                         for (i = 0; i < product_qty.length; i++) {
                             if (String(product_qty[i].id) == String(product.id)) {
                                 $(product_qty[i]).html(String(new_values['quantity']));
