@@ -29,7 +29,7 @@
         console.log(longitude);
         console.log(new L.LatLng(latitude, longitude));
         //map.panTo(new L.LatLng(latitude, longitude));
-        map.panTo([latitude, longitude],14);
+        map.panTo([latitude, longitude], {center: [latitude, longitude]});
         // Request for shops nearby user
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
