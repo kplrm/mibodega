@@ -26,7 +26,6 @@
     });
     // Request user location
     function getLocation() {
-        console.log("getting location");
         if(navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
             var options = {timeout:60000};
@@ -97,8 +96,6 @@
 
 
     function get_nearby_shops(latitude,longitude) {
-        console.log("before shops_markers:");
-        console.log(shops_markers);
         if (shops_markers != undefined) {
             for (i = 0; i < shops_markers.length; i++) {
                 map.removeLayer(shops_markers[i]);
@@ -131,7 +128,5 @@
                 console.log(response);
             }
         });
-        console.log("after shops_markers:");
-        console.log(shops_markers);
     }
 </script>
