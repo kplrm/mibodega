@@ -99,11 +99,8 @@
                     {{product.peb_product.pa_product}}
                 </div>
                 <div class="card-action">
-                    <a href="#">
-                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                            <input type="hidden" name='product_id' value='{{product.pk}}'>
-                            <input class="waves-effect waves-light btn" style="background-color: #feb100;" type='submit' value='Añadir a la cesta'>
-                        </form>
+                    <a class="btn" name="cart_add" id="{{product.pk}}" onclick="cart_add(this)" style="background-color:#feb100;padding:3px 0px 3px 0px">
+                        <i class="material-icons">add_shopping_cart</i>
                     </a>
                 </div>
             </div>
