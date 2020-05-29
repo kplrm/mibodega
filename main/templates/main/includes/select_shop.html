@@ -100,7 +100,9 @@
         console.log("before shops_markers:");
         console.log(shops_markers);
         if (shops_markers != undefined) {
-            map.removeLayer(shops_markers);
+            for (i = 0; i < shops_markers.length; i++) {
+                map.removeLayer(shops_markers[i]);
+            }
         };
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
