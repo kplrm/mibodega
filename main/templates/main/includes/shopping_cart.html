@@ -12,7 +12,7 @@
                     <th colspan="3">Cantidad</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cart_tbody">
                 <style>
                     td {
                         padding: 0px 0px 0px 0px;
@@ -24,7 +24,7 @@
                 </style>
                 {% load humanize %}
                 {% for product in cart_list %}
-                    <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
+                    <tr name="{{product.pk}}" style="border-top: 1px solid rgba(0, 0, 0, 0.12);">
                         <td rowspan="2">
                             {% if product.ci_product.peb_product.pa_image %}
                                 <img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG">
@@ -35,19 +35,12 @@
                             <h6>{{product.ci_product.peb_product.pa_product}}</h6>
                         </td>
                         <td colspan="3" style="text-align:center;">
-                            <a class="btn" name="item_pk" id="{{product.pk}}" style="background-color:#ff2322;padding:3px 0px 3px 0px">
+                            <a class="btn" name="remove_item" id="{{product.pk}}" onclick="remove_item_from_cart(this)" style="background-color:#ff2322;padding:0px 3px 0px 3px">
                                 <i class="material-icons">remove_shopping_cart</i>
                             </a>
-
-                            <!--<form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
-                                <td class="si-close">
-                                    <input type="hidden" name='item_pk' value='{{product.pk}}'>
-                                    <button type='submit'><i class="ti-close"></i></button>
-                                </td>
-                            </form>-->
                         </td>
                     </tr>
-                    <tr>
+                    <tr name="{{product.pk}}">
                         <td style="text-align:left;">
                             <h6>
                                 {% if product.ci_product.peb_discount_status == True %}P.U: S/.{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
@@ -55,15 +48,15 @@
                             </h6>
                         </td>
                         <td style="text-align:center;">
-                            <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
+                            <a class="btn" name="add_pk" id="{{product.pk}}" onclick="reduce_quantity_cart_item(this)" style="background-color:#feb100;padding:0px 3px 0px 3px">
                                 <i class="material-icons">remove</i>
                             </a>
                         </td>
-                        <td style="text-align:center;">
+                        <td name="product_qty" id="{{product.pk}}" style="text-align:center;">
                             {{product.ci_quantity}}
                         </td>
                         <td style="text-align:center;">
-                            <a class="btn" name="add_pk" id="{{product.pk}}" style="background-color:#feb100;padding:3px 0px 3px 0px">
+                            <a class="btn" name="add_pk" id="{{product.pk}}" onclick="increase_quantity_cart_item(this)" style="background-color:#feb100;padding:0px 3px 0px 3px">
                                 <i class="material-icons">add</i>
                             </a>
                         </td>
@@ -80,7 +73,7 @@
                         <b>Total:</b>
                     </td>
                     <td style="text-align:right;">
-                        <h5 style="color:#feb100;">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
+                        <h5 id="total_cart_price" style="color:#feb100;">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
                     </td>
                     <td style="text-align:right;">
                         <a class="btn" href="/checkout" name="buy_btn" id="buy_btn" style="background-color:#feb100;">
@@ -99,62 +92,78 @@
         var elems = document.querySelectorAll('.modal.modal-fixed-footer');
         var instances = M.Modal.init(elems, {});
     });
+    // Remove item from cart
+    function remove_item_from_cart(product) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/remove_cart_item",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    var new_total_price = JSON.parse(response.success);
+                    product_row = document.getElementsByName(String(product.id));
+                    $(product_row).html('');
+                    $("#total_cart_price").html('S/.'+parseFloat(new_total_price).toFixed(2));
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+    // Increase cart item quantity
+    function increase_quantity_cart_item(product) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/increase_quantity_cart_item",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                    product_qty = document.getElementsByName("product_qty");
+                    for (i = 0; i < product_qty.length; i++) {
+                        if (String(product_qty[i].id) == String(product.id)) {
+                            $(product_qty[i]).html(String(new_values['quantity']));
+                        }
+                    }
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+    // Reduce cart item quantity
+    function reduce_quantity_cart_item(product) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/reduce_quantity_cart_item",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                    product_qty = document.getElementsByName("product_qty");
+                    for (i = 0; i < product_qty.length; i++) {
+                        if (String(product_qty[i].id) == String(product.id)) {
+                            $(product_qty[i]).html(String(new_values['quantity']));
+                        }
+                    }
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
 </script>
-
-<!--
-<div class="col-lg-2 col-md-1 col-sm-1 align-self-center">
-    <ul class="nav-right">
-        <li class="cart-icon"><a href="#">
-            <i class="icon_bag_alt"></i>
-            <span>{{cart_list|length}}</span>
-        </a>
-        <div class="cart-hover">
-            <div class="select-items">
-                <table>
-                    <tbody>
-                        {% load humanize %}
-                        {% for product in cart_list %}
-                        <tr>
-                            <td class="si-pic">
-                                {% if product.ci_product.peb_product.pa_image %}
-                                    <img src="{{product.ci_product.peb_product.pa_image.url}}" alt="IMG" style="width:100px;height:50px;">
-                                {% endif %}
-                            </td>
-                            <td class="si-text">
-                                <div class="product-selected">
-                                    <p>S/. 
-                                        {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                        {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
-                                        x {{product.ci_quantity}}</p>
-                                    <h6>{{product.ci_product.peb_product.pa_product}}</h6>
-                                </div>
-                            </td>
-                            <form method='POST' action='{% url "main:remove_cart" %}'> {% csrf_token %}
-                                <td class="si-close">
-                                    <input type="hidden" name='item_pk' value='{{product.pk}}'>
-                                    <button type='submit'><i class="ti-close"></i></button>
-                                </td>
-                            </form>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="select-total">
-                <span>total:</span>
-                <h5>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</h5>
-            </div>
-            <div class="select-button">
-                <a href="/checkout" class="primary-btn view-card">VER CESTA</a>
-                <a href="#" class="primary-btn checkout-btn">PAGAR</a>
-            </div>
-        </div>
-    </li>
-    </ul>
-</div>
-
-<div class="col-lg-2 col-md-4 col-sm-3 align-self-center">
-    <ul class="nav-right">
-        <li class="cart-price">S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</li>
-    </ul>
-</div>-->
