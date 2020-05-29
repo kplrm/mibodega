@@ -85,9 +85,41 @@
             map.removeLayer(marker);
         };
         marker = new L.marker(e.latlng).addTo(map);
+        get_nearby_shops(e.latlng.lat,e.latlng.lng);
         //document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
         //document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
         //save_mibodega_changes();
     }
     map.on('click', onMapClick);
+
+
+
+
+    function get_nearby_shops(latitude,longitude) {
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            url: "/get_nearby_shops",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'latitude': latitude,
+                'longitude': longitude
+            },
+            success: function(response){ // make a marker at the shops nearby
+                for (i = 0; i < response.success.length; i++) {
+                    var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
+                    .addTo(map)
+                    .bindPopup( response.success[i][2] )
+                    .closePopup()
+                    .on('click', function onClick(e) {
+                        document.getElementById("bodega_name").value = this.options.bd_name;
+                        document.getElementById("bodega_id").value = this.options.bd_id;
+                    });
+                };
+            },
+            error: function(response){ // This triggers in case all items in the basket get unavailable
+                console.log(response);
+            }
+        });
+    }
 </script>
