@@ -6,6 +6,8 @@
 <p><br></p>
 <input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled>
 -->
+<input type="hidden" class="form-control" id="bodega_name" value="Cercanas" disabled>
+<input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled>
 <div id="map" style="height:inherit;"></div>
 <script type = "text/javascript">
     // Initializes map
@@ -20,13 +22,26 @@
         "iconColor": "white",
         "extraClasses": "fa-rotate-0",
     });
-    // Get user geolocation
+    // Request user location
+    function getLocation() {
+        console.log("getting location");
+        if(navigator.geolocation) {
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+        } else {
+            alert("Sorry, browser does not support geolocation!");
+        }
+    }
+    // Permission granted. Get user location
     function showLocation(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         map.invalidateSize();
         map.panTo(new L.LatLng(latitude, longitude));
-        //map.panTo([latitude, longitude], {center: [latitude, longitude]});
+        // Make a marker in current user's location
+        var marker = new L.marker([ latitude, longitude ]);
+        map.addLayer(marker);
         // Request for shops nearby user
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -54,6 +69,7 @@
             }
         });
     }
+    // Permision denied
     function errorHandler(err) {
         map.invalidateSize();
         if(err.code == 1) {
@@ -62,14 +78,15 @@
             alert("Error: Position is unavailable!");
         }
     }
-    function getLocation() {
-        console.log("getting location");
-        if(navigator.geolocation) {
-            // timeout at 60000 milliseconds (60 seconds)
-            var options = {timeout:60000};
-            navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-        } else {
-            alert("Sorry, browser does not support geolocation!");
-        }
+    // Click to change marker
+    function onMapClick(e) {
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker(e.latlng).addTo(map);
+        //document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
+        //document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
+        //save_mibodega_changes();
     }
+    map.on('click', onMapClick);
 </script>
