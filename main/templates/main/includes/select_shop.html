@@ -20,8 +20,6 @@
         "iconColor": "white",
         "extraClasses": "fa-rotate-0",
     });
-    map.invalidateSize();
-    map.panTo([ -12.05, -77.05 ]);
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
@@ -52,6 +50,7 @@
                 };
             },
             error: function(response){ // This triggers in case all items in the basket get unavailable
+                map.invalidateSize();
                 console.log(response);
             }
         });
