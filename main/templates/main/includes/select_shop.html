@@ -24,6 +24,9 @@
     function showLocation(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
+        console.log("Current location:");
+        console.log(latitude);
+        console.log(longitude);
         map.panTo(new L.LatLng(latitude, longitude));
         // Request for shops nearby user
         $.ajax({
