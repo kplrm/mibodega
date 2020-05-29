@@ -21,9 +21,7 @@
         "extraClasses": "fa-rotate-0",
     });
     // Get user geolocation
-    var allowGeoRecall = true
     function showLocation(position) {
-        allowGeoRecall = false
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         map.invalidateSize();
@@ -63,7 +61,6 @@
         } else if( err.code == 2) {
             alert("Error: Position is unavailable!");
         }
-        if(allowGeoRecall) getLocation()
     }
     function getLocation() {
         console.log("getting location");
