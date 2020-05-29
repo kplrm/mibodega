@@ -1414,7 +1414,7 @@ def get_nearby_shops(request):
         ################# test
         for shop in Bodega.objects.annotate(distance=Distance('bd_geolocation', user_location)):
             print("bd_name: ", shop.bd_name)
-            print("Distances: ", shop.distance)
+            print("distance: ", shop.distance.m)
         ################# test
         for shop in shops:
             json_response.append( (shop.bd_geolocation.x, shop.bd_geolocation.y, shop.bd_name, shop.bd_ID) )
