@@ -12,6 +12,7 @@
 <script type = "text/javascript">
     // Initializes map
     var marker;
+    var shops_markers;
     var map = L.map('map').setView([ -12.046374, -77.0427934 ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -54,7 +55,7 @@
                 'longitude': longitude
             },
             success: function(response){ // make a marker at the shops nearby
-                for (i = 0; i < response.success.length; i++) {
+                /*for (i = 0; i < response.success.length; i++) {
                     var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
                     .addTo(map)
                     .bindPopup( response.success[i][2] )
@@ -63,7 +64,7 @@
                         document.getElementById("bodega_name").value = this.options.bd_name;
                         document.getElementById("bodega_id").value = this.options.bd_id;
                     });
-                };
+                };*/
             },
             error: function(response){ // This triggers in case all items in the basket get unavailable
                 console.log(response);
@@ -96,6 +97,9 @@
 
 
     function get_nearby_shops(latitude,longitude) {
+        if (shops_markers != undefined) {
+            map.removeLayer(shops_markers);
+        };
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
             url: "/get_nearby_shops",
@@ -107,7 +111,7 @@
             },
             success: function(response){ // make a marker at the shops nearby
                 for (i = 0; i < response.success.length; i++) {
-                    var marker = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
+                    var shops_markers = L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
                     .addTo(map)
                     .bindPopup( response.success[i][2] )
                     .closePopup()
