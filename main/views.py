@@ -128,8 +128,7 @@ def homepage(request):
                            'cart_list': cart_list, 
                            'user_location': user_location,
                            'shops': shops,
-                           'id_bodega_text': id_bodega_text,
-                           'STATIC_URL': STATIC_URL})
+                           'id_bodega_text': id_bodega_text})
 
 def embutidos(request):
     # Locate user and shops nearby.
@@ -888,61 +887,121 @@ def session_cart_load_or_create(request):
     cart_obj, new_obj =  Cart.objects.new_or_get(request)
     return cart_obj, new_obj
 
-def remove_cart(request):
-    if request.method== "GET":
-        pass
-#        print("a GET message arrived")
-    if request.method== "POST":
-        pass
-#        print("a POST message arrived")
-        
-    item_pk = request.POST.get('item_pk', None)
-    #url_to_redirect = request.POST.get('url_to_redirect', None)
+def remove_cart_item(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve item_pk
+        item_pk = request.POST.get('product_id',False)
+        if item_pk != False:
+            item_pk = json.loads(item_pk)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+            
+            #Remove item
+            cart_obj.crt_product.remove(item_obj.ci_product)
+            cart_obj.crt_item.remove(item_obj)
+            item_obj.delete()
 
-    item_obj = CartItem.objects.all().filter(pk=item_pk).first()
-    cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
-    
-    cart_obj.crt_product.remove(item_obj.ci_product)
-    cart_obj.crt_item.remove(item_obj)
-    item_obj.delete()
+            # Update cart price
+            update_price(cart_obj)
+            return JsonResponse({"success": str(cart_obj.crt_total_price)}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
 
-    update_price(cart_obj)
-    
-    #data = {'exito':"exito"}
-    #return JsonResponse(data)
-    #print("redirecting to...")
-    #print(url_to_redirect)
-    #return redirect(url_to_redirect)
+def increase_quantity_cart_item(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve item_pk
+        item_pk = request.POST.get('product_id',False)
+        if item_pk != False:
+            item_pk = json.loads(item_pk)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+            
+            # Increase item quantity
+            item_obj.ci_quantity += 1
+            item_obj.save()
+            
+            # Update cart price
+            update_price(cart_obj)
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
-    #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    #return HttpResponse("")
+            return JsonResponse({"success": {"total_price": str(cart_obj.crt_total_price), "quantity": str(item_obj.ci_quantity) }}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
+
+def reduce_quantity_cart_item(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve item_pk
+        item_pk = request.POST.get('product_id',False)
+        if item_pk != False:
+            item_pk = json.loads(item_pk)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(pk=item_pk).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=item_obj.ci_cart_ID).first()
+            
+            # Reduce item quantity
+            if item_obj.ci_quantity > 1:
+                item_obj.ci_quantity -= 1
+                item_obj.save()
+            else:
+                pass
+            
+            # Update cart price
+            update_price(cart_obj)
+
+            return JsonResponse({"success": {"total_price": str(cart_obj.crt_total_price), "quantity": str(item_obj.ci_quantity) }}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
 
 def cart_add(request):
-#    print("Entrando en el update!")
-    # Retrieve on which object it was clicked
-    product_pk = request.POST.get('product_id', None)
-    if product_pk is not None:
-        # Retrieves product and cart, and associates it to a cart_item
-        product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
-        cart_obj, new_obj =  Cart.objects.new_or_get(request)
-        # Check if the product is already in the cart
-#        print(product_obj)
-        qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
-        if qs.count() == 1:
-#            print("Ya está en el coche")
-            # INCREASE QUANTITY BY ONE
-            cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
-            cart_item.ci_quantity += 1
-            cart_item.save()
-        else:
-#            print("Nuevo item en el coche!")
-            cart_obj.crt_product.add(product_obj) # Add product to the cart
-            cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
-            cart_obj.crt_item.add(cart_item)
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve on which object it was clicked
+        product_pk = request.POST.get('product_id',False)
+        if product_pk != False:
+            # Retrieves product and cart, and associates it to a cart_item
+            product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
+            cart_obj, new_obj =  Cart.objects.new_or_get(request)
+            # Check if the product is already in the cart
+            qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
+            if qs.count() == 1:
+                # Increase quantity
+                cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
+                cart_item.ci_quantity += 1
+                cart_item.save()
+                new_added = False # Marker for responsive cart add to tell that this item was already in the cart
+            else:
+                # Add product to the cart
+                cart_obj.crt_product.add(product_obj)
+                cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
+                cart_obj.crt_item.add(cart_item)
+                new_added = True
 
-        update_price(cart_obj)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+            update_price(cart_obj)
+            if product_obj.peb_discount_status == True:
+                price = product_obj.peb_discount_price
+            else:
+                price = product_obj.peb_regular_price
+            return JsonResponse({"success": {   "total_price": str(cart_obj.crt_total_price), 
+                                                "quantity": str(cart_item.ci_quantity),
+                                                "product_pk": str(cart_item.pk),
+                                                "product": str(product_obj.peb_product.pa_product),
+                                                "pa_image_url": str(product_obj.peb_product.pa_image.url),
+                                                "price": str(price),
+                                                "new_added": str(new_added)
+                                                 }}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
 
 def update_price(cart_obj):
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()

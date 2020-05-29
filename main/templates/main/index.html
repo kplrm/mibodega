@@ -99,11 +99,8 @@
                     {{product.peb_product.pa_product}}
                 </div>
                 <div class="card-action">
-                    <a href="#">
-                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                            <input type="hidden" name='product_id' value='{{product.pk}}'>
-                            <input class="waves-effect waves-light btn" style="background-color: #feb100;" type='submit' value='Añadir a la cesta'>
-                        </form>
+                    <a class="btn" name="cart_add" id="{{product.pk}}" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px">
+                        <i class="material-icons">add_shopping_cart</i>
                     </a>
                 </div>
             </div>
@@ -173,6 +170,41 @@
         var instance = M.Slider.getInstance(elems[0]);
         instance.next();
         jump_to_second_slide = false;
+    };
+    // Add product to cart
+    function cart_add(product) {
+        M.toast({html: 'Producto añadido'})
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/cart_add",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    if (new_values['new_added'] == "True") {
+                        // Create cart item
+                        $("#cart_tbody").append('<tr name="'+new_values['product_pk']+'" style="border-top: 1px solid rgba(0, 0, 0, 0.12);"><td rowspan="2"><img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="'+new_values['pa_image_url']+'" alt="IMG"><img class="responsive-img hide-on-small-only" style="max-width:100px;" src="'+new_values['pa_image_url']+'" alt="IMG"></td><td colspan="1"><h6>'+new_values['product']+'</h6></td><td colspan="3" style="text-align:center;"><a class="btn" name="remove_item" id="'+new_values['product_pk']+'" onclick="remove_item_from_cart(this)" style="background-color:#ff2322;padding:3px 0px 3px 0px"><i class="material-icons">remove_shopping_cart</i></a></td></tr><tr name="'+new_values['product_pk']+'"><td style="text-align:left;"><h6>P.U: S/.'+parseFloat(new_values['price']).toFixed(2)+'</h6></td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+new_values['product_pk']+'" onclick="reduce_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">remove</i></a></td><td name="product_qty" id="'+new_values['product_pk']+'" style="text-align:center;">'+new_values['quantity']+'</td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+new_values['product_pk']+'" onclick="increase_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">add</i></a></td></tr>');
+                        // Update cart total price
+                        $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                    }
+                    else {
+                        $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                        product_qty = document.getElementsByName("product_qty");
+                        for (i = 0; i < product_qty.length; i++) {
+                            if (String(product_qty[i].id) == String(new_values['product_pk'])) {
+                                $(product_qty[i]).html(String(new_values['quantity']));
+                            }
+                        }
+                    }
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
     };
 </script>
 
