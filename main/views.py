@@ -963,30 +963,40 @@ def reduce_quantity_cart_item(request):
         return JsonResponse({"error": ""}, status=400)
 
 def cart_add(request):
-#    print("Entrando en el update!")
-    # Retrieve on which object it was clicked
-    product_pk = request.POST.get('product_id', None)
-    if product_pk is not None:
-        # Retrieves product and cart, and associates it to a cart_item
-        product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
-        cart_obj, new_obj =  Cart.objects.new_or_get(request)
-        # Check if the product is already in the cart
-#        print(product_obj)
-        qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
-        if qs.count() == 1:
-#            print("Ya está en el coche")
-            # INCREASE QUANTITY BY ONE
-            cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
-            cart_item.ci_quantity += 1
-            cart_item.save()
-        else:
-#            print("Nuevo item en el coche!")
-            cart_obj.crt_product.add(product_obj) # Add product to the cart
-            cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
-            cart_obj.crt_item.add(cart_item)
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve on which object it was clicked
+        product_pk = request.POST.get('product_id',False)
+        if product_pk != False:
+            # Retrieves product and cart, and associates it to a cart_item
+            product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
+            cart_obj, new_obj =  Cart.objects.new_or_get(request)
+            # Check if the product is already in the cart
+            qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
+            if qs.count() == 1:
+                # Increase quantity
+                cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
+                cart_item.ci_quantity += 1
+                cart_item.save()
+            else:
+                cart_obj.crt_product.add(product_obj) # Add product to the cart
+                cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
+                cart_obj.crt_item.add(cart_item)
 
-        update_price(cart_obj)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+            update_price(cart_obj)
+            if product_obj.peb_discount_status == True:
+                price = product_obj.peb_discount_price
+            else:
+                price = product_obj.peb_regular_price
+            return JsonResponse({"success": {   "total_price": str(cart_obj.crt_total_price), 
+                                                "quantity": str(cart_item.ci_quantity),
+                                                "product": str(product_obj.pa_product),
+                                                "pa_image_url": str(product_obj.pa_image.url),
+                                                "price": str(price)
+                                                 }}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+    else:
+        return JsonResponse({"error": ""}, status=400)
 
 def update_price(cart_obj):
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()

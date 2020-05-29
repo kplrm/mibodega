@@ -174,6 +174,26 @@
         instance.next();
         jump_to_second_slide = false;
     };
+    // Add product to cart
+    function cart_add(product) {
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/cart_add",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    $("#cart_tbody").append('<tr name="'+product.id+'" style="border-top: 1px solid rgba(0, 0, 0, 0.12);"><td rowspan="2"><img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="'+new_values['pa_image_url']+'" alt="IMG"></td><td colspan="1"><h6>'+new_values['product']+'</h6></td><td colspan="3" style="text-align:center;"><a class="btn" name="remove_item" id="'+product.id+'" onclick="remove_item_from_cart(this)" style="background-color:#ff2322;padding:3px 0px 3px 0px"><i class="material-icons">remove_shopping_cart</i></a></td></tr><tr name="'+product.id+'"><td style="text-align:left;"><h6>P.U: S/.'+parseFloat(new_values['price']).toFixed(2)+'</h6></td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+product.id+'" onclick="reduce_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">remove</i></a></td><td name="product_qty" id="+'+product.id+'" style="text-align:center;">'+new_values['quantity']+'</td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+product.id+'" onclick="increase_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">add</i></a></td></tr>');
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
 </script>
 
 <!-- Js Plugins -->
