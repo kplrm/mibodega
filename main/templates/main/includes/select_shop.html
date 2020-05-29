@@ -44,7 +44,7 @@
         marker = new L.marker([ latitude, longitude ]);
         map.addLayer(marker);
         // Request for shops nearby user
-        get_nearby_shops(latitude.lat,longitude);
+        get_nearby_shops(latitude,longitude);
         /*$.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
             url: "/get_nearby_shops",
