@@ -24,7 +24,7 @@ urlpatterns = [
     path("increase_quantity_cart_item", views.increase_quantity_cart_item, name="increase_quantity_cart_item"),
     path("reduce_quantity_cart_item", views.reduce_quantity_cart_item, name="reduce_quantity_cart_item"),
     path("checkout", views.checkout, name="checkout"),
-    path("save_store_location", views.save_store_location, name="save_store_location"),
+    #path("save_store_location", views.save_store_location, name="save_store_location"),
     path("submit_checkout", views.submit_checkout, name="submit_checkout"),
     path("get_nearby_shops", views.get_nearby_shops, name="get_nearby_shops"),
 
