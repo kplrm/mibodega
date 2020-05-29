@@ -1417,7 +1417,7 @@ def get_nearby_shops(request):
         #################### test
         json_response = []
         for shop in shops:
-            json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x, shop.bd_name, shop.bd_ID) )
+            json_response.append( (shop.bd_geolocation.x, shop.bd_geolocation.y, shop.bd_name, shop.bd_ID) )
         return JsonResponse({"success": tuple(json_response)}, status=200)
     else:
         return JsonResponse({"error": "unknown"}, status=400)
