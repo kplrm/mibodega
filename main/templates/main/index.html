@@ -80,7 +80,7 @@
 <div class="row">
     {% load humanize %}
     {% for product in result_list %}
-        <div class="col s12 m7">
+        <div class="col s6 m4 l3 xl2">
             <div class="card">
                 <div class="card-image" style="align-self:center">
                     {% if product.peb_product.pa_image %}
@@ -153,6 +153,7 @@
 </section>
 
 <script>
+    console.log("{{ result_list }}");
     // Workaroung bug on first slide
     var jump_to_second_slide = true;
     document.addEventListener('DOMContentLoaded', function() {

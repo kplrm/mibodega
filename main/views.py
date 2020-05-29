@@ -67,48 +67,49 @@ def locate_user():
 def homepage(request):
     # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
     # Locate user and shops nearby.
-    try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
+#    try:
+#        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
 #            print("Approx user location is known")
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
+#            user_longitude = request.session['user_longitude']
+#            user_latitude = request.session['user_latitude']
+#        else:
 #            print("Approx user location is NOT known")
-            user_longitude, user_latitude = locate_user()
-    except:
+#            user_longitude, user_latitude = locate_user()
+#    except:
 #        print("Location does not exist in the session")
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
-    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
+#        user_longitude, user_latitude = locate_user()
+#        request.session['user_longitude'] = user_longitude
+#        request.session['user_latitude'] = user_latitude
+#    user_location = Point(user_longitude,user_latitude,srid=4326)
+#    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     
     # Looks for products in the selected bodega
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    try:
-        if request.session['id_bodega'] == "Cercanas":
+    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
+#    try:
+#        if request.session['id_bodega'] == "Cercanas":
  #           print("id_bodega is Empty")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
-        elif request.session['id_bodega'] != "Cercanas":
+#            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
+#        elif request.session['id_bodega'] != "Cercanas":
 #            print("There is an id_bodega in session")
-            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
-        else:
-            pass
+#            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
+#        else:
+#            pass
 #            print("id_bodega is None")
-    except:
+#    except:
 #        print("id_bodega does not exist in the session")
-        request.session['id_bodega'] = "Cercanas"
-        request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+#        request.session['id_bodega'] = "Cercanas"
+#        request.session['bodega_name'] = "Cercanas"
+#        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
 #        print(str(":")+str(request.session['id_bodega'])+str(":"))
 
     # Bodega name to display
-    if request.session['bodega_name'] == "Cercanas":
-        id_bodega_text = "Seleccione su bodega"
-    elif request.session['bodega_name'] != "Cercanas":
-        id_bodega_text = request.session['bodega_name']
-    else:
-        pass
+#    if request.session['bodega_name'] == "Cercanas":
+#        id_bodega_text = "Seleccione su bodega"
+#    elif request.session['bodega_name'] != "Cercanas":
+#        id_bodega_text = request.session['bodega_name']
+#    else:
+#        pass
 #        print("What is this?")
     
     # Random shuffle the discount products
@@ -123,12 +124,14 @@ def homepage(request):
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={'result_list': result_list,
+                  context={
+                           'result_list': result_list,
                            'cart_obj': cart_obj,
                            'cart_list': cart_list, 
-                           'user_location': user_location,
-                           'shops': shops,
-                           'id_bodega_text': id_bodega_text})
+#                           'user_location': user_location,
+#                           'shops': shops,
+#                           'id_bodega_text': id_bodega_text
+                           })
 
 def embutidos(request):
     # Locate user and shops nearby.
