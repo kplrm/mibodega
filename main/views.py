@@ -1201,7 +1201,7 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
-            user_location = Point(float(bd_geolocation_lat),float(bd_geolocation_lng),srid=4326)
+            user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
             bodega.bd_geolocation = user_location
             cliente.save()
             bodega.save()
@@ -1408,7 +1408,7 @@ def get_nearby_shops(request):
     if request.method == "POST" and request.is_ajax():
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
-        user_location = Point(float(user_latitude),float(user_longitude),srid=4326)
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         json_response = []
         ################# test
@@ -1417,7 +1417,7 @@ def get_nearby_shops(request):
             print("distance: ", shop.distance.m)
         ################# test
         for shop in shops:
-            json_response.append( (shop.bd_geolocation.x, shop.bd_geolocation.y, shop.bd_name, shop.bd_ID) )
+            json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x, shop.bd_name, shop.bd_ID) )
         return JsonResponse({"success": tuple(json_response)}, status=200)
     else:
         return JsonResponse({"error": "unknown"}, status=400)

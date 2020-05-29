@@ -123,8 +123,8 @@
                                                     <tr class="border-0">
                                                         <th class="border-0" style="text-align:right;">Ubica tu bodega en el mapa.</th>
                                                         <th class="border-0" style="text-align:left;">Búscala y haz click.
-                                                            <input type="hidden" class="form-control" id="bd_geolocation_lat" value="{{ bodega.bd_geolocation.x }}">
-                                                            <input type="hidden" class="form-control" id="bd_geolocation_lng" value="{{ bodega.bd_geolocation.y }}">
+                                                            <input type="hidden" class="form-control" id="bd_geolocation_lat" value="{{ bodega.bd_geolocation.y }}">
+                                                            <input type="hidden" class="form-control" id="bd_geolocation_lng" value="{{ bodega.bd_geolocation.x }}">
                                                         </th>
                                                     </tr>
                                                 </form>
@@ -151,8 +151,8 @@
     // Initializes map
     var marker;
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
-        var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.x }}", "{{ bodega.bd_geolocation.y }}" ], 14);
-        marker = new L.marker(["{{ bodega.bd_geolocation.x }}", "{{ bodega.bd_geolocation.y }}"]);
+        var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
+        marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"]);
         map.addLayer(marker);
     } else {
         var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
