@@ -992,6 +992,7 @@ def cart_add(request):
                 price = product_obj.peb_regular_price
             return JsonResponse({"success": {   "total_price": str(cart_obj.crt_total_price), 
                                                 "quantity": str(cart_item.ci_quantity),
+                                                "product_pk": str(cart_item.pk),
                                                 "product": str(product_obj.peb_product.pa_product),
                                                 "pa_image_url": str(product_obj.peb_product.pa_image.url),
                                                 "price": str(price),
