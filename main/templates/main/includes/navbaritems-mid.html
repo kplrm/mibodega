@@ -9,7 +9,7 @@
             <div class="col xl2 l3 m3 hide-on-small-only" style="flex-basis:auto;">
                 <a href = "/"><img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="LOGO"></a>
             </div>
-            <div class="col xl9 l8 m8 s11" style="flex-basis:auto;">
+            <div class="col xl8 l7 m7 s10" style="flex-basis:auto;">
                 <form style="Margin: 10px 0px 0px 0px;">
                     <div class="input-field">
                         <input id="search" type="search" required placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:calc(100% - 7rem);">
@@ -22,6 +22,11 @@
                         <label for="autocomplete-input">Autocomplete</label>
                     </div>-->
                 </form>
+            </div>
+            <div>
+                <div class="col xl1 l1 m1 s1" style="flex-basis:auto;">
+                    {% include 'main/includes/shop_selection.html' %}
+                </div>
             </div>
         </div>
     </div>
