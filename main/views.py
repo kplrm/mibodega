@@ -965,20 +965,24 @@ def reduce_quantity_cart_item(request):
 def cart_add(request):
     print("cart_add:")
     if request.method == "POST" and request.is_ajax():
+        print("Laika 1")
         # Retrieve on which object it was clicked
         product_pk = request.POST.get('product_id',False)
         if product_pk != False:
+            print("Laika 2")
             # Retrieves product and cart, and associates it to a cart_item
             product_obj = ProductosEnBodega.objects.all().filter(pk=product_pk).first()
             cart_obj, new_obj =  Cart.objects.new_or_get(request)
             # Check if the product is already in the cart
             qs = Cart.objects.get_queryset().filter(pk=cart_obj.pk,crt_product=product_obj)
             if qs.count() == 1:
+                print("Laika 3")
                 # Increase quantity
                 cart_item = CartItem.objects.get_queryset().filter(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj).first()
                 cart_item.ci_quantity += 1
                 cart_item.save()
             else:
+                print("Laika 4")
                 cart_obj.crt_product.add(product_obj) # Add product to the cart
                 cart_item = CartItem.objects.create(ci_cart_ID=cart_obj.crt_ID,ci_product=product_obj) # Create item
                 cart_obj.crt_item.add(cart_item)
@@ -995,8 +999,10 @@ def cart_add(request):
                                                 "price": str(price)
                                                  }}, status=200)
         else:
+            print("Laika 5")
             return JsonResponse({"error": ""}, status=400)
     else:
+        print("Laika 6")
         return JsonResponse({"error": ""}, status=400)
 
 def update_price(cart_obj):
