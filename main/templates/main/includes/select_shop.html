@@ -13,6 +13,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    map.invalidateSize();
     const customMarkerIcon = L.AwesomeMarkers.icon({
         "icon": "fa-shopping-basket",
         "prefix": "fa",
@@ -24,11 +25,7 @@
     function showLocation(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
-        console.log("Current location:");
-        console.log(latitude);
-        console.log(longitude);
-        console.log(new L.LatLng(latitude, longitude));
-        map.invalidateSize();
+        //map.invalidateSize();
         map.panTo(new L.LatLng(latitude, longitude));
         //map.panTo([latitude, longitude], {center: [latitude, longitude]});
         // Request for shops nearby user
