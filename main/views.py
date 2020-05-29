@@ -963,6 +963,7 @@ def reduce_quantity_cart_item(request):
         return JsonResponse({"error": ""}, status=400)
 
 def cart_add(request):
+    print("cart_add:")
     if request.method == "POST" and request.is_ajax():
         # Retrieve on which object it was clicked
         product_pk = request.POST.get('product_id',False)
