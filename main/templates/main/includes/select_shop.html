@@ -27,7 +27,7 @@
         console.log("Current location:");
         console.log(latitude);
         console.log(longitude);
-        map.panTo(new L.LatLng(latitude, longitude), {zoom:10});
+        map.panTo(new L.LatLng(latitude, longitude), {zoom:5});
         // Request for shops nearby user
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
