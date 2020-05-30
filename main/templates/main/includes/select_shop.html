@@ -32,7 +32,7 @@
         "iconColor": "white",
         "extraClasses": "fa-rotate-0"
     });
-    
+
     // Request user current location
     function getCurrentLocation() {
         if(navigator.geolocation) {
@@ -79,7 +79,6 @@
     
     // Permission granted. Get user location
     function showLocation(position) {
-        //console.log("lat: {{user_location.y}}, lng: {{user_location.x}}")
         if ("{{user_location.x}}" == "0" && "{{user_location.y}}" == "0") {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
@@ -113,6 +112,9 @@
     // Permision denied
     function errorHandler(err) {
         map.invalidateSize();
+        // Default location
+        update_user_location(-12.046374, -77.0427934);
+        get_nearby_shops(-12.046374, -77.0427934);
         if(err.code == 1) {
             alert("Haz click en el mapa para ubicar tu ubicación actual.");
         } else if( err.code == 2) {
