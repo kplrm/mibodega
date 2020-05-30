@@ -6628,7 +6628,7 @@ input[type=range]: : -ms-thumb {
     position: absolute; /* position: absolute; */
     font-size: 1rem;
     border-radius: 50%;
-    background-color: #feb200e0; /* background-color: #ee6e73; */
+    background-color: #feb100; /* background-color: #ee6e73; */
     -webkit-box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 10px 50px 0 rgba(0, 0, 0, 0.12), 0 30px 10px -20px rgba(0, 0, 0, 0.2);
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 10px 50px 0 rgba(0, 0, 0, 0.12), 0 30px 10px -20px rgba(0, 0, 0, 0.2);
     width: 100%;
