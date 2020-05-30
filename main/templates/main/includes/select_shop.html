@@ -45,6 +45,7 @@
         marker = new L.marker([ latitude, longitude ]);
         map.addLayer(marker);
         // Request for shops nearby user
+        update_user_location(latitude,longitude);
         get_nearby_shops(latitude,longitude);
     }
     // Permision denied
@@ -56,12 +57,13 @@
             alert("Error: Position is unavailable!");
         }
     }
-    // Click to change marker
+    // Click to change user's position marker
     function onMapClick(e) {
         if (marker != undefined) {
             map.removeLayer(marker);
         };
         marker = new L.marker(e.latlng).addTo(map);
+        update_user_location(e.latlng.lat,e.latlng.lng);
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
     map.on('click', onMapClick);
@@ -94,6 +96,25 @@
             },
             error: function(response){ // This triggers in case all items in the basket get unavailable
                 console.log(response);
+            }
+        });
+    };
+    function update_user_location(latitude,longitude) {
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            url: "/update_user_location",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'latitude': latitude,
+                'longitude': longitude
+            },
+            // Make a marker for the shops nearby
+            success: function(response){ 
+                ;
+            },
+            error: function(response){ // This triggers in case all items in the basket get unavailable
+                ;
             }
         });
     }

@@ -1467,9 +1467,6 @@ def get_nearby_shops(request):
         # Retrieves user location
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
-        # Stores in cache user location
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
         # Find nearby shops
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
@@ -1479,3 +1476,12 @@ def get_nearby_shops(request):
         return JsonResponse({"success": tuple(json_response)}, status=200)
     else:
         return JsonResponse({"error": "unknown"}, status=400)
+
+def update_user_location(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieves user location
+        user_latitude = request.POST.get('latitude',False)
+        user_longitude = request.POST.get('longitude',False)
+        # Stores in cache user location
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude

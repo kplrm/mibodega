@@ -27,6 +27,7 @@ urlpatterns = [
     #path("save_store_location", views.save_store_location, name="save_store_location"),
     path("submit_checkout", views.submit_checkout, name="submit_checkout"),
     path("get_nearby_shops", views.get_nearby_shops, name="get_nearby_shops"),
+    path("update_user_location", views.update_user_location, name="update_user_location"),
 
     # Dashboard
     path("dashboard/", views.dashboard, name="dashboard"),
