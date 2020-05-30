@@ -88,6 +88,7 @@ def homepage(request):
             temp = list(temp)
             result_list.append(temp)
         shuffle(result_list)
+        print(result_list)
         return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
                   context={'result_list': result_list,
