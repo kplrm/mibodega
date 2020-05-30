@@ -68,19 +68,32 @@ def locate_user():
 def homepage(request):
     # If user have updated his current location on the map
     if request.method== "POST" and request.is_ajax():
+        print("updating user location")
         user_latitude = request.POST['latitude']
         user_longitude = request.POST['longitude']
         request.session['user_longitude'] = user_longitude
         request.session['user_latitude'] = user_latitude
+        ######
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        print("user_location: ", user_location)
+        #######
         return JsonResponse({"success": ""}, status=200)
 
     # Locate user and shops nearby.
     try:
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
+        ######
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        print("user_location try: ", user_location)
+        #######
     except: # Default location
         user_longitude = -77.0427934
         user_latitude = -12.046374
+        ######
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        print("user_location ext: ", user_location)
+        #######
     #user_location = Point(user_longitude,user_latitude,srid=4326)
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     print("user_location: ", user_location)
