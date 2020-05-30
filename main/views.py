@@ -116,7 +116,6 @@ def homepage(request):
     # Looks for offers in all bodegas
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = productos_en_bodegas.filter(peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[:20]
-    print(result_list)
 #    try:
 #        if request.session['id_bodega'] == "Cercanas":
  #           print("id_bodega is Empty")
@@ -147,6 +146,7 @@ def homepage(request):
     temp = list(result_list)
     shuffle(temp)
     result_list = temp
+    print(result_list)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
