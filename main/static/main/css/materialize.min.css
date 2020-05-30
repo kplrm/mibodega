@@ -6595,6 +6595,9 @@ input[type=range]: : -ms-thumb {
     transition: visibility 0s .3s
 }
 .tap-target-wrapper.open {
+    /* DG */
+    position: fixed !important;
+    /* DG */
     visibility: visible;
     -webkit-transition: visibility 0s;
     transition: visibility 0s
@@ -6622,10 +6625,10 @@ input[type=range]: : -ms-thumb {
     transition: opacity .3s, transform .3s, visibility 0s 1s, -webkit-transform .3s
 }
 .tap-target {
-    position: absolute;
+    position: absolute; /* position: absolute; */
     font-size: 1rem;
     border-radius: 50%;
-    background-color: #ee6e73;
+    background-color: #feb100; /* background-color: #ee6e73; */
     -webkit-box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 10px 50px 0 rgba(0, 0, 0, 0.12), 0 30px 10px -20px rgba(0, 0, 0, 0.2);
     box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.14), 0 10px 50px 0 rgba(0, 0, 0, 0.12), 0 30px 10px -20px rgba(0, 0, 0, 0.2);
     width: 100%;
@@ -6673,12 +6676,15 @@ input[type=range]: : -ms-thumb {
     z-index: -1
 }
 .tap-target-origin {
+    /* DG */
+    background-color: #3fcc01;
+    /* DG */
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 10002;
-    position: absolute !important
+    position: absolute /* position: absolute !important */
 }
 .tap-target-origin: not(.btn): not(.btn-large): not(.btn-small), .tap-target-origin: not(.btn): not(.btn-large): not(.btn-small): hover {
     background: none

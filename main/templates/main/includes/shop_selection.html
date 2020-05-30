@@ -1,12 +1,30 @@
 
+<!-- Pin icon -->
 <a class="btn modal-trigger" id="user_location_btn" data-target="user_location_modal" onclick="getLocation()" style="padding:0px 0px 0px 0px;background-color:#ffffff;box-shadow:none;">
     <i class="material-icons" style="Margin:-10px 0px 0px 0px;">place</i>
 </a>
+<!-- Tap Target Structure -->
+<div class="tap-target" id="location_tap_target" data-target="user_location_btn">
+    <div class="tap-target-content">
+        <h4>Hola</h4>
+        <h6>Permitenos acceder a tu ubicación para encontrar las mejores ofertas cerca a tí.</h6>
+    </div>
+</div>
 
 <!-- Modal -->
 <div id="user_location_modal" class="modal modal-fixed-footer">
-    <div class="modal-content"> <!-- style="padding: 7px 7px 7px 7px;" -->
-        <h4>¿Dónde estás?</h4><br>
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s10" style="flex-basis: auto;">
+                <h5>¿Dónde estás?</h5>
+            </div>
+            <div class="col s2" style="flex-basis: auto;">
+                <a class="btn-flat" name="close_map" id="close_map" onclick="close_map()" style="background-color:#ffffff;vertical-align: top;">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+        </div>
+        <!--<br>-->
         {% include 'main/includes/select_shop.html' %}
     </div>
     <div class="modal-footer">
@@ -16,6 +34,25 @@
     </div>
 </div>
 <script>
+    // Discovery tap loaded only on the first time
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.getElementById('location_tap_target');
+        var instances = M.TapTarget.init(elems, {});
+    });
+    {% if introduction == True %}
+        window.onload = function() {
+            var elem = document.getElementById('location_tap_target');
+            var instance = M.TapTarget.getInstance(elem);
+            instance.open();
+        };
+    {% endif %}
+
+    // Function to hide map modal
+    function close_map() {
+        var elem = document.getElementById('user_location_modal');
+        var instance = M.Modal.getInstance(elem);
+        instance.close();
+    }
     // On modal closed event listener
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.getElementById('user_location_modal');
@@ -23,42 +60,4 @@
             location.reload();
         }});
     });
-    
-
-    /*
-    $(document).ready(function(){
-        $("#exampleModalCenter").on('shown.bs.modal', function () {
-            setTimeout(function() {
-                map.invalidateSize();
-            }, 10);
-        });
-        $("#anular-seleccion").click(function(){
-            $('#bodega_name').val('Cercanas');
-            $('#bodega_id').val('Cercanas');
-        });
-        $("#modal-save").click(function(){
-            $("#exampleModalCenter").modal("hide");
-            $('.modal-backdrop').hide();
-            $.ajax({
-                headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/save_store_location",
-                type: "POST",
-                dataType: "json",
-                data:   {
-                            'bodega_name': $('#bodega_name').val(),
-                            'id_bodega': $('#bodega_id').val()
-                        },
-                success: function(response){
-                    alert ("resp: "+response);
-                }
-            });
-            $.ajax({
-                url: "/embutidos",
-                type: "GET",
-                success: function(){
-                    location.reload();
-                }
-            });
-        });
-    });*/
 </script>
