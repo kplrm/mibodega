@@ -4,7 +4,7 @@
     <i class="material-icons" style="Margin:-10px 0px 0px 0px;">place</i>
 </a>
 <!-- Tap Target Structure -->
-<div class="tap-target" id="location_tap_target" data-target="user_location_btn" style="position:fixed !important;">
+<div class="tap-target" id="location_tap_target" data-target="user_location_btn">
     <div class="tap-target-content">
         <h5>Title</h5>
         <p>A bunch of text</p>
@@ -37,7 +37,7 @@
     // Discovery tap
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.getElementById('location_tap_target');
-        var instances = M.TapTarget.init(elems, {});
+        var instances = M.TapTarget.init(elems, {position:fixed});
     });
     window.onload = function() {
         var elem = document.getElementById('location_tap_target');
