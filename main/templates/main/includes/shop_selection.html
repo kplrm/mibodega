@@ -19,13 +19,7 @@
     // On modal closed event listener
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.getElementById('user_location_modal');
-        //var instances = M.Modal.init(elems, {onCloseEnd: modal_closed()} );
-        //var instances = M.Modal.init(elems, {onCloseEnd: function() {alert('Closed');} } );
-        // Send user current location on modal map close
         var instances = M.Modal.init(elems, {onCloseEnd: function() {
-            alert('Closed');
-            console.log("closing modal..");
-            alert('Closed');
             latitude = document.getElementById("usr_lat").value;
             longitude = document.getElementById("usr_lng").value;
             $.ajax({
