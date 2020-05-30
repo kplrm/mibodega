@@ -1,34 +1,25 @@
 {% load static %}
 
 <!-- Footer Section Begin -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="footer-left">
-                    <div class="footer-logo">
-                        <a href="#"><img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="LOGO"></a>
-                    </div>
-                    <ul>
-                        <li>Email: hola@alimentos.pe</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="copyright-reserved">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright © 2018-2020 Concept. Todos los derechos reservados. Marketplace por <a href="https://colorlib.com/wp/">Colorlib</a>. y <a href="https://wwww.alimentos.pe">Alimentos.pe</a>.
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </div>
-                    <div class="payment-pic">
-                        <img src="{% static 'main/img/payment-method.png' %}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+    <table>
+        <tbody>
+            <tr>
+                <td style="text-align:center;">
+                    <img class="responsive-img" style="max-width:150px;" src="{% static 'main/img/logo.png' %}" alt="Logo">
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    <a href="mailto:hola@alimentos.pe">hola@alimentos.pe</a>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center;">
+                    Copyright © 2020, <a href="https://wwww.alimentos.pe">Alimentos.pe</a>.<br>Todos los derechos reservados.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <!-- Footer Section End -->
