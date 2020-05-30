@@ -66,34 +66,47 @@ def locate_user():
 
 # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
 def homepage(request):
+    # If user have updated his current location on the map
+    if request.is_ajax():
+        if request.method== "POST":
+            user_latitude = request.POST['latitude']
+            user_longitude = request.POST['longitude']
+            request.session['user_longitude'] = user_longitude
+            request.session['user_latitude'] = user_latitude
+            return JsonResponse({"success": ""}, status=200)
+        else:
+            return JsonResponse({"error": ""}, status=400)
+
+    # Locate user and shops nearby.
+    try:
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+    except: # Default location
+        user_longitude = -77.0427934
+        user_latitude = -12.046374
+    user_location = Point(user_longitude,user_latitude,srid=4326)
+    print("user_location: ", user_location)
+    #user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-    # If user have updated his current location on the map
-    if request.method== "POST" and request.is_ajax():
-        print("is ajax")
-        user_latitude = request.POST['latitude']
-        user_longitude = request.POST['longitude']
-        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-        print("user_location: ",user_location)
-        # Find shops nearby the user
-        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
-        # Retrieve all products with discount from nearby shops
-        productos_en_bodegas = ProductosEnBodega.objects.all()
-        result_list = []
-        for shop in shops:
-            temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0).all()
-            #temp = list(temp)
-            result_list.append(temp)
-        shuffle(result_list)
-        print(result_list)
-        return render(request=request, # to reference request
-                  template_name="main/index.html", # where to find the specifix template
-                  context={'result_list': result_list,
-                           'cart_obj': cart_obj,
-                           'cart_list': cart_list})
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+        temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0).all()
+        result_list.append(temp)
+    shuffle(result_list)
+
+
+        
+        
 
     
     # Locate user and shops nearby.
@@ -114,8 +127,8 @@ def homepage(request):
 #    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     
     # Looks for offers in all bodegas
-    productos_en_bodegas = ProductosEnBodega.objects.all()
-    result_list = productos_en_bodegas.filter(peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[:20]
+#    productos_en_bodegas = ProductosEnBodega.objects.all()
+#    result_list = productos_en_bodegas.filter(peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[:20]
 #    try:
 #        if request.session['id_bodega'] == "Cercanas":
  #           print("id_bodega is Empty")
@@ -143,10 +156,10 @@ def homepage(request):
 #        print("What is this?")
     
     # Random shuffle the discount products
-    temp = list(result_list)
-    shuffle(temp)
-    result_list = temp
-    print(result_list)
+#    temp = list(result_list)
+#    shuffle(temp)
+#    result_list = temp
+#    print(result_list)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
