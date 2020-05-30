@@ -97,6 +97,7 @@ def homepage(request):
             for item in result_list:
                 if item.peb_product.pa_ID = product.peb_product.pa_ID:
                     print("this product exists already in the list")
+                    print(item)
             result_list.append(product)
     shuffle(result_list)
     print("result_list: ", result_list)
