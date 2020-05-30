@@ -84,11 +84,11 @@
 
         marker = new L.marker([ latitude, longitude ], {draggable:'true'})
             .on('dragend', function(event){
-                update_user_location(event.latlng.lat,event.latlng.lng);
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
                 onMapMoveEnd();
             }).addTo(map);
 
-        
+            update_user_location(e.latlng.lat,e.latlng.lng);
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
     map.on('click', onMapClick);
