@@ -94,7 +94,7 @@ def homepage(request):
     result_list = []
     for shop in shops:
 #        print("shop: ", shop)
-        temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0,peb_discount_price__gt=0,peb_regular_price__gt=0)
 #        print("temp: ", temp)
         for product in temp:
             result_list.append(product)
