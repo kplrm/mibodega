@@ -64,9 +64,9 @@
     function errorHandler(err) {
         map.invalidateSize();
         if(err.code == 1) {
-            alert("Error: Access is denied!");
+            alert("Haz click en el mapa para ubicar tu ubicación actual.");
         } else if( err.code == 2) {
-            alert("Error: Position is unavailable!");
+            alert("Error: Tu ubicación no está disponible.");
         }
     }
     // Click to change user's position marker
