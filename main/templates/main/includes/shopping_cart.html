@@ -11,9 +11,16 @@
                     <th>PRODUCTO</th>
                     <th colspan="3" style="text-align:center;">
                         CANTIDAD
-                    <a class="btn-flat" name="close_map" id="close_map" onclick="close_cart(){var elem = document.getElementById('shopping_cart_modal'); var instance = M.Modal.getInstance(elem);instance.close();}" style="background-color:#ffffff;vertical-align: top;">
+                    <a class="btn-flat" name="close_map" id="close_map" onclick="close_cart()" style="background-color:#ffffff;vertical-align: top;">
                             <i class="material-icons">close</i>
                         </a>
+                        <script>
+                            function close_cart() {
+                                var elem = document.getElementById('shopping_cart_modal');
+                                var instance = M.Modal.getInstance(elem);
+                                instance.close();
+                            }
+                        </script>
                     </th>
                 </tr>
             </thead>
