@@ -6,8 +6,15 @@
 <!-- Map -->
 <div id="map" style="height:inherit;"></div>
 <style>
-    .awesome-marker i {
-        margin-top: -12px;
+    @media only screen and (max-width: 600px) {
+        .awesome-marker i {
+            margin-top: 0px;
+        }
+    }
+    @media only screen and (min-width: 601px) {
+        .awesome-marker i {
+            margin-top: -12px;
+        }
     }
 </style>
 <script type = "text/javascript">
