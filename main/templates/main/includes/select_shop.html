@@ -32,18 +32,19 @@
         "iconColor": "white",
         "extraClasses": "fa-rotate-0"
     });
-    // Request user location
-    function getLocation() {
+
+    // Request user current location
+    function getCurrentLocation() {
         if(navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
             var options = {timeout:60000};
-            navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+            navigator.geolocation.getCurrentPosition(showCurrentLocation, errorHandler, options);
         } else {
             alert("Sorry, browser does not support geolocation!");
         }
     }
     // Permission granted. Get user location
-    function showLocation(position) {
+    function showCurrentLocation(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         document.getElementById("usr_lat").value = latitude;
@@ -54,7 +55,55 @@
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker([ latitude, longitude ]);
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
+                onMapMoveEnd();
+            }).addTo(map);
+        map.addLayer(marker);
+        // Request for shops nearby user
+        update_user_location(latitude,longitude);
+        get_nearby_shops(latitude,longitude);
+    }
+
+    // Request user saved location
+    function getLocation() {
+        if(navigator.geolocation) {
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+        } else {
+            alert("Sorry, browser does not support geolocation!");
+        }
+    }
+    
+    // Permission granted. Get user location
+    function showLocation(position) {
+        if ("{{user_location.x}}" == "0" && "{{user_location.y}}" == "0") {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+        } else if (parseFloat("{{user_location.y}}") != position.coords.latitude && parseFloat("{{user_location.x}}") != position.coords.longitude) {
+            var latitude = parseFloat("{{user_location.y}}");
+            var longitude = parseFloat("{{user_location.x}}");
+        } else {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+        }
+        
+        document.getElementById("usr_lat").value = latitude;
+        document.getElementById("usr_lng").value = longitude;
+        map.invalidateSize();
+        map.panTo(new L.LatLng(latitude, longitude));
+        // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
+                onMapMoveEnd();
+            }).addTo(map);
+            //console.log(event.target._latlng.lat);//console.log(event.target._latlng.lng);
         map.addLayer(marker);
         // Request for shops nearby user
         update_user_location(latitude,longitude);
@@ -63,10 +112,13 @@
     // Permision denied
     function errorHandler(err) {
         map.invalidateSize();
+        // Default location
+        update_user_location(-12.046374, -77.0427934);
+        get_nearby_shops(-12.046374, -77.0427934);
         if(err.code == 1) {
-            alert("Error: Access is denied!");
+            alert("Haz click en el mapa para ubicar tu ubicación actual.");
         } else if( err.code == 2) {
-            alert("Error: Position is unavailable!");
+            alert("Error: Tu ubicación no está disponible.");
         }
     }
     // Click to change user's position marker
@@ -74,8 +126,16 @@
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker(e.latlng).addTo(map);
-        update_user_location(e.latlng.lat,e.latlng.lng);
+        //marker = new L.marker(e.latlng, {draggable:'true'}).addTo(map);
+        //update_user_location(e.latlng.lat,e.latlng.lng);
+
+        marker = new L.marker(e.latlng, {draggable:'true'})
+            .on('dragend', function(event){
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
+                onMapMoveEnd();
+            }).addTo(map);
+
+            update_user_location(e.latlng.lat,e.latlng.lng);
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
     map.on('click', onMapClick);
@@ -85,7 +145,6 @@
         get_nearby_shops(map_center.lat,map_center.lng);
     }
     map.on('moveend', onMapMoveEnd);
-    
 
     function get_nearby_shops(latitude,longitude) {
         if (shops_markers != undefined) {
