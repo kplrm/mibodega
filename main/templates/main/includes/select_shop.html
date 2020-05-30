@@ -44,6 +44,7 @@
     }
     // Permission granted. Get user location
     function showLocation(position) {
+        console.log("lat: {{user_location.y}}, lng: {{user_location.x}}")
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         document.getElementById("usr_lat").value = latitude;
