@@ -76,8 +76,6 @@ def homepage(request):
         #user_latitude = -12.046374
         # Using IpregistryClient to get user aprox location 
         user_longitude, user_latitude = locate_user()
-        print("usr_lng: ", user_longitude)
-        print("usr_lat: ", user_latitude)
         
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     print("user_location: ", user_location)
