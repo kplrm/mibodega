@@ -82,7 +82,7 @@
         //marker = new L.marker(e.latlng, {draggable:'true'}).addTo(map);
         //update_user_location(e.latlng.lat,e.latlng.lng);
 
-        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+        marker = new L.marker(e.latlng, {draggable:'true'})
             .on('dragend', function(event){
                 update_user_location(event.target._latlng.lat,event.target._latlng.lng);
                 onMapMoveEnd();
