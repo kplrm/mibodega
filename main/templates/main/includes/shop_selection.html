@@ -20,7 +20,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal');
         var instances = M.Modal.init(elems, {onCloseEnd: modal_closed()} );
-        time_to_jump(elems);
     });
     // Send user current location
     function modal_closed() {
