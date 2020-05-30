@@ -19,10 +19,11 @@
     // On modal closed event listener
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems, {onCloseEnd: modal_closed()} );
+        var instances = M.Modal.init(elems, {onCloseStart: modal_closed()} );
     });
     // Send user current location
     function modal_closed() {
+        console.log("closing");
         latitude = document.getElementById("usr_lat").value;
         longitude = document.getElementById("usr_lng").value;
         $.ajax({
