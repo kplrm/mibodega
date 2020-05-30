@@ -73,9 +73,11 @@ def homepage(request):
 
     # If user have updated his current location on the map
     if request.method== "POST" and request.is_ajax():
+        print("is ajax")
         user_latitude = request.POST['latitude']
         user_longitude = request.POST['longitude']
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        print("user_location: ",user_location)
         # Find shops nearby the user
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         # Retrieve all products with discount from nearby shops
