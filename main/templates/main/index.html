@@ -164,6 +164,9 @@
     });
     function time_to_jump(elems) {
         var instance = M.Slider.getInstance(elems[0]);
+        console.log("hola");
+        console.log(elems[0]);
+        console.log(instance);
         instance.next();
         jump_to_second_slide = false;
     };
