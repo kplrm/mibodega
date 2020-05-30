@@ -6678,7 +6678,7 @@ input[type=range]: : -ms-thumb {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 10002;
-    position: fixed /* position: absolute !important */
+    position: absolute /* position: absolute !important */
 }
 .tap-target-origin: not(.btn): not(.btn-large): not(.btn-small), .tap-target-origin: not(.btn): not(.btn-large): not(.btn-small): hover {
     background: none
