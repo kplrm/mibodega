@@ -77,8 +77,11 @@ def homepage(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = -77.0427934 user_latitude = -12.046374
-        user_longitude, user_latitude = locate_user()
+        user_longitude = 0
+        user_latitude = 0
+        #user_longitude, user_latitude = locate_user()
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    print("home ", user_location)
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -170,10 +173,10 @@ def homepage(request):
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
                   context={'introduction': introduction,
+                           'user_location': user_location,
                            'result_list': result_list,
                            'cart_obj': cart_obj,
                            'cart_list': cart_list, 
-#                           'user_location': user_location,
 #                           'shops': shops,
 #                           'id_bodega_text': id_bodega_text
                            })
@@ -1459,7 +1462,7 @@ def get_nearby_shops(request):
         user_longitude = request.POST.get('longitude',False)
         # Find nearby shops
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=3000).order_by("distance")[0:10]
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=30000).order_by("distance")[0:10] # <------------ This distance to plot on map should be evaluated
         json_response = []
         for shop in shops:
             json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x, shop.bd_name, shop.bd_ID) )
