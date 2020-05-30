@@ -100,9 +100,10 @@ def homepage(request):
     result_list = []
     for shop in shops:
         print("shop: ", shop)
-        temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[0:10]
+        temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)
         print("temp: ", temp)
-        result_list.append(temp)
+        for product in temp:
+            result_list.append(product)
     shuffle(result_list)
     print("result_list: ", result_list)
 
