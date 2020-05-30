@@ -1,10 +1,22 @@
 
 <!-- Data fields -->
-<!--<input type="hidden" class="form-control" id="bodega_name" value="Cercanas" disabled>
-<input type="hidden" class="form-control" id="bodega_id" value="Cercanas" disabled>-->
+<input type="hidden" class="form-control" id="usr_lat" value="-12.046374" disabled>
+<input type="hidden" class="form-control" id="usr_lng" value="-77.0427934" disabled>
 
 <!-- Map -->
 <div id="map" style="height:inherit;"></div>
+<style>
+    @media only screen and (max-width: 600px) {
+        .awesome-marker i {
+            margin-top: 10px;
+        }
+    }
+    @media only screen and (min-width: 601px) {
+        .awesome-marker i {
+            margin-top: -15px;
+        }
+    }
+</style>
 <script type = "text/javascript">
     // Initializes map
     var marker;
@@ -18,7 +30,7 @@
         "prefix": "fa",
         "markerColor": "orange",
         "iconColor": "white",
-        "extraClasses": "fa-rotate-0",
+        "extraClasses": "fa-rotate-0"
     });
     // Request user location
     function getLocation() {
@@ -34,6 +46,8 @@
     function showLocation(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
+        document.getElementById("usr_lat").value = latitude;
+        document.getElementById("usr_lng").value = longitude;
         map.invalidateSize();
         map.panTo(new L.LatLng(latitude, longitude));
         // Make a marker in current user's location
@@ -43,6 +57,7 @@
         marker = new L.marker([ latitude, longitude ]);
         map.addLayer(marker);
         // Request for shops nearby user
+        update_user_location(latitude,longitude);
         get_nearby_shops(latitude,longitude);
     }
     // Permision denied
@@ -54,15 +69,23 @@
             alert("Error: Position is unavailable!");
         }
     }
-    // Click to change marker
+    // Click to change user's position marker
     function onMapClick(e) {
         if (marker != undefined) {
             map.removeLayer(marker);
         };
         marker = new L.marker(e.latlng).addTo(map);
+        update_user_location(e.latlng.lat,e.latlng.lng);
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
     map.on('click', onMapClick);
+    // Get shops as user moves the map
+    function onMapMoveEnd() {
+        map_center = map.getCenter();
+        get_nearby_shops(map_center.lat,map_center.lng);
+    }
+    map.on('moveend', onMapMoveEnd);
+    
 
     function get_nearby_shops(latitude,longitude) {
         if (shops_markers != undefined) {
@@ -80,21 +103,37 @@
                 'latitude': latitude,
                 'longitude': longitude
             },
-            success: function(response){ // make a marker at the shops nearby
+            // Make a marker for the shops nearby
+            success: function(response){ 
                 for (i = 0; i < response.success.length; i++) {
                     var temp_shops_markers = new L.marker([ response.success[i][0],response.success[i][1] ], {icon: customMarkerIcon, bd_name: response.success[i][2], bd_id: response.success[i][3]})
                     .addTo(map)
                     .bindPopup( response.success[i][2] )
                     .closePopup()
-                    //.on('click', function onClick(e) {
-                    //    document.getElementById("bodega_name").value = this.options.bd_name;
-                    //    document.getElementById("bodega_id").value = this.options.bd_id;
-                    //});
                     shops_markers.push(temp_shops_markers);
                 };
             },
             error: function(response){ // This triggers in case all items in the basket get unavailable
                 console.log(response);
+            }
+        });
+    };
+    function update_user_location(latitude,longitude) {
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            url: "/update_user_location",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'latitude': latitude,
+                'longitude': longitude
+            },
+            // Make a marker for the shops nearby
+            success: function(response){ 
+                ;
+            },
+            error: function(response){ // This triggers in case all items in the basket get unavailable
+                ;
             }
         });
     }
