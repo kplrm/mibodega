@@ -15,28 +15,35 @@
         </a>
     </div>
 </div>
-<!--
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body text-left">
-            {# include 'main/includes/select_shop.html' #}
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-light" id="anular-seleccion">Seleccionar todas las bodegas cercanas</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="modal-save">Guardar</button>
-        </div>
-    </div>
-    </div>
-</div>-->
 <script>
+    // On modal closed event listener
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems, {onCloseEnd: modal_closed()} );
+        time_to_jump(elems);
+    });
+    // Send user current location
+    function modal_closed() {
+        latitude = document.getElementById("usr_lat").value;
+        longitude = document.getElementById("usr_lng").value;
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            url: "/",
+            type: "POST",
+            dataType: "json",
+            data: {
+                'latitude': latitude,
+                'longitude': longitude
+            },
+            success: function(response){ 
+                ;
+            },
+            error: function(response){ // This triggers in case all items in the basket get unavailable
+                ;
+            }
+        });
+    };
+
     /*
     $(document).ready(function(){
         $("#exampleModalCenter").on('shown.bs.modal', function () {

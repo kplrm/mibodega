@@ -64,8 +64,34 @@ def locate_user():
     user_latitude = ipInfo.location['latitude']
     return user_longitude, user_latitude
 
+# FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
 def homepage(request):
-    # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    # If user have updated his current location on the map
+    if request.method== "POST" and request.is_ajax():
+        user_latitude = request.POST['latitude']
+        user_longitude = request.POST['longitude']
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        # Find shops nearby the user
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        # Retrieve all products with discount from nearby shops
+        result_list = []
+        for shop in shops:
+            temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0).all()
+            temp = list(temp)
+            result_list.append(temp)
+        shuffle(result_list)
+        return render(request=request, # to reference request
+                  template_name="main/index.html", # where to find the specifix template
+                  context={'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list})
+
+    
     # Locate user and shops nearby.
 #    try:
 #        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
@@ -83,9 +109,9 @@ def homepage(request):
 #    user_location = Point(user_longitude,user_latitude,srid=4326)
 #    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     
-    # Looks for products in the selected bodega
+    # Looks for offers in all bodegas
     productos_en_bodegas = ProductosEnBodega.objects.all()
-    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
+    result_list = productos_en_bodegas.filter(peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[:20]
 #    try:
 #        if request.session['id_bodega'] == "Cercanas":
  #           print("id_bodega is Empty")
@@ -116,11 +142,6 @@ def homepage(request):
     temp = list(result_list)
     shuffle(temp)
     result_list = temp
-
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
