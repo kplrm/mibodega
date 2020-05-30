@@ -39,6 +39,12 @@
         var elems = document.getElementById('location_tap_target');
         var instances = M.TapTarget.init(elems, {});
     });
+    window.onload = function() {
+        var elem = document.getElementById('location_tap_target');
+        var instance = M.TapTarget.getInstance(elem);
+        instance.open();
+    };
+
     // Function to hide map modal
     function close_map() {
         var elem = document.getElementById('user_location_modal');
