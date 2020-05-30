@@ -6595,6 +6595,9 @@ input[type=range]: : -ms-thumb {
     transition: visibility 0s .3s
 }
 .tap-target-wrapper.open {
+    /* DG */
+    position: fixed;
+    /* DG */
     visibility: visible;
     -webkit-transition: visibility 0s;
     transition: visibility 0s
@@ -6622,7 +6625,7 @@ input[type=range]: : -ms-thumb {
     transition: opacity .3s, transform .3s, visibility 0s 1s, -webkit-transform .3s
 }
 .tap-target {
-    position: fixed; /* position: absolute; */
+    position: absolute; /* position: absolute; */
     font-size: 1rem;
     border-radius: 50%;
     background-color: #ee6e73;
