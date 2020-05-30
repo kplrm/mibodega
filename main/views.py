@@ -72,12 +72,12 @@ def homepage(request):
         user_latitude = request.session['user_latitude']
     # Default location
     except:
-        user_longitude = -77.0427934
-        user_latitude = -12.046374
+        #user_longitude = -77.0427934
+        #user_latitude = -12.046374
         # Using IpregistryClient to get user aprox location 
-        usr_lng, usr_lat = locate_user()
-        print("usr_lng: ", usr_lng)
-        print("usr_lat: ", usr_lat)
+        user_longitude, user_latitude = locate_user()
+        print("usr_lng: ", user_longitude)
+        print("usr_lat: ", user_latitude)
         
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     print("user_location: ", user_location)
