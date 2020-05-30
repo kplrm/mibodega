@@ -95,7 +95,7 @@ def homepage(request):
         temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0,peb_discount_price__gt=0,peb_regular_price__gt=0)
         for product in temp:
             for item in result_list:
-                if item.peb_product.pa_ID = product.peb_product.pa_ID:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
                     print("this product exists already in the list")
                     print(item)
             result_list.append(product)
