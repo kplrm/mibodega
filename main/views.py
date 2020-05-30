@@ -68,14 +68,14 @@ def locate_user():
 def homepage(request):
     # If user have updated his current location on the map
     if request.method== "POST" and request.is_ajax():
-        print("updating user location")
-        user_latitude = request.POST['latitude']
-        user_longitude = request.POST['longitude']
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
+        #print("updating user location")
+        #user_latitude = request.POST['latitude']
+        #user_longitude = request.POST['longitude']
+        #request.session['user_longitude'] = user_longitude
+        #request.session['user_latitude'] = user_latitude
         ######
-        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-        print("user_location: ", user_location)
+        #user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        #print("user_location: ", user_location)
         #######
         return JsonResponse({"success": ""}, status=200)
 
@@ -1464,8 +1464,13 @@ def unete(request):
 
 def get_nearby_shops(request):
     if request.method == "POST" and request.is_ajax():
+        # Retrieves user location
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
+        # Stores in cache user location
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+        # Find nearby shops
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         json_response = []
