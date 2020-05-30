@@ -70,15 +70,15 @@ def homepage(request):
     try:
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
+        introduction = False
     # Default location
     except:
-        #user_longitude = -77.0427934
-        #user_latitude = -12.046374
-        # Using IpregistryClient to get user aprox location 
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = -77.0427934 user_latitude = -12.046374
         user_longitude, user_latitude = locate_user()
-        
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-    print("user_location: ", user_location)
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -87,19 +87,28 @@ def homepage(request):
 
     # Find shops nearby the user
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
-#    print("shops: ", shops)
     
     # Retrieve all products with discount from nearby shops
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-#        print("shop: ", shop)
-        temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)
-#        print("temp: ", temp)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0,peb_discount_price__gt=0,peb_regular_price__gt=0)
         for product in temp:
-            result_list.append(product)
+            product_already_in_result_list = False
+            for item in result_list:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                    product_already_in_result_list = True
+                    if item.peb_discount_price > product.peb_discount_price:
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
+                    else:
+                        break
+            if product_already_in_result_list == False:
+                result_list.append(product) # Add new product to the list
+            else:
+                product_already_in_result_list = False
     shuffle(result_list)
-#    print("result_list: ", result_list)
+    print("result_list: ", result_list)
 
 
         
@@ -160,7 +169,7 @@ def homepage(request):
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={
+                  context={'introduction': introduction,
                            'result_list': result_list,
                            'cart_obj': cart_obj,
                            'cart_list': cart_list, 
