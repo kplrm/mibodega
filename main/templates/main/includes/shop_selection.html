@@ -20,7 +20,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.getElementById('user_location_modal');
         //var instances = M.Modal.init(elems, {onCloseEnd: modal_closed()} );
-        var instances = M.Modal.init(elems, {onCloseEnd: function() {alert('Closed');} });
+        var instances = M.Modal.init(elems, {onCloseEnd: function() {alert('Closed');} } );
+    });
     // Send user current location
     function modal_closed() {
         console.log("closing modal..")
