@@ -67,15 +67,12 @@ def locate_user():
 # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
 def homepage(request):
     # If user have updated his current location on the map
-    if request.is_ajax():
-        if request.method== "POST":
-            user_latitude = request.POST['latitude']
-            user_longitude = request.POST['longitude']
-            request.session['user_longitude'] = user_longitude
-            request.session['user_latitude'] = user_latitude
-            return JsonResponse({"success": ""}, status=200)
-        else:
-            return JsonResponse({"error": ""}, status=400)
+    if request.method== "POST" and request.is_ajax():
+        user_latitude = request.POST['latitude']
+        user_longitude = request.POST['longitude']
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+        return JsonResponse({"success": ""}, status=200)
 
     # Locate user and shops nearby.
     try:
