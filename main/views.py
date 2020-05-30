@@ -94,18 +94,21 @@ def homepage(request):
     for shop in shops:
         temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0,peb_discount_price__gt=0,peb_regular_price__gt=0)
         for product in temp:
+#            list_counter = 0
             for item in result_list:
                 if item.peb_product.pa_ID == product.peb_product.pa_ID:
                     print("this product exists already in the list")
                     if item.peb_discount_price > product.peb_discount_price:
                         print("removing item: ", item)
                         print("item's dct price: ", item.peb_discount_price)
-                        result_list.remove(item)
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
                     else:
-                        print("removing product: ", product)
+                        print("skipping : ", product)
                         print("product's dct price: ", product.peb_discount_price)
-                        result_list.remove(product)
-            result_list.append(product)
+#                        del result_list[list_counter]
+#                list_counter += 1
+            
     shuffle(result_list)
     print("result_list: ", result_list)
 
