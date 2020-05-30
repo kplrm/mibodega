@@ -79,7 +79,7 @@
     
     // Permission granted. Get user location
     function showLocation(position) {
-        if ("{{user_location.x}}" == "0" && "{{user_location.y}}" == "0") {
+        if (parseFloat("{{user_location.x}}") == 0 && parseFloat("{{user_location.y}}") == 0) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
         } else if (parseFloat("{{user_location.y}}") != position.coords.latitude && parseFloat("{{user_location.x}}") != position.coords.longitude) {
@@ -89,7 +89,6 @@
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
         }
-        
         document.getElementById("usr_lat").value = latitude;
         document.getElementById("usr_lng").value = longitude;
         map.invalidateSize();
