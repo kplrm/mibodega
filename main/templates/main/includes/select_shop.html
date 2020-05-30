@@ -70,8 +70,9 @@
     // Get shops as user moves the map
     function onMapMoveEnd() {
         console.log("Map center");
-        console.log(map.getCenter());
-        //get_nearby_shops(e.latlng.lat,e.latlng.lng);
+        map_center = map.getCenter();
+        console.log(map_center);
+        get_nearby_shops(map_center.lat,map_center.lng);
     }
     map.on('moveend', onMapMoveEnd);
     
