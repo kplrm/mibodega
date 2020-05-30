@@ -84,9 +84,10 @@ def homepage(request):
     except: # Default location
         user_longitude = -77.0427934
         user_latitude = -12.046374
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+    #user_location = Point(user_longitude,user_latitude,srid=4326)
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     print("user_location: ", user_location)
-    #user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    
 
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
