@@ -20,7 +20,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.getElementById('user_location_modal');
         var instances = M.Modal.init(elems, {onCloseEnd: function() {
-            latitude = document.getElementById("usr_lat").value;
+            location.reload();
+            /*latitude = document.getElementById("usr_lat").value;
             longitude = document.getElementById("usr_lng").value;
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -32,10 +33,9 @@
                     'longitude': longitude
                 },
                 success: function(response){ 
-                    alert("Page will be reloaded");
                     location.reload();
                 }
-            });
+            });*/
         }});
     });
     
