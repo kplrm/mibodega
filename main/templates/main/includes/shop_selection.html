@@ -26,11 +26,8 @@
     });
     // Send user current location
     function modal_closed() {
-        console.log("closing...");
         latitude = document.getElementById("usr_lat").value;
         longitude = document.getElementById("usr_lng").value;
-        console.log(latitude);
-        console.log(longitude);
         $.ajax({
             headers: {'X-CSRFToken': '{{ csrf_token }}'},
             url: "/",
