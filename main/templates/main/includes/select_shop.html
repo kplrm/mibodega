@@ -56,7 +56,7 @@
         };
         marker = new L.marker([ latitude, longitude ], {draggable:'true'})
             .on('dragend', function(event){
-                update_user_location(event.latlng.lat,event.latlng.lng);
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
                 onMapMoveEnd();
             }).addTo(map);
             //console.log(event.target._latlng.lat);//console.log(event.target._latlng.lng);
