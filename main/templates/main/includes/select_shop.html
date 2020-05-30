@@ -54,7 +54,12 @@
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker([ latitude, longitude ]);
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                console.log("dragend event");
+                console.log(event);
+                onMapMoveEnd();
+            });//update_user_location(latitude,longitude)
         map.addLayer(marker);
         // Request for shops nearby user
         update_user_location(latitude,longitude);
@@ -74,7 +79,7 @@
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker(e.latlng).addTo(map);
+        marker = new L.marker(e.latlng, {draggable:'true'}).addTo(map);
         update_user_location(e.latlng.lat,e.latlng.lng);
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
@@ -85,7 +90,6 @@
         get_nearby_shops(map_center.lat,map_center.lng);
     }
     map.on('moveend', onMapMoveEnd);
-    
 
     function get_nearby_shops(latitude,longitude) {
         if (shops_markers != undefined) {
