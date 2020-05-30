@@ -1485,3 +1485,6 @@ def update_user_location(request):
         # Stores in cache user location
         request.session['user_longitude'] = user_longitude
         request.session['user_latitude'] = user_latitude
+        return JsonResponse({"success": ""}, status=200)
+    else:
+        return JsonResponse({"error": ""}, status=400)
