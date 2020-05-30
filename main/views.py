@@ -87,19 +87,19 @@ def homepage(request):
 
     # Find shops nearby the user
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
-#    print("shops: ", shops)
     
     # Retrieve all products with discount from nearby shops
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-#        print("shop: ", shop)
         temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0,peb_discount_price__gt=0,peb_regular_price__gt=0)
-#        print("temp: ", temp)
         for product in temp:
+            for item in result_list:
+                if item.peb_product.pa_ID = product.peb_product.pa_ID:
+                    print("this product exists already in the list")
             result_list.append(product)
     shuffle(result_list)
-#    print("result_list: ", result_list)
+    print("result_list: ", result_list)
 
 
         
