@@ -83,7 +83,7 @@ def homepage(request):
         # Retrieve all products with discount from nearby shops
         result_list = []
         for shop in shops:
-            temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0).all()
+            temp = ProductosEnBodega.objects.all().filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0).all()
             temp = list(temp)
             result_list.append(temp)
         shuffle(result_list)
