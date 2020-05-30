@@ -6643,14 +6643,14 @@ input[type=range]: : -ms-thumb {
     display: table-cell
 }
 .tap-target-wave {
-    position: fixed; /* position: absolute; */
+    position: absolute; /* position: absolute; */
     border-radius: 50%;
     z-index: 10001
 }
 .tap-target-wave: : before, .tap-target-wave: : after {
     content: '';
     display: block;
-    position: fixed; /* position: absolute; */
+    position: absolute; /* position: absolute; */
     width: 100%;
     height: 100%;
     border-radius: 50%;
