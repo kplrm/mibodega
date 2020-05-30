@@ -70,8 +70,13 @@ def homepage(request):
     try:
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
+        introduction = False
     # Default location
     except:
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+
         #user_longitude = -77.0427934
         #user_latitude = -12.046374
         # Using IpregistryClient to get user aprox location 
@@ -160,7 +165,7 @@ def homepage(request):
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
-                  context={
+                  context={'introduction': introduction,
                            'result_list': result_list,
                            'cart_obj': cart_obj,
                            'cart_list': cart_list, 
