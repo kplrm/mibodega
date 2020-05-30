@@ -154,7 +154,7 @@
 
 <script>
     // Workaroung bug on first slide
-    var jump_to_second_slide = true;
+    /*var jump_to_second_slide = true;
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
         var instances = M.Slider.init(elems, {interval: 5000});
@@ -168,7 +168,13 @@
         console.log(instance);
         instance.next();
         jump_to_second_slide = false;
-    };
+    };*/
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {interval: 5000});
+        var instance = M.Slider.getInstance(elems[0]);
+        instance.next();
+    });
     // Add product to cart
     function cart_add(product) {
         M.toast({html: 'Producto añadido'})
