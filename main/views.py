@@ -97,7 +97,14 @@ def homepage(request):
             for item in result_list:
                 if item.peb_product.pa_ID == product.peb_product.pa_ID:
                     print("this product exists already in the list")
-                    print(item)
+                    if item.peb_discount_price > product.peb_discount_price:
+                        print("removing item: ", item)
+                        print("item's dct price: ", item.peb_discount_price)
+                        result_list.remove(item)
+                    else:
+                        print("removing product: ", product)
+                        print("product's dct price: ", product.peb_discount_price)
+                        result_list.remove(product)
             result_list.append(product)
     shuffle(result_list)
     print("result_list: ", result_list)
