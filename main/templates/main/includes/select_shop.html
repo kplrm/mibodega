@@ -67,6 +67,14 @@
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
     map.on('click', onMapClick);
+    // Get shops as user moves the map
+    function onMapMoveEnd() {
+        console.log("Map center");
+        console.log(map.getCenter());
+        //get_nearby_shops(e.latlng.lat,e.latlng.lng);
+    }
+    map.on('moveend', onMapMoveEnd);
+    
 
     function get_nearby_shops(latitude,longitude) {
         if (shops_markers != undefined) {
