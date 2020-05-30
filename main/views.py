@@ -97,25 +97,16 @@ def homepage(request):
             product_already_in_result_list = False
             for item in result_list:
                 if item.peb_product.pa_ID == product.peb_product.pa_ID:
-                    print("this product exists already in the list")
                     product_already_in_result_list = True
                     if item.peb_discount_price > product.peb_discount_price:
-                        print("removing item: ", item)
-                        print("item's dct price: ", item.peb_discount_price)
                         result_list.remove(item) # Removes existing more expensive item
-                        print("adding cheaper product : ", product)
-                        print("product's dct price: ", product.peb_discount_price)
                         result_list.append(product) # Adds new cheaper product
                     else:
-                        print("new product is more expensive : ", product)
-                        print("product's dct price: ", product.peb_discount_price)
                         break
             if product_already_in_result_list == False:
                 result_list.append(product) # Add new product to the list
             else:
                 product_already_in_result_list = False
-            
-            
     shuffle(result_list)
     print("result_list: ", result_list)
 
