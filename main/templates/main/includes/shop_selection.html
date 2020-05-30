@@ -19,7 +19,7 @@
     // On modal closed event listener
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.modal.modal-fixed-footer');
-        var instances = M.Modal.init(elems, {onCloseStart: modal_closed()} );
+        var instances = M.Modal.init(elems, {onCloseEnd: modal_closed()} );
     });
     // Send user current location
     function modal_closed() {
