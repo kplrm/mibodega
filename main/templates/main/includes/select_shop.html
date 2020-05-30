@@ -32,7 +32,41 @@
         "iconColor": "white",
         "extraClasses": "fa-rotate-0"
     });
-    // Request user location
+    
+    // Request user current location
+    function getCurrentLocation() {
+        if(navigator.geolocation) {
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showCurrentLocation, errorHandler, options);
+        } else {
+            alert("Sorry, browser does not support geolocation!");
+        }
+    }
+    // Permission granted. Get user location
+    function showCurrentLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        document.getElementById("usr_lat").value = latitude;
+        document.getElementById("usr_lng").value = longitude;
+        map.invalidateSize();
+        map.panTo(new L.LatLng(latitude, longitude));
+        // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
+                onMapMoveEnd();
+            }).addTo(map);
+        map.addLayer(marker);
+        // Request for shops nearby user
+        update_user_location(latitude,longitude);
+        get_nearby_shops(latitude,longitude);
+    }
+
+    // Request user saved location
     function getLocation() {
         if(navigator.geolocation) {
             // timeout at 60000 milliseconds (60 seconds)
@@ -42,6 +76,7 @@
             alert("Sorry, browser does not support geolocation!");
         }
     }
+    
     // Permission granted. Get user location
     function showLocation(position) {
         //console.log("lat: {{user_location.y}}, lng: {{user_location.x}}")
