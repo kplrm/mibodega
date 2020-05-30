@@ -64,8 +64,48 @@ def locate_user():
     user_latitude = ipInfo.location['latitude']
     return user_longitude, user_latitude
 
+# FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
 def homepage(request):
-    # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
+    # Locate user and shops nearby.
+    try:
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+    # Default location
+    except:
+        #user_longitude = -77.0427934
+        #user_latitude = -12.046374
+        # Using IpregistryClient to get user aprox location 
+        user_longitude, user_latitude = locate_user()
+        
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    print("user_location: ", user_location)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+#    print("shops: ", shops)
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+#        print("shop: ", shop)
+        temp = productos_en_bodegas.filter(peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)
+#        print("temp: ", temp)
+        for product in temp:
+            result_list.append(product)
+    shuffle(result_list)
+#    print("result_list: ", result_list)
+
+
+        
+        
+
+    
     # Locate user and shops nearby.
 #    try:
 #        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
@@ -83,9 +123,9 @@ def homepage(request):
 #    user_location = Point(user_longitude,user_latitude,srid=4326)
 #    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
     
-    # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all()
-    result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
+    # Looks for offers in all bodegas
+#    productos_en_bodegas = ProductosEnBodega.objects.all()
+#    result_list = productos_en_bodegas.filter(peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[:20]
 #    try:
 #        if request.session['id_bodega'] == "Cercanas":
  #           print("id_bodega is Empty")
@@ -113,14 +153,10 @@ def homepage(request):
 #        print("What is this?")
     
     # Random shuffle the discount products
-    temp = list(result_list)
-    shuffle(temp)
-    result_list = temp
-
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+#    temp = list(result_list)
+#    shuffle(temp)
+#    result_list = temp
+#    print(result_list)
 
     return render(request=request, # to reference request
                   template_name="main/index.html", # where to find the specifix template
@@ -1409,13 +1445,27 @@ def unete(request):
 
 def get_nearby_shops(request):
     if request.method == "POST" and request.is_ajax():
+        # Retrieves user location
         user_latitude = request.POST.get('latitude',False)
         user_longitude = request.POST.get('longitude',False)
+        # Find nearby shops
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=3000).order_by("distance")[0:10]
         json_response = []
         for shop in shops:
             json_response.append( (shop.bd_geolocation.y, shop.bd_geolocation.x, shop.bd_name, shop.bd_ID) )
         return JsonResponse({"success": tuple(json_response)}, status=200)
     else:
         return JsonResponse({"error": "unknown"}, status=400)
+
+def update_user_location(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieves user location
+        user_latitude = request.POST.get('latitude',False)
+        user_longitude = request.POST.get('longitude',False)
+        # Stores in cache user location
+        request.session['user_longitude'] = user_longitude
+        request.session['user_latitude'] = user_latitude
+        return JsonResponse({"success": ""}, status=200)
+    else:
+        return JsonResponse({"error": ""}, status=400)
