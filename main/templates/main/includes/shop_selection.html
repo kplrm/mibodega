@@ -1,7 +1,15 @@
 
+<!-- Pin icon -->
 <a class="btn modal-trigger" id="user_location_btn" data-target="user_location_modal" onclick="getLocation()" style="padding:0px 0px 0px 0px;background-color:#ffffff;box-shadow:none;">
     <i class="material-icons" style="Margin:-10px 0px 0px 0px;">place</i>
 </a>
+<!-- Tap Target Structure -->
+<div class="tap-target" id="location_tap_target" data-target="user_location_btn">
+    <div class="tap-target-content">
+        <h5>Title</h5>
+        <p>A bunch of text</p>
+    </div>
+</div>
 
 <!-- Modal -->
 <div id="user_location_modal" class="modal modal-fixed-footer">
@@ -11,7 +19,7 @@
                 <h5>¿Dónde estás?</h5>
             </div>
             <div class="col s2" style="flex-basis: auto;">
-                <a class="btn-flat" name="close_map" id="close_map" onclick="close_map()" style="background-color:#ffffff;vertical-align: top;"> <!--padding:0px 3px 0px 3px-->
+                <a class="btn-flat" name="close_map" id="close_map" onclick="close_map()" style="background-color:#ffffff;vertical-align: top;">
                     <i class="material-icons">close</i>
                 </a>
             </div>
@@ -26,6 +34,12 @@
     </div>
 </div>
 <script>
+    // Discovery tap
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.getElementById('location_tap_target');
+        var instances = M.TapTarget.init(elems, {});
+    });
+    // Function to hide map modal
     function close_map() {
         var elem = document.getElementById('user_location_modal');
         var instance = M.Modal.getInstance(elem);
@@ -38,42 +52,4 @@
             location.reload();
         }});
     });
-    
-
-    /*
-    $(document).ready(function(){
-        $("#exampleModalCenter").on('shown.bs.modal', function () {
-            setTimeout(function() {
-                map.invalidateSize();
-            }, 10);
-        });
-        $("#anular-seleccion").click(function(){
-            $('#bodega_name').val('Cercanas');
-            $('#bodega_id').val('Cercanas');
-        });
-        $("#modal-save").click(function(){
-            $("#exampleModalCenter").modal("hide");
-            $('.modal-backdrop').hide();
-            $.ajax({
-                headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/save_store_location",
-                type: "POST",
-                dataType: "json",
-                data:   {
-                            'bodega_name': $('#bodega_name').val(),
-                            'id_bodega': $('#bodega_id').val()
-                        },
-                success: function(response){
-                    alert ("resp: "+response);
-                }
-            });
-            $.ajax({
-                url: "/embutidos",
-                type: "GET",
-                success: function(){
-                    location.reload();
-                }
-            });
-        });
-    });*/
 </script>
