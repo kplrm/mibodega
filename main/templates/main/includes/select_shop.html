@@ -56,13 +56,10 @@
         };
         marker = new L.marker([ latitude, longitude ], {draggable:'true'})
             .on('dragend', function(event){
-                console.log("dragend event");
-                update_user_location(event.target._latlng.lat,event.target._latlng.lng)
-                console.log(event.target._latlng);
-                //console.log(event.target._latlng.lat);
-                //console.log(event.target._latlng.lng);
+                update_user_location(event.latlng.lat,event.latlng.lng);
                 onMapMoveEnd();
-            });//
+            }).addTo(map);
+            //console.log(event.target._latlng.lat);//console.log(event.target._latlng.lng);
         map.addLayer(marker);
         // Request for shops nearby user
         update_user_location(latitude,longitude);
@@ -82,8 +79,16 @@
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker(e.latlng, {draggable:'true'}).addTo(map);
-        update_user_location(e.latlng.lat,e.latlng.lng);
+        //marker = new L.marker(e.latlng, {draggable:'true'}).addTo(map);
+        //update_user_location(e.latlng.lat,e.latlng.lng);
+
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                update_user_location(event.latlng.lat,event.latlng.lng);
+                onMapMoveEnd();
+            }).addTo(map);
+
+        
         get_nearby_shops(e.latlng.lat,e.latlng.lng);
     }
     map.on('click', onMapClick);
