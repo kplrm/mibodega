@@ -70,22 +70,18 @@ def homepage(request):
     try:
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
-        ######
-        #user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-        #print("user_location try: ", user_location)
-        #######
-    except: # Default location
+    # Default location
+    except:
         user_longitude = -77.0427934
         user_latitude = -12.046374
-        ######
-        #user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-        #print("user_location ext: ", user_location)
-        #######
-    #user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Using IpregistryClient to get user aprox location 
+        usr_lng, usr_lat = locate_user()
+        print("usr_lng: ", usr_lng)
+        print("usr_lat: ", usr_lat)
+        
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     print("user_location: ", user_location)
     
-
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
