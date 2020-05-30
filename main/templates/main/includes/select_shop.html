@@ -5,6 +5,11 @@
 
 <!-- Map -->
 <div id="map" style="height:inherit;"></div>
+<style>
+    .awesome-marker i {
+        margin-top: 20px;
+    }
+</style>
 <script type = "text/javascript">
     // Initializes map
     var marker;
@@ -18,8 +23,7 @@
         "prefix": "fa",
         "markerColor": "orange",
         "iconColor": "white",
-        "extraClasses": "fa-rotate-0",
-        "margin-top": "20px"
+        "extraClasses": "fa-rotate-0"
     });
     // Request user location
     function getLocation() {
