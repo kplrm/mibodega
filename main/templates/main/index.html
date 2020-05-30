@@ -154,21 +154,6 @@
 
 <script>
     // Workaroung bug on first slide
-    /*var jump_to_second_slide = true;
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.slider');
-        var instances = M.Slider.init(elems, {interval: 5000});
-        if (jump_to_second_slide == true) {
-            time_to_jump(elems);
-        };
-    });
-    function time_to_jump(elems) {
-        var instance = M.Slider.getInstance(elems[0]);
-        console.log(elems[0]);
-        console.log(instance);
-        instance.next();
-        jump_to_second_slide = false;
-    };*/
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.slider');
         var instances = M.Slider.init(elems, {interval: 5000});

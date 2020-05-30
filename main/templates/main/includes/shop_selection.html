@@ -21,21 +21,6 @@
         var elems = document.getElementById('user_location_modal');
         var instances = M.Modal.init(elems, {onCloseEnd: function() {
             location.reload();
-            /*latitude = document.getElementById("usr_lat").value;
-            longitude = document.getElementById("usr_lng").value;
-            $.ajax({
-                headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/",
-                type: "POST",
-                dataType: "json",
-                data: {
-                    'latitude': latitude,
-                    'longitude': longitude
-                },
-                success: function(response){ 
-                    location.reload();
-                }
-            });*/
         }});
     });
     
