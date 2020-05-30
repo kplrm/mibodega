@@ -76,14 +76,9 @@ def homepage(request):
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
         introduction = True
-
-        #user_longitude = -77.0427934
-        #user_latitude = -12.046374
-        # Using IpregistryClient to get user aprox location 
+        # Using IpregistryClient to get user aprox location or user_longitude = -77.0427934 user_latitude = -12.046374
         user_longitude, user_latitude = locate_user()
-        
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-    print("user_location: ", user_location)
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
