@@ -57,15 +57,12 @@
         marker = new L.marker([ latitude, longitude ], {draggable:'true'})
             .on('dragend', function(event){
                 console.log("dragend event");
-                //console.log(event);
-                //console.log(event.target);
-                //console.log(event.target.lat);
-                //console.log(event.target.lng);
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng)
                 console.log(event.target._latlng);
-                console.log(event.target._latlng.lat);
-                console.log(event.target._latlng.lng);
+                //console.log(event.target._latlng.lat);
+                //console.log(event.target._latlng.lng);
                 onMapMoveEnd();
-            });//update_user_location(latitude,longitude)
+            });//
         map.addLayer(marker);
         // Request for shops nearby user
         update_user_location(latitude,longitude);
