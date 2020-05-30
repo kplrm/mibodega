@@ -6595,6 +6595,9 @@ input[type=range]: : -ms-thumb {
     transition: visibility 0s .3s
 }
 .tap-target-wrapper.open {
+    /* DG */
+    position: fixed;
+    /* DG */
     visibility: visible;
     -webkit-transition: visibility 0s;
     transition: visibility 0s
