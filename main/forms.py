@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, get_user_model, password_validatio
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.utils import timezone
+from django.db.models.manager import EmptyManager
 
 ######################## FROM django.contrib.auth ########################
 def update_last_login(sender, user, **kwargs):
@@ -20,7 +21,7 @@ def update_last_login(sender, user, **kwargs):
     """
     user.last_login = timezone.now()
     user.save(update_fields=['last_login'])
-    
+
 class PermissionManager(models.Manager):
     use_in_migrations = True
 
