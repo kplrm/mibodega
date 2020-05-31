@@ -126,7 +126,13 @@ class ClientForm(forms.ModelForm):
             'cl_phone',
         )
 
-    cl_phone = forms.CharField(required=True,max_length=9)
+    #cl_phone = forms.CharField(required=True,max_length=9)
+    cl_phone = forms.CharField(
+        label=_("Celular"),
+        strip=False, # False = do not strip white spaces
+        max_length=9,
+        required = True,
+    )
 
     def save(self, commit): #commit saves data to database
         client = super(ClientForm, self).save(commit=False) # when finish edition, it will store the data
