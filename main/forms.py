@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 #from django.contrib.auth.forms import UserCreationForm
-from .models import Cliente, Cart
+from .models import Cliente, Bodega #Cart
 
 from django import forms
 from django.db import models
@@ -164,18 +164,18 @@ class BodegaForm(forms.ModelForm):
 
 
 #########################################
-class CartForm(forms.ModelForm):
-    class Meta:
-        model = Cart
-        fields = (
-        )
-
-    #cl_phone = forms.CharField(required=True,max_length=9)
-
-    def save(self, commit): #commit saves data to database
-        cart = super(CartForm, self).save(commit=False) # when finish edition, it will store the data
-        #client.cl_phone = self.cleaned_data['cl_phone']
-
-        if commit:
-            cart.save() # saves the data
-        return cart
+#class CartForm(forms.ModelForm):
+#    class Meta:
+#        model = Cart
+#        fields = (
+#        )
+#
+#    #cl_phone = forms.CharField(required=True,max_length=9)
+#
+#    def save(self, commit): #commit saves data to database
+#        cart = super(CartForm, self).save(commit=False) # when finish edition, it will store the data
+#        #client.cl_phone = self.cleaned_data['cl_phone']
+#
+#        if commit:
+#            cart.save() # saves the data
+#        return cart
