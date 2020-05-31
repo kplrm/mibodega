@@ -3,6 +3,15 @@ from django import forms
 #from django.contrib.auth.forms import UserCreationForm
 from .models import Cliente, Cart
 
+from django import forms
+from django.db import models
+#from django.contrib.contenttypes.models import ContentType
+#from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth import password_validation #authenticate, get_user_model, 
+from django.utils.translation import gettext, gettext_lazy as _
+#from django.contrib.auth.validators import UnicodeUsernameValidator
+#from django.utils import timezone
+
 class UsernameField(forms.CharField):
     def to_python(self, value):
         return unicodedata.normalize('NFKC', super().to_python(value))
