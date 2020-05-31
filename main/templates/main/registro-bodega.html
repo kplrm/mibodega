@@ -159,7 +159,7 @@
 </div>
 <!-- Register Form Section End -->
 <!-- MODAL -->
-<div id="user_agreement" class="modal">
+<div id="user_terms" class="modal">
     <div class="modal-content">
         <div class="row">
             <div class="col s8" style="flex-basis: auto;">
@@ -186,18 +186,18 @@
 <script>
     // Modal initialization
     document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.getElementById('user_agreement');
+        var elems = document.getElementById('user_terms');
         var instances = M.Modal.init(elems, {});
     });
     // Function to show modal
     function open_modal() {
-        var elem = document.getElementById('user_agreement');
+        var elem = document.getElementById('user_terms');
         var instance = M.Modal.getInstance(elem);
         instance.open();
     }
     // Function to hide modal
     function close_modal() {
-        var elem = document.getElementById('user_agreement');
+        var elem = document.getElementById('user_terms');
         var instance = M.Modal.getInstance(elem);
         instance.close();
     }
