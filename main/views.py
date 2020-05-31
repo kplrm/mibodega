@@ -859,7 +859,8 @@ def registroBodega(request):
             client.cl_first_name = user.first_name
             client.cl_last_name = user.last_name
             client.cl_email = user.email
-            bodega = bd_form.save(client=client,commit=True)
+            bodega = bd_form.save(user=user,client=client,commit=False)
+            bodega = bd_form.save(user=user,client=client,commit=True)
             client.cl_is_bodega = True
             client.cl_default_bodega = str(bodega.bd_ID)
             cl_form.save(commit=True)
