@@ -9,7 +9,7 @@ app_name = 'main'  # here for namespacing of urls.
 
 urlpatterns = [
     path("", views.homepage, name="homepage"),
-    path("registro", views.registro, name="registro"),
+    path("registro/", views.registro, name="registro"),
     path("bodega", views.registroBodega, name="registroBodega"),
     path("login/", views.login_request, name="login_request"),
     path("logout/", views.logout_request, name="logout_request"),
