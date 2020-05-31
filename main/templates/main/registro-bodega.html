@@ -166,7 +166,7 @@
                 <h5>Términos y condiciones</h5>
             </div>
             <div class="col s2" style="flex-basis: auto;">
-                <a class="btn-flat" name="close_map" id="close_map" onclick="close_map()" style="background-color:#ffffff;vertical-align: top;">
+                <a class="btn-flat" name="close_modal" id="close_modal" onclick="close_modal()" style="background-color:#ffffff;vertical-align: top;">
                     <i class="material-icons">close</i>
                 </a>
             </div>
@@ -189,6 +189,12 @@
         var elems = document.getElementById('user_agreement');
         var instances = M.Modal.init(elems, {});
     });
+    // Function to hide map modal
+    function close_modal() {
+        var elem = document.getElementById('user_agreement');
+        var instance = M.Modal.getInstance(elem);
+        instance.close();
+    }
     // Switch between account creation forms
     function change_account_type(btn_cliente) {
         if (btn_cliente.id == "Bodega") {
