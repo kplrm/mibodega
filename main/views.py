@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, BodegaOrders, OrderItem, BodegaDashboard, ProductosAprobados
 from django.urls import reverse
 
-from .forms import RegistrationForm, ClientForm
+from .forms import RegistrationForm, ClientForm, BodegaForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages # to send unique messages to the users
@@ -57,12 +57,12 @@ def save_store_location(request):
         message = "Not Ajax"
     return HttpResponse("")
 
-def locate_user():
-    client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
-    ipInfo = client.lookup()
-    user_longitude = ipInfo.location['longitude']
-    user_latitude = ipInfo.location['latitude']
-    return user_longitude, user_latitude
+#def locate_user():
+#    client = IpregistryClient("2cc3d6z6ct2weq", cache=NoCache())
+#    ipInfo = client.lookup()
+#    user_longitude = ipInfo.location['longitude']
+#    user_latitude = ipInfo.location['latitude']
+#    return user_longitude, user_latitude
 
 # FUTURE IMPROVEMENT. IF ipregistry SERVER FAILS, OUR SITE WILL CRASH
 def homepage(request):
@@ -71,17 +71,15 @@ def homepage(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
-    # Default location
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
         introduction = True
-        # Using IpregistryClient to get user aprox location or user_longitude = -77.0427934 user_latitude = -12.046374
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
         #user_longitude, user_latitude = locate_user()
     user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-    print("home ", user_location)
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -111,74 +109,14 @@ def homepage(request):
             else:
                 product_already_in_result_list = False
     shuffle(result_list)
-    print("result_list: ", result_list)
 
-
-        
-        
-
-    
-    # Locate user and shops nearby.
-#    try:
-#        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-#            print("Approx user location is known")
-#            user_longitude = request.session['user_longitude']
-#            user_latitude = request.session['user_latitude']
-#        else:
-#            print("Approx user location is NOT known")
-#            user_longitude, user_latitude = locate_user()
-#    except:
-#        print("Location does not exist in the session")
-#        user_longitude, user_latitude = locate_user()
-#        request.session['user_longitude'] = user_longitude
-#        request.session['user_latitude'] = user_latitude
-#    user_location = Point(user_longitude,user_latitude,srid=4326)
-#    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-    
-    # Looks for offers in all bodegas
-#    productos_en_bodegas = ProductosEnBodega.objects.all()
-#    result_list = productos_en_bodegas.filter(peb_bodega__bd_is_active=True,peb_status=True,peb_discount_status=True,peb_discount_rate__lt=0)[:20]
-#    try:
-#        if request.session['id_bodega'] == "Cercanas":
- #           print("id_bodega is Empty")
-#            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True)[:20]
-#        elif request.session['id_bodega'] != "Cercanas":
-#            print("There is an id_bodega in session")
-#            result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0,peb_discount_status=True,peb_status=True,peb_bodega__bd_ID=request.session['id_bodega'])[:20]
-#        else:
-#            pass
-#            print("id_bodega is None")
-#    except:
-#        print("id_bodega does not exist in the session")
-#        request.session['id_bodega'] = "Cercanas"
-#        request.session['bodega_name'] = "Cercanas"
-#        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-#        print(str(":")+str(request.session['id_bodega'])+str(":"))
-
-    # Bodega name to display
-#    if request.session['bodega_name'] == "Cercanas":
-#        id_bodega_text = "Seleccione su bodega"
-#    elif request.session['bodega_name'] != "Cercanas":
-#        id_bodega_text = request.session['bodega_name']
-#    else:
-#        pass
-#        print("What is this?")
-    
-    # Random shuffle the discount products
-#    temp = list(result_list)
-#    shuffle(temp)
-#    result_list = temp
-#    print(result_list)
-
-    return render(request=request, # to reference request
-                  template_name="main/index.html", # where to find the specifix template
+    return render(request=request,
+                  template_name="main/index.html",
                   context={'introduction': introduction,
                            'user_location': user_location,
                            'result_list': result_list,
                            'cart_obj': cart_obj,
-                           'cart_list': cart_list, 
-#                           'shops': shops,
-#                           'id_bodega_text': id_bodega_text
+                           'cart_list': cart_list,
                            })
 
 def embutidos(request):
@@ -883,7 +821,7 @@ def submit_checkout(request):
     else:
         return JsonResponse({"error": "something went wrong"}, status=400)
 
-def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
+def registro(request):
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
@@ -906,8 +844,45 @@ def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
             
     form = RegistrationForm() # Rerender form
-    cl_form = ClientForm() # Rerender form
-    return render(request, 'main/register.html', context={"form":form,"cl_form":cl_form})
+    cl_form = ClientForm()
+    return render(request, 'main/registro-cliente.html', context={"form":form,"cl_form":cl_form})
+
+def registroBodega(request):
+    if request.method =='POST':
+        form = RegistrationForm(request.POST)
+        cl_form = ClientForm(request.POST)
+        bd_form = BodegaForm(request.POST)
+        if form.is_valid() and cl_form.is_valid and bd_form.is_valid:
+            user = form.save()
+            client = cl_form.save(commit=False)
+            client.cl_user = user
+            client.cl_first_name = user.first_name
+            client.cl_last_name = user.last_name
+            client.cl_email = user.email
+            client.cl_is_bodega = True
+            cl_form.save(commit=True)
+            bodega = bd_form.save(commit=False)
+            bodega.bd_user = client
+            bodega.bd_is_active = True
+            bodega.bd_email = client.cl_email
+            bodega.bd_phone = client.cl_phone
+            bodega = bd_form.save(commit=True)
+            client.cl_default_bodega = str(bodega.bd_ID)
+            cl_form.save(commit=True)
+            username = user.username # normalize to a standard format
+            # Messages are stored only once. When they are delivered, they also are deleted.
+            messages.success(request,f"Cuenta creada exitosamente") # (request, exact message)
+            auth_login(request, user)
+            messages.info(request,f"Bienvenido: {username}")
+            return redirect('main:homepage')
+        else:
+            for msg in form.error_messages:
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")
+            
+    form = RegistrationForm()
+    cl_form = ClientForm()
+    bd_form = BodegaForm()
+    return render(request, 'main/registro-bodega.html', context={"form":form,"cl_form":cl_form,"bd_form":bd_form})
 
 def logout_request(request):
     auth_logout(request)
