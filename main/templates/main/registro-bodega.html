@@ -183,12 +183,11 @@
 <!-- MODAL END -->
 
 <script>
-    // Function to hide map modal
-    function close_map() {
-        var elem = document.getElementById('user_agreement');
-        var instance = M.Modal.getInstance(elem);
-        instance.close();
-    }
+    // Modal initialization
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.getElementById('user_agreement');
+        var instances = M.Modal.init(elems, {});
+    });
     // Switch between account creation forms
     function change_account_type(btn_cliente) {
         if (btn_cliente.id == "Bodega") {
