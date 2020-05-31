@@ -67,6 +67,15 @@ class Permission(models.Model):
         return (self.codename,) + self.content_type.natural_key()
     natural_key.dependencies = ['contenttypes.contenttype']
 
+class GroupManager(models.Manager):
+    """
+    The manager for the auth's Group model.
+    """
+    use_in_migrations = True
+
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
 class Group(models.Model):
     """
     Groups are a generic way of categorizing users to apply permissions, or
