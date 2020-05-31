@@ -15,11 +15,12 @@ from django.utils.translation import gettext, gettext_lazy as _
 # in models.py 
 # in class AbstractUser(AbstractBaseUser, PermissionsMixin)
 # in username = models.CharField()
-# change:       _('username'),          to:     _('Usuario'),
+# change:       _('username'),          to:     _('Usuario*'),
 # change:       help_text=_( ... ),     to:     help_text=_('Sólo se permite letras y números.'),
 # change:       'unique': _( ... ),     to:     'unique': _("Este usuario ya lo está usando."),
 ################################################# IMPORTANT COMMENT #################################################
 
+######################## FROM django.contrib.auth ########################
 class UsernameField(forms.CharField):
     def to_python(self, value):
         return unicodedata.normalize('NFKC', super().to_python(value))
@@ -36,14 +37,14 @@ class UserCreationForm(forms.ModelForm):
         'password_mismatch': _('Ambos campos de contraseña no coinciden. Revise que haya colocado repetido bien la contraseña.'),
     }
     password1 = forms.CharField(
-        label=_("Contraseña"),
+        label=_("Contraseña*"),
         strip=False,
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         #help_text=password_validation.password_validators_help_text_html(),
         help_text=_("Debe tener mínimo 8 caracteres entre números y letras."),
     )
     password2 = forms.CharField(
-        label=_("Repita su contraseña"),
+        label=_("Repita su contraseña*"),
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         strip=False,
         help_text=_("Verificamos que ambos campos coincidan."),
@@ -100,9 +101,9 @@ class RegistrationForm(UserCreationForm):
             'password2',
         )
 
-    email = forms.EmailField(label=_("E-mail"),max_length=254,required = True)
-    first_name = forms.CharField(label=_("Nombre"),strip=False,max_length=254,required = True) # False = do not strip white spaces
-    last_name = forms.CharField(label=_("Apellido"),strip=False,max_length=254,required = True) # False = do not strip white spaces
+    email = forms.EmailField(label=_("E-mail*"), max_length=254, required = True)
+    first_name = forms.CharField(label=_("Nombre"), strip=False, max_length=254, required = False) # False = do not strip white spaces
+    last_name = forms.CharField(label=_("Apellido"), strip=False, max_length=254, required = False) # False = do not strip white spaces
 
     def save(self, commit=True): #commit saves data to database
         user = super(RegistrationForm, self).save(commit=False) # when finish edition, it will store the data
@@ -123,7 +124,7 @@ class ClientForm(forms.ModelForm):
             'cl_phone',
         )
 
-    cl_phone = forms.CharField(label=_("Celular"),strip=False,max_length=9,required = True)
+    cl_phone = forms.CharField(label=_("Celular*"),strip=False,max_length=9,required = True)
 
     def save(self, commit): #commit saves data to database
         client = super(ClientForm, self).save(commit=False) # when finish edition, it will store the data
