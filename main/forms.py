@@ -6,7 +6,7 @@ from .models import Cliente, Cart
 from django import forms
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.auth.base_user import AbstractBaseUser #, BaseUserManager
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
