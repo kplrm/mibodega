@@ -17,7 +17,7 @@ class UsernameField(forms.CharField):
             'autocapitalize': 'none',
             'autocomplete': 'username',
         }
-        
+
 class UserCreationForm(forms.ModelForm):
     error_messages = {
         'password_mismatch': _('Ambos campos de contraseña no coinciden. Revise que haya colocado repetido bien la contraseña.'),
@@ -73,7 +73,7 @@ class UserCreationForm(forms.ModelForm):
             user.save()
         return user
 
-#class RegistrationForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
