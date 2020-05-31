@@ -33,7 +33,7 @@ class UserCreationForm(forms.ModelForm):
         label=_("Repita su contraseña"),
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         strip=False,
-        help_text=_("Comparamos ambos campos para asegurarnos para asegurarnos que haya tipeado bien."),
+        help_text=_("Verificamos que ambos campos coincidan."),
     )
 
     class Meta:
