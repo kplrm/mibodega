@@ -9,6 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.base_user import AbstractBaseUser #, BaseUserManager
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.utils.translation import gettext, gettext_lazy as _
+from .validators import UnicodeUsernameValidator
 
 ######################## FROM django.contrib.auth ########################
 class PermissionManager(models.Manager):
