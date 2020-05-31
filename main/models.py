@@ -78,7 +78,7 @@ class Bodega(models.Model):
     bd_user = models.ForeignKey(Cliente,null=True,on_delete=models.CASCADE,verbose_name="Usuario")
     bd_is_active = models.BooleanField(default=True,verbose_name="¿Está activo?")
     bd_name = models.CharField(max_length=100,blank=True,null=True,verbose_name="Nombre comercial")
-    bd_ruc = models.CharField(max_length=11,unique=True,blank=False,null=False,verbose_name="RUC (o DNI)")
+    bd_ruc = models.CharField(max_length=11,unique=True,blank=False,null=False,verbose_name="RUC o DNI")
     bd_raz_soc = models.CharField(max_length=100,blank=True,null=True,verbose_name="Razón social")
     bd_geolocation = models.PointField(blank=True,null=True,verbose_name="Sede")
     bd_email = models.CharField(max_length=50,blank=True,null=True,verbose_name="E-mail")
@@ -108,10 +108,8 @@ class ProductosEnBodega(models.Model):
     def save(self,*args,**kwargs):
         try:
             sav_object = ProductosEnBodega.objects.get(pk=self.pk)
-            print("object exists")
             self.pk = sav_object.pk
         except:
-            print("object DO NOT exists")
             pass
 
         if (float(self.peb_regular_price)!=0) and (float(self.peb_discount_price)!=0) and self.peb_discount_price!=None:# and isinstance(self.peb_discount_price,float):
