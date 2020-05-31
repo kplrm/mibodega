@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_list_or_404, get_object_or_40
 from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, BodegaOrders, OrderItem, BodegaDashboard, ProductosAprobados
 from django.urls import reverse
 
-from .forms import RegistrationForm, ClientForm
+from .forms import RegistrationForm, ClientForm, BodegaForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages # to send unique messages to the users
@@ -825,7 +825,7 @@ def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
-        if form.is_valid() and cl_form.is_valid:
+        if form.is_valid() and cl_form.is_valid and bd_form.is_valid:
             user = form.save()
             client = cl_form.save(commit=False)
             client.cl_user = user
@@ -844,7 +844,8 @@ def registro(request): # CHANGE TO FORMVIEW BASED CLASS?
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
             
     form = RegistrationForm() # Rerender form
-    cl_form = ClientForm() # Rerender form
+    cl_form = ClientForm()
+    bd_form = BodegaForm()
     return render(request, 'main/register.html', context={"form":form,"cl_form":cl_form})
 
 def logout_request(request):

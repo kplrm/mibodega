@@ -27,6 +27,21 @@
                     <form method="POST">
                         {% csrf_token %}
                         {% load widget_tweaks %}
+                        <h4>
+                            ¿Qué tipo de cuenta requieres?
+                        </h4><br>
+                        <p>
+                            <label>
+                                <input class="with-gap" name="group1" type="radio" onclick="change_account_type(this)" checked />
+                                <span>Cliente</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input class="with-gap" name="group1" type="radio" />
+                                <span>Bodega</span>
+                            </label>
+                        </p>
 
                         {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field }}
@@ -40,6 +55,7 @@
                             </div>
                         {% endif %}
 
+                        <!-- USER FORM -->
                         {% for field in form.visible_fields %}
                             <div class="form-group">
                                 {{ field.label_tag }}
@@ -64,7 +80,8 @@
                                 {% endif %}
                             </div>
                         {% endfor %}
-                        
+                        <!-- USER FORM -->
+                        <!-- CLIENT FORM -->
                         {% for field in cl_form.visible_fields %}
                             <div class="form-group">
                                 {{ field.label_tag }}
@@ -89,6 +106,7 @@
                                 {% endif %}
                             </div>
                         {% endfor %}
+                        <!-- CLIENT FORM -->
                         <button type="submit" class="site-btn register-btn">Registrar</button>
                     </form>
                     <div class="switch-login">
@@ -101,4 +119,10 @@
 </div>
 <!-- Register Form Section End -->
 
+<script>
+    function change_account_type(btn_cliente) {
+        console.log(btn_cliente);
+        console.log(btn_cliente.checked);
+    }
+</script>
 {% endblock %}
