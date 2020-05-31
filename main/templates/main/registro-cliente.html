@@ -23,7 +23,12 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
                     <h2>Regístrese</h2>
-
+                    <style>
+                        label{
+                            font-size: 1.5rem !important;
+                            color: black !important;
+                        }
+                    </style>
                     <form method="POST">
                         {% csrf_token %}
                         {% load widget_tweaks %}
@@ -32,11 +37,11 @@
                         </h4><br>
                         <table>
                             <tr>
-                                <td>
+                                <td style="text-align: center;">
                                     <input class="with-gap" name="group1" type="radio" id="Cliente" onclick="change_account_type(this)" checked />
                                     <span>Cliente</span>
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     <input class="with-gap" name="group1" type="radio" id="Bodega" onclick="change_account_type(this)" />
                                     <span>Bodega</span>
                                 </td>
