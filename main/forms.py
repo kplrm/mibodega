@@ -6,8 +6,8 @@ from .models import Cliente, Cart
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ( # alll field names
-            'username',
+        fields = (
+            'Usuario', #username 
             'email',
             'first_name',
             'last_name',
