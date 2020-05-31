@@ -11,6 +11,15 @@ from django.contrib.auth import authenticate, get_user_model, password_validatio
 from django.utils.translation import gettext, gettext_lazy as _
 
 ######################## FROM django.contrib.auth ########################
+class PermissionManager(models.Manager):
+    use_in_migrations = True
+
+    def get_by_natural_key(self, codename, app_label, model):
+        return self.get(
+            codename=codename,
+            content_type=ContentType.objects.db_manager(self.db).get_by_natural_key(app_label, model),
+        )
+
 class Permission(models.Model):
     """
     The permissions system provides a way to assign permissions to specific
