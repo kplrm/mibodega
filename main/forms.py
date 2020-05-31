@@ -90,7 +90,6 @@ class RegistrationForm(UserCreationForm):
     #last_name = forms.CharField(required = True, max_length=254)
     email = forms.EmailField(
         label=_("E-mail"),
-        strip=False, # False = do not strip white spaces
         max_length=254,
         required = True,
     )
