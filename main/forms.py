@@ -86,7 +86,13 @@ class RegistrationForm(UserCreationForm):
         )
         
     email = forms.EmailField(required = True, max_length=254)
-    first_name = forms.CharField(required = True, max_length=254)
+    #first_name = forms.CharField(required = True, max_length=254)
+    first_name = forms.CharField(
+        label=_("Nombre"),
+        strip=False, # False = do not strip white spaces
+        max_length=254,
+        required = True,
+    )
     last_name = forms.CharField(required = True, max_length=254)
 
     def save(self, commit=True): #commit saves data to database
