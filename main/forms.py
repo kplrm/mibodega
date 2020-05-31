@@ -7,6 +7,17 @@ from django import forms
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.utils.translation import gettext, gettext_lazy as _
 
+class UsernameField(forms.CharField):
+    def to_python(self, value):
+        return unicodedata.normalize('NFKC', super().to_python(value))
+
+    def widget_attrs(self, widget):
+        return {
+            **super().widget_attrs(widget),
+            'autocapitalize': 'none',
+            'autocomplete': 'username',
+        }
+        
 class UserCreationForm(forms.ModelForm):
     error_messages = {
         'password_mismatch': _('Ambos campos de contraseña no coinciden. Revise que haya colocado repetido bien la contraseña.'),
