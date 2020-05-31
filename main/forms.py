@@ -143,7 +143,7 @@ class BodegaForm(forms.ModelForm):
         )
 
     bd_name = forms.CharField(label=_("Nombre comercial*"),strip=False,max_length=100,required=True)
-    bd_ruc = forms.CharField(label=_("RUC o DNI"),unique=True,strip=False,max_length=100,required=True)
+    bd_ruc = forms.CharField(label=_("RUC o DNI"),strip=False,max_length=100,required=True)
 
     def save(self, client, commit): #commit saves data to database
         bodega = super(BodegaForm, self).save(commit=False) # when finish edition, it will store the data
