@@ -26,7 +26,8 @@ class UserCreationForm(forms.ModelForm):
         label=_("Contraseña"),
         strip=False,
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
-        help_text=password_validation.password_validators_help_text_html(),
+        #help_text=password_validation.password_validators_help_text_html(),
+        help_text=_("Debe tener mínimo 8 caracteres entre números y letras."),
     )
     password2 = forms.CharField(
         label=_("Repita su contraseña"),
