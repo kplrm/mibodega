@@ -82,10 +82,12 @@
                                                         <th class="border-0" style="text-align:right;">¿Está activa tu bodega?</th>
                                                         <th class="border-0" style="text-align:left;">
                                                             {% if bodega.bd_is_active == True %}
-                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked onclick="bd_activity(this)">
+                                                                <!--<input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked onclick="bd_activity(this)">-->
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked disabled>
                                                                 <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>
                                                             {% else %}
-                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" onclick="bd_activity(this)">
+                                                                <!--<input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" onclick="bd_activity(this)">-->
+                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" disabled>
                                                                 <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
                                                             {% endif %}
                                                         </th>
