@@ -162,7 +162,6 @@ class BodegaForm(forms.ModelForm):
 
 
 
-
 #########################################
 #class CartForm(forms.ModelForm):
 #    class Meta:
