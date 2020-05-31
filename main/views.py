@@ -825,7 +825,7 @@ def registro(request):
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
-        if form.is_valid() and cl_form.is_valid and bd_form.is_valid:
+        if form.is_valid() and cl_form.is_valid:
             user = form.save()
             client = cl_form.save(commit=False)
             client.cl_user = user
@@ -851,6 +851,7 @@ def registroBodega(request):
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
+        bd_form = BodegaForm(request.POST)
         if form.is_valid() and cl_form.is_valid and bd_form.is_valid:
             user = form.save()
             client = cl_form.save(commit=False)
@@ -858,6 +859,9 @@ def registroBodega(request):
             client.cl_first_name = user.first_name
             client.cl_last_name = user.last_name
             client.cl_email = user.email
+            bodega = bd_form.save(client=client,commit=True)
+            client.cl_is_bodega = True
+            client.cl_default_bodega = str(bodega.bd_ID)
             cl_form.save(commit=True)
             username = user.username # normalize to a standard format
             # Messages are stored only once. When they are delivered, they also are deleted.
