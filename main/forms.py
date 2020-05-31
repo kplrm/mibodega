@@ -134,6 +134,29 @@ class ClientForm(forms.ModelForm):
             client.save() # saves the data
         return client
 
+class BodegaForm(forms.ModelForm):
+    class Meta:
+        model = Bodega
+        fields = (
+            'bd_name',
+            'bd_ruc',
+        )
+
+    bd_name = forms.CharField(label=_("Nombre comercial*"),strip=False,max_length=100,required=True)
+    bd_ruc = forms.CharField(label=_("RUC o DNI"),unique=True,strip=False,max_length=100,required=True,error_messages={'unique': _("Este DNI o RUC ya está siendo usado. Contactenos a hola@alimentos.pe."),})
+
+    def save(self, client, commit): #commit saves data to database
+        bodega = super(BodegaForm, self).save(commit=False) # when finish edition, it will store the data
+        bodega.bd_user = client.cl_user
+        bodega.bd_name = self.cleaned_data['bd_name']
+        bodega.bd_ruc = self.cleaned_data['bd_ruc']
+        bodega.bd_email = client.cl_email
+        bodega.bd_phone = client.cl_phone
+
+        if commit:
+            bodega.save() # saves the data
+        return bodega
+
 
 
 
