@@ -30,18 +30,18 @@
                         <h4>
                             ¿Qué tipo de cuenta requieres?
                         </h4><br>
-                        <p>
-                            <label>
-                                <input class="with-gap" name="group1" type="radio" id="Cliente" onclick="change_account_type(this)" checked />
-                                <span>Cliente</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="with-gap" name="group1" type="radio" id="Bodega" onclick="change_account_type(this)" />
-                                <span>Bodega</span>
-                            </label>
-                        </p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input class="with-gap" name="group1" type="radio" id="Cliente" onclick="change_account_type(this)" checked />
+                                    <span>Cliente</span>
+                                </td>
+                                <td>
+                                    <input class="with-gap" name="group1" type="radio" id="Bodega" onclick="change_account_type(this)" />
+                                    <span>Bodega</span>
+                                </td>
+                            </tr>
+                        </table>
 
                         {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field }}
