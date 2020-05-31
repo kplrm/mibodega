@@ -1,11 +1,91 @@
 from django import forms
-from django.contrib.auth.models import User
+##from django.contrib.auth.models import User
 #from django.contrib.auth.forms import UserCreationForm
 from .models import Cliente, Cart
 
 from django import forms
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth import authenticate, get_user_model, password_validation
 from django.utils.translation import gettext, gettext_lazy as _
+
+######################## FROM django.contrib.auth ########################
+class AbstractUser(AbstractBaseUser, PermissionsMixin):
+    """
+    An abstract base class implementing a fully featured User model with
+    admin-compliant permissions.
+
+    Username and password are required. Other fields are optional.
+    """
+    username_validator = UnicodeUsernameValidator()
+
+    username = models.CharField(
+        _('username'),
+        max_length=150,
+        unique=True,
+        help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[username_validator],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
+    first_name = models.CharField(_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(_('last name'), max_length=150, blank=True)
+    email = models.EmailField(_('email address'), blank=True)
+    is_staff = models.BooleanField(
+        _('staff status'),
+        default=False,
+        help_text=_('Designates whether the user can log into this admin site.'),
+    )
+    is_active = models.BooleanField(
+        _('active'),
+        default=True,
+        help_text=_(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    objects = UserManager()
+
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+        abstract = True
+
+    def clean(self):
+        super().clean()
+        self.email = self.__class__.objects.normalize_email(self.email)
+
+    def get_full_name(self):
+        """
+        Return the first_name plus the last_name, with a space in between.
+        """
+        full_name = '%s %s' % (self.first_name, self.last_name)
+        return full_name.strip()
+
+    def get_short_name(self):
+        """Return the short name for the user."""
+        return self.first_name
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """Send an email to this user."""
+        send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class User(AbstractUser):
+    """
+    Users within the Django authentication system are represented by this
+    model.
+
+    Username and password are required. Other fields are optional.
+    """
+    class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
 
 class UsernameField(forms.CharField):
     def to_python(self, value):
@@ -73,6 +153,7 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+######################## FROM django.contrib.auth ########################
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -85,27 +166,10 @@ class RegistrationForm(UserCreationForm):
             'password1',
             'password2',
         )
-        
-    #email = forms.EmailField(required = True, max_length=254)
-    #first_name = forms.CharField(required = True, max_length=254)
-    #last_name = forms.CharField(required = True, max_length=254)
-    email = forms.EmailField(
-        label=_("E-mail"),
-        max_length=254,
-        required = True,
-    )
-    first_name = forms.CharField(
-        label=_("Nombre"),
-        strip=False, # False = do not strip white spaces
-        max_length=254,
-        required = True,
-    )
-    first_name = forms.CharField(
-        label=_("Apellido"),
-        strip=False, # False = do not strip white spaces
-        max_length=254,
-        required = True,
-    )
+
+    email = forms.EmailField(label=_("E-mail"),max_length=254,required = True)
+    first_name = forms.CharField(label=_("Nombre"),strip=False,max_length=254,required = True) # False = do not strip white spaces
+    last_name = forms.CharField(label=_("Apellido"),strip=False,max_length=254,required = True) # False = do not strip white spaces
 
     def save(self, commit=True): #commit saves data to database
         user = super(RegistrationForm, self).save(commit=False) # when finish edition, it will store the data
@@ -126,13 +190,7 @@ class ClientForm(forms.ModelForm):
             'cl_phone',
         )
 
-    #cl_phone = forms.CharField(required=True,max_length=9)
-    cl_phone = forms.CharField(
-        label=_("Celular"),
-        strip=False, # False = do not strip white spaces
-        max_length=9,
-        required = True,
-    )
+    cl_phone = forms.CharField(label=_("Celular"),strip=False,max_length=9,required = True)
 
     def save(self, commit): #commit saves data to database
         client = super(ClientForm, self).save(commit=False) # when finish edition, it will store the data
@@ -142,6 +200,13 @@ class ClientForm(forms.ModelForm):
             client.save() # saves the data
         return client
 
+
+
+
+
+
+
+#########################################
 class CartForm(forms.ModelForm):
     class Meta:
         model = Cart
