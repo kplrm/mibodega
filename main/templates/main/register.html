@@ -109,10 +109,10 @@
                         <!-- CLIENT FORM -->
                         <!-- BODEGA FORM -->
                         <div id="bodega_form_section">
-                            {% for field in cl_form.visible_fields %}
+                            {% for field in bd_form.visible_fields %}
                                 <div class="form-group">
                                     {{ field.label_tag }}
-                                    {% if cl_form.is_bound %}
+                                    {% if bd_form.is_bound %}
                                         {% if field.errors %}
                                             {% render_field field class="form-control is-invalid" %}
                                             {% for error in field.errors %}
