@@ -5,12 +5,20 @@ from .models import Cliente, Cart
 
 from django import forms
 from django.db import models
-#from django.contrib.contenttypes.models import ContentType
-#from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth import password_validation #authenticate, get_user_model, 
 from django.utils.translation import gettext, gettext_lazy as _
-#from django.contrib.auth.validators import UnicodeUsernameValidator
-#from django.utils import timezone
+
+################################################# IMPORTANT COMMENT #################################################
+#
+# TO CHANGE label AND help_text ON USERNAME FIELD THE FOLLOWING FILES WERE DIRECTLY EDITED FROM THE DJANGO REPOSITORY
+# from ~/[YOUR ENVIRONMENT]/lib/python3.6/site-packages/django/contrib/auth
+# in models.py 
+# in class AbstractUser(AbstractBaseUser, PermissionsMixin)
+# in username = models.CharField()
+# change:       _('username'),          to:     _('Usuario'),
+# change:       help_text=_( ... ),     to:     help_text=_('Sólo se permite letras y números.'),
+# change:       'unique': _( ... ),     to:     'unique': _("Este usuario ya lo está usando."),
+################################################# IMPORTANT COMMENT #################################################
 
 class UsernameField(forms.CharField):
     def to_python(self, value):
