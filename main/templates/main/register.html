@@ -149,12 +149,7 @@
     function change_account_type(btn_cliente) {
         console.log(btn_cliente.id);
         if (btn_cliente.id == "Bodega") {
-            var text_to_append = String('hola');
-            
-                
-            
-            $("#bodega_form_section").html('');
-            $("#bodega_form_section").html(text_to_append);
+            location.reload();
         } else if (btn_cliente.id == "Cliente") {
             $("#bodega_form_section").html('');
         } else {
