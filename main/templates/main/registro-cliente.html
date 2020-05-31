@@ -121,13 +121,10 @@
 
 <script>
     function change_account_type(btn_cliente) {
-        console.log(btn_cliente.id);
         if (btn_cliente.id == "Bodega") {
-            //window.location = "https://www.alimentos.pe/bodega";
-            window.location.href = "/registro/"
-        } else if (btn_cliente.id == "Cliente") {
-            //window.location = "https://www.alimentos.pe/registro";
             window.location.href = "/bodega"
+        } else if (btn_cliente.id == "Cliente") {
+            window.location.href = "/registro/"
         } else {
             window.location = "https://www.alimentos.pe";
         }
