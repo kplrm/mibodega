@@ -107,32 +107,6 @@
                             </div>
                         {% endfor %}
                         <!-- CLIENT FORM -->
-                        <!-- BODEGA FORM -->
-                        <div id="bodega_form_section">
-                            {% for field in bd_form.visible_fields %}
-                                <div class="form-group">
-                                    {{ field.label_tag }}
-                                    {% if bd_form.is_bound %}
-                                        {% if field.errors %}
-                                            {% render_field field class="form-control is-invalid" %}
-                                            {% for error in field.errors %}
-                                                <div class="invalid-feedback">
-                                                    {{ error }}
-                                                </div>
-                                            {% endfor %}
-                                        {% else %}
-                                            {% render_field field class="form-control is-valid" %}
-                                        {% endif %}
-                                    {% else %}
-                                        {% render_field field class="form-control" %}
-                                    {% endif %}
-                                    {% if field.help_text %}
-                                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <!-- BODEGA FORM -->
                         <button type="submit" class="site-btn register-btn">Registrar</button>
                     </form>
                     <div class="switch-login">
@@ -149,11 +123,11 @@
     function change_account_type(btn_cliente) {
         console.log(btn_cliente.id);
         if (btn_cliente.id == "Bodega") {
-            location.reload();
+            window.location = "https://www.alimentos.pe/bodega";
         } else if (btn_cliente.id == "Cliente") {
-            $("#bodega_form_section").html('');
+            window.location = "https://www.alimentos.pe/registro";
         } else {
-            ;
+            window.location = "https://www.alimentos.pe";
         }
     }
 </script>
