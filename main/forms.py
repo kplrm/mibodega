@@ -85,15 +85,27 @@ class RegistrationForm(UserCreationForm):
             'password2',
         )
         
-    email = forms.EmailField(required = True, max_length=254)
+    #email = forms.EmailField(required = True, max_length=254)
     #first_name = forms.CharField(required = True, max_length=254)
+    #last_name = forms.CharField(required = True, max_length=254)
+    email = forms.EmailField(
+        label=_("E-mail"),
+        strip=False, # False = do not strip white spaces
+        max_length=254,
+        required = True,
+    )
     first_name = forms.CharField(
         label=_("Nombre"),
         strip=False, # False = do not strip white spaces
         max_length=254,
         required = True,
     )
-    last_name = forms.CharField(required = True, max_length=254)
+    first_name = forms.CharField(
+        label=_("Apellido"),
+        strip=False, # False = do not strip white spaces
+        max_length=254,
+        required = True,
+    )
 
     def save(self, commit=True): #commit saves data to database
         user = super(RegistrationForm, self).save(commit=False) # when finish edition, it will store the data
