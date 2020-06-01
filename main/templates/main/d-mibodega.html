@@ -326,6 +326,9 @@
             bd_delivery_type_1 = document.getElementById("bd_delivery_type_1").checked;
             bd_delivery_type_2 = document.getElementById("bd_delivery_type_2").checked;
             if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = true} else {bd_delivery_type = false}
+            bd_delivery_cost = document.getElementById("bd_delivery_cost").value;
+            bd_delivery_free_starting_on = document.getElementById("bd_delivery_free_starting_on").value;
+            bd_delivery_conditions = document.getElementById("bd_delivery_conditions").value;
             bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
             bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
             $.ajax({
@@ -344,6 +347,9 @@
                     "bd_phone": bd_phone,
                     "bd_delivery": bd_delivery,
                     "bd_delivery_type": bd_delivery_type,
+                    "bd_delivery_cost": bd_delivery_cost,
+                    "bd_delivery_free_starting_on": bd_delivery_free_starting_on,
+                    "bd_delivery_conditions": bd_delivery_conditions,
                     "bd_geolocation_lat": bd_geolocation_lat,
                     "bd_geolocation_lng": bd_geolocation_lng
                 },
