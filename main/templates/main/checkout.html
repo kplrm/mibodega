@@ -98,12 +98,14 @@
 
 <div class="container">
     {% if user.is_authenticated == False %}
-        <div class="container">
-            <a href="/login" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Inicie sesión</a>
-        </div>
-        <div class="container">
-            <a href="/register" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Regístrese</a>
-        </div>
+        <table>
+            <tr>
+                <a href="/login" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Inicie sesión</a>
+            </tr>
+            <tr>
+                <a href="/register" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Regístrese</a>
+            </tr>
+        </table>
     {% endif %}
 </div>
 
