@@ -176,7 +176,7 @@
 
                             mapcart.on('click', function (e) {
                                 // When click on the mapcart
-                                reverse_geolocation(e.latlng.lng, e.latlng.lat);
+                                reverse_geolocation(e.latlng.lat, e.latlng.lng);
                                 //document.getElementById("geolocation").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
                                 if (marker_client) { // check if marker_client already exists
                                     mapcart.removeLayer(marker_client); // remove existing marker_client
