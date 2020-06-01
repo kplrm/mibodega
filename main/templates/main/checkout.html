@@ -176,7 +176,7 @@
                             } else {
                                 console.log("userlocation");
                                 mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
-                                //mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"], 15);
+                                mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"], 15);
                                 if (marker_client != undefined) {
                                     mapcart.removeLayer(marker_client);
                                 };
