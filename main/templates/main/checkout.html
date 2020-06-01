@@ -135,7 +135,7 @@
                         <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                         <div id="map_cart"></div>
                         <script>
-                            var mapcart = L.map('map_cart').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
+                            var mapcart = L.map('map_cart').setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
                         
                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
