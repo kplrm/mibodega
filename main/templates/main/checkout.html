@@ -160,7 +160,7 @@
                                 });
                                 reverse_geolocation("{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}");
                             } else {
-                                var mapcart = L.map('map_cart').setView([ parseFloat("{{user_location.y}}"), parseFloat("{{user_location.x}}") ], 15);
+                                var mapcart = L.map('map_cart').invalidateSize().setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
                                 var marker_client = new L.marker(["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
