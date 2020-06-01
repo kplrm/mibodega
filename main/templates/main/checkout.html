@@ -164,6 +164,7 @@
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
                                 });
                             }
+                            mapcart.invalidateSize();
                             mapcart.addLayer(marker_client);
 
                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
