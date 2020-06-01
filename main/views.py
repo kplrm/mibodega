@@ -860,6 +860,7 @@ def registroBodega(request):
             client.cl_last_name = user.last_name
             client.cl_email = user.email
             client.cl_is_bodega = True
+            client.cl_terms = True
             cl_form.save(commit=True)
             bodega = bd_form.save(commit=False)
             bodega.bd_user = client
@@ -1227,7 +1228,11 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
-            user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
+            # Allow empty value to be saved, as in a newly created bodega/account
+            try:
+                user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
+            except:
+                user_location = ""
             bodega.bd_geolocation = user_location
             cliente.save()
             bodega.save()
