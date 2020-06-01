@@ -1245,8 +1245,8 @@ def mibodega(request):
             else:
                 bd_delivery_type = False
             bodega.bd_delivery_type = bd_delivery_type
-            bodega.bd_delivery_cost = bd_delivery_cost
-            bodega.bd_delivery_free_starting_on = bd_delivery_free_starting_on
+            bodega.bd_delivery_cost = float(bd_delivery_cost)
+            bodega.bd_delivery_free_starting_on = float(bd_delivery_free_starting_on)
             bodega.bd_delivery_conditions = bd_delivery_conditions
             # Allow empty value for geolocation to be saved as in a newly created bodega/account
             try:
