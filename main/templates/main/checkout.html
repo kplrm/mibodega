@@ -123,10 +123,14 @@
                         <label for="last">Apellido<span>*</span></label>
                         <input type="text" id="last" class="form-control" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
                     </div>
+                </div>
+                <div class="row" style="text-align:Left">
                     <div class="col s12">
                         <label for="street">Dirección (Seleccione en el mapa y luego corrija el texto)<span>*</span></label>
                         <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                     </div>
+                </div>
+                <div class="row" style="text-align:Left">
                     <div class="col s12">
                         <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                         <div id="mapid"></div>
@@ -195,6 +199,8 @@
                             //map.on('click', onMapClick);
                         </script>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col s6">
                         <label for="email">Email<span>*</span></label>
                         <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
@@ -215,21 +221,25 @@
                         <label for="phone">Celular<span>*</span></label>
                         <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_phone != None %}{{cliente.cl_phone}}{% endif %}" oninput="validate_phone(this)" required>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col s12">
                         <label for="comments">Comentarios para la bodega</label>
                         <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
                     </div>
-                    <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
+                </div>
+                <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
+                <div class="row">
                     {% if cliente.cl_user != None %}
-                    <div class="col s12">
-                        <div class="create-item">
-                            <label for="acc-create">
-                                ¿Desea guardar sus datos?
-                                <input type="checkbox" id="acc-create">
-                                <span class="checkmark"></span>
-                            </label>
+                        <div class="col s12">
+                            <div class="create-item">
+                                <label for="acc-create">
+                                    ¿Desea guardar sus datos?
+                                    <input type="checkbox" id="acc-create">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
                         </div>
-                    </div>
                     {% endif %}
                 </div>
             </div>
