@@ -1205,7 +1205,7 @@ def mibodega(request):
 
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
-            # Update changes
+            # Retrieve changes
             cl_first_name = request.POST.get('cl_first_name',False)
             cl_last_name = request.POST.get('cl_last_name',False)
             #bd_is_active = request.POST.get('bd_is_active',False)
@@ -1215,15 +1215,21 @@ def mibodega(request):
             bd_email = request.POST.get('bd_email',False)
             bd_phone = request.POST.get('bd_phone',False)
             bd_delivery = request.POST.get('bd_delivery',False)
+            bd_delivery_type = request.POST.get('bd_delivery_type',False)
+            bd_delivery_cost = request.POST.get('bd_delivery_cost',False)
+            bd_delivery_free_starting_on = request.POST.get('bd_delivery_free_starting_on',False)
+            bd_delivery_conditions = request.POST.get('bd_delivery_conditions',False)
             bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
             bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
             #if bd_is_active == "true":
             #    bd_is_active = True
             #else:
             #    bd_is_active = False
+            #bodega.bd_is_active = bd_is_active
+
+            # Assign changes
             cliente.cl_first_name = cl_first_name
             cliente.cl_last_name = cl_last_name
-            #bodega.bd_is_active = bd_is_active
             bodega.bd_name = bd_name
             bodega.bd_ruc = bd_ruc
             bodega.bd_raz_soc = bd_raz_soc
@@ -1234,12 +1240,18 @@ def mibodega(request):
             else:
                 bd_delivery = False
             bodega.bd_delivery = bd_delivery
-            # Allow empty value to be saved, as in a newly created bodega/account
+            bodega.bd_delivery_type = bd_delivery_type
+            bodega.bd_delivery_cost = bd_delivery_cost
+            bodega.bd_delivery_free_starting_on = bd_delivery_free_starting_on
+            bodega.bd_delivery_conditions = bd_delivery_conditions
+            # Allow empty value for geolocation to be saved as in a newly created bodega/account
             try:
                 user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
             except:
                 user_location = ""
             bodega.bd_geolocation = user_location
+            
+            # Save changes
             cliente.save()
             bodega.save()
 
