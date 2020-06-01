@@ -134,7 +134,7 @@
                     <div class="col s12">
                         <!-- hidden -->
                         <input type="text" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                        <div id="map_cart"></div>
+                        <div id="map_cart" style="height:inherit;"></div>
                         <script>
                             if ("{{cliente.cl_geolocation}}" != "None") {
                                 var mapcart = L.map('map_cart').setView([ parseFloat("{{user_location.y}}"), parseFloat("{{user_location.x}}") ], 15);
