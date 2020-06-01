@@ -84,6 +84,15 @@ class Bodega(models.Model):
     bd_geolocation = models.PointField(blank=True,null=True,verbose_name="Sede")
     bd_email = models.CharField(max_length=50,blank=True,null=True,verbose_name="E-mail")
     bd_phone = models.CharField(max_length=9,blank=False,null=True,verbose_name="Celular")
+    bd_delivery = models.BooleanField(default=False,verbose_name="¿Hace delivery?")
+    CATEGORY_CHOICES = [ #(what does on the db, what it's displayed)
+        ('always', 'Sí, siempre tiene el mismo costo.'),
+        ('free_starting_on', 'Sí, pero es gratis a partir de un monto.'),
+    ]
+    bd_delivery_type = models.CharField(max_length=20,choices=CATEGORY_CHOICES,default='always',verbose_name="¿Tiene algún costo el delivery?")
+    bd_delivery_cost = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="¿Cuánto cuesta el delivery?")
+    bd_delivery_free_starting_on = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="¿A partir de qué monto el delivery es gratis?")
+    bd_delivery_conditions = models.CharField(max_length=250,blank=True,null=True,verbose_name="Condiciones de despacho")
 
     def __str__(self):
         return str(self.bd_name)
