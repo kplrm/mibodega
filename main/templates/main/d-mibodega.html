@@ -138,15 +138,23 @@
                                                         <th class="border-0" style="text-align:right;">¿Tiene algún costo el delivery?</th>
                                                         <th class="border-0" style="text-align:left;">
                                                             {% if bodega.bd_delivery_type == True %}
-                                                                <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)" checked/>
-                                                                <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
-                                                                <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_2" value="option2" onclick="bd_delivery_type_f(this)"/>
-                                                                <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                <div class="form-check">
+                                                                    <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)" checked/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_2" value="option2" onclick="bd_delivery_type_f(this)"/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                </div>
                                                             {% else %}
-                                                                <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/>
-                                                                <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
-                                                                <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_2" value="option2" onclick="bd_delivery_type_f(this)" checked/>
-                                                                <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                <div class="form-check">
+                                                                    <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_2" value="option2" onclick="bd_delivery_type_f(this)" checked/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                </div>
                                                             {% endif %}
                                                         </th>
                                                     </tr>
