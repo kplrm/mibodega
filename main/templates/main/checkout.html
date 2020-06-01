@@ -176,7 +176,6 @@
                             } else {
                                 console.log("userlocation");
                                 mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
-                                mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"], 15);
                                 if (marker_client != undefined) {
                                     mapcart.removeLayer(marker_client);
                                 };
@@ -184,12 +183,11 @@
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
                                 });
+                                mapcart.addLayer(marker_client);
+                                mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"], 15);
                                 //reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                             }
-
-                            
-
-                            mapcart.addLayer(marker_client);
+                            //mapcart.addLayer(marker_client);
 
                             mapcart.on('click', function (e) {
                                 // When click on the mapcart
