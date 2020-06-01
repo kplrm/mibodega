@@ -293,13 +293,13 @@
         save_mibodega_changes();
     }
     function bd_delivery_type_f(input) {
-        if(input.value == "option1" && input.checked == true) {
+        /*if(input.value == "option1" && input.checked == true) {
             $("#bd_delivery_type_1").checked = true;
             $("#bd_delivery_type_2").checked = false;
         } else if(input.value == "option2" && input.checked == true) {
             $("#bd_delivery_type_1").checked = false;
             $("#bd_delivery_type_2").checked = true;
-         } else {};
+         } else {};*/
         save_mibodega_changes();
     }
 </script>
@@ -323,6 +323,9 @@
             bd_email = document.getElementById("bd_email").value;
             bd_phone = document.getElementById("bd_phone").value;
             bd_delivery = document.getElementById("bd_delivery").checked;
+            bd_delivery_type_1 = document.getElementById("bd_delivery_type_1").checked;
+            bd_delivery_type_2 = document.getElementById("bd_delivery_type_2").checked;
+            if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = true} else {bd_delivery_type = false}
             bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
             bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
             $.ajax({
@@ -340,6 +343,7 @@
                     "bd_email": bd_email,
                     "bd_phone": bd_phone,
                     "bd_delivery": bd_delivery,
+                    "bd_delivery_type": bd_delivery_type,
                     "bd_geolocation_lat": bd_geolocation_lat,
                     "bd_geolocation_lng": bd_geolocation_lng
                 },
