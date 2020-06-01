@@ -1214,6 +1214,7 @@ def mibodega(request):
             bd_raz_soc = request.POST.get('bd_raz_soc',False)
             bd_email = request.POST.get('bd_email',False)
             bd_phone = request.POST.get('bd_phone',False)
+            bd_delivery = request.POST.get('bd_delivery',False)
             bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
             bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
             #if bd_is_active == "true":
@@ -1228,6 +1229,11 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
+            if bd_delivery == "true":
+                bd_delivery = True
+            else:
+                bd_delivery = False
+            bodega.bd_delivery = bd_delivery
             # Allow empty value to be saved, as in a newly created bodega/account
             try:
                 user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
