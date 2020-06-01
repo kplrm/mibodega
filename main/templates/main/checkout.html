@@ -163,7 +163,7 @@
 
                             if ("{{cliente.cl_geolocation}}" != "None") {
                                 console.log("cliente");
-                                //mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
+                                mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
                                 mapcart.panTo(["{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}"], 15);
                                 if (marker_client != undefined) {
                                     mapcart.removeLayer(marker_client);
@@ -175,7 +175,7 @@
                                 reverse_geolocation("{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}");
                             } else {
                                 console.log("userlocation");
-                                //mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
+                                mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
                                 mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"], 15);
                                 if (marker_client != undefined) {
                                     mapcart.removeLayer(marker_client);
