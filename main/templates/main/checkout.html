@@ -110,25 +110,24 @@
 </div>
 
 <div class="container">
-    <form id="checkout_form" action="" class="checkout-form">
+    <form id="checkout_form" action="" class="">
         <div class="row">
-            <div class="col-lg-6">
-                
+            <div class="col s6">
                 <h4>Sus datos</h4>
                 <div class="row" style="text-align:Left">
-                    <div class="col-lg-6">
+                    <div class="col s6">
                         <label for="fir">Nombre<span>*</span></label>
                         <input type=text id="fir" class="form-control" pattern="^[A-Za-z\s]{1,}$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate_fir(this)" required>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col s6">
                         <label for="last">Apellido<span>*</span></label>
                         <input type="text" id="last" class="form-control" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col s12">
                         <label for="street">Dirección (Seleccione en el mapa y luego corrija el texto)<span>*</span></label>
                         <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col s12">
                         <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                         <div id="mapid"></div>
                         <script>
@@ -196,7 +195,7 @@
                             //map.on('click', onMapClick);
                         </script>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col s6">
                         <label for="email">Email<span>*</span></label>
                         <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
                     </div>
@@ -212,17 +211,17 @@
                         input[type=number] {-moz-appearance: textfield;}
                     </style>
                     <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
-                    <div class="col-lg-6">
+                    <div class="col s6">
                         <label for="phone">Celular<span>*</span></label>
                         <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_phone != None %}{{cliente.cl_phone}}{% endif %}" oninput="validate_phone(this)" required>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col s12">
                         <label for="comments">Comentarios para la bodega</label>
                         <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
                     </div>
                     <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
                     {% if cliente.cl_user != None %}
-                    <div class="col-lg-12">
+                    <div class="col s12">
                         <div class="create-item">
                             <label for="acc-create">
                                 ¿Desea guardar sus datos?
@@ -234,8 +233,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="col-lg-6">
-
+            <div class="col s6">
                 <!-- CHECKOUT CART SECTION BEGIN -->
                 <script>
                     function getCookie(name) {
