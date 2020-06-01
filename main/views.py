@@ -1223,7 +1223,7 @@ def mibodega(request):
             #    bd_is_active = False
             cliente.cl_first_name = cl_first_name
             cliente.cl_last_name = cl_last_name
-            bodega.bd_is_active = bd_is_active
+            #bodega.bd_is_active = bd_is_active
             bodega.bd_name = bd_name
             bodega.bd_ruc = bd_ruc
             bodega.bd_raz_soc = bd_raz_soc
