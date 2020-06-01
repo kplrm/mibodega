@@ -93,7 +93,7 @@ class Bodega(models.Model):
     bd_delivery_type = models.BooleanField(default=True,verbose_name="¿Tiene algún costo el delivery?") # True = always, False = free_starting_on
     bd_delivery_cost = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="¿Cuánto cuesta el delivery?")
     bd_delivery_free_starting_on = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="¿A partir de qué monto el delivery es gratis?")
-    bd_delivery_conditions = models.CharField(max_length=250,blank=True,null=True,verbose_name="Condiciones de despacho")
+    bd_delivery_conditions = models.CharField(default="",max_length=250,blank=True,null=True,verbose_name="Condiciones de despacho")
 
     def __str__(self):
         return str(self.bd_name)
