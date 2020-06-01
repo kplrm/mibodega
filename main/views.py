@@ -1240,6 +1240,10 @@ def mibodega(request):
             else:
                 bd_delivery = False
             bodega.bd_delivery = bd_delivery
+            if bd_delivery_type == "true":
+                bd_delivery_type = True
+            else:
+                bd_delivery_type = False
             bodega.bd_delivery_type = bd_delivery_type
             bodega.bd_delivery_cost = bd_delivery_cost
             bodega.bd_delivery_free_starting_on = bd_delivery_free_starting_on
