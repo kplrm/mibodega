@@ -1228,7 +1228,11 @@ def mibodega(request):
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
-            user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
+            # Allow empty value to be saved, as in a newly created bodega/account
+            try:
+                user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
+            except:
+                user_location = ""
             bodega.bd_geolocation = user_location
             cliente.save()
             bodega.save()
