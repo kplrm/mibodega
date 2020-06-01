@@ -95,387 +95,388 @@
         }
     };
 </script>
-<section class="checkout-section spad">
-    <div class="container">
-        <form id="checkout_form" action="" class="checkout-form">
-            <div class="row">
-                <div class="col-lg-6">
-                    {% if user.is_authenticated == False %}
-                    <div class="checkout-content">
-                        <a href="/login" class="content-btn">Inicie sesión</a>
+
+<div class="container">
+    {% if user.is_authenticated == False %}
+        <div class="container">
+            <a href="/login" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Inicie sesión</a>
+        </div>
+        <div class="container">
+            <a href="/register" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Regístrese</a>
+        </div>
+    {% endif %}
+</div>
+
+<div class="container">
+    <form id="checkout_form" action="" class="checkout-form">
+        <div class="row">
+            <div class="col-lg-6">
+                
+                <h4>Sus datos</h4>
+                <div class="row" style="text-align:Left">
+                    <div class="col-lg-6">
+                        <label for="fir">Nombre<span>*</span></label>
+                        <input type=text id="fir" class="form-control" pattern="^[A-Za-z\s]{1,}$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate_fir(this)" required>
                     </div>
-                    {% endif %}
-                    <h4>Sus datos</h4>
-                    <div class="row" style="text-align:Left">
-                        <div class="col-lg-6">
-                            <label for="fir">Nombre<span>*</span></label>
-                            <input type=text id="fir" class="form-control" pattern="^[A-Za-z\s]{1,}$" value="{% if cliente.cl_first_name != None %}{{cliente.cl_first_name}}{% endif %}" oninput="validate_fir(this)" required>
-                        </div>
-                        <div class="col-lg-6">
-                            <label for="last">Apellido<span>*</span></label>
-                            <input type="text" id="last" class="form-control" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="street">Dirección (Seleccione en el mapa y luego corrija el texto)<span>*</span></label>
-                            <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
-                        </div>
-                        <div class="col-lg-12">
-                            <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                            <div id="mapid"></div>
-                            <script>
-                                var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
+                    <div class="col-lg-6">
+                        <label for="last">Apellido<span>*</span></label>
+                        <input type="text" id="last" class="form-control" pattern="[A-Za-z\s]{1,}" value="{% if cliente.cl_last_name != None %}{{cliente.cl_last_name}}{% endif %}" oninput="validate_last(this)" required>
+                    </div>
+                    <div class="col-lg-12">
+                        <label for="street">Dirección (Seleccione en el mapa y luego corrija el texto)<span>*</span></label>
+                        <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
+                    </div>
+                    <div class="col-lg-12">
+                        <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
+                        <div id="mapid"></div>
+                        <script>
+                            var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
+                        
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+                        
+                            const customMarkerIcon = L.AwesomeMarkers.icon({
+                                "extraClasses": "fa-rotate-0", 
+                                "icon": "shopping-cart", 
+                                "iconColor": "white", 
+                                "markerColor": "orange", 
+                                "prefix": "glyphicon"
+                            });
                             
-                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                }).addTo(map);
-                            
-                                const customMarkerIcon = L.AwesomeMarkers.icon({
-                                    "extraClasses": "fa-rotate-0", 
-                                    "icon": "shopping-cart", 
-                                    "iconColor": "white", 
-                                    "markerColor": "orange", 
-                                    "prefix": "glyphicon"
-                                });
+                            var marker;
+                            map.on('click', function (e) {
+                                // When click on the map
+                                document.getElementById("geolocation").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
+                                // Get address with reverse geocoding
+                                const Http = new XMLHttpRequest();
+                                const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
+                                        '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
+                                        '&mode=retrieveAddresses'+
+                                        '&prox='
+                                        +e.latlng.lat+','+e.latlng.lng+',250';
+                                Http.open("GET", url);
+                                Http.send();
+                                Http.onreadystatechange = (e) => {
+                                    const address_json = JSON.parse( Http.responseText );
+                                    document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
+                                };
+                                if (marker) { // check if marker already exists
+                                    map.removeLayer(marker); // remove existing marker
+                                }
+                                marker = new L.marker(e.latlng, {draggable:'true'});
                                 
-                                var marker;
-                                map.on('click', function (e) {
-                                    // When click on the map
-                                    document.getElementById("geolocation").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
-                                    // Get address with reverse geocoding
+                                // When drops after dragging
+                                marker.on('dragend', function(event){
+                                    var marker = event.target;
+                                    var position = marker.getLatLng();
+                                    marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
+                                    map.panTo(new L.LatLng(position.lat, position.lng));
+                                    document.getElementById("geolocation").value = 'SRID=4326;POINT ('+position.lng+' '+position.lat+')';
                                     const Http = new XMLHttpRequest();
                                     const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
                                             '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
                                             '&mode=retrieveAddresses'+
                                             '&prox='
-                                            +e.latlng.lat+','+e.latlng.lng+',250';
+                                            +position.lat+','+position.lng+',250';
                                     Http.open("GET", url);
                                     Http.send();
                                     Http.onreadystatechange = (e) => {
                                         const address_json = JSON.parse( Http.responseText );
                                         document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                     };
-                                    if (marker) { // check if marker already exists
-                                        map.removeLayer(marker); // remove existing marker
-                                    }
-                                    marker = new L.marker(e.latlng, {draggable:'true'});
                                     
-                                    // When drops after dragging
-                                    marker.on('dragend', function(event){
-                                        var marker = event.target;
-                                        var position = marker.getLatLng();
-                                        marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
-                                        map.panTo(new L.LatLng(position.lat, position.lng));
-                                        document.getElementById("geolocation").value = 'SRID=4326;POINT ('+position.lng+' '+position.lat+')';
-                                        const Http = new XMLHttpRequest();
-                                        const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
-                                                '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
-                                                '&mode=retrieveAddresses'+
-                                                '&prox='
-                                                +position.lat+','+position.lng+',250';
-                                        Http.open("GET", url);
-                                        Http.send();
-                                        Http.onreadystatechange = (e) => {
-                                            const address_json = JSON.parse( Http.responseText );
-                                            document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
-                                        };
-                                        
-                                        
-                                    });
-                                    map.addLayer(marker);
                                     
                                 });
-                                //map.on('click', onMapClick);
-                            </script>
-                        </div>
-                        <div class="col-lg-6">
-                            <label for="email">Email<span>*</span></label>
-                            <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
-                        </div>
-                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
-                        <style>
-                            /* Chrome, Safari, Edge, Opera */
-                            input::-webkit-outer-spin-button,
-                            input::-webkit-inner-spin-button {
-                              -webkit-appearance: none;
-                              margin: 0;
-                            }
-                            /* Firefox */
-                            input[type=number] {-moz-appearance: textfield;}
-                        </style>
-                        <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
-                        <div class="col-lg-6">
-                            <label for="phone">Celular<span>*</span></label>
-                            <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_phone != None %}{{cliente.cl_phone}}{% endif %}" oninput="validate_phone(this)" required>
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="comments">Comentarios para la bodega</label>
-                            <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
-                        </div>
-                        <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
-                        {% if cliente.cl_user != None %}
-                        <div class="col-lg-12">
-                            <div class="create-item">
-                                <label for="acc-create">
-                                    ¿Desea guardar sus datos?
-                                    <input type="checkbox" id="acc-create">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        {% endif %}
+                                map.addLayer(marker);
+                                
+                            });
+                            //map.on('click', onMapClick);
+                        </script>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    {% if user.is_authenticated == False %}
-                    <div class="checkout-content">
-                        <a href="/register" class="content-btn">Regístrese</a>
+                    <div class="col-lg-6">
+                        <label for="email">Email<span>*</span></label>
+                        <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
+                    </div>
+                    <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER BEGIN -->
+                    <style>
+                        /* Chrome, Safari, Edge, Opera */
+                        input::-webkit-outer-spin-button,
+                        input::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+                        /* Firefox */
+                        input[type=number] {-moz-appearance: textfield;}
+                    </style>
+                    <!-- TO HIDE ARROWS IN INPUT TYPE NUMBER END -->
+                    <div class="col-lg-6">
+                        <label for="phone">Celular<span>*</span></label>
+                        <input type="text" id="phone" class="form-control" name="phone" pattern="^[0-9]*$" maxlength="9" value="{% if cliente.cl_phone != None %}{{cliente.cl_phone}}{% endif %}" oninput="validate_phone(this)" required>
+                    </div>
+                    <div class="col-lg-12">
+                        <label for="comments">Comentarios para la bodega</label>
+                        <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
+                    </div>
+                    <!-- CHECK TO UPDATE CLIENT PERSONAL INFORMATION -->
+                    {% if cliente.cl_user != None %}
+                    <div class="col-lg-12">
+                        <div class="create-item">
+                            <label for="acc-create">
+                                ¿Desea guardar sus datos?
+                                <input type="checkbox" id="acc-create">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
                     </div>
                     {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6">
 
-                    <!-- CHECKOUT CART SECTION BEGIN -->
-                    <script>
-                        function getCookie(name) {
-                            var cookieValue = null;
-                            if (document.cookie && document.cookie !== '') {
-                                var cookies = document.cookie.split(';');
-                                for (var i = 0; i < cookies.length; i++) {
-                                    var cookie = jQuery.trim(cookies[i]);
-                                    // Does this cookie string begin with the name we want?
-                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                        break;
-                                    }
+                <!-- CHECKOUT CART SECTION BEGIN -->
+                <script>
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
                                 }
                             }
-                            return cookieValue;
                         }
-                    </script>
-                    <div class="place-order">
-                        <h4>Su pedido</h4>
-                        {% for bodega in bodegas_en_cesta %}
-                            <div class="order-total">
-                                <div class="row" style="background-color:#e7ab3c;color:#ffffff;text-transform:uppercase">
-                                    <div class="col-12">
-                                        <span>{{ bodega }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <ul class="order-table">
-                                            <table class="fw-normal" border="4" bordercolor="#808080" frame="hsides" rules="rows" style="width:100%">
-                                                <tr>
-                                                    <th style="width:60%;text-align:Left">
-                                                        Producto
-                                                    </th>
-                                                    <th style="width:10%;text-align:left">
-                                                        P.U.(S/.)
-                                                    </th>
-                                                    <th style="width:10%;text-align:center">
-                                                        Cant.
-                                                    </th>
-                                                    <th style="width:20%;text-align:right">
-                                                        Subtotal
-                                                    </th>
-                                                </tr>
-                                                {% load humanize %}
-                                                {% for product in cart_list %}
-                                                    {% if product.ci_product.peb_bodega == bodega %}
-                                                        <tr>
-                                                            <th style="width:60%;text-align:Left">
-                                                                {{product.ci_product.peb_product.pa_product}}
-                                                            </td>
-                                                            <td style="width:10%;text-align:left">
-                                                                {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                                                {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
-                                                            </td>
-                                                            <td style="width:15%;text-align:center">
-                                                                {{product.ci_quantity}}
-                                                            </td>
-                                                            <td style="width:20%;text-align:right">
-                                                                <span>
-                                                                    S/.
-                                                                    <script type="text/javascript">
-                                                                        var True = true, False = false;
-                                                                        var p_quantity = {{ product.ci_quantity }};
-                                                                        if ( {{product.ci_product.peb_discount_status}} === true ){
-                                                                            var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                        } else {
-                                                                            var p_price = {{ product.ci_product.peb_regular_price }};
-                                                                        };
-                                                                        document.write((p_price*p_quantity).toFixed(2));
-                                                                    </script>
-                                                                </span>
-                                                            </td>
-                                                            <td style="width:10%;text-align:right">
-                                                                <script>
-                                                                    var csrftoken = getCookie('csrftoken');
-                                                                    function delete_item(item_pk) {
-                                                                        $.ajax({
-                                                                            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                                                                            url: "/remove",
-                                                                            type: "POST",
-                                                                            dataType: "json",
-                                                                            data:   {
-                                                                                        'csrfmiddlewaretoken': csrftoken,
-                                                                                        'item_pk': item_pk,
-                                                                                        'url_to_redirect': window.location.href
-                                                                                    },
-                                                                            success: function(){
-                                                                                location.reload();
-                                                                            },
-                                                                            error: function(){
-                                                                                location.reload();
-                                                                            }
-                                                                        });
-                                                                    }
-                                                                </script>
-                                                                <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"><i class="ti-close"></i></button>
-                                                                
-                                                            </td>
-                                                        </tr>
-                                                    {% endif %}
-                                                {% endfor %}
-                                                <tr><th style="height:3px;"></th></tr> <!-- adding one extra line-->
-                                                <tr>
-                                                    <th style="width:60%;text-align:Left">
-                                                        SUBTOTAL EN ESTA BODEGA
-                                                    </th>
-                                                    <th style="width:10%;text-align:left">
-                                                    </th>
-                                                    <th style="width:10%;text-align:center">
-                                                    </th>
-                                                    <th style="width:20%;text-align:right">
-                                                        <span>
-                                                            S/.
-                                                            {% for key, value in subtotal_bodegas.items %}
-                                                                {% if bodega.bd_ruc == key %}
-                                                                    {{value|floatformat:2|intcomma}}
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </span>
-                                                    </th>
-                                                </tr>
-                                            </table>
-                                        </ul>
-                                    </div>
+                        return cookieValue;
+                    }
+                </script>
+                <div class="place-order">
+                    <h4>Su pedido</h4>
+                    {% for bodega in bodegas_en_cesta %}
+                        <div class="order-total">
+                            <div class="row" style="background-color:#e7ab3c;color:#ffffff;text-transform:uppercase">
+                                <div class="col-12">
+                                    <span>{{ bodega }}</span>
                                 </div>
                             </div>
-                        {% endfor %}
-                        <div class="order-total">
-                            <ul class="order-table" style="color:#252525;font-size:16px;text-transform:uppercase;font-weight:1000">
-                                Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
-                            </ul>
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="order-table">
+                                        <table class="fw-normal" border="4" bordercolor="#808080" frame="hsides" rules="rows" style="width:100%">
+                                            <tr>
+                                                <th style="width:60%;text-align:Left">
+                                                    Producto
+                                                </th>
+                                                <th style="width:10%;text-align:left">
+                                                    P.U.(S/.)
+                                                </th>
+                                                <th style="width:10%;text-align:center">
+                                                    Cant.
+                                                </th>
+                                                <th style="width:20%;text-align:right">
+                                                    Subtotal
+                                                </th>
+                                            </tr>
+                                            {% load humanize %}
+                                            {% for product in cart_list %}
+                                                {% if product.ci_product.peb_bodega == bodega %}
+                                                    <tr>
+                                                        <th style="width:60%;text-align:Left">
+                                                            {{product.ci_product.peb_product.pa_product}}
+                                                        </td>
+                                                        <td style="width:10%;text-align:left">
+                                                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                                        </td>
+                                                        <td style="width:15%;text-align:center">
+                                                            {{product.ci_quantity}}
+                                                        </td>
+                                                        <td style="width:20%;text-align:right">
+                                                            <span>
+                                                                S/.
+                                                                <script type="text/javascript">
+                                                                    var True = true, False = false;
+                                                                    var p_quantity = {{ product.ci_quantity }};
+                                                                    if ( {{product.ci_product.peb_discount_status}} === true ){
+                                                                        var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                    } else {
+                                                                        var p_price = {{ product.ci_product.peb_regular_price }};
+                                                                    };
+                                                                    document.write((p_price*p_quantity).toFixed(2));
+                                                                </script>
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:10%;text-align:right">
+                                                            <script>
+                                                                var csrftoken = getCookie('csrftoken');
+                                                                function delete_item(item_pk) {
+                                                                    $.ajax({
+                                                                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                                                                        url: "/remove",
+                                                                        type: "POST",
+                                                                        dataType: "json",
+                                                                        data:   {
+                                                                                    'csrfmiddlewaretoken': csrftoken,
+                                                                                    'item_pk': item_pk,
+                                                                                    'url_to_redirect': window.location.href
+                                                                                },
+                                                                        success: function(){
+                                                                            location.reload();
+                                                                        },
+                                                                        error: function(){
+                                                                            location.reload();
+                                                                        }
+                                                                    });
+                                                                }
+                                                            </script>
+                                                            <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"><i class="ti-close"></i></button>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <tr><th style="height:3px;"></th></tr> <!-- adding one extra line-->
+                                            <tr>
+                                                <th style="width:60%;text-align:Left">
+                                                    SUBTOTAL EN ESTA BODEGA
+                                                </th>
+                                                <th style="width:10%;text-align:left">
+                                                </th>
+                                                <th style="width:10%;text-align:center">
+                                                </th>
+                                                <th style="width:20%;text-align:right">
+                                                    <span>
+                                                        S/.
+                                                        {% for key, value in subtotal_bodegas.items %}
+                                                            {% if bodega.bd_ruc == key %}
+                                                                {{value|floatformat:2|intcomma}}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="order-btn">
-                            <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout(); return false">Comprar</button>
-                            <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
-                        </div>
+                    {% endfor %}
+                    <div class="order-total">
+                        <ul class="order-table" style="color:#252525;font-size:16px;text-transform:uppercase;font-weight:1000">
+                            Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
+                        </ul>
                     </div>
-                    <!-- CHECKOUT CART SECTION END -->
+                    <div class="order-btn">
+                        <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout(); return false">Comprar</button>
+                        <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
+                    </div>
                 </div>
-            </div>
-        </form>
-        
-        <!-- Modal -->
-        <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="popupModalLabel">Trail</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body" id="popupModalBody" style="text-align:left;">
-                ...
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+                <!-- CHECKOUT CART SECTION END -->
             </div>
         </div>
+    </form>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="popupModalLabel">Trail</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="popupModalBody" style="text-align:left;">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>
 
-        <script type="text/javascript">
-            function submit_checkout() {
-                cart_obj_id = {{ cart_obj.crt_ID }};
-                usr_first = document.getElementById("fir").value;
-                usr_last = document.getElementById("last").value;
-                usr_street = document.getElementById("street").value;
-                usr_geolocation = document.getElementById("geolocation").value;
-                usr_email = document.getElementById("email").value;
-                usr_phone = document.getElementById("phone").value;
-                usr_comments = document.getElementById("comments").value;
+    <script type="text/javascript">
+        function submit_checkout() {
+            cart_obj_id = {{ cart_obj.crt_ID }};
+            usr_first = document.getElementById("fir").value;
+            usr_last = document.getElementById("last").value;
+            usr_street = document.getElementById("street").value;
+            usr_geolocation = document.getElementById("geolocation").value;
+            usr_email = document.getElementById("email").value;
+            usr_phone = document.getElementById("phone").value;
+            usr_comments = document.getElementById("comments").value;
 
-                if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 && usr_geolocation != "") {
-                    // submit with AJAX
-                    $.ajax({
-                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                        url: "/submit_checkout",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            'csrfmiddlewaretoken': csrftoken,
-                            'cart_obj_id': cart_obj_id.toString(),
-                            'usr_first': usr_first,
-                            'usr_last': usr_last,
-                            'usr_street': usr_street,
-                            'usr_geolocation': usr_geolocation,
-                            'usr_email': usr_email,
-                            'usr_phone': usr_phone,
-                            'usr_comments': usr_comments,
-                            // spare line to send confirmation if user wants to update his preferences
-                        },
-                        success: function(response){
-                            var msg = "";
-                            /*
-                            try {
-                                var res = response.success.length;
-                                console.log(res);
-                            } catch(err) {
-                                console.log(err.message);
-                            }
-                            */
+            if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 && usr_geolocation != "") {
+                // submit with AJAX
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/submit_checkout",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        'csrfmiddlewaretoken': csrftoken,
+                        'cart_obj_id': cart_obj_id.toString(),
+                        'usr_first': usr_first,
+                        'usr_last': usr_last,
+                        'usr_street': usr_street,
+                        'usr_geolocation': usr_geolocation,
+                        'usr_email': usr_email,
+                        'usr_phone': usr_phone,
+                        'usr_comments': usr_comments,
+                        // spare line to send confirmation if user wants to update his preferences
+                    },
+                    success: function(response){
+                        var msg = "";
+                        /*
+                        try {
+                            var res = response.success.length;
+                            console.log(res);
+                        } catch(err) {
+                            console.log(err.message);
+                        }
+                        */
 
-                            if (response.success.length == 0) { // This triggers when at least there is one item in the basket
-                                $("#popupModalLabel").html('');
-                                $("#popupModalLabel").append('Su compra ha sido procesada');
-                                $("#popupModalBody").html('');
-                                $("#popupModalBody").append('Gracias por su compra');
-                                $('#popup_modal').modal({ show: true });
-                                location.reload();
-                            } else if (response.success.length > 0) {
-                                for (i = 0; i < response.success.length; i++) {
-                                    msg += "<li>" + String(response.success[i]) + "</li>"
-                                };
-                                $("#popupModalLabel").html('');
-                                $("#popupModalLabel").append('Su compra ha sido procesada');
-                                $("#popupModalBody").html('');
-                                $("#popupModalBody").append('Gracias por su compra.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
-                                $('#popup_modal').modal({ show: true });
-                            }
-                        },
-                        error: function(response){ // This triggers in case all items in the basket get unavailable
-                            var msg = "";
-                            for (i = 0; i < response.responseJSON.error.length; i++) {
-                                msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
+                        if (response.success.length == 0) { // This triggers when at least there is one item in the basket
+                            $("#popupModalLabel").html('');
+                            $("#popupModalLabel").append('Su compra ha sido procesada');
+                            $("#popupModalBody").html('');
+                            $("#popupModalBody").append('Gracias por su compra');
+                            $('#popup_modal').modal({ show: true });
+                            location.reload();
+                        } else if (response.success.length > 0) {
+                            for (i = 0; i < response.success.length; i++) {
+                                msg += "<li>" + String(response.success[i]) + "</li>"
                             };
                             $("#popupModalLabel").html('');
-                            $("#popupModalLabel").append('No ha podido procesarse su compra');
+                            $("#popupModalLabel").append('Su compra ha sido procesada');
                             $("#popupModalBody").html('');
-                            $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                            $("#popupModalBody").append('Gracias por su compra.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                             $('#popup_modal').modal({ show: true });
                         }
-                    });
-                } else if ({{cart_obj.crt_total_price}} == 0) { // In case basket is empty
-                    alert("Su cesta se encuentra vacía");
-                } else {
-                    alert("Seleccione en el mapa su ubicación"); // In case missing to select position
-                }
+                    },
+                    error: function(response){ // This triggers in case all items in the basket get unavailable
+                        var msg = "";
+                        for (i = 0; i < response.responseJSON.error.length; i++) {
+                            msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
+                        };
+                        $("#popupModalLabel").html('');
+                        $("#popupModalLabel").append('No ha podido procesarse su compra');
+                        $("#popupModalBody").html('');
+                        $("#popupModalBody").append('Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                        $('#popup_modal').modal({ show: true });
+                    }
+                });
+            } else if ({{cart_obj.crt_total_price}} == 0) { // In case basket is empty
+                alert("Su cesta se encuentra vacía");
+            } else {
+                alert("Seleccione en el mapa su ubicación"); // In case missing to select position
             }
-        </script>
-    </div>
-</section>
+        }
+    </script>
+</div>
 <!-- Shopping Cart Section End -->
 
 <!-- BENEFICIOS -->
