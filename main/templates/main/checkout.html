@@ -130,7 +130,7 @@
                         <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                     </div>
                 </div>
-                <div class="row" style="text-align:Left">
+                <div class="row" style="text-align:center">
                     <div class="col s12">
                         <input type="text" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                         <div id="map_cart" style="height:50vh;width:100%;"></div>
