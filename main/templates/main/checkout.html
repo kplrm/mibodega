@@ -130,10 +130,10 @@
                         <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12" style="text-align:center">
+                <div class="row" style="text-align:center">
+                    <div class="col s12">
                         <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                        <div id="map_cart" style="height:50vh;width:auto ;"></div>
+                        <div id="map_cart" style="height:50vh;width:auto;overflow-wrap: normal;"></div>
                         <script>
                             // To get reverse geolocation and update user's current location
                             function reverse_geolocation(latitude, longitude) {
