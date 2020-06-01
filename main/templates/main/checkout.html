@@ -133,13 +133,13 @@
                 <div class="row" style="text-align:Left">
                     <div class="col s12">
                         <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                        <div id="mapid"></div>
+                        <div id="map_cart"></div>
                         <script>
-                            var map = L.map('mapid').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
+                            var mapcart = L.map('map_cart').setView([ {{user_location.y}}, {{user_location.x}} ], 15);
                         
                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            }).addTo(map);
+                            }).addTo(mapcart);
                         
                             const customMarkerIcon = L.AwesomeMarkers.icon({
                                 "extraClasses": "fa-rotate-0", 
@@ -150,8 +150,8 @@
                             });
                             
                             var marker;
-                            map.on('click', function (e) {
-                                // When click on the map
+                            mapcart.on('click', function (e) {
+                                // When click on the mapcart
                                 document.getElementById("geolocation").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
                                 // Get address with reverse geocoding
                                 const Http = new XMLHttpRequest();
@@ -167,7 +167,7 @@
                                     document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                 };
                                 if (marker) { // check if marker already exists
-                                    map.removeLayer(marker); // remove existing marker
+                                    mapcart.removeLayer(marker); // remove existing marker
                                 }
                                 marker = new L.marker(e.latlng, {draggable:'true'});
                                 
@@ -176,7 +176,7 @@
                                     var marker = event.target;
                                     var position = marker.getLatLng();
                                     marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
-                                    map.panTo(new L.LatLng(position.lat, position.lng));
+                                    mapcart.panTo(new L.LatLng(position.lat, position.lng));
                                     document.getElementById("geolocation").value = 'SRID=4326;POINT ('+position.lng+' '+position.lat+')';
                                     const Http = new XMLHttpRequest();
                                     const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
@@ -193,10 +193,10 @@
                                     
                                     
                                 });
-                                map.addLayer(marker);
+                                mapcart.addLayer(marker);
                                 
                             });
-                            //map.on('click', onMapClick);
+                            //mapcart.on('click', onMapClick);
                         </script>
                     </div>
                 </div>
