@@ -188,7 +188,10 @@
                                                     </tr>
                                                     <tr class="border-0">
                                                         <th class="border-0" style="text-align:right;">Ubica tu bodega en el mapa.</th>
-                                                        <th class="border-0" style="text-align:left;">Búscala y haz click.
+                                                        <th class="border-0" style="text-align:left;"><!--Búscala y haz click.-->
+                                                            <a class="btn" onclick="getCurrentLocation()" name="myshop_btn" id="myshop_btn" style="padding:0px 10px 0px 10px;background-color:#feb100;">
+                                                                <i class="material-icons" style="Margin:-10px 0px 0px 0px;color:black;">gps_fixed</i>
+                                                            </a>
                                                             <input type="hidden" class="form-control" id="bd_geolocation_lat" value="{{ bodega.bd_geolocation.y }}">
                                                             <input type="hidden" class="form-control" id="bd_geolocation_lng" value="{{ bodega.bd_geolocation.x }}">
                                                         </th>
@@ -274,6 +277,36 @@
         alert("Sorry, browser does not support geolocation!");
         }
     }
+    // Request user current location
+    function getCurrentLocation() {
+        if(navigator.geolocation) {
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showCurrentLocation, errorHandler, options);
+        } else {
+            alert("Sorry, browser does not support geolocation!");
+        }
+    };
+    // Permission granted. Get user location
+    function showCurrentLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        document.getElementById("bd_geolocation_lat").value = latitude;
+        document.getElementById("bd_geolocation_lng").value = longitude;
+        //map.invalidateSize();
+        map.panTo(new L.LatLng(latitude, longitude));
+        // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                //update_user_location(event.target._latlng.lat,event.target._latlng.lng);
+                //onMapMoveEnd();
+            }).addTo(map);
+        map.addLayer(marker);
+        save_mibodega_changes();
+    }
     function bd_activity(input) {
         if(input.checked == true) {
             $("#bodega_is_active").html('');
@@ -295,13 +328,6 @@
         save_mibodega_changes();
     }
     function bd_delivery_type_f(input) {
-        /*if(input.value == "option1" && input.checked == true) {
-            $("#bd_delivery_type_1").checked = true;
-            $("#bd_delivery_type_2").checked = false;
-        } else if(input.value == "option2" && input.checked == true) {
-            $("#bd_delivery_type_1").checked = false;
-            $("#bd_delivery_type_2").checked = true;
-         } else {};*/
         save_mibodega_changes();
     }
 </script>
