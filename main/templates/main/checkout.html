@@ -158,14 +158,14 @@
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
                                 });
-                                //reverse_geolocation(parseFloat("{{ cliente.cl_geolocation.y }}"), parseFloat("{{ cliente.cl_geolocation.x }}"));
+                                reverse_geolocation(parseFloat("{{ cliente.cl_geolocation.y }}"), parseFloat("{{ cliente.cl_geolocation.x }}"));
                             } else {
                                 var mapcart = L.map('map_cart').setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
                                 var marker_client = new L.marker(["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
                                 });
-                                //reverse_geolocation(parseFloat("{{ user_location.y }}"), parseFloat("{{ user_location.x }}"));
+                                reverse_geolocation(parseFloat("{{ user_location.y }}"), parseFloat("{{ user_location.x }}"));
                             }
                             mapcart.addLayer(marker_client);
 
