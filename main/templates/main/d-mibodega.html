@@ -221,7 +221,12 @@
     var marker;
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
         var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
-        marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"]);
+        marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"], {draggable:'true'})
+        .on('dragend', function(event){
+                document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
+                document.getElementById("bd_geolocation_lng").value = event.target._latlng.lng;
+                save_mibodega_changes();
+            });
         map.addLayer(marker);
     } else {
         var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
