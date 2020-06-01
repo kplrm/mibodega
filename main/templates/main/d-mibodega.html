@@ -22,6 +22,14 @@
 </header>
 <!-- Header End -->
 
+<!-- STYLE CORRECTION TO SHOW RADIO BUTTONS -->
+<style>
+    input[type="radio"] {
+        display: inline-flex;
+    }
+</style>
+<!-- STYLE CORRECTION TO SHOW RADIO BUTTONS -->
+
 <div class="dashboard-main-wrapper">
     <!-- ============================================================== -->
     <!-- wrapper  -->
@@ -158,22 +166,6 @@
                                                             {% endif %}
                                                         </th>
                                                     </tr>
-                                                    <tr>
-                                                        <th>
-                                                            <style>
-                                                                input[type="radio"] {
-                                                                    display: inline-flex;
-                                                                }
-                                                            </style>
-                                                            <input type="radio">
-                                                            <input type="radio" id="male" name="gender" value="male">
-                                                            <label for="male">Male</label><br>
-                                                            <input type="radio" id="female" name="gender" value="female">
-                                                            <label for="female">Female</label><br>
-                                                            <input type="radio" id="other" name="gender" value="other">
-                                                            <label for="other">Other</label>
-                                                        </th>
-                                                    </tr>
                                                     <tr class="border-0">
                                                         <th class="border-0" style="text-align:right;">¿Cuánto cuesta el delivery?</th>
                                                         <th class="border-0" style="text-align:left;">
@@ -302,11 +294,11 @@
     }
     function bd_delivery_type_f(input) {
         if(input.value == "option1" && input.checked == true) {
-            $("#bd_delivery_type").html('');
-            $("#bd_delivery_type").append('<td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type" value="option1" onclick="bd_delivery_type_f(this)" checked/><label class="form-check-label" for="bd_delivery_type">Sí, siempre tiene el mismo costo.</label></td><td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type" value="option2" onclick="bd_delivery_type_f(this)"/><label class="form-check-label" for="bd_delivery_type">Sí, pero es gratis a partir de un monto.</label></td>');
+            $("#bd_delivery_type_1").checked = true;
+            $("#bd_delivery_type_2").checked = flase;
         } else if(input.value == "option2" && input.checked == true) {
-            $("#bd_delivery_type").html('');
-            $("#bd_delivery_type").append('<td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/><label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label></td><td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_2" value="option2" onclick="bd_delivery_type_f(this)" checked/><label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label></td>');
+            $("#bd_delivery_type_1").checked = false;
+            $("#bd_delivery_type_2").checked = true;
          } else {};
         save_mibodega_changes();
     }
