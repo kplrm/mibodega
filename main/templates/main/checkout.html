@@ -155,7 +155,7 @@
                                 "prefix": "glyphicon"
                             });*/
                             
-                            var marker;
+                            var marker_client;
                             mapcart.on('click', function (e) {
                                 // When click on the mapcart
                                 document.getElementById("geolocation").value = 'SRID=4326;POINT ('+e.latlng.lng+' '+e.latlng.lat+')';
@@ -172,16 +172,16 @@
                                     const address_json = JSON.parse( Http.responseText );
                                     document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                 };
-                                if (marker) { // check if marker already exists
-                                    mapcart.removeLayer(marker); // remove existing marker
+                                if (marker_client) { // check if marker_client already exists
+                                    mapcart.removeLayer(marker_client); // remove existing marker_client
                                 }
-                                marker = new L.marker(e.latlng, {draggable:'true'});
+                                marker_client = new L.marker(e.latlng, {draggable:'true'});
                                 
                                 // When drops after dragging
-                                marker.on('dragend', function(event){
-                                    var marker = event.target;
-                                    var position = marker.getLatLng();
-                                    marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
+                                marker_client.on('dragend', function(event){
+                                    var marker_client = event.target;
+                                    var position = marker_client.getLatLng();
+                                    marker_client.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
                                     mapcart.panTo(new L.LatLng(position.lat, position.lng));
                                     document.getElementById("geolocation").value = 'SRID=4326;POINT ('+position.lng+' '+position.lat+')';
                                     const Http = new XMLHttpRequest();
@@ -199,7 +199,7 @@
                                     
                                     
                                 });
-                                mapcart.addLayer(marker);
+                                mapcart.addLayer(marker_client);
                                 
                             });
                             //mapcart.on('click', onMapClick);
