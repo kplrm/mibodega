@@ -860,6 +860,7 @@ def registroBodega(request):
             client.cl_last_name = user.last_name
             client.cl_email = user.email
             client.cl_is_bodega = True
+            client.cl_terms = True
             cl_form.save(commit=True)
             bodega = bd_form.save(commit=False)
             bodega.bd_user = client
