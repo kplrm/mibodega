@@ -179,7 +179,7 @@
 
                                 reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                                 if (marker_client) {mapcart.removeLayer(marker_client);};
-                                marker_client = new L.marker(e.latlng, {draggable:'true'})
+                                marker_client = new L.marker( ["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);});
                                 mapcart.addLayer(marker_client);
                             }
