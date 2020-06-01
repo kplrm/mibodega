@@ -327,7 +327,10 @@
             bd_delivery = document.getElementById("bd_delivery").checked;
             bd_delivery_type_1 = document.getElementById("bd_delivery_type_1").checked;
             bd_delivery_type_2 = document.getElementById("bd_delivery_type_2").checked;
-            if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = false} else {bd_delivery_type = true}
+            console.log(bd_delivery_type_1);
+            console.log(bd_delivery_type_2);
+            if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = true} else {bd_delivery_type = false}
+            console.log(bd_delivery_type);
             bd_delivery_cost = document.getElementById("bd_delivery_cost").value;
             bd_delivery_free_starting_on = document.getElementById("bd_delivery_free_starting_on").value;
             bd_delivery_conditions = document.getElementById("bd_delivery_conditions").value;
