@@ -572,16 +572,17 @@ def vegetales(request):
 def checkout(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = -77.0427934
+        user_latitude = -12.046374
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
     # Check if user is logged in
     if request.user.is_authenticated:
