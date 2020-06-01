@@ -139,6 +139,20 @@
                                 var mapcart = L.map('map_cart').setView([ parseFloat("{{cliente.cl_geolocation.y}}"), parseFloat("{{cliente.cl_geolocation.x}}") ], 15);
                                 var marker_client = new L.marker(["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
+                                    mapcart.panTo(new L.LatLng(event.target._latlng.lat, event.target._latlng.lng));
+                                    document.getElementById("geolocation").value = 'SRID=4326;POINT ('+event.target._latlng.lng+' '+event.target._latlng.lat+')';
+                                    const Http = new XMLHttpRequest();
+                                    const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
+                                            '?apiKey=BVDjzA8alE1JmhleAW9EQPOD261SOClD-DjbwCEos4U'+
+                                            '&mode=retrieveAddresses'+
+                                            '&prox='
+                                            +event.target._latlng.lat+','+event.target._latlng.lng+',250';
+                                    Http.open("GET", url);
+                                    Http.send();
+                                    Http.onreadystatechange = (e) => {
+                                        const address_json = JSON.parse( Http.responseText );
+                                        document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
+                                    };
                                 });
                             } else {
                                 //var mapcart = L.map('map_cart').setView([ -12.046374, -77.0427934 ], 15);
