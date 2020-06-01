@@ -235,26 +235,29 @@
     //map.addLayer(marker);
 
     const customMarkerIcon = L.AwesomeMarkers.icon({
-        "extraClasses": "fa-rotate-0", 
-        "icon": "shopping-cart", 
-        "iconColor": "white", 
-        "markerColor": "orange", 
-        "prefix": "glyphicon"
+        "icon": "fa-shopping-basket",
+        "prefix": "fa",
+        "markerColor": "orange",
+        "iconColor": "white",
+        "extraClasses": "fa-rotate-0"
     });
     
     function onMapClick(e) {
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker(e.latlng).addTo(map);
+        marker = new L.marker(e.latlng, {draggable:'true'})
+        .on('dragend', function(event){
+                document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
+                document.getElementById("bd_geolocation_lng").value = event.target._latlng.lng;
+                save_mibodega_changes();
+            }).addTo(map);
         document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
         document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
         save_mibodega_changes();
     }
     map.on('click', onMapClick);
 
-    // Get geolocation on page load
-    //getLocation();
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
@@ -301,8 +304,9 @@
         };
         marker = new L.marker([ latitude, longitude ], {draggable:'true'})
             .on('dragend', function(event){
-                //update_user_location(event.target._latlng.lat,event.target._latlng.lng);
-                //onMapMoveEnd();
+                document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
+                document.getElementById("bd_geolocation_lng").value = event.target._latlng.lng;
+                save_mibodega_changes();
             }).addTo(map);
         map.addLayer(marker);
         save_mibodega_changes();
