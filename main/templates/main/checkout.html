@@ -155,6 +155,7 @@
                             if ("{{cliente.cl_geolocation}}" != "None") {
                                 console.log("cliente");
                                 var mapcart = L.map('map_cart').setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
+                                mapcart.panTo(["{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}"]);
                                 var marker_client = new L.marker(["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
@@ -163,6 +164,7 @@
                             } else {
                                 console.log("userlocation");
                                 var mapcart = L.map('map_cart').setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
+                                mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"]);
                                 var marker_client = new L.marker(["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
