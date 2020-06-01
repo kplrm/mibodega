@@ -135,9 +135,10 @@
                         <input type="text" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
                         <div id="map_cart" style="height:50vh;"></div>
                         <script>
+                            var marker_client;
                             function reverse_geolocation(latitude, longitude) {
-                                mapcart.panTo([latitude, longitude]);
                                 mapcart.invalidateSize();
+                                map.panTo(new L.LatLng(latitude, longitude));
                                 document.getElementById("geolocation").value = 'SRID=4326;POINT ('+longitude+' '+latitude+')';
                                 const Http = new XMLHttpRequest();
                                 const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
@@ -156,20 +157,26 @@
                                 console.log("cliente");
                                 var mapcart = L.map('map_cart').setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
                                 mapcart.panTo(["{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}"]);
-                                var marker_client = new L.marker(["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
+                                if (marker_client != undefined) {
+                                    mapcart.removeLayer(marker_client);
+                                };
+                                marker_client = new L.marker(["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
                                 });
-                                reverse_geolocation(parseFloat("{{ cliente.cl_geolocation.y }}"), parseFloat("{{ cliente.cl_geolocation.x }}"));
+                                reverse_geolocation("{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}");
                             } else {
                                 console.log("userlocation");
                                 var mapcart = L.map('map_cart').setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
                                 mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"]);
-                                var marker_client = new L.marker(["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
+                                if (marker_client != undefined) {
+                                    mapcart.removeLayer(marker_client);
+                                };
+                                marker_client = new L.marker(["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
                                     reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
                                 });
-                                reverse_geolocation(parseFloat("{{ user_location.y }}"), parseFloat("{{ user_location.x }}"));
+                                reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                             }
                             mapcart.addLayer(marker_client);
 
