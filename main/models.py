@@ -125,7 +125,7 @@ class ProductosEnBodega(models.Model):
 
         print("self.peb_regular_price:", self.peb_regular_price)
         print("self.peb_discount_price:", self.peb_discount_price)
-        if (float(self.peb_regular_price)>0) and (float(self.peb_discount_price)!=0) and self.peb_discount_price!=None:# and isinstance(self.peb_discount_price,float):
+        if (float(self.peb_regular_price)>0) and (float(self.peb_discount_price)>=0) and self.peb_discount_price!=None:# and isinstance(self.peb_discount_price,float):
             self.peb_discount_rate = (float(self.peb_discount_price)-float(self.peb_regular_price))/float(self.peb_regular_price)*100
         else:
             self.peb_discount_rate = 0
