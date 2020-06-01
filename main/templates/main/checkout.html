@@ -153,6 +153,7 @@
                                 };
                             };
                             if ("{{cliente.cl_geolocation}}" != "None") {
+                                console.log("cliente");
                                 var mapcart = L.map('map_cart').setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
                                 var marker_client = new L.marker(["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
@@ -160,6 +161,7 @@
                                 });
                                 reverse_geolocation(parseFloat("{{ cliente.cl_geolocation.y }}"), parseFloat("{{ cliente.cl_geolocation.x }}"));
                             } else {
+                                console.log("userlocation");
                                 var mapcart = L.map('map_cart').setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
                                 var marker_client = new L.marker(["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
                                 .on('dragend', function(event){
