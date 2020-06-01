@@ -133,7 +133,7 @@
                 <div class="row" style="text-align:Left">
                     <div class="col s12">
                         <input type="text" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                        <div id="map_cart" style="height:50vh;width:50%;"></div>
+                        <div id="map_cart" style="height:50vh;width:100%;"></div>
                         <script>
                             // To get reverse geolocation and update user's current location
                             function reverse_geolocation(latitude, longitude) {
@@ -163,8 +163,8 @@
 
                             if ("{{cliente.cl_geolocation}}" != "None") {
                                 console.log("cliente");
-                                mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
-                                //mapcart.panTo(["{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}"]);
+                                //mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
+                                mapcart.panTo(["{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}"], 15);
                                 if (marker_client != undefined) {
                                     mapcart.removeLayer(marker_client);
                                 };
@@ -175,8 +175,8 @@
                                 reverse_geolocation("{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}");
                             } else {
                                 console.log("userlocation");
-                                mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
-                                //mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"]);
+                                //mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15);
+                                mapcart.panTo(["{{user_location.y}}", "{{user_location.x}}"], 15);
                                 if (marker_client != undefined) {
                                     mapcart.removeLayer(marker_client);
                                 };
