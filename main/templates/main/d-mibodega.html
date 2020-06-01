@@ -138,7 +138,7 @@
                                                         <th class="border-0" style="text-align:right;">¿Tiene algún costo el delivery?</th>
                                                         <th class="border-0" style="text-align:left;">
                                                             {% if bodega.bd_delivery_type == True %}
-                                                                <tr>
+                                                            <tr id="bd_delivery_type">
                                                                     <td style="text-align: center;">
                                                                         <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type" value="option1" onclick="bd_delivery_type_f(this)" checked/>
                                                                         <label class="form-check-label" for="bd_delivery_type">Sí, siempre tiene el mismo costo.</label>
@@ -149,7 +149,7 @@
                                                                     </td>
                                                                 </tr>
                                                             {% else %}
-                                                                <tr>
+                                                                <tr id="bd_delivery_type">
                                                                     <td style="text-align: center;">
                                                                         <input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/>
                                                                         <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
@@ -286,6 +286,16 @@
             $("#bodega_delivery").html('');
             $("#bodega_delivery").append('<p id="bodega_delivery" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>');
         }
+        save_mibodega_changes();
+    }
+    function bd_delivery_type_f(input) {
+        if(input.value == "option1" && input.checked == true) {
+            $("#bd_delivery_type").html('');
+            $("#bd_delivery_type").append('<td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type" value="option1" onclick="bd_delivery_type_f(this)" checked/><label class="form-check-label" for="bd_delivery_type">Sí, siempre tiene el mismo costo.</label></td><td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type" value="option2" onclick="bd_delivery_type_f(this)"/><label class="form-check-label" for="bd_delivery_type">Sí, pero es gratis a partir de un monto.</label></td>');
+        } else if(input.value == "option2" && input.checked == true) {
+            $("#bd_delivery_type").html('');
+            $("#bd_delivery_type").append('<td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/><label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label></td><td style="text-align: center;"><input class="form-check form-check-input" name="group1" type="radio" id="bd_delivery_type_2" value="option2" onclick="bd_delivery_type_f(this)" checked/><label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label></td>');
+         } else {};
         save_mibodega_changes();
     }
 </script>
