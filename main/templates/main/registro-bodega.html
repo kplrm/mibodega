@@ -9,8 +9,7 @@
     <div class="container" style="margin-top: 10px;">
         <div class="breadcrumb-text">
             <a href="/"><i class="material-icons" style="margin-top: 10px;">home</i><span>Inicio</span></a>
-            <span> / Bodega</span>
-            
+            <span> / Bodega</span>            
         </div>
     </div>
 </div>
@@ -23,25 +22,33 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="register-form">
                     <h2>Regístrese</h2>
-
+                    <style>
+                        label{
+                            font-size: 1.5rem !important;
+                            color: black !important;
+                        }
+                    </style>
                     <form method="POST">
                         {% csrf_token %}
                         {% load widget_tweaks %}
                         <h4>
                             ¿Qué tipo de cuenta requieres?
                         </h4><br>
-                        <p>
-                            <label>
-                                <input class="with-gap" name="group1" type="radio" id="Cliente" onclick="change_account_type(this)" />
-                                <span>Cliente</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                <input class="with-gap" name="group1" type="radio" id="Bodega" onclick="change_account_type(this)" checked/>
-                                <span>Bodega</span>
-                            </label>
-                        </p>
+                        <h6>
+                            Una vez completado el registro como bodega, dentro de un plazo de 72 horas nos contactaremos con usted validar su información y activar su cuenta.<br><br> Recuerde que siempre estamos disponibles llamando al número <a href="tel:+51996618936">996618936</a> y en el correo <a href="mailto:hola@alimentos.pe">hola@alimentos.pe</a>
+                        </h6><br>
+                        <table>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <input class="with-gap" name="group1" type="radio" id="Cliente" onclick="change_account_type(this)" />
+                                    <span>Cliente</span>
+                                </td>
+                                <td style="text-align: center;">
+                                    <input class="with-gap" name="group1" type="radio" id="Bodega" onclick="change_account_type(this)" checked />
+                                    <span>Bodega</span>
+                                </td>
+                            </tr>
+                        </table>
 
                         {% for hidden_field in form.hidden_fields %}
                         {{ hidden_field }}
@@ -131,10 +138,19 @@
                             </div>
                         {% endfor %}
                         <!-- BODEGA FORM -->
-                        <button type="submit" class="site-btn register-btn">Registrar</button>
+                        <!-- TERMS AND CONDITIONS -->
+                        <div>
+                            <label>
+                                <input type="checkbox" class="filled-in" required/>
+                            </label>
+                            <span>Al registrarme acepto en su totalidad <a class="modal-trigger" data-target="user_agreement" style="color: blue;font-weight: bold;text-decoration: underline;" >contrato de adhesión</a>.</span><!--onclick="open_modal()"-->
+                            
+                        </div>
+                        <!-- TERMS AND CONDITIONS -->
+                        <button type="submit" class="btn" style="background-color:#feb100;color:black;font-weight:bold;">Registrar</button>
                     </form>
                     <div class="switch-login">
-                        <a href="/login.html" class="or-login">o inicie sesión</a>
+                        <a href="/login" class="or-login">o inicie sesión</a>
                     </div>
                 </div>
             </div>
@@ -142,8 +158,48 @@
     </div>
 </div>
 <!-- Register Form Section End -->
+<!-- MODAL -->
+<div id="user_agreement" class="modal modal-fixed-footer">
+    <div class="modal-content" style="padding: 7px 7px 7px 7px;">
+        <div class="row">
+            <div class="col s10" style="flex-basis: auto;">
+                <h5>Términos y condiciones</h5>
+            </div>
+            <div class="col s2" style="flex-basis: auto;">
+                <a class="btn-flat" name="close_modal" id="close_modal" onclick="close_modal()" style="background-color:#ffffff;vertical-align: top;">
+                    <i class="material-icons">close</i>
+                </a>
+            </div>
+        </div>
+        <div style="width: 100%;height:100%;">
+            <iframe src="{% static 'main/pdf/contrato-de-adhesion-alimentos.pe.pdf' %}" width="100%" height="100%" style="border:none;width:-webkit-fill-available;"></iframe>
+            <!--<object data="{% static 'main/pdf/contrato-de-adhesion-alimentos.pe.pdf' %}" type="application/pdf" style="width:-webkit-fill-available;height:100%;">
+                <embed src="{% static 'main/pdf/contrato-de-adhesion-alimentos.pe.pdf' %}" type="application/pdf"/>
+            </object>-->
+        </div>
+    </div>
+</div>
+<!-- MODAL END -->
 
 <script>
+    // Modal initialization
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.getElementById('user_agreement');
+        var instances = M.Modal.init(elems, {});
+    });
+    // Function to show modal
+    function open_modal() {
+        var elem = document.getElementById('user_agreement');
+        var instance = M.Modal.getInstance(elem);
+        instance.open();
+    }
+    // Function to hide modal
+    function close_modal() {
+        var elem = document.getElementById('user_agreement');
+        var instance = M.Modal.getInstance(elem);
+        instance.close();
+    }
+    // Switch between account creation forms
     function change_account_type(btn_cliente) {
         if (btn_cliente.id == "Bodega") {
             window.location.href = "/bodega"
@@ -154,4 +210,6 @@
         }
     }
 </script>
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
 {% endblock %}

@@ -863,7 +863,7 @@ def registroBodega(request):
             cl_form.save(commit=True)
             bodega = bd_form.save(commit=False)
             bodega.bd_user = client
-            bodega.bd_is_active = True
+            bodega.bd_is_active = False
             bodega.bd_email = client.cl_email
             bodega.bd_phone = client.cl_phone
             bodega = bd_form.save(commit=True)
