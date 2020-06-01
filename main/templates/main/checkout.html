@@ -161,22 +161,17 @@
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             }).addTo(mapcart);
 
+                            // In case client has geolocation
                             if ("{{cliente.cl_geolocation}}" != "None") {
-                                console.log("cliente");
-                                mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
-                                mapcart.panTo(["{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}"], 15);
-                                if (marker_client != undefined) {
-                                    mapcart.removeLayer(marker_client);
-                                };
-                                marker_client = new L.marker(["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
-                                .on('dragend', function(event){
-                                    reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);
-                                });
-                                reverse_geolocation("{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}");
+                                mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15, {paddingBottomRight: [50,50]});
+                                reverse_geolocation("{{ cliente.cl_geolocation.y }}","{{ cliente.cl_geolocation.x }}");
+                                if (marker_client) {mapcart.removeLayer(marker_client);};
+                                marker_client = new L.marker( ["{{ cliente.cl_geolocation.y }}", "{{ cliente.cl_geolocation.x }}"], {draggable:'true'})
+                                    .on('dragend', function(event){reverse_geolocation(event.target._latlng.lat, event.target._latlng.lng);});
+                                mapcart.addLayer(marker_client);
+                            // Retrieves session location
                             } else {
-                                console.log("userlocation");
                                 mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15, {paddingBottomRight: [50,50]});
-
                                 reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                                 if (marker_client) {mapcart.removeLayer(marker_client);};
                                 marker_client = new L.marker( ["{{ user_location.y }}", "{{ user_location.x }}"], {draggable:'true'})
