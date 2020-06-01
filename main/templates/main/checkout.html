@@ -132,8 +132,8 @@
                 </div>
                 <div class="row" style="text-align:center">
                     <div class="col s12">
-                        <input type="text" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                        <div id="map_cart" style="height:50vh;width:100%;"></div>
+                        <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
+                        <div id="map_cart" style="height:50vh;width:100%;padding-right: 20%;"></div>
                         <script>
                             // To get reverse geolocation and update user's current location
                             function reverse_geolocation(latitude, longitude) {
