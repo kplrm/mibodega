@@ -1208,7 +1208,7 @@ def mibodega(request):
             # Update changes
             cl_first_name = request.POST.get('cl_first_name',False)
             cl_last_name = request.POST.get('cl_last_name',False)
-            bd_is_active = request.POST.get('bd_is_active',False)
+            #bd_is_active = request.POST.get('bd_is_active',False)
             bd_name = request.POST.get('bd_name',False)
             bd_ruc = request.POST.get('bd_ruc',False)
             bd_raz_soc = request.POST.get('bd_raz_soc',False)
@@ -1216,10 +1216,10 @@ def mibodega(request):
             bd_phone = request.POST.get('bd_phone',False)
             bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
             bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
-            if bd_is_active == "true":
-                bd_is_active = True
-            else:
-                bd_is_active = False
+            #if bd_is_active == "true":
+            #    bd_is_active = True
+            #else:
+            #    bd_is_active = False
             cliente.cl_first_name = cl_first_name
             cliente.cl_last_name = cl_last_name
             bodega.bd_is_active = bd_is_active
