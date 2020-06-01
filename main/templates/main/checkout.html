@@ -136,8 +136,8 @@
                         <div id="map_cart" style="height:50vh;"></div>
                         <script>
                             function reverse_geolocation(latitude, longitude) {
-                                mapcart.invalidateSize();
                                 mapcart.panTo([latitude, longitude]);
+                                mapcart.invalidateSize();
                                 document.getElementById("geolocation").value = 'SRID=4326;POINT ('+longitude+' '+latitude+')';
                                 const Http = new XMLHttpRequest();
                                 const url='https://reverse.geocoder.ls.hereapi.com/6.2/reversegeocode.json'+
