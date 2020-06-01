@@ -314,6 +314,13 @@
             save_mibodega_changes();
         })
     });
+    // Listener of input type number chages
+    const numInputs = document.querySelectorAll('input[type=number]');
+    numInputs.forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            save_mibodega_changes();
+        })
+    });
     // Save changes function
     function save_mibodega_changes() {
         if ($("#mibodega_update").validate().form()) {
