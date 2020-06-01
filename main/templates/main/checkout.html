@@ -136,7 +136,9 @@
                         <div id="map_cart" style="height:50vh;"></div>
                         <script>
                             var marker_client;
+                            // To get reverse geolocation and update user's current location
                             function reverse_geolocation(latitude, longitude) {
+                                update_user_location(latitude,longitude);
                                 mapcart.invalidateSize();
                                 map.panTo(new L.LatLng(latitude, longitude));
                                 document.getElementById("geolocation").value = 'SRID=4326;POINT ('+longitude+' '+latitude+')';
@@ -153,6 +155,7 @@
                                     document.getElementById("street").value = String(address_json.Response.View[0].Result[0].Location.Address.Label);
                                 };
                             };
+                            // Get location stored on client data or get current session location
                             if ("{{cliente.cl_geolocation}}" != "None") {
                                 console.log("cliente");
                                 var mapcart = L.map('map_cart').setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15);
@@ -178,11 +181,12 @@
                                 });
                                 reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                             }
-                            mapcart.addLayer(marker_client);
 
                             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             }).addTo(mapcart);
+
+                            mapcart.addLayer(marker_client);
 
                             mapcart.on('click', function (e) {
                                 // When click on the mapcart
