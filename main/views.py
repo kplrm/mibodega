@@ -623,7 +623,6 @@ def checkout(request):
             bodegas_with_products.update({
                 str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
             })
-            print(shop.bd_name,": ",shop.bd_ID)
 
         # bodegas_with_products CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
@@ -636,6 +635,7 @@ def checkout(request):
             #print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
         bodegas_with_products.sort(key=comparator_len, reverse=True)
+        print("bodegas_with_products: ",bodegas_with_products)
 
     except:
         print("There are no stores in your surounding")
