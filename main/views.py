@@ -603,8 +603,10 @@ def checkout(request):
 
     # Get bodegas close by
     bodegas_with_products = dict()
+    print("user_longitude: ", user_longitude)
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        print("shops: " ,shops)
         for shop in shops:
             items_in_bodega = []
             total_price_in_bodega = 0
@@ -613,6 +615,7 @@ def checkout(request):
                 # Retrieve item if available
                 try:
                     item = get_object_or_404(ProductosEnBodega,peb_ID=cart_item.ci_product.peb_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+                    print("item: ", item)
                     items_in_bodega.append(item)
                     if item.peb_discount_status == True:
                         total_price_in_bodega += item.peb_discount_price
