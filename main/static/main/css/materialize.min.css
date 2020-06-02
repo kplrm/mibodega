@@ -4164,7 +4164,7 @@ small {
 .btn-large,
 .btn-small {
     text-decoration: none;
-    color: #fff;
+    color: #000000; /* color: #fff; */
     background-color: #26a69a;
     text-align: center;
     letter-spacing: .5px;

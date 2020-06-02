@@ -122,16 +122,18 @@ def homepage(request):
 def embutidos(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
@@ -197,16 +199,18 @@ def embutidos(request):
 def lacteos(request):
    # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
@@ -272,16 +276,18 @@ def lacteos(request):
 def abarrotes(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
@@ -347,16 +353,18 @@ def abarrotes(request):
 def limpieza(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
@@ -422,16 +430,18 @@ def limpieza(request):
 def licores(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
@@ -497,16 +507,18 @@ def licores(request):
 def vegetales(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
     shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
         
     # Looks for products in the selected bodega
@@ -572,16 +584,17 @@ def vegetales(request):
 def checkout(request):
     # Locate user and shops nearby.
     try:
-        if request.session['user_longitude'] is not None and request.session['user_latitude'] is not None:
-            user_longitude = request.session['user_longitude']
-            user_latitude = request.session['user_latitude']
-        else:
-            user_longitude, user_latitude = locate_user()
+        user_longitude = request.session['user_longitude']
+        user_latitude = request.session['user_latitude']
+        introduction = False
     except:
-        user_longitude, user_latitude = locate_user()
-        request.session['user_longitude'] = user_longitude
-        request.session['user_latitude'] = user_latitude
-    user_location = Point(user_longitude,user_latitude,srid=4326)
+        # Add guidance if it is the first time in the site
+        request.session['introduction'] = True
+        introduction = True
+        # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+        user_longitude = 0
+        user_latitude = 0
+    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
     # Check if user is logged in
     if request.user.is_authenticated:
@@ -1205,35 +1218,57 @@ def mibodega(request):
 
         # If save_product_changes was posted, apply changes
         if request.method == "POST" and request.is_ajax():
-            # Update changes
+            # Retrieve changes
             cl_first_name = request.POST.get('cl_first_name',False)
             cl_last_name = request.POST.get('cl_last_name',False)
-            bd_is_active = request.POST.get('bd_is_active',False)
+            #bd_is_active = request.POST.get('bd_is_active',False)
             bd_name = request.POST.get('bd_name',False)
             bd_ruc = request.POST.get('bd_ruc',False)
             bd_raz_soc = request.POST.get('bd_raz_soc',False)
             bd_email = request.POST.get('bd_email',False)
             bd_phone = request.POST.get('bd_phone',False)
+            bd_delivery = request.POST.get('bd_delivery',False)
+            bd_delivery_type = request.POST.get('bd_delivery_type',False)
+            bd_delivery_cost = request.POST.get('bd_delivery_cost',False)
+            bd_delivery_free_starting_on = request.POST.get('bd_delivery_free_starting_on',False)
+            bd_delivery_conditions = request.POST.get('bd_delivery_conditions',False)
             bd_geolocation_lat = request.POST.get('bd_geolocation_lat',False)
             bd_geolocation_lng = request.POST.get('bd_geolocation_lng',False)
-            if bd_is_active == "true":
-                bd_is_active = True
-            else:
-                bd_is_active = False
+            #if bd_is_active == "true":
+            #    bd_is_active = True
+            #else:
+            #    bd_is_active = False
+            #bodega.bd_is_active = bd_is_active
+
+            # Assign changes
             cliente.cl_first_name = cl_first_name
             cliente.cl_last_name = cl_last_name
-            bodega.bd_is_active = bd_is_active
             bodega.bd_name = bd_name
             bodega.bd_ruc = bd_ruc
             bodega.bd_raz_soc = bd_raz_soc
             bodega.bd_email = bd_email
             bodega.bd_phone = bd_phone
-            # Allow empty value to be saved, as in a newly created bodega/account
+            if bd_delivery == "true":
+                bd_delivery = True
+            else:
+                bd_delivery = False
+            bodega.bd_delivery = bd_delivery
+            if bd_delivery_type == "true":
+                bd_delivery_type = True
+            else:
+                bd_delivery_type = False
+            bodega.bd_delivery_type = bd_delivery_type
+            bodega.bd_delivery_cost = float(bd_delivery_cost)
+            bodega.bd_delivery_free_starting_on = float(bd_delivery_free_starting_on)
+            bodega.bd_delivery_conditions = bd_delivery_conditions
+            # Allow empty value for geolocation to be saved as in a newly created bodega/account
             try:
                 user_location = Point(float(bd_geolocation_lng),float(bd_geolocation_lat),srid=4326)
             except:
                 user_location = ""
             bodega.bd_geolocation = user_location
+            
+            # Save changes
             cliente.save()
             bodega.save()
 

@@ -22,6 +22,14 @@
 </header>
 <!-- Header End -->
 
+<!-- STYLE CORRECTION TO SHOW RADIO BUTTONS -->
+<style>
+    input[type="radio"] {
+        display: inline-flex;
+    }
+</style>
+<!-- STYLE CORRECTION TO SHOW RADIO BUTTONS -->
+
 <div class="dashboard-main-wrapper">
     <!-- ============================================================== -->
     <!-- wrapper  -->
@@ -56,7 +64,9 @@
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
                                         <table class="table">
-                                            <thead class="bg-light">
+                                            <thead class="bg-light" style="background-color: white;">
+                                                <th style="width:40%;padding:0;"></th>
+                                                <th style="width:60%;padding:0;"></th>
                                             </thead>
                                             <tbody>
                                                 <form id="mibodega_update" action="">
@@ -83,11 +93,11 @@
                                                         <th class="border-0" style="text-align:left;">
                                                             {% if bodega.bd_is_active == True %}
                                                                 <!--<input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked onclick="bd_activity(this)">-->
-                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" checked disabled>
+                                                                <input type="checkbox" id="bd_is_active" class="form-check-input" checked disabled>
                                                                 <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>
                                                             {% else %}
                                                                 <!--<input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" onclick="bd_activity(this)">-->
-                                                                <input type="checkbox" name="discount_status" id="bd_is_active" class="form-check-input" disabled>
+                                                                <input type="checkbox" id="bd_is_active" class="form-check-input" disabled>
                                                                 <p id="bodega_is_active" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
                                                             {% endif %}
                                                         </th>
@@ -123,8 +133,66 @@
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿Hace delivery?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            {% if bodega.bd_delivery == True %}
+                                                                <input type="checkbox" id="bd_delivery" class="form-check-input" checked onclick="bd_delivery_f(this)">
+                                                                <p id="bodega_delivery" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>
+                                                            {% else %}
+                                                                <input type="checkbox" id="bd_delivery" class="form-check-input" onclick="bd_delivery_f(this)">
+                                                                <p id="bodega_delivery" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>
+                                                            {% endif %}
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿Tiene algún costo el delivery?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            {% if bodega.bd_delivery_type == True %}
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_1" value="option1" checked onclick="bd_delivery_type_f(this)"/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_2" value="option1" onclick="bd_delivery_type_f(this)"/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                </div>
+                                                            {% else %}
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_2" value="option1" checked onclick="bd_delivery_type_f(this)"/>
+                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                </div>
+                                                            {% endif %}
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿Cuánto cuesta el delivery?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="number" step="0.01" id="bd_delivery_cost" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ bodega.bd_delivery_cost|floatformat:2|intcomma }}" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿A partir de qué monto el delivery es gratis?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="number" step="0.01" id="bd_delivery_free_starting_on" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ bodega.bd_delivery_free_starting_on|floatformat:2|intcomma }}" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">Condiciones de delivery</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            <input type="text" class="form-control" id="bd_delivery_conditions" value="{{ bodega.bd_delivery_conditions }}" placeholder="¿Qué debe saber el cliente antes de comprarte?" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
                                                         <th class="border-0" style="text-align:right;">Ubica tu bodega en el mapa.</th>
-                                                        <th class="border-0" style="text-align:left;">Búscala y haz click.
+                                                        <th class="border-0" style="text-align:left;"><!--Búscala y haz click.-->
+                                                            <a class="btn" onclick="getCurrentLocation()" name="myshop_btn" id="myshop_btn" style="padding:0px 10px 0px 10px;background-color:#feb100;">
+                                                                <!--<i class="material-icons" style="Margin:-10px 0px 0px 0px;color:black;">gps_fixed</i>-->
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                                                            </a>
                                                             <input type="hidden" class="form-control" id="bd_geolocation_lat" value="{{ bodega.bd_geolocation.y }}">
                                                             <input type="hidden" class="form-control" id="bd_geolocation_lng" value="{{ bodega.bd_geolocation.x }}">
                                                         </th>
@@ -154,7 +222,12 @@
     var marker;
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
         var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
-        marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"]);
+        marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"], {draggable:'true'})
+        .on('dragend', function(event){
+                document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
+                document.getElementById("bd_geolocation_lng").value = event.target._latlng.lng;
+                save_mibodega_changes();
+            });
         map.addLayer(marker);
     } else {
         var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
@@ -164,30 +237,31 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    //var marker = L.marker([-12.046374, -77.0427934]);
-    //map.addLayer(marker);
 
     const customMarkerIcon = L.AwesomeMarkers.icon({
-        "extraClasses": "fa-rotate-0", 
-        "icon": "shopping-cart", 
-        "iconColor": "white", 
-        "markerColor": "orange", 
-        "prefix": "glyphicon"
+        "icon": "fa-shopping-basket",
+        "prefix": "fa",
+        "markerColor": "orange",
+        "iconColor": "white",
+        "extraClasses": "fa-rotate-0"
     });
     
     function onMapClick(e) {
         if (marker != undefined) {
             map.removeLayer(marker);
         };
-        marker = new L.marker(e.latlng).addTo(map);
+        marker = new L.marker(e.latlng, {draggable:'true'})
+        .on('dragend', function(event){
+                document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
+                document.getElementById("bd_geolocation_lng").value = event.target._latlng.lng;
+                save_mibodega_changes();
+            }).addTo(map);
         document.getElementById("bd_geolocation_lat").value = marker._latlng.lat;
         document.getElementById("bd_geolocation_lng").value = marker._latlng.lng;
         save_mibodega_changes();
     }
     map.on('click', onMapClick);
 
-    // Get geolocation on page load
-    //getLocation();
     // Get user geolocation
     function showLocation(position) {
         var latitude = position.coords.latitude;
@@ -210,6 +284,37 @@
         alert("Sorry, browser does not support geolocation!");
         }
     }
+    // Request user current location
+    function getCurrentLocation() {
+        if(navigator.geolocation) {
+            // timeout at 60000 milliseconds (60 seconds)
+            var options = {timeout:60000};
+            navigator.geolocation.getCurrentPosition(showCurrentLocation, errorHandler, options);
+        } else {
+            alert("Sorry, browser does not support geolocation!");
+        }
+    };
+    // Permission granted. Get user location
+    function showCurrentLocation(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        document.getElementById("bd_geolocation_lat").value = latitude;
+        document.getElementById("bd_geolocation_lng").value = longitude;
+        //map.invalidateSize();
+        map.panTo(new L.LatLng(latitude, longitude));
+        // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
+                document.getElementById("bd_geolocation_lng").value = event.target._latlng.lng;
+                save_mibodega_changes();
+            }).addTo(map);
+        map.addLayer(marker);
+        save_mibodega_changes();
+    }
     function bd_activity(input) {
         if(input.checked == true) {
             $("#bodega_is_active").html('');
@@ -220,10 +325,30 @@
         }
         save_mibodega_changes();
     }
+    function bd_delivery_f(input) {
+        if(input.checked == true) {
+            $("#bodega_delivery").html('');
+            $("#bodega_delivery").append('<p id="bodega_delivery" style="font-weight: bold;"><span class="badge-dot badge-success mr-1"></span>Sí</p>');
+        } else {
+            $("#bodega_delivery").html('');
+            $("#bodega_delivery").append('<p id="bodega_delivery" style="font-weight: bold;"><span class="badge-dot badge-danger mr-1"></span>No</p>');
+        }
+        save_mibodega_changes();
+    }
+    function bd_delivery_type_f(input) {
+        save_mibodega_changes();
+    }
 </script>
 <script type="text/javascript">
     // Listener of input type text chages
-    const numInputs = document.querySelectorAll('input[type=text]');
+    const txtInputs = document.querySelectorAll('input[type=text]');
+    txtInputs.forEach(function(input) {
+        input.addEventListener('change', function(e) {
+            save_mibodega_changes();
+        })
+    });
+    // Listener of input type number chages
+    const numInputs = document.querySelectorAll('input[type=number]');
     numInputs.forEach(function(input) {
         input.addEventListener('change', function(e) {
             save_mibodega_changes();
@@ -240,6 +365,13 @@
             bd_raz_soc = document.getElementById("bd_raz_soc").value;
             bd_email = document.getElementById("bd_email").value;
             bd_phone = document.getElementById("bd_phone").value;
+            bd_delivery = document.getElementById("bd_delivery").checked;
+            bd_delivery_type_1 = document.getElementById("bd_delivery_type_1").checked;
+            bd_delivery_type_2 = document.getElementById("bd_delivery_type_2").checked;
+            if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = true} else {bd_delivery_type = false}
+            bd_delivery_cost = document.getElementById("bd_delivery_cost").value;
+            bd_delivery_free_starting_on = document.getElementById("bd_delivery_free_starting_on").value;
+            bd_delivery_conditions = document.getElementById("bd_delivery_conditions").value;
             bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
             bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
             $.ajax({
@@ -256,6 +388,11 @@
                     "bd_raz_soc": bd_raz_soc,
                     "bd_email": bd_email,
                     "bd_phone": bd_phone,
+                    "bd_delivery": bd_delivery,
+                    "bd_delivery_type": bd_delivery_type,
+                    "bd_delivery_cost": bd_delivery_cost,
+                    "bd_delivery_free_starting_on": bd_delivery_free_starting_on,
+                    "bd_delivery_conditions": bd_delivery_conditions,
                     "bd_geolocation_lat": bd_geolocation_lat,
                     "bd_geolocation_lng": bd_geolocation_lng
                 },
