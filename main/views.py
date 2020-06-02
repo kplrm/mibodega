@@ -623,11 +623,11 @@ def checkout(request):
                         total_price_in_bodega += item.peb_regular_price
                 except:
                     pass
-            print("bodegas_with_products: ",bodegas_with_products)
+            #print("bodegas_with_products: ",bodegas_with_products)
             bodegas_with_products.update({
                 str(shop.bd_ID): ( Decimal(total_price_in_bodega), tuple(items_in_bodega) )
             })
-            print("bodegas_with_products: ",bodegas_with_products)
+            #print("bodegas_with_products: ",bodegas_with_products)
         bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
 
