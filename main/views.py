@@ -634,7 +634,7 @@ def checkout(request):
         bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][0], reverse=False) # reverse=True -> highest to lowest
         #print("bodegas_with_products: ",bodegas_with_products)
         # Most products on top
-        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][2], reverse=True)
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
         print("====================")
         print(bodegas_with_products[0][0]) # bd_ID
