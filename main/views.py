@@ -157,7 +157,6 @@ def embutidos(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -234,7 +233,6 @@ def lacteos(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -311,7 +309,6 @@ def abarrotes(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -388,7 +385,6 @@ def limpieza(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
     
     # Paginator
     page = request.GET.get('page', 1)
@@ -465,7 +461,6 @@ def licores(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -542,7 +537,6 @@ def vegetales(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -606,6 +600,37 @@ def checkout(request):
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    # Get bodegas close by
+    bodegas_with_products = dict()
+    try:
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        for shop in shops:
+            items_in_bodega = []
+            total_price_in_bodega = 0
+            for cart_item in cart_list:
+                #temp = productos_en_bodegas.filter(cart_item__ci_product__peb_product__pa_status=True,cart_item__ci_product__peb_bodega=shop,cart_item__ci_product__peb_bodega__bd_is_active=True,cart_item__ci_product__peb_status=True,cart_item__ci_product__peb_discount_price__gt=0,cart_item__ci_product__peb_regular_price__gt=0,cart_item__ci_product__peb_product__pa_ID=)
+                # Retrieve item if available
+                try:
+                    item = get_object_or_404(ProductosEnBodega,peb_ID=cart_item.ci_product.peb_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+                    items_in_bodega.append(item)
+                    if item.peb_discount_status == True:
+                        total_price_in_bodega += item.peb_discount_price
+                    else:
+                        total_price_in_bodega += item.peb_regular_price
+                except:
+                    pass
+
+            bodegas_with_products.update({
+                str(shop.peb_ID): ( Decimal(total_price_in_bodega), items_in_bodega )
+            })
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=True)
+        print("bodegas_with_products: ",bodegas_with_products)
+
+    except:
+        print("There are no stores in your surounding")
+        pass
+
     # Look up for all stores with items in the shopping cart
     bodegas_en_cesta = []
     subtotal_bodegas = dict()
