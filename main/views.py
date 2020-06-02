@@ -631,13 +631,13 @@ def checkout(request):
             print(shop.bd_name,": ",shop.bd_ID)
             #print("bodegas_with_products: ",bodegas_with_products)
         # Cheapest on top
-        #bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][0], reverse=False) # reverse=True -> highest to lowest
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=False) # reverse=True -> highest to lowest
         #print("bodegas_with_products: ",bodegas_with_products)
         # Most products on top
         
         def comparator( tupleElem ):
-            print("tupleElem[1][0]: ", tupleElem[1][0])
-            return tupleElem[1][0]
+            print("tupleElem[1][1]: ", tupleElem[1][1])
+            return tupleElem[1][1]
 
         bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator, reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
