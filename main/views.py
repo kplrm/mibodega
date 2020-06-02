@@ -627,8 +627,8 @@ def checkout(request):
             #print("bodegas_with_products: ",bodegas_with_products)
             bodegas_with_products.update({
                 str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
-                print("",shop.bd_name,": ",shop.bd_ID)
             })
+            print(shop.bd_name,": ",shop.bd_ID)
             #print("bodegas_with_products: ",bodegas_with_products)
         # Cheapest on top
         bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=False)
