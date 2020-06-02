@@ -603,7 +603,7 @@ def checkout(request):
 
     # Get bodegas close by
     bodegas_with_products = dict()
-    print("user_location: ", user_location)
+    print("cart_list: ", cart_list)
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         print("shops: " ,shops)
@@ -621,6 +621,7 @@ def checkout(request):
                         total_price_in_bodega += item.peb_discount_price
                     else:
                         total_price_in_bodega += item.peb_regular_price
+                    print("total_price_in_bodega: ", total_price_in_bodega)
                 except:
                     pass
             #print("bodegas_with_products: ",bodegas_with_products)
