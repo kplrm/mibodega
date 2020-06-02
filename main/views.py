@@ -606,7 +606,7 @@ def checkout(request):
     print("cart_list: ", cart_list)
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
-        print("shops: " ,shops)
+#        print("shops: " ,shops)
         for shop in shops:
             items_in_bodega = []
             total_price_in_bodega = 0
@@ -615,18 +615,18 @@ def checkout(request):
                 # Retrieve item if available
                 try:
                     item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
-                    print("item: ", item)
+#                    print("item: ", item)
                     items_in_bodega.append(item)
                     if item.peb_discount_status == True:
                         total_price_in_bodega += item.peb_discount_price
                     else:
                         total_price_in_bodega += item.peb_regular_price
-                    print("total_price_in_bodega: ", total_price_in_bodega)
+#                    print("total_price_in_bodega: ", total_price_in_bodega)
                 except:
                     pass
             #print("bodegas_with_products: ",bodegas_with_products)
             bodegas_with_products.update({
-                str(shop.bd_ID): ( Decimal(total_price_in_bodega), tuple(items_in_bodega) )
+                str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
             })
             #print("bodegas_with_products: ",bodegas_with_products)
         bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=True)
