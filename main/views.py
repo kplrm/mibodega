@@ -636,8 +636,8 @@ def checkout(request):
         # Most products on top
         #bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][1], reverse=True)
         #print("bodegas_with_products: ",bodegas_with_products)
-        print(bodegas_with_products[0][0][0])
-        print(bodegas_with_products[0][1][0]) # Decimal
+        print(bodegas_with_products[0][0]) # 1st Total price
+        print(bodegas_with_products[0][1]) # 2nd Total price
 
     except:
         print("There are no stores in your surounding")
