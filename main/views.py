@@ -633,7 +633,7 @@ def checkout(request):
         bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=False)
         print("bodegas_with_products: ",bodegas_with_products)
         # Most products on top
-#        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][1], reverse=True)
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[2][0], reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
 
     except:
