@@ -614,7 +614,7 @@ def checkout(request):
                 #temp = productos_en_bodegas.filter(cart_item__ci_product__peb_product__pa_status=True,cart_item__ci_product__peb_bodega=shop,cart_item__ci_product__peb_bodega__bd_is_active=True,cart_item__ci_product__peb_status=True,cart_item__ci_product__peb_discount_price__gt=0,cart_item__ci_product__peb_regular_price__gt=0,cart_item__ci_product__peb_product__pa_ID=)
                 # Retrieve item if available
                 try:
-                    item = get_object_or_404(ProductosEnBodega,peb_ID=cart_item.ci_product.peb_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+                    item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
                     print("item: ", item)
                     items_in_bodega.append(item)
                     if item.peb_discount_status == True:
