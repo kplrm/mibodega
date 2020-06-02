@@ -631,7 +631,7 @@ def checkout(request):
             print(shop.bd_name,": ",shop.bd_ID)
             #print("bodegas_with_products: ",bodegas_with_products)
         # Cheapest on top
-        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][1], reverse=False)
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][0][0], reverse=False)
         print("bodegas_with_products: ",bodegas_with_products)
         # Most products on top
         #bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][1], reverse=True)
