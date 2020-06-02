@@ -636,8 +636,6 @@ def checkout(request):
             #print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
         bodegas_with_products.sort(key=comparator_len, reverse=True)
-        print("")
-        print("bodegas_with_products: ",bodegas_with_products)
 
     except:
         print("There are no stores in your surounding")
