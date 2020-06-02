@@ -631,11 +631,12 @@ def checkout(request):
             print(shop.bd_name,": ",shop.bd_ID)
             #print("bodegas_with_products: ",bodegas_with_products)
         # Cheapest on top
-        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][0][0], reverse=False)
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][0][0], reverse=False) # reverse=True -> highest to lowest
         print("bodegas_with_products: ",bodegas_with_products)
         # Most products on top
         #bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][1], reverse=True)
         #print("bodegas_with_products: ",bodegas_with_products)
+        print(bodegas_with_products[0][0][0])
         print(bodegas_with_products[0][1][0]) # Decimal
 
     except:
