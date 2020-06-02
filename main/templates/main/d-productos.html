@@ -310,7 +310,7 @@
                     n_discount_rate:    new_discount_rate
                 }
                 dict_changes.push(data);
-                $(discount_rate[i]).html(String(new_discount_rate)+'%');
+                $(discount_rate[i]).html(String(new_discount_rate).toFixed(0)+'%');
             };
             let product_changes = JSON.stringify(dict_changes);
 
