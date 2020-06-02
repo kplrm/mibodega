@@ -296,7 +296,7 @@
             var new_discount_rate = 0;
             var dict_changes = [];
             for (i = 0; i < regular_price.length; i++) {
-                if (regular_price[i].value > 0 && discount_price[i].value >= 0) {
+                if (regular_price[i].value > 0 && discount_price[i].value > 0) {
                     new_discount_rate = (discount_price[i].value - regular_price[i].value)/regular_price[i].value*100;
                 } else {
                     new_discount_rate = 0;
