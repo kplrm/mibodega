@@ -637,8 +637,10 @@ def checkout(request):
         #bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[0][1][1], reverse=True)
         #print("bodegas_with_products: ",bodegas_with_products)
         print("====================")
-        print(bodegas_with_products[0][0]) # 1st Total price
-        print(bodegas_with_products[0][1]) # 2nd Total price
+        print(bodegas_with_products[0][0]) # bd_ID
+        #print(bodegas_with_products[0][1]) # tuple
+        print(bodegas_with_products[0][1][0]) # Total price
+        print(bodegas_with_products[0][1][1]) # Item's len
 
     except:
         print("There are no stores in your surounding")
