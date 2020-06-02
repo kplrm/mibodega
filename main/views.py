@@ -625,19 +625,16 @@ def checkout(request):
             })
             print(shop.bd_name,": ",shop.bd_ID)
 
+        # bodegas_with_products CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
         def comparator_price( tupleElem ):
             #print("tupleElem[1][0]: ", tupleElem[1][0])
             return tupleElem[1][0]
         bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
-        print("type(bodegas_with_products):",type(bodegas_with_products))
-        #bodegas_with_products.sort(key=comparator_price)
-        print("bodegas_with_products: ",bodegas_with_products)
         # Most products on top
         def comparator_len( tupleElem ):
-            print("tupleElem[1][1]: ", tupleElem[1][1])
+            #print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
-        #bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator_len, reverse=True)
         bodegas_with_products.sort(key=comparator_len, reverse=True)
         print("")
         print("bodegas_with_products: ",bodegas_with_products)
