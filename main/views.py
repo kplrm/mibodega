@@ -606,47 +606,36 @@ def checkout(request):
     #print("cart_list: ", cart_list)
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
-#        print("shops: " ,shops)
         for shop in shops:
             items_in_bodega = []
             total_price_in_bodega = 0
             for cart_item in cart_list:
-                #temp = productos_en_bodegas.filter(cart_item__ci_product__peb_product__pa_status=True,cart_item__ci_product__peb_bodega=shop,cart_item__ci_product__peb_bodega__bd_is_active=True,cart_item__ci_product__peb_status=True,cart_item__ci_product__peb_discount_price__gt=0,cart_item__ci_product__peb_regular_price__gt=0,cart_item__ci_product__peb_product__pa_ID=)
                 # Retrieve item if available
                 try:
                     item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
-#                    print("item: ", item)
                     items_in_bodega.append(item)
                     if item.peb_discount_status == True:
                         total_price_in_bodega += item.peb_discount_price
                     else:
                         total_price_in_bodega += item.peb_regular_price
-#                    print("total_price_in_bodega: ", total_price_in_bodega)
                 except:
                     pass
-            #print("bodegas_with_products: ",bodegas_with_products)
             bodegas_with_products.update({
                 str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
             })
             print(shop.bd_name,": ",shop.bd_ID)
-            #print("bodegas_with_products: ",bodegas_with_products)
+
         # Cheapest on top
-        #bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=False) # reverse=True -> highest to lowest
-        #print("bodegas_with_products: ",bodegas_with_products)
-        # Most products on top
-        
-        def comparator( tupleElem ):
-            print("tupleElem[1][0]: ", tupleElem[1][0])
-            print("tupleElem[1][1]: ", tupleElem[1][1])
+        def comparator_price( tupleElem ):
+            #print("tupleElem[1][0]: ", tupleElem[1][0])
             return tupleElem[1][0]
-            
-        bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator, reverse=True)
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        # Most products on top
+        def comparator_len( tupleElem ):
+            #print("tupleElem[1][1]: ", tupleElem[1][1])
+            return tupleElem[1][1]
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator_len, reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
-        print("====================")
-        print(bodegas_with_products[0][0]) # bd_ID
-        #print(bodegas_with_products[0][1]) # tuple
-        print(bodegas_with_products[0][1][0]) # Total price
-        print(bodegas_with_products[0][1][1]) # Item's len
 
     except:
         print("There are no stores in your surounding")
