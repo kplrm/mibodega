@@ -636,8 +636,8 @@ def checkout(request):
         # Most products on top
         
         def comparator( tupleElem ):
-            print("tupleElem[0][1][0]: ", tupleElem[0][1][0])
-            return tupleElem[0][1][0]
+            print("tupleElem[1][0]: ", tupleElem[1][0])
+            return tupleElem[1][0]
 
         bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator, reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
