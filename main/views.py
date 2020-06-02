@@ -627,9 +627,8 @@ def checkout(request):
 
         # Cheapest on top
         def comparator_price( tupleElem ):
-            print("tupleElem[1][0]: ", tupleElem[1][0])
+            #print("tupleElem[1][0]: ", tupleElem[1][0])
             return tupleElem[1][0]
-        print("type(bodegas_with_products):",type(bodegas_with_products))
         bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
         print("type(bodegas_with_products):",type(bodegas_with_products))
         #bodegas_with_products.sort(key=comparator_price)
@@ -639,7 +638,7 @@ def checkout(request):
             print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
         #bodegas_with_products = sorted(bodegas_with_products.items(), key=comparator_len, reverse=True)
-        bodegas_with_products.sort(key=comparator_len)
+        bodegas_with_products.sort(key=comparator_len, reverse=True)
         print("")
         print("bodegas_with_products: ",bodegas_with_products)
 
