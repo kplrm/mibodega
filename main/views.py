@@ -603,7 +603,7 @@ def checkout(request):
 
     # Get bodegas close by
     bodegas_with_products = dict()
-    print("cart_list: ", cart_list)
+    #print("cart_list: ", cart_list)
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
 #        print("shops: " ,shops)
@@ -629,7 +629,10 @@ def checkout(request):
                 str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
             })
             #print("bodegas_with_products: ",bodegas_with_products)
-        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=True)
+        # Cheapest on top
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][0], reverse=False)
+        # Most products on top
+        bodegas_with_products = sorted(bodegas_with_products.items(), key=lambda x: x[1][1], reverse=True)
         print("bodegas_with_products: ",bodegas_with_products)
 
     except:
