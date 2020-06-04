@@ -37,6 +37,8 @@ from django.http import JsonResponse
 
 # Global variable Loads STATIC_URL
 STATIC_URL = settings.STATIC_URL
+# Decimal value type precision
+getcontext().prec = 2
 
 def save_store_location(request):
     if request.method == "POST" and request.is_ajax():
