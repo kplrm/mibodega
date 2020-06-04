@@ -690,9 +690,9 @@ def checkout(request):
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
                 result_list.append(tuple(result,second_bodega_w_products_w_delivery[0]))
                 print("===================")
-            print("######################")
-            print("result_list: ",result_list)
-            print("######################")
+        print("######################")
+        print("result_list: ",result_list)
+        print("######################")
 
 
     except:
