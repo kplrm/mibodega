@@ -671,12 +671,10 @@ def checkout(request):
             # If items are available only buying at two shops
             else:
                 print("Missing items in ",result[1][2])
-                print("===================")
                 # List all missing items
                 missing_items_list = cart_list
                 for item in list(result[1][3]):
                     missing_items_list = missing_items_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
-                print("missing_items_list: ",missing_items_list)
             
                 # Search again in all shops for the missing items
                 second_bodega_w_products_w_delivery = dict()
@@ -689,7 +687,6 @@ def checkout(request):
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
                 result_list.append(tuple(result,second_bodega_w_products_w_delivery[0]))
-                print("===================")
         print("######################")
         print("result_list: ",result_list)
         print("######################")
