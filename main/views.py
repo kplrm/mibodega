@@ -608,7 +608,6 @@ def checkout(request):
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         for shop in shops:
-            print("shop: ",shop)
             items_in_bodega = []
             total_price_in_bodega = 0
             total_price_inc_delivery = 0
@@ -633,9 +632,6 @@ def checkout(request):
                         total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
                         
                 # Save on bodegas with delivery
-                print("shop.bd_delivery_cost: ", shop.bd_delivery_cost)
-                print("total_price_in_bodega: ", total_price_in_bodega)
-                print("total_price_inc_delivery: ", total_price_inc_delivery)
                 bodegas_w_products_w_delivery.update({
                     str(shop.bd_ID): ( total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
                 })
@@ -661,7 +657,12 @@ def checkout(request):
         # Write down shop selection
         result_list = []
         for result in bodegas_w_products_w_delivery:
-            print(result[1][2], ": ",result[1][0],", ",result[1][1])
+            print(result[1][2], ": ", result[1][0],", ", result[1][1])
+            if result[1][1] == len(cart_list):
+                print("Perfect match (Laika): ", result[1][1])
+            else:
+                print("Nope: ", result[1][1])
+
     except:
         print("There are no stores in your surounding")
         pass
