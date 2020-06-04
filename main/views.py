@@ -642,7 +642,6 @@ def checkout(request):
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         for shop in shops:
             a,b,c,d = search_cart_items_in_bodegas(shop,cart_list)
-            
             # Save on bodegas with delivery
             bodegas_w_products_w_delivery.update({
                 str(shop.bd_ID): ( a, b, c, d )
@@ -671,16 +670,21 @@ def checkout(request):
             # If items are available only buying at two shops
             else:
                 print("Missing items in ",result[1][2])
+                print("===================")
                 # List all missing items
                 missin_items_list = cart_list
                 for item in list(result[1][3]):
                     missin_items_list = missin_items_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
-                print(missin_items_list)
+                print("missin_items_list: ",missin_items_list)
             
                 # Search again in all shops for the missing items
                 second_bodega_w_products_w_delivery = dict()
                 for shop in shops:
-                    second_bodega_w_products_w_delivery = search_cart_items_in_bodegas(second_bodega_w_products_w_delivery,shop,cart_list)
+                    a,b,c,d = search_cart_items_in_bodegas(shop,missin_items_list)
+                    # Save on bodegas with delivery
+                    second_bodega_w_products_w_delivery.update({
+                        str(shop.bd_ID): ( a, b, c, d )
+                    })
                 
 
     except:
