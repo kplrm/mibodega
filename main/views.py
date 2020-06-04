@@ -691,7 +691,6 @@ def checkout(request):
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
                 for res in second_bodega_w_products_w_delivery:
-                    print(second_bodega_w_products_w_delivery[0])
                     print(res[1][2], ": ", res[1][0],", ", res[1][1])
                 print("===================")
 
