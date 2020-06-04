@@ -160,6 +160,7 @@
                                         '&prox='
                                         +latitude+','+longitude+',250';
                                 console.log(url);
+                                console.log("{{user_location}}")
                                 Http.open("GET", url);
                                 Http.send();
                                 Http.onreadystatechange = (e) => {
