@@ -267,11 +267,41 @@
                     <!-- Dropdown button -->
                 </div>
             </div>
-            <div class="row" style="text-align:center">
-                <div class="col s12" style="background-color:#feb100;columns:#000000;;text-transform:uppercase">
-                    <span>{{ bodega }}</span>
-                </div>
-            </div>
+            {% for result in result_list %}
+                {% if result.2 == 1 %} <!-- Case only one bodega -->
+                    <div class="row" style="text-align:center">
+                        <div class="col s12" style="background-color:#feb100;columns:#000000;;text-transform:uppercase">
+                            <span>{{ result.1.2 }}</span>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align:center">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width:55%;text-align:Left">
+                                            Producto
+                                        </th>
+                                        <th style="width:10%;text-align:left">
+                                            P.U.(S/.)
+                                        </th>
+                                        <th style="width:5%;text-align:center">
+                                            Cant.
+                                        </th>
+                                        <th style="width:20%;text-align:right">
+                                            Subtotal
+                                        </th>
+                                        <th style="width:10%;text-align:right">
+                                            #
+                                        </th>
+                                    </tr>    
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
             
             
             
