@@ -646,7 +646,7 @@ def checkout(request):
                         print("Laika 2122")
                         print("shop.bd_delivery_cost: ",shop.bd_delivery_cost)
                         print("total_price_in_bodega: ",total_price_in_bodega)
-                        total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
+                        total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
                         print("total_price_inc_delivery: ",total_price_inc_delivery)
                 # Save on bodegas with delivery
                 print("Laika 22")
