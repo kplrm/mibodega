@@ -720,8 +720,10 @@ def checkout(request):
 #    print(subtotal_bodegas)
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
-                  context={'cliente': cliente,
-                  'result_list': result_list,
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+#                           'cliente': cliente,
 #                  'cart_obj': cart_obj,
 #                  'cart_list': cart_list,
 #                  'user_location': user_location,
