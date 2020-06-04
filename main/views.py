@@ -637,14 +637,14 @@ def checkout(request):
                 print("total_price_in_bodega: ", total_price_in_bodega)
                 print("total_price_inc_delivery: ", total_price_inc_delivery)
                 bodegas_w_products_w_delivery.update({
-                    str(shop.bd_ID): ( total_price_inc_delivery, len(items_in_bodega), tuple(items_in_bodega) )
+                    str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
                 })
-            else:
-                # FOR FUTURE IMPLEMENTATION
-                # Save on bodegas without delivery
-                bodegas_w_products_no_delivery.update({
-                    str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
-                })
+            # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
+            #else:
+            #    # Save on bodegas without delivery
+            #    bodegas_w_products_no_delivery.update({
+            #        str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
+            #    })
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
@@ -657,12 +657,12 @@ def checkout(request):
             #print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
         bodegas_w_products_w_delivery.sort(key=comparator_len, reverse=True)
-        print("bodegas_w_products_w_delivery: ",bodegas_w_products_w_delivery)
 
         # Write down shop selection
         result_list = []
         for result in bodegas_w_products_w_delivery:
-            print("result: ",result)
+            'print("result: ",result)
+            print(result[1][2], ": ",result[1][0],", ",result[1][1])
     except:
         print("There are no stores in your surounding")
         pass
