@@ -249,24 +249,6 @@
             </form>
         </div>
         <div class="col xl6 l6 m6 s12">
-            <!-- CHECKOUT CART SECTION BEGIN -->
-            <!--<script>
-                function getCookie(name) {
-                    var cookieValue = null;
-                    if (document.cookie && document.cookie !== '') {
-                        var cookies = document.cookie.split(';');
-                        for (var i = 0; i < cookies.length; i++) {
-                            var cookie = jQuery.trim(cookies[i]);
-                            // Does this cookie string begin with the name we want?
-                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                break;
-                            }
-                        }
-                    }
-                    return cookieValue;
-                }
-            </script>-->
             <h4>Su pedido</h4>
             {% for bodega in bodegas_en_cesta %}
                 <div class="row" style="text-align:center">
@@ -324,7 +306,6 @@
                                                 </td>
                                                 <td style="width:10%;text-align:right">
                                                     <script>
-                                                        var csrftoken = getCookie('csrftoken');
                                                         function delete_item(item_pk) {
                                                             $.ajax({
                                                                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -332,7 +313,6 @@
                                                                 type: "POST",
                                                                 dataType: "json",
                                                                 data:   {
-                                                                            'csrfmiddlewaretoken': csrftoken,
                                                                             'item_pk': item_pk,
                                                                             'url_to_redirect': window.location.href
                                                                         },
