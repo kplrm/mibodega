@@ -623,7 +623,7 @@ def checkout(request):
                 except:
                     pass
             if shop.bd_delivery == True: # If delivery is offered
-                if shop.bd_delivery_type == True: # Always with a cost
+                if shop.bd_delivery_type == False: # Always the same cost
                     total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
                 else:
                     if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
@@ -640,7 +640,6 @@ def checkout(request):
                 bodegas_w_products_no_delivery.update({
                     str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
                 })
-            
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
