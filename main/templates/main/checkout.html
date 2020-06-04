@@ -178,6 +178,7 @@
 
                             // In case client has geolocation
                             if ("{{cliente.cl_geolocation}}" != "None") {
+                                console.log("cliente.cl_geolocation: {{cliente.cl_geolocation}}");
                                 mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15, {paddingBottomRight: [50,50]});
                                 reverse_geolocation("{{ cliente.cl_geolocation.y }}","{{ cliente.cl_geolocation.x }}");
                                 if (marker_client) {mapcart.removeLayer(marker_client);};
@@ -186,6 +187,7 @@
                                 mapcart.addLayer(marker_client);
                             // Retrieves session location
                             } else {
+                                console.log("user_location: {{user_location}}");
                                 mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15, {paddingBottomRight: [50,50]});
                                 reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                                 if (marker_client) {mapcart.removeLayer(marker_client);};
