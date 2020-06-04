@@ -256,8 +256,7 @@
         <div class="col xl6 l6 m6 s12">
             <h4>Su pedido</h4>
             <h6>El mejor precio lo tiene</h6>
-            <!-- Dropdown button -->
-            <!--
+            <!-- Dropdown button start -->
             <div class="row" style="text-align:center">
                 <div class="col s12">
                     <a class='dropdown-trigger btn' href='#' data-target='results_options' style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Más opciones</a>
@@ -267,8 +266,8 @@
                         {# endfor #}
                     </ul>
                 </div>
-            </div>-->
-            <!-- Dropdown button -->
+            </div>
+            <!-- Dropdown button end -->
             {% for result in result_list %}
                 {{ forloop.counter }}
                 {% if result.2 == 1 %} <!-- IF ALL PRODUCTS ARE AT ONE BODEGA -->
