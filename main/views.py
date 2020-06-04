@@ -692,8 +692,11 @@ def checkout(request):
                     })
                 print("Laika2")
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
+                print("Laika3")
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
+                print("Laika4")
                 result_list.append([result[1][0]+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
+                print("Laika5")
         print("######################")
         for result in result_list:
             print("result: ",result)
