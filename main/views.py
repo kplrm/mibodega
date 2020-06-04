@@ -682,6 +682,7 @@ def checkout(request):
                 for shop in shops:
                     a,b,c,d = search_cart_items_in_bodegas(shop,missing_items_list)
                     # Save on bodegas with delivery
+                    print("shop",shop)
                     second_bodega_w_products_w_delivery.update({
                         str(shop.bd_ID): ( a, b, c, d )
                     })
