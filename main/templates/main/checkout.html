@@ -312,14 +312,20 @@
                                             <td style="width:5%;text-align:center">
                                                 {{ p_quantity }}
                                             </td>
-                                            <th style="width:10%;text-align:right">
+                                            <td style="width:10%;text-align:right">
                                                 {{sub_total|floatformat:2|intcomma}}
-                                            </th>
+                                            </td>
                                             <td style="width:5%;text-align:right">
                                                 
                                             </td>
                                         </tr>
                                     {% endfor %}
+                                    <tr colspan="3" style="text-align:right">
+                                        Delivery (S/.)
+                                    </tr>
+                                    <tr colspan="2" style="text-align:right">
+                                        {{ result.1.1.4 }}
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -373,9 +379,9 @@
                                             <td style="width:5%;text-align:center">
                                                 {{ p_quantity }}
                                             </td>
-                                            <th style="width:10%;text-align:right">
+                                            <td style="width:10%;text-align:right">
                                                 {{sub_total|floatformat:2|intcomma}}
-                                            </th>
+                                            </td>
                                             <td style="width:5%;text-align:right">
                                                 
                                             </td>
