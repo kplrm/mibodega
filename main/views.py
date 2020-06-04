@@ -634,14 +634,17 @@ def checkout(request):
                 if shop.bd_delivery_type == False: # Always the same cost
                     print("Laika 211")
                     total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
+                    print("total_price_inc_delivery: ",total_price_inc_delivery)
                 else:
                     print("Laika 212")
                     if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
                         print("Laika 2121")
                         total_price_inc_delivery = total_price_in_bodega
+                        print("total_price_inc_delivery: ",total_price_inc_delivery)
                     else: # Minimum amount for free delivery not reached
                         print("Laika 2122")
                         total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
+                        print("total_price_inc_delivery: ",total_price_inc_delivery)
                 # Save on bodegas with delivery
                 print("Laika 22")
                 bodegas_w_products_w_delivery.update({
