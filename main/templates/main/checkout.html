@@ -133,8 +133,8 @@
                 <div class="row" style="text-align:center">
                     <div class="col s12">
                         <input type="hidden" id="geolocation" class="form-control" value="{% if cliente.cl_geolocation != None %}{{cliente.cl_geolocation}}{% endif %}">
-                        <div class="hide-on-med-and-up" id="map_cart" style="position:relative;height:50vh;width:100%;max-width: 40vw"></div>
-                        <div class="hide-on-small-only" id="map_cart" style="position:relative;height:50vh;width:100%;max-width: 80vw"></div>
+                        <div class="hide-on-med-and-up" id="map_cart" style="position:relative;height:50vh;width:100%;"></div><!--max-width: 40vw-->
+                        <div class="hide-on-small-only" id="map_cart" style="position:relative;height:50vh;width:100%;max-width: 80vw;"></div>
                         
                         <script>
                             // To get reverse geolocation and update user's current location
