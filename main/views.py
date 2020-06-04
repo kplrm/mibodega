@@ -689,7 +689,8 @@ def checkout(request):
                 result_list.append([result,second_bodega_w_products_w_delivery[0]])
                 #result_list.append(tuple(result,second_bodega_w_products_w_delivery[0]))
         print("######################")
-        print("result_list: ",result_list)
+        for result in result_list:
+            print("result: ",result)
         print("######################")
 
 
