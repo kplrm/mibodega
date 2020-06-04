@@ -666,7 +666,7 @@ def checkout(request):
             # If all items are available at one store
             if result[1][1] == len(cart_list):
                 print("All items in store")
-                #result_list.append(tuple(result,1))
+                result_list.append(result)
             # If items are available only buying at two shops
             else:
                 print("Missing items in ",result[1][2])
