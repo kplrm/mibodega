@@ -666,7 +666,7 @@ def checkout(request):
             # If all items are available at one store
             if result[1][1] == len(cart_list):
                 print("All items in store")
-                result_list.append(result)
+                result_list.append(tuple(result,1))
             # If items are available only buying at two shops
             else:
                 print("Missing items in ",result[1][2])
@@ -679,20 +679,20 @@ def checkout(request):
             
                 # Search again in all shops for the missing items
                 second_bodega_w_products_w_delivery = dict()
-                print("shops: ",shops)
                 for shop in shops:
                     a,b,c,d = search_cart_items_in_bodegas(shop,missing_items_list)
                     # Save on bodegas with delivery
-                    print("shop: ",shop)
-                    print("a,b,c,d: ",a," ; ",b," ; ",c," ; ",d)
                     second_bodega_w_products_w_delivery.update({
                         str(shop.bd_ID): ( a, b, c, d )
                     })
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
-                for res in second_bodega_w_products_w_delivery:
-                    print(res[1][2], ": ", res[1][0],", ", res[1][1])
+                result_list.append(tuple(result,second_bodega_w_products_w_delivery[0]))
                 print("===================")
+            print("######################")
+            print("result_list: ",result_list)
+            print("######################")
+
 
     except:
         print("There are no stores in your surounding")
