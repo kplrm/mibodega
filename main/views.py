@@ -685,7 +685,7 @@ def checkout(request):
                 # Search again in all shops for the missing items
                 second_bodega_w_products_w_delivery = dict()
                 for shop in shops:
-                    a,b,c,d = search_cart_items_in_bodegas(shop,missing_items_list)
+                    a,b,c,d,e = search_cart_items_in_bodegas(shop,missing_items_list)
                     # Save on bodegas with delivery
                     second_bodega_w_products_w_delivery.update({
                         str(shop.bd_ID): ( a, b, c, d, e )
