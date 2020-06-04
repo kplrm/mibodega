@@ -699,32 +699,34 @@ def checkout(request):
         pass
 
     # Look up for all stores with items in the shopping cart
-    bodegas_en_cesta = []
-    subtotal_bodegas = dict()
-    for product in cart_list:
-        # Check if bodega is already in the list
-        if product.ci_product.peb_bodega in bodegas_en_cesta:
-            if product.ci_product.peb_discount_status == True:
-                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price * product.ci_quantity
-            else:
-                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price * product.ci_quantity
-        else:
-            bodegas_en_cesta.append(product.ci_product.peb_bodega)
-            if product.ci_product.peb_discount_status == True:
-                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price * product.ci_quantity})
-            else:
-                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
+#    bodegas_en_cesta = []
+#    subtotal_bodegas = dict()
+#    for product in cart_list:
+#        # Check if bodega is already in the list
+#        if product.ci_product.peb_bodega in bodegas_en_cesta:
+#            if product.ci_product.peb_discount_status == True:
+#                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price * product.ci_quantity
+#            else:
+#                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price * product.ci_quantity
+#        else:
+#            bodegas_en_cesta.append(product.ci_product.peb_bodega)
+#            if product.ci_product.peb_discount_status == True:
+#                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price * product.ci_quantity})
+#            else:
+#                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
 
 #    print(subtotal_bodegas)
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
                   context={'cliente': cliente,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'user_location': user_location,
-                  'bodegas_en_cesta': bodegas_en_cesta,
-                  'subtotal_bodegas': subtotal_bodegas,
-                  'STATIC_URL': STATIC_URL})
+                  'result_list': result_list,
+#                  'cart_obj': cart_obj,
+#                  'cart_list': cart_list,
+#                  'user_location': user_location,
+#                  'bodegas_en_cesta': bodegas_en_cesta,
+#                  'subtotal_bodegas': subtotal_bodegas,
+#                  'STATIC_URL': STATIC_URL
+                  })
 
 def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
     # Retrieve all corresponding cart products
