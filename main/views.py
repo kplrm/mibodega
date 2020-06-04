@@ -678,6 +678,10 @@ def checkout(request):
                 missing_items_list = cart_list
                 for item, qty, st in list(result[1][3]):
                     missing_items_list = missing_items_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
+                    print("Laika0")
+                    print(missing_items_list)
+                    print(missing_items_list[0].ci_quantity)
+                    print("Laika1")
                 # Search again in all shops for the missing items
                 second_bodega_w_products_w_delivery = dict()
                 for shop in shops:
@@ -686,6 +690,7 @@ def checkout(request):
                     second_bodega_w_products_w_delivery.update({
                         str(shop.bd_ID): ( a, b, c, d )
                     })
+                print("Laika2")
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
                 result_list.append([result[1][0]+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
