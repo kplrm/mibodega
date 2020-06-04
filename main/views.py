@@ -625,12 +625,17 @@ def checkout(request):
                     pass
             print("Laika 2")
             if shop.bd_delivery == True: # If delivery is offered
+                print("Laika 3")
                 if shop.bd_delivery_type == False: # Always the same cost
+                    print("Laika 4")
                     total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
                 else:
+                    print("Laika 5")
                     if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
+                        print("Laika 6")
                         total_price_inc_delivery = total_price_in_bodega
                     else: # Minimum amount for free delivery not reached
+                        print("Laika 7")
                         total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
                 # Save on bodegas with delivery
                 bodegas_w_products_w_delivery.update({
@@ -643,7 +648,7 @@ def checkout(request):
                     str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
                 })
 
-        print("Laika 3")
+        print("Laika 8")
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
         def comparator_price( tupleElem ):
