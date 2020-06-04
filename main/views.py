@@ -575,7 +575,7 @@ def vegetales(request):
                   'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
-def search_cart_items_in_bodegas(bodegas_w_products_w_delivery,shop,cart_list):
+def search_cart_items_in_bodegas(shop,cart_list):
     items_in_bodega = []
     total_price_in_bodega = 0
     total_price_inc_delivery = 0
@@ -598,18 +598,15 @@ def search_cart_items_in_bodegas(bodegas_w_products_w_delivery,shop,cart_list):
                 total_price_inc_delivery = total_price_in_bodega
             else: # Minimum amount for free delivery not reached
                 total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
-                
-        # Save on bodegas with delivery
-        bodegas_w_products_w_delivery.update({
-            str(shop.bd_ID): ( total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
-        })
+    
+    return total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega)
+
     # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
     #else:
     #    # Save on bodegas without delivery
     #    bodegas_w_products_no_delivery.update({
     #        str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
     #    })
-    return bodegas_w_products_w_delivery
 
 def checkout(request):
     # Locate user and shops nearby.
@@ -644,7 +641,12 @@ def checkout(request):
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         for shop in shops:
-            bodegas_w_products_w_delivery = search_cart_items_in_bodegas(bodegas_w_products_w_delivery,shop,cart_list)
+            a,b,c,d = search_cart_items_in_bodegas(shop,cart_list)
+            
+            # Save on bodegas with delivery
+            bodegas_w_products_w_delivery.update({
+                str(shop.bd_ID): ( a, b, c, d )
+            })
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
