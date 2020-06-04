@@ -580,7 +580,9 @@ def search_cart_items_in_bodegas(shop,cart_list):
     items_in_bodega = []
     total_price_in_bodega = 0
     total_price_inc_delivery = 0
-    print("total_price_in_bodega: ",total_price_in_bodega)
+    print("total_price_in_bodega: ", total_price_in_bodega)
+    print("cart_list: ", cart_list)
+    print("shop: ", shop)
     for cart_item in cart_list:
         # Retrieve item if available
         #try:
