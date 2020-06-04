@@ -661,7 +661,7 @@ def checkout(request):
             #print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
         bodegas_w_products_w_delivery.sort(key=comparator_len, reverse=True)
-        print("bodegas_w_products_w_delivery: ",bodegas_w_products_w_delivery)
+        #print("bodegas_w_products_w_delivery: ",bodegas_w_products_w_delivery)
 
         # Shop selection results
         result_list = []
