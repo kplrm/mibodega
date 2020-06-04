@@ -612,57 +612,40 @@ def checkout(request):
             items_in_bodega = []
             total_price_in_bodega = 0
             total_price_inc_delivery = 0
-            print("Laika 1")
             for cart_item in cart_list:
-                print("Laika 11")
                 # Retrieve item if available
                 try:
-                    print("Laika 111")
                     item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
                     items_in_bodega.append(item)
-                    print("Laika 112")
                     if item.peb_discount_status == True:
-                        print("Laika 1111")
                         total_price_in_bodega += item.peb_discount_price
                     else:
-                        print("Laika 1112")
                         total_price_in_bodega += item.peb_regular_price
                 except:
                     pass
-            print("Laika 2")
             if shop.bd_delivery == True: # If delivery is offered
-                print("Laika 21")
                 if shop.bd_delivery_type == False: # Always the same cost
-                    print("Laika 211")
-                    total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
-                    print("total_price_inc_delivery: ",total_price_inc_delivery)
+                    total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
                 else:
-                    print("Laika 212")
                     if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
-                        print("Laika 2121")
-                        total_price_inc_delivery = total_price_in_bodega
-                        print("total_price_inc_delivery: ",total_price_inc_delivery)
+                        total_price_inc_delivery = Decimal(total_price_in_bodega)
                     else: # Minimum amount for free delivery not reached
-                        print("Laika 2122")
-                        print("shop.bd_delivery_cost: ",shop.bd_delivery_cost)
-                        print("total_price_in_bodega: ",total_price_in_bodega)
                         total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
-                        print("total_price_inc_delivery: ",total_price_inc_delivery)
+                        
                 # Save on bodegas with delivery
-                print("Laika 22")
+                print("shop.bd_delivery_cost: ", shop.bd_delivery_cost)
+                print("total_price_in_bodega: ", total_price_in_bodega)
+                print("total_price_inc_delivery: ", total_price_inc_delivery)
                 bodegas_w_products_w_delivery.update({
-                    str(shop.bd_ID): ( Decimal(total_price_inc_delivery), len(items_in_bodega), tuple(items_in_bodega) )
+                    str(shop.bd_ID): ( total_price_inc_delivery, len(items_in_bodega), tuple(items_in_bodega) )
                 })
-                print("Laika 23")
             else:
-                print("Laika 24")
                 # FOR FUTURE IMPLEMENTATION
                 # Save on bodegas without delivery
                 bodegas_w_products_no_delivery.update({
                     str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
                 })
 
-        print("Laika 8")
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
         def comparator_price( tupleElem ):
