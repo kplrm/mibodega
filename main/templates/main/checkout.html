@@ -159,6 +159,7 @@
                                         '&mode=retrieveAddresses'+
                                         '&prox='
                                         +latitude+','+longitude+',250';
+                                console.log(url);
                                 Http.open("GET", url);
                                 Http.send();
                                 Http.onreadystatechange = (e) => {
