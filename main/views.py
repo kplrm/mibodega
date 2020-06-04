@@ -575,6 +575,42 @@ def vegetales(request):
                   'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
+def search_cart_items_in_bodegas(bodegas_w_products_w_delivery,shop,cart_list):
+    items_in_bodega = []
+    total_price_in_bodega = 0
+    total_price_inc_delivery = 0
+    for cart_item in cart_list:
+        # Retrieve item if available
+        try:
+            item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+            items_in_bodega.append(item)
+            if item.peb_discount_status == True:
+                total_price_in_bodega += item.peb_discount_price
+            else:
+                total_price_in_bodega += item.peb_regular_price
+        except:
+            pass
+    if shop.bd_delivery == True: # If delivery is offered
+        if shop.bd_delivery_type == False: # Always the same cost
+            total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+        else:
+            if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
+                total_price_inc_delivery = total_price_in_bodega
+            else: # Minimum amount for free delivery not reached
+                total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+                
+        # Save on bodegas with delivery
+        bodegas_w_products_w_delivery.update({
+            str(shop.bd_ID): ( total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
+        })
+    # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
+    #else:
+    #    # Save on bodegas without delivery
+    #    bodegas_w_products_no_delivery.update({
+    #        str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
+    #    })
+    return bodegas_w_products_w_delivery
+
 def checkout(request):
     # Locate user and shops nearby.
     try:
@@ -603,44 +639,12 @@ def checkout(request):
 
     # Get bodegas close by
     bodegas_w_products_w_delivery = dict()
-    bodegas_w_products_no_delivery = dict()
+    #bodegas_w_products_no_delivery = dict()
     #print("cart_list: ", cart_list)
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         for shop in shops:
-            items_in_bodega = []
-            total_price_in_bodega = 0
-            total_price_inc_delivery = 0
-            for cart_item in cart_list:
-                # Retrieve item if available
-                try:
-                    item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
-                    items_in_bodega.append(item)
-                    if item.peb_discount_status == True:
-                        total_price_in_bodega += item.peb_discount_price
-                    else:
-                        total_price_in_bodega += item.peb_regular_price
-                except:
-                    pass
-            if shop.bd_delivery == True: # If delivery is offered
-                if shop.bd_delivery_type == False: # Always the same cost
-                    total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
-                else:
-                    if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
-                        total_price_inc_delivery = total_price_in_bodega
-                    else: # Minimum amount for free delivery not reached
-                        total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
-                        
-                # Save on bodegas with delivery
-                bodegas_w_products_w_delivery.update({
-                    str(shop.bd_ID): ( total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
-                })
-            # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
-            #else:
-            #    # Save on bodegas without delivery
-            #    bodegas_w_products_no_delivery.update({
-            #        str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
-            #    })
+            bodegas_w_products_w_delivery = search_cart_items_in_bodegas(bodegas_w_products_w_delivery,shop,cart_list)
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
@@ -654,19 +658,28 @@ def checkout(request):
             return tupleElem[1][1]
         bodegas_w_products_w_delivery.sort(key=comparator_len, reverse=True)
 
-        # Write down shop selection
+        # Shop selection results
         result_list = []
         for result in bodegas_w_products_w_delivery:
             print(result[1][2], ": ", result[1][0],", ", result[1][1])
-            if result[1][1] == len(cart_list): # All items are available at store
+            # If all items are available at one store
+            if result[1][1] == len(cart_list):
                 print("All items in store")
                 result_list.append(result)
-            else: # No store has all items
+            # If items are available only buying at two shops
+            else:
                 print("Missing items in ",result[1][2])
+                # List all missing items
                 missin_items_list = cart_list
                 for item in list(result[1][3]):
                     missin_items_list = missin_items_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
                 print(missin_items_list)
+            
+                # Search again in all shops for the missing items
+                second_bodega_w_products_w_delivery = dict()
+                for shop in shops:
+                    second_bodega_w_products_w_delivery = search_cart_items_in_bodegas(second_bodega_w_products_w_delivery,shop,cart_list)
+                
 
     except:
         print("There are no stores in your surounding")
