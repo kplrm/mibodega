@@ -663,9 +663,10 @@ def checkout(request):
                 result_list.append(result)
             else: # No store has all items
                 for item in list(result[1][3]):
-                    #print("item: ",item)
-                    missin_items_list = cart_list.filter(~Q(ci_product__peb_product__pa_ID=item.ci_product.peb_product.pa_ID))
-                    print("missin_items_list: ",missin_items_list)
+                    print("item: ",item)
+                    print("item.ci_product.peb_product.pa_ID: ",item.ci_product.peb_product.pa_ID)
+                    #missin_items_list = cart_list.filter(~Q(ci_product__peb_product__pa_ID=item.ci_product.peb_product.pa_ID))
+                    #print("missin_items_list: ",missin_items_list)
                 pass
 
     except:
