@@ -37,8 +37,6 @@ from django.http import JsonResponse
 
 # Global variable Loads STATIC_URL
 STATIC_URL = settings.STATIC_URL
-# Decimal value type precision
-getcontext().prec = 2
 
 def save_store_location(request):
     if request.method == "POST" and request.is_ajax():
@@ -627,12 +625,12 @@ def checkout(request):
                     pass
             if shop.bd_delivery == True: # If delivery is offered
                 if shop.bd_delivery_type == False: # Always the same cost
-                    total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+                    total_price_inc_delivery = Decimal(total_price_in_bodega,prec=2) + shop.bd_delivery_cost
                 else:
                     if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
-                        total_price_inc_delivery = total_price_in_bodega
+                        total_price_inc_delivery = Decimal(total_price_in_bodega,prec=2)
                     else: # Minimum amount for free delivery not reached
-                        total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+                        total_price_inc_delivery = Decimal(total_price_in_bodega,prec=2) + shop.bd_delivery_cost
                         
                 # Save on bodegas with delivery
                 print("shop.bd_delivery_cost: ", shop.bd_delivery_cost)
