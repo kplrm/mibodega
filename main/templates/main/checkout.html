@@ -325,7 +325,7 @@
                                             Delivery (S/.)
                                         </td>
                                         <td colspan="2" style="text-align:right">
-                                            {{ result.1.1.4 }}
+                                            {{result.1.1.4|floatformat:2|intcomma}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -389,6 +389,14 @@
                                             </td>
                                         </tr>
                                     {% endfor %}
+                                    <tr>
+                                        <td colspan="3" style="text-align:right">
+                                            Delivery (S/.)
+                                        </td>
+                                        <td colspan="2" style="text-align:right">
+                                            {{result.1.1.4|floatformat:2|intcomma}}
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
