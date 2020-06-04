@@ -110,9 +110,9 @@
 </div>
 
 <div class="container">
-    <form id="checkout_form" action="" class="">
-        <div class="row">
-            <div class="col xl6 l6 m6 s12">
+    <div class="row">
+        <div class="col xl6 l6 m6 s12">
+            <form id="checkout_form" action="" class="">
                 <h4>Sus datos</h4>
                 <div class="row" style="text-align:Left">
                     <div class="col s6">
@@ -246,151 +246,151 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
-            <div class="col xl6 l6 m6 s12">
-                <!-- CHECKOUT CART SECTION BEGIN -->
-                <script>
-                    function getCookie(name) {
-                        var cookieValue = null;
-                        if (document.cookie && document.cookie !== '') {
-                            var cookies = document.cookie.split(';');
-                            for (var i = 0; i < cookies.length; i++) {
-                                var cookie = jQuery.trim(cookies[i]);
-                                // Does this cookie string begin with the name we want?
-                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                    break;
-                                }
+            </form>
+        </div>
+        <div class="col xl6 l6 m6 s12">
+            <!-- CHECKOUT CART SECTION BEGIN -->
+            <!--<script>
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
                             }
                         }
-                        return cookieValue;
                     }
-                </script>
-                <div class="place-order">
-                    <h4>Su pedido</h4>
-                    {% for bodega in bodegas_en_cesta %}
-                        <div class="order-total">
-                            <div class="row" style="background-color:#e7ab3c;color:#ffffff;text-transform:uppercase">
-                                <div class="col-12">
-                                    <span>{{ bodega }}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <ul class="order-table">
-                                        <table class="fw-normal" border="4" bordercolor="#808080" frame="hsides" rules="rows" style="width:100%">
-                                            <tr>
-                                                <th style="width:60%;text-align:Left">
-                                                    Producto
-                                                </th>
-                                                <th style="width:10%;text-align:left">
-                                                    P.U.(S/.)
-                                                </th>
-                                                <th style="width:10%;text-align:center">
-                                                    Cant.
-                                                </th>
-                                                <th style="width:20%;text-align:right">
-                                                    Subtotal
-                                                </th>
-                                            </tr>
-                                            {% load humanize %}
-                                            {% for product in cart_list %}
-                                                {% if product.ci_product.peb_bodega == bodega %}
-                                                    <tr>
-                                                        <th style="width:60%;text-align:Left">
-                                                            {{product.ci_product.peb_product.pa_product}}
-                                                        </td>
-                                                        <td style="width:10%;text-align:left">
-                                                            {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
-                                                            {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
-                                                        </td>
-                                                        <td style="width:15%;text-align:center">
-                                                            {{product.ci_quantity}}
-                                                        </td>
-                                                        <td style="width:20%;text-align:right">
-                                                            <span>
-                                                                S/.
-                                                                <script type="text/javascript">
-                                                                    var True = true, False = false;
-                                                                    var p_quantity = {{ product.ci_quantity }};
-                                                                    if ( {{product.ci_product.peb_discount_status}} === true ){
-                                                                        var p_price = {{ product.ci_product.peb_discount_price }};
-                                                                    } else {
-                                                                        var p_price = {{ product.ci_product.peb_regular_price }};
-                                                                    };
-                                                                    document.write((p_price*p_quantity).toFixed(2));
-                                                                </script>
-                                                            </span>
-                                                        </td>
-                                                        <td style="width:10%;text-align:right">
-                                                            <script>
-                                                                var csrftoken = getCookie('csrftoken');
-                                                                function delete_item(item_pk) {
-                                                                    $.ajax({
-                                                                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                                                                        url: "/remove",
-                                                                        type: "POST",
-                                                                        dataType: "json",
-                                                                        data:   {
-                                                                                    'csrfmiddlewaretoken': csrftoken,
-                                                                                    'item_pk': item_pk,
-                                                                                    'url_to_redirect': window.location.href
-                                                                                },
-                                                                        success: function(){
-                                                                            location.reload();
-                                                                        },
-                                                                        error: function(){
-                                                                            location.reload();
-                                                                        }
-                                                                    });
-                                                                }
-                                                            </script>
-                                                            <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"><i class="ti-close"></i></button>
-                                                            
-                                                        </td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                            <tr><th style="height:3px;"></th></tr> <!-- adding one extra line-->
-                                            <tr>
-                                                <th style="width:60%;text-align:Left">
-                                                    SUBTOTAL EN ESTA BODEGA
-                                                </th>
-                                                <th style="width:10%;text-align:left">
-                                                </th>
-                                                <th style="width:10%;text-align:center">
-                                                </th>
-                                                <th style="width:20%;text-align:right">
-                                                    <span>
-                                                        S/.
-                                                        {% for key, value in subtotal_bodegas.items %}
-                                                            {% if bodega.bd_ruc == key %}
-                                                                {{value|floatformat:2|intcomma}}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </span>
-                                                </th>
-                                            </tr>
-                                        </table>
-                                    </ul>
-                                </div>
+                    return cookieValue;
+                }
+            </script>-->
+            <h4>Su pedido</h4>
+            {% for bodega in bodegas_en_cesta %}
+                <div class="row" style="text-align:center">
+                    <div class="order-total">
+                        <div class="row" style="background-color:#e7ab3c;color:#ffffff;text-transform:uppercase">
+                            <div class="col-12">
+                                <span>{{ bodega }}</span>
                             </div>
                         </div>
-                    {% endfor %}
-                    <div class="order-total">
-                        <ul class="order-table" style="color:#252525;font-size:16px;text-transform:uppercase;font-weight:1000">
-                            Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
-                        </ul>
-                    </div>
-                    <div class="order-btn">
-                        <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout(); return false">Comprar</button>
-                        <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="order-table">
+                                    <table class="fw-normal" border="4" bordercolor="#808080" frame="hsides" rules="rows" style="width:100%">
+                                        <tr>
+                                            <th style="width:60%;text-align:Left">
+                                                Producto
+                                            </th>
+                                            <th style="width:10%;text-align:left">
+                                                P.U.(S/.)
+                                            </th>
+                                            <th style="width:10%;text-align:center">
+                                                Cant.
+                                            </th>
+                                            <th style="width:20%;text-align:right">
+                                                Subtotal
+                                            </th>
+                                        </tr>
+                                        {% load humanize %}
+                                        {% for product in cart_list %}
+                                            {% if product.ci_product.peb_bodega == bodega %}
+                                                <tr>
+                                                    <th style="width:60%;text-align:Left">
+                                                        {{product.ci_product.peb_product.pa_product}}
+                                                    </td>
+                                                    <td style="width:10%;text-align:left">
+                                                        {% if product.ci_product.peb_discount_status == True %}{{product.ci_product.peb_discount_price|floatformat:2|intcomma}}{% endif %}
+                                                        {% if product.ci_product.peb_discount_status == False %}{{product.ci_product.peb_regular_price|floatformat:2|intcomma}}{% endif %}
+                                                    </td>
+                                                    <td style="width:15%;text-align:center">
+                                                        {{product.ci_quantity}}
+                                                    </td>
+                                                    <td style="width:20%;text-align:right">
+                                                        <span>
+                                                            S/.
+                                                            <script type="text/javascript">
+                                                                var True = true, False = false;
+                                                                var p_quantity = {{ product.ci_quantity }};
+                                                                if ( {{product.ci_product.peb_discount_status}} === true ){
+                                                                    var p_price = {{ product.ci_product.peb_discount_price }};
+                                                                } else {
+                                                                    var p_price = {{ product.ci_product.peb_regular_price }};
+                                                                };
+                                                                document.write((p_price*p_quantity).toFixed(2));
+                                                            </script>
+                                                        </span>
+                                                    </td>
+                                                    <td style="width:10%;text-align:right">
+                                                        <script>
+                                                            var csrftoken = getCookie('csrftoken');
+                                                            function delete_item(item_pk) {
+                                                                $.ajax({
+                                                                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                                                                    url: "/remove",
+                                                                    type: "POST",
+                                                                    dataType: "json",
+                                                                    data:   {
+                                                                                'csrfmiddlewaretoken': csrftoken,
+                                                                                'item_pk': item_pk,
+                                                                                'url_to_redirect': window.location.href
+                                                                            },
+                                                                    success: function(){
+                                                                        location.reload();
+                                                                    },
+                                                                    error: function(){
+                                                                        location.reload();
+                                                                    }
+                                                                });
+                                                            }
+                                                        </script>
+                                                        <button name="{{product.pk}}" value="{{product.pk}}" onclick="delete_item(this.value);return false"><i class="ti-close"></i></button>
+                                                        
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <tr><th style="height:3px;"></th></tr> <!-- adding one extra line-->
+                                        <tr>
+                                            <th style="width:60%;text-align:Left">
+                                                SUBTOTAL EN ESTA BODEGA
+                                            </th>
+                                            <th style="width:10%;text-align:left">
+                                            </th>
+                                            <th style="width:10%;text-align:center">
+                                            </th>
+                                            <th style="width:20%;text-align:right">
+                                                <span>
+                                                    S/.
+                                                    {% for key, value in subtotal_bodegas.items %}
+                                                        {% if bodega.bd_ruc == key %}
+                                                            {{value|floatformat:2|intcomma}}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </span>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- CHECKOUT CART SECTION END -->
+            {% endfor %}
+            <div class="order-total">
+                <ul class="order-table" style="color:#252525;font-size:16px;text-transform:uppercase;font-weight:1000">
+                    Total <span>S/.{{cart_obj.crt_total_price|floatformat:2|intcomma}}</span>
+                </ul>
             </div>
+            <div class="order-btn">
+                <button type="button" id="btn_comprar" class="site-btn place-btn" onclick="submit_checkout(); return false">Comprar</button>
+                <!--<button type="submit" id="btn_comprar" class="site-btn place-btn">Comprar</button>-->
+            </div>
+                <!-- CHECKOUT CART SECTION END -->
         </div>
-    </form>
+    </div>
     
     <!-- Modal -->
     <div class="modal fade" id="popup_modal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
