@@ -582,9 +582,7 @@ def search_cart_items_in_bodegas(shop,cart_list):
     for cart_item in cart_list:
         # Retrieve item if available
         try:
-            print("cart_item:",cart_item)
             item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
-            print("item:",item)
             items_in_bodega.append(item)
             if item.peb_discount_status == True:
                 total_price_in_bodega += item.peb_discount_price
@@ -601,12 +599,6 @@ def search_cart_items_in_bodegas(shop,cart_list):
             else: # Minimum amount for free delivery not reached
                 total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
 
-    print("======")
-    print(total_price_in_bodega)
-    print(len(items_in_bodega))
-    print(shop.bd_name)
-    print(tuple(items_in_bodega))
-    
     return total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega)
 
     # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
