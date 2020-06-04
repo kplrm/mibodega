@@ -585,10 +585,10 @@ def search_cart_items_in_bodegas(shop,cart_list):
         try:
             item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
             if item.peb_discount_status == True:
-                total_price_in_bodega += item.peb_discount_price
+                total_price_in_bodega += item.peb_discount_price * cart_item.ci_quantity
                 items_in_bodega.append([item, cart_item.ci_quantity, item.peb_discount_price*cart_item.ci_quantity])
             else:
-                total_price_in_bodega += item.peb_regular_price
+                total_price_in_bodega += item.peb_regular_price * cart_item.ci_quantity
                 items_in_bodega.append([item, cart_item.ci_quantity, item.peb_regular_price*cart_item.ci_quantity])
         except:
             pass
