@@ -687,6 +687,7 @@ def checkout(request):
                     })
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
+                print(second_bodega_w_products_w_delivery[0])
                 print("===================")
 
     except:
