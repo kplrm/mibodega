@@ -495,6 +495,13 @@
     }
 </script>-->
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, options);
+  });
+</script>
+
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'main/js/materialize.min.js' %}"></script>
