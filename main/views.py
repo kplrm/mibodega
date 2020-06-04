@@ -658,10 +658,15 @@ def checkout(request):
         result_list = []
         for result in bodegas_w_products_w_delivery:
             print(result[1][2], ": ", result[1][0],", ", result[1][1])
-            if result[1][1] == len(cart_list):
-                print("Perfect match (Laika): ", result[1][1])
-            else:
-                print("Nope: ", result[1][1])
+            if result[1][1] == len(cart_list): # All items are available at store
+                print("All items in store")
+                result_list.append(result)
+            else: # No store has all items
+                for item in result[1][3]:
+                    print("item: ",item)
+                    missin_items_list = cart_list.filter(~Q(ci_product__peb_product__pa_ID=item.ci_product.peb_product.pa_ID))
+                    print("missin_items_list: ",missin_items_list)
+                pass
 
     except:
         print("There are no stores in your surounding")
