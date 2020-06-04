@@ -261,9 +261,9 @@
                 <div class="col s12">
                     <a class='dropdown-trigger btn' href='#' data-target='results_options' style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Más opciones</a>
                     <ul id='results_options' class='dropdown-content'>
-                        {# for result in result_list #}
+                        {% for result in result_list %}
                             <li><a>Opción {{ forloop.counter }}: S/.{{result.0|floatformat:2|intcomma}} </a></li>
-                        {# endfor #}
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

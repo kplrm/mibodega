@@ -693,10 +693,10 @@ def checkout(request):
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
                 result_list.append([Decimal(result[1][0])+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
-        print("######################")
-        for result in result_list:
-            print("result: ",result)
-        print("######################")
+#        print("######################")
+#        for result in result_list:
+#            print("result: ",result)
+#        print("######################")
 
     except:
         print("There are no stores in your surounding")
