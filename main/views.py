@@ -625,19 +625,19 @@ def checkout(request):
                     pass
             if shop.bd_delivery == True: # If delivery is offered
                 if shop.bd_delivery_type == False: # Always the same cost
-                    total_price_inc_delivery = Decimal(total_price_in_bodega,prec=2) + shop.bd_delivery_cost
+                    total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
                 else:
                     if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
-                        total_price_inc_delivery = Decimal(total_price_in_bodega,prec=2)
+                        total_price_inc_delivery = total_price_in_bodega
                     else: # Minimum amount for free delivery not reached
-                        total_price_inc_delivery = Decimal(total_price_in_bodega,prec=2) + shop.bd_delivery_cost
+                        total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
                         
                 # Save on bodegas with delivery
                 print("shop.bd_delivery_cost: ", shop.bd_delivery_cost)
                 print("total_price_in_bodega: ", total_price_in_bodega)
                 print("total_price_inc_delivery: ", total_price_inc_delivery)
                 bodegas_w_products_w_delivery.update({
-                    str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
+                    str(shop.bd_ID): ( total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega) )
                 })
             # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
             #else:
