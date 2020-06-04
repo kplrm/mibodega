@@ -661,7 +661,6 @@ def checkout(request):
         # Write down shop selection
         result_list = []
         for result in bodegas_w_products_w_delivery:
-            'print("result: ",result)
             print(result[1][2], ": ",result[1][0],", ",result[1][1])
     except:
         print("There are no stores in your surounding")
