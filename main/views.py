@@ -613,13 +613,18 @@ def checkout(request):
             total_price_inc_delivery = 0
             print("Laika 1")
             for cart_item in cart_list:
+                print("Laika 11")
                 # Retrieve item if available
                 try:
+                    print("Laika 111")
                     item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
                     items_in_bodega.append(item)
+                    print("Laika 112")
                     if item.peb_discount_status == True:
+                        print("Laika 1111")
                         total_price_in_bodega += item.peb_discount_price
                     else:
+                        print("Laika 1112")
                         total_price_in_bodega += item.peb_regular_price
                 except:
                     pass
