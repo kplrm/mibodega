@@ -576,26 +576,22 @@ def vegetales(request):
                   'STATIC_URL': STATIC_URL})
 
 def search_cart_items_in_bodegas(shop,cart_list):
-    print("======")
     items_in_bodega = []
     total_price_in_bodega = 0
     total_price_inc_delivery = 0
-    print("total_price_in_bodega: ", total_price_in_bodega)
-    print("cart_list: ", cart_list)
-    print("shop: ", shop)
     for cart_item in cart_list:
         # Retrieve item if available
-        #try:
-        print("cart_item:",cart_item)
-        item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
-        print("item:",item)
-        items_in_bodega.append(item)
-        if item.peb_discount_status == True:
-            total_price_in_bodega += item.peb_discount_price
-        else:
-            total_price_in_bodega += item.peb_regular_price
-        #except:
-        #    pass
+        try:
+            print("cart_item:",cart_item)
+            item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+            print("item:",item)
+            items_in_bodega.append(item)
+            if item.peb_discount_status == True:
+                total_price_in_bodega += item.peb_discount_price
+            else:
+                total_price_in_bodega += item.peb_regular_price
+        except:
+            pass
     if shop.bd_delivery == True: # If delivery is offered
         if shop.bd_delivery_type == False: # Always the same cost
             total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
