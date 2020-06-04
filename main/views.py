@@ -598,6 +598,12 @@ def search_cart_items_in_bodegas(shop,cart_list):
                 total_price_inc_delivery = total_price_in_bodega
             else: # Minimum amount for free delivery not reached
                 total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+
+    print("======")
+    print(total_price_in_bodega)
+    print(len(items_in_bodega))
+    print(shop.bd_name)
+    print(tuple(items_in_bodega))
     
     return total_price_in_bodega, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega)
 
