@@ -71,6 +71,7 @@ def homepage(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -79,7 +80,7 @@ def homepage(request):
         user_longitude = 0
         user_latitude = 0
         #user_longitude, user_latitude = locate_user()
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -614,6 +615,7 @@ def checkout(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -621,7 +623,7 @@ def checkout(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
     # Check if user is logged in
     if request.user.is_authenticated:
