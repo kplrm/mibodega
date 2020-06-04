@@ -699,7 +699,7 @@ def checkout(request):
                 print(type(result[1][0]))
                 print(second_bodega_w_products_w_delivery[0][1][0])
                 print(type(second_bodega_w_products_w_delivery[0][1][0]))
-                result_list.append([result[1][0]+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
+                result_list.append([Decimal(result[1][0])+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
                 print("Laika5")
         print("######################")
         for result in result_list:
