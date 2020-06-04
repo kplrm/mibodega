@@ -643,11 +643,13 @@ def checkout(request):
                         print("Laika 2122")
                         total_price_inc_delivery = total_price_in_bodega + shop.bd_delivery_cost
                 # Save on bodegas with delivery
+                print("Laika 22")
                 bodegas_w_products_w_delivery.update({
                     str(shop.bd_ID): ( Decimal(total_price_inc_delivery), len(items_in_bodega), tuple(items_in_bodega) )
                 })
+                print("Laika 23")
             else:
-                print("Laika 22")
+                print("Laika 24")
                 # FOR FUTURE IMPLEMENTATION
                 # Save on bodegas without delivery
                 bodegas_w_products_no_delivery.update({
