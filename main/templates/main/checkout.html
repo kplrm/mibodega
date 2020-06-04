@@ -177,7 +177,7 @@
                             }).addTo(mapcart);
 
                             // In case client has geolocation
-                            if ("{{cliente.cl_geolocation}}" != "None") {
+                            if ("{{cliente.cl_geolocation}}" != "None" && "{{cliente.cl_geolocation}}" != "") {
                                 console.log("cliente.cl_geolocation: {{cliente.cl_geolocation}}");
                                 mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15, {paddingBottomRight: [50,50]});
                                 reverse_geolocation("{{ cliente.cl_geolocation.y }}","{{ cliente.cl_geolocation.x }}");
