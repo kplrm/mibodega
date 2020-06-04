@@ -676,9 +676,9 @@ def checkout(request):
                 print("Missing items in ",result[1][2])
                 # List all missing items
                 missing_items_list = cart_list
-                for item in list(result[1][3]):
+                for item in list(result[1][3][0]):
                     missing_items_list = missing_items_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
-            
+                print("Laika0")
                 # Search again in all shops for the missing items
                 second_bodega_w_products_w_delivery = dict()
                 for shop in shops:
