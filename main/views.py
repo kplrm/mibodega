@@ -624,6 +624,7 @@ def checkout(request):
                 except:
                     pass
             # Transform float to Decimal
+            print(getcontext())
             total_price_in_bodega = Decimal(total_price_in_bodega)
             if shop.bd_delivery == True: # If delivery is offered
                 if shop.bd_delivery_type == False: # Always the same cost
