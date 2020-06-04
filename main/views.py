@@ -608,6 +608,7 @@ def checkout(request):
     try:
         shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
         for shop in shops:
+            print("shop: ",shop)
             items_in_bodega = []
             total_price_in_bodega = 0
             total_price_inc_delivery = 0
