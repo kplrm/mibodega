@@ -662,10 +662,10 @@ def checkout(request):
                 print("All items in store")
                 result_list.append(result)
             else: # No store has all items
+                print("Missing items in ",result[1][2])
                 for item in list(result[1][3]):
-                    print("item: ",item)
                     missin_items_list = cart_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
-                    print("missin_items_list: ",missin_items_list)
+                    print(missin_items_list)
                 pass
 
     except:
