@@ -650,11 +650,12 @@ def checkout(request):
         for shop in shops:
             a,b,c,d,e = search_cart_items_in_bodegas(shop,cart_list)
             # Save on bodegas with delivery
-            bodegas_w_products_w_delivery.update({
-                str(shop.bd_ID): ( a, b, c, d, e )
-            })
-            print("first response: ")
-            print(a," ; ", b," ; ", c," ; ", d," ; ", e)
+            if b > 0: # Skip if no products are found at the bodega
+                bodegas_w_products_w_delivery.update({
+                    str(shop.bd_ID): ( a, b, c, d, e )
+                })
+                print("first response: ")
+                print(a," ; ", b," ; ", c," ; ", d," ; ", e)
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
