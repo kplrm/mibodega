@@ -742,6 +742,7 @@
     };
     // Submit checkout
     function submit_checkout(list_number) {
+        list_number = parseInt(list_number);
         usr_first = document.getElementById("fir").value;
         usr_last = document.getElementById("last").value;
         usr_street = document.getElementById("street").value;
