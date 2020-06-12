@@ -1045,6 +1045,9 @@ def remove_cart_item(request):
             update_price(cart_obj)
             return JsonResponse({"success": str(cart_obj.crt_total_price)}, status=200)
         elif item_pa_ID != False and cart_obj_ID != False:
+            print("item_pa_ID", item_pa_ID)
+            print("cart_obj_ID", cart_obj_ID)
+            print("Laika")
             item_pa_ID = json.loads(item_pa_ID)
             cart_obj_ID = json.loads(cart_obj_ID)
             
