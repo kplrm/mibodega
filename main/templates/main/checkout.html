@@ -712,12 +712,13 @@
     {% for result in result_list %}
         if ("{{ forloop.counter }}" != "1") {
             $('#result_list_{{ forloop.counter }}').hide();
-            console.log("hidding");
-            console.log(document.getElementById("result_list_{{ forloop.counter }}"));
         }
     {% endfor %}
     // Show other results on click
     function change_option(option) {
+        {% for result in result_list %}
+            $('#result_list_{{ forloop.counter }}').hide();
+        {% endfor %}
         $('#result_list_'+option).show();
     };
 </script>
