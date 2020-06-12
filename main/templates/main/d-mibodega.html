@@ -145,33 +145,33 @@
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0" style="text-align:right;">¿Tiene algún costo el delivery?</th>
+                                                        <th class="border-0" style="text-align:right;">¿Cuánto cuesta el delivery?</th>
                                                         <th class="border-0" style="text-align:left;">
-                                                            {% if bodega.bd_delivery_type == True %}
+                                                            <input type="number" step="0.01" id="bd_delivery_cost" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ bodega.bd_delivery_cost|floatformat:2|intcomma }}" required>
+                                                        </th>
+                                                    </tr>
+                                                    <tr class="border-0">
+                                                        <th class="border-0" style="text-align:right;">¿Es gratis el delivery a partir de cierto monto?</th>
+                                                        <th class="border-0" style="text-align:left;">
+                                                            {% if bodega.bd_delivery_type == False %}
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_1" value="option1" checked onclick="bd_delivery_type_f(this)"/>
-                                                                    <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
+                                                                    <label class="form-check-label" for="bd_delivery_type_1">No, el delivery siempre cuesta lo mismo.</label>
                                                                 </div>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_2" value="option1" onclick="bd_delivery_type_f(this)"/>
-                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, el delivery es gratis después de cierto monto.</label>
                                                                 </div>
                                                             {% else %}
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_1" value="option1" onclick="bd_delivery_type_f(this)"/>
-                                                                    <label class="form-check-label" for="bd_delivery_type_1">Sí, siempre tiene el mismo costo.</label>
+                                                                    <label class="form-check-label" for="bd_delivery_type_1">No, el delivery siempre cuesta lo mismo.</label>
                                                                 </div>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio" name="group1" id="bd_delivery_type_2" value="option1" checked onclick="bd_delivery_type_f(this)"/>
-                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, pero es gratis a partir de un monto.</label>
+                                                                    <label class="form-check-label" for="bd_delivery_type_2">Sí, el delivery es gratis después de cierto monto.</label>
                                                                 </div>
                                                             {% endif %}
-                                                        </th>
-                                                    </tr>
-                                                    <tr class="border-0">
-                                                        <th class="border-0" style="text-align:right;">¿Cuánto cuesta el delivery?</th>
-                                                        <th class="border-0" style="text-align:left;">
-                                                            <input type="number" step="0.01" id="bd_delivery_cost" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ bodega.bd_delivery_cost|floatformat:2|intcomma }}" required>
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
