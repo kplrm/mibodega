@@ -752,9 +752,8 @@
         usr_comments = document.getElementById("comments").value;
         console.log("Laika");
         console.log(list_number);
-        console.log("S/.{{ result_list }}");
-        console.log("S/.{{ result_list.0 }}");
-        console.log("S/.{{ result_list.list_number.0|floatformat:2|intcomma }}");
+        console.log("S/.{{ result_list.1 }}");
+        console.log("S/.{{ result_list.list_number|floatformat:2|intcomma }}");
         /*
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != "0" && usr_geolocation != "") {
             // submit with AJAX
