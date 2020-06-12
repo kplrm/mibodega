@@ -269,7 +269,7 @@
             <!-- Dropdown button end -->
             {% for result in result_list %}
                 {% if result.2 == 1 %} <!-- IF ALL PRODUCTS ARE AT ONE BODEGA -->
-                <div id="result_list_{{ forloop.counter }}" style="display: none;">
+                <div id="result_list_{{ forloop.counter }}">
                         <div class="row" style="text-align:center">
                             <div class="col s12" style="background-color:#feb100;columns:#000000;;text-transform:uppercase">
                                 <span>{{ result.1.1.2 }}</span>
@@ -341,7 +341,7 @@
                         </div>
                     </div>
                 {% else %} <!-- IF ALL PRODUCTS DIVIDED BETWEEN TWO BODEGAS -->
-                    <div id="result_list_{{ forloop.counter }}" style="display: none;">
+                    <div id="result_list_{{ forloop.counter }}">
                         <!-- BODEGA 1 -->
                         <div class="row" style="text-align:center">
                             <div class="col s12" style="background-color:#feb100;columns:#000000;;text-transform:uppercase">
@@ -709,6 +709,7 @@
         var instances = M.Dropdown.init(elems, {});
     });
     console.log(document.getElementById("result_list_1"));
+    $('#result_list_1')
 </script>
 
 <!-- Js Plugins -->
