@@ -298,6 +298,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <input type="text" id="product_list_{{forloop.counter}}" value="">
                                         {% for item, p_quantity, sub_total in result.1.1.3 %}
                                             <tr>
                                                 <td style="width:70%;text-align:Left">
@@ -318,6 +319,11 @@
                                                     <button class="btn" value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false" style="background-color: #ffffff;padding:0px 3px 0px 3px;border-style: none;box-shadow:none;"><i class="material-icons" style="font-size: 14px;color:#000000;">cancel</i></button>
                                                 </td>
                                             </tr>
+                                            <script>
+                                                $('#product_list_{{forloop.counter}}').val(function(i,val) {
+                                                    return val + (val ? '; ' : '') + '{{ item.peb_ID }}' + '{{ p_quantity }}';
+                                                });
+                                            </script>
                                         {% endfor %}
                                         <tr>
                                             <td colspan="3" style="text-align:right">
