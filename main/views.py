@@ -670,14 +670,14 @@ def checkout(request):
         # Shop selection results
         result_list = []
         for result in bodegas_w_products_w_delivery:
-            print(result[1][2], ": ", result[1][0],", ", result[1][1])
+#            print(result[1][2], ": ", result[1][0],", ", result[1][1])
             # If all items are available at one store
             if result[1][1] == len(cart_list):
                 print("All items in store")
                 result_list.append([result[1][0],result,1])
             # If items are available only buying at two shops
             else:
-                print("Missing items in ",result[1][2])
+#                print("Missing items in ",result[1][2])
                 # List all missing items
                 missing_items_list = cart_list
                 for item, qty, st in list(result[1][3]):
