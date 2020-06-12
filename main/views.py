@@ -1059,7 +1059,7 @@ def remove_cart_item(request):
 
             # Update cart price
             update_price(cart_obj)
-            return JsonResponse({"success": "")}, status=200)
+            return JsonResponse({"success": ""}, status=200)
         else:
             return JsonResponse({"error": ""}, status=400)
     else:
