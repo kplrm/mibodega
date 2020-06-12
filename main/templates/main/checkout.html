@@ -261,8 +261,7 @@
                     <a class='dropdown-trigger btn' href='#' data-target='results_options' style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Comparar</a>
                     <ul id='results_options' class='dropdown-content' style="padding: 5px;">
                         {% for result in result_list %}
-                            <!--<li></li>-->
-                            <a>Opción {{ forloop.counter }}: S/.{{result.0|floatformat:2|intcomma}}</a>
+                            <li><a>Opción {{ forloop.counter }}: S/.{{result.0|floatformat:2|intcomma}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
