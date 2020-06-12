@@ -673,7 +673,7 @@ def checkout(request):
 #            print(result[1][2], ": ", result[1][0],", ", result[1][1])
             # If all items are available at one store
             if result[1][1] == len(cart_list):
-                print("All items in store")
+#                print("All items in store")
                 result_list.append([result[1][0],result,1])
             # If items are available only buying at two shops
             else:

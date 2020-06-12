@@ -159,8 +159,8 @@
                                         '&mode=retrieveAddresses'+
                                         '&prox='
                                         +latitude+','+longitude+',250';
-                                console.log(url);
-                                console.log("{{user_location}}")
+//                                console.log(url);
+//                                console.log("{{user_location}}")
                                 Http.open("GET", url);
                                 Http.send();
                                 Http.onreadystatechange = (e) => {
@@ -178,7 +178,7 @@
 
                             // In case client has geolocation
                             if ("{{cliente.cl_geolocation}}" != "None" && "{{cliente.cl_geolocation}}" != "") {
-                                console.log("cliente.cl_geolocation: {{cliente.cl_geolocation}}");
+//                                console.log("cliente.cl_geolocation: {{cliente.cl_geolocation}}");
                                 mapcart.setView([ "{{cliente.cl_geolocation.y}}", "{{cliente.cl_geolocation.x}}" ], 15, {paddingBottomRight: [50,50]});
                                 reverse_geolocation("{{ cliente.cl_geolocation.y }}","{{ cliente.cl_geolocation.x }}");
                                 if (marker_client) {mapcart.removeLayer(marker_client);};
@@ -187,7 +187,7 @@
                                 mapcart.addLayer(marker_client);
                             // Retrieves session location
                             } else {
-                                console.log("user_location: {{user_location}}");
+//                                console.log("user_location: {{user_location}}");
                                 mapcart.setView([ "{{user_location.y}}", "{{user_location.x}}" ], 15, {paddingBottomRight: [50,50]});
                                 reverse_geolocation("{{ user_location.y }}","{{ user_location.x }}");
                                 if (marker_client) {mapcart.removeLayer(marker_client);};
@@ -269,7 +269,7 @@
             <!-- Dropdown button end -->
             {% for result in result_list %}
                 {% if result.2 == 1 %} <!-- IF ALL PRODUCTS ARE AT ONE BODEGA -->
-                    <div id="result_list_{{ forloop.counter }}">
+                <div id="result_list_{{ forloop.counter }}" style="display: none;">
                         <div class="row" style="text-align:center">
                             <div class="col s12" style="background-color:#feb100;columns:#000000;;text-transform:uppercase">
                                 <span>{{ result.1.1.2 }}</span>
@@ -341,7 +341,7 @@
                         </div>
                     </div>
                 {% else %} <!-- IF ALL PRODUCTS DIVIDED BETWEEN TWO BODEGAS -->
-                    <div id="result_list_{{ forloop.counter }}">
+                    <div id="result_list_{{ forloop.counter }}" style="display: none;">
                         <!-- BODEGA 1 -->
                         <div class="row" style="text-align:center">
                             <div class="col s12" style="background-color:#feb100;columns:#000000;;text-transform:uppercase">
@@ -705,9 +705,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, {});
-  });
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, {});
+    });
+    console.log(document.getElementById("result_list_1"));
 </script>
 
 <!-- Js Plugins -->
