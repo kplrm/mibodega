@@ -654,8 +654,6 @@ def checkout(request):
                 bodegas_w_products_w_delivery.update({
                     str(shop.bd_ID): ( a, b, c, d, e )
                 })
-                print("first response: ")
-                print(a," ; ", b," ; ", c," ; ", d," ; ", e)
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
@@ -668,7 +666,6 @@ def checkout(request):
             #print("tupleElem[1][1]: ", tupleElem[1][1])
             return tupleElem[1][1]
         bodegas_w_products_w_delivery.sort(key=comparator_len, reverse=True)
-        #print("bodegas_w_products_w_delivery: ",bodegas_w_products_w_delivery)
 
         # Shop selection results
         result_list = []
@@ -696,10 +693,6 @@ def checkout(request):
                 second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
                 second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
                 result_list.append([Decimal(result[1][0])+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
-#        print("######################")
-#        for result in result_list:
-#            print("result: ",result)
-#        print("######################")
 
     except:
         print("There are no stores in your surounding")
