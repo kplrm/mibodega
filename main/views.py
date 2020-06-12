@@ -71,6 +71,7 @@ def homepage(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -79,7 +80,7 @@ def homepage(request):
         user_longitude = 0
         user_latitude = 0
         #user_longitude, user_latitude = locate_user()
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
     # Load or create cart
     cart_obj, new_obj = session_cart_load_or_create(request)
@@ -157,7 +158,6 @@ def embutidos(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -234,7 +234,6 @@ def lacteos(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -311,7 +310,6 @@ def abarrotes(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -388,7 +386,6 @@ def limpieza(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
     
     # Paginator
     page = request.GET.get('page', 1)
@@ -465,7 +462,6 @@ def licores(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -542,7 +538,6 @@ def vegetales(request):
         id_bodega_text = request.session['bodega_name']
     else:
         pass
-#        print("What is this?")
 
     # Paginator
     page = request.GET.get('page', 1)
@@ -581,12 +576,51 @@ def vegetales(request):
                   'id_bodega_text': id_bodega_text,
                   'STATIC_URL': STATIC_URL})
 
+def search_cart_items_in_bodegas(shop,cart_list):
+    items_in_bodega = []
+    total_price_in_bodega = 0
+    total_price_inc_delivery = 0
+    delivery_price = 0
+    for cart_item in cart_list:
+        # Retrieve item if available
+        try:
+            item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+            if item.peb_discount_status == True:
+                total_price_in_bodega += item.peb_discount_price * cart_item.ci_quantity
+                items_in_bodega.append([item, cart_item.ci_quantity, item.peb_discount_price*cart_item.ci_quantity])
+            else:
+                total_price_in_bodega += item.peb_regular_price * cart_item.ci_quantity
+                items_in_bodega.append([item, cart_item.ci_quantity, item.peb_regular_price*cart_item.ci_quantity])
+        except:
+            pass
+    if shop.bd_delivery == True: # If delivery is offered
+        if shop.bd_delivery_type == False: # Always the same cost
+            total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+            delivery_price = shop.bd_delivery_cost
+        else:
+            if total_price_in_bodega >= shop.bd_delivery_free_starting_on: # Free starting on
+                total_price_inc_delivery = total_price_in_bodega
+                delivery_price = 0
+            else: # Minimum amount for free delivery not reached
+                total_price_inc_delivery = Decimal(total_price_in_bodega) + shop.bd_delivery_cost
+                delivery_price = shop.bd_delivery_cost
+
+    return total_price_inc_delivery, len(items_in_bodega), shop.bd_name, tuple(items_in_bodega), delivery_price
+
+    # FOR FUTURE IMPLEMENTATION WHEN IN STORE PICK UP AVAILABLE
+    #else:
+    #    # Save on bodegas without delivery
+    #    bodegas_w_products_no_delivery.update({
+    #        str(shop.bd_ID): ( Decimal(total_price_in_bodega), len(items_in_bodega), tuple(items_in_bodega) )
+    #    })
+
 def checkout(request):
     # Locate user and shops nearby.
     try:
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -594,7 +628,7 @@ def checkout(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
     # Check if user is logged in
     if request.user.is_authenticated:
@@ -606,33 +640,95 @@ def checkout(request):
     cart_obj, new_obj = session_cart_load_or_create(request)
     # Load item list
     cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    # Get bodegas close by
+    bodegas_w_products_w_delivery = dict()
+    #bodegas_w_products_no_delivery = dict()
+    #print("cart_list: ", cart_list)
+    try:
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        for shop in shops:
+            a,b,c,d,e = search_cart_items_in_bodegas(shop,cart_list)
+            # Save on bodegas with delivery
+            if b > 0: # Skip if no products are found at the bodega
+                bodegas_w_products_w_delivery.update({
+                    str(shop.bd_ID): ( a, b, c, d, e )
+                })
+
+        # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
+        # Cheapest on top
+        def comparator_price( tupleElem ):
+            #print("tupleElem[1][0]: ", tupleElem[1][0])
+            return tupleElem[1][0]
+        bodegas_w_products_w_delivery = sorted(bodegas_w_products_w_delivery.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        # Most products on top
+        def comparator_len( tupleElem ):
+            #print("tupleElem[1][1]: ", tupleElem[1][1])
+            return tupleElem[1][1]
+        bodegas_w_products_w_delivery.sort(key=comparator_len, reverse=True)
+
+        # Shop selection results
+        result_list = []
+        for result in bodegas_w_products_w_delivery:
+#            print(result[1][2], ": ", result[1][0],", ", result[1][1])
+            # If all items are available at one store
+            if result[1][1] == len(cart_list):
+#                print("All items in store")
+                result_list.append([result[1][0],result,1])
+            # If items are available only buying at two shops
+            else:
+#                print("Missing items in ",result[1][2])
+                # List all missing items
+                missing_items_list = cart_list
+                for item, qty, st in list(result[1][3]):
+                    missing_items_list = missing_items_list.filter(~Q(ci_product__peb_product__pa_ID=item.peb_product.pa_ID))
+                # Search again in all shops for the missing items
+                second_bodega_w_products_w_delivery = dict()
+                for shop in shops:
+                    a,b,c,d,e = search_cart_items_in_bodegas(shop,missing_items_list)
+                    # Save on bodegas with delivery
+                    second_bodega_w_products_w_delivery.update({
+                        str(shop.bd_ID): ( a, b, c, d, e )
+                    })
+                second_bodega_w_products_w_delivery = sorted(second_bodega_w_products_w_delivery.items(), key=comparator_price, reverse=False)
+                second_bodega_w_products_w_delivery.sort(key=comparator_len, reverse=True)
+                result_list.append([Decimal(result[1][0])+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
+
+    except:
+        print("There are no stores in your surounding")
+        pass
+
     # Look up for all stores with items in the shopping cart
-    bodegas_en_cesta = []
-    subtotal_bodegas = dict()
-    for product in cart_list:
-        # Check if bodega is already in the list
-        if product.ci_product.peb_bodega in bodegas_en_cesta:
-            if product.ci_product.peb_discount_status == True:
-                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price * product.ci_quantity
-            else:
-                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price * product.ci_quantity
-        else:
-            bodegas_en_cesta.append(product.ci_product.peb_bodega)
-            if product.ci_product.peb_discount_status == True:
-                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price * product.ci_quantity})
-            else:
-                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
+#    bodegas_en_cesta = []
+#    subtotal_bodegas = dict()
+#    for product in cart_list:
+#        # Check if bodega is already in the list
+#        if product.ci_product.peb_bodega in bodegas_en_cesta:
+#            if product.ci_product.peb_discount_status == True:
+#                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_discount_price * product.ci_quantity
+#            else:
+#                subtotal_bodegas[str(product.ci_product.peb_bodega.bd_ruc)] += product.ci_product.peb_regular_price * product.ci_quantity
+#        else:
+#            bodegas_en_cesta.append(product.ci_product.peb_bodega)
+#            if product.ci_product.peb_discount_status == True:
+#                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_discount_price * product.ci_quantity})
+#            else:
+#                subtotal_bodegas.update({str(product.ci_product.peb_bodega.bd_ruc):product.ci_product.peb_regular_price * product.ci_quantity})
 
 #    print(subtotal_bodegas)
     return render(request=request, # to reference request
                   template_name="main/checkout.html", # where to find the specifix template
-                  context={'cliente': cliente,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'user_location': user_location,
-                  'bodegas_en_cesta': bodegas_en_cesta,
-                  'subtotal_bodegas': subtotal_bodegas,
-                  'STATIC_URL': STATIC_URL})
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+                           'cart_obj': cart_obj,
+#                           'cliente': cliente,
+#                  'cart_list': cart_list,
+#                  'user_location': user_location,
+#                  'bodegas_en_cesta': bodegas_en_cesta,
+#                  'subtotal_bodegas': subtotal_bodegas,
+#                  'STATIC_URL': STATIC_URL
+                  })
 
 def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments):
     # Retrieve all corresponding cart products
@@ -931,6 +1027,8 @@ def remove_cart_item(request):
     if request.method == "POST" and request.is_ajax():
         # Retrieve item_pk
         item_pk = request.POST.get('product_id',False)
+        item_pa_ID = request.POST.get('item_pa_ID',False)
+        cart_obj_ID = request.POST.get('cart_obj_ID',False)
         if item_pk != False:
             item_pk = json.loads(item_pk)
             
@@ -946,6 +1044,19 @@ def remove_cart_item(request):
             # Update cart price
             update_price(cart_obj)
             return JsonResponse({"success": str(cart_obj.crt_total_price)}, status=200)
+        elif item_pa_ID != False and cart_obj_ID != False:
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(ci_cart_ID=cart_obj_ID,ci_product__peb_product__pa_ID=item_pa_ID).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
+            
+            #Remove item
+            cart_obj.crt_product.remove(item_obj.ci_product)
+            cart_obj.crt_item.remove(item_obj)
+            item_obj.delete()
+
+            # Update cart price
+            update_price(cart_obj)
+            return JsonResponse({"success": ""}, status=200)
         else:
             return JsonResponse({"error": ""}, status=400)
     else:
