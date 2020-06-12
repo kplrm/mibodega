@@ -653,6 +653,8 @@ def checkout(request):
             bodegas_w_products_w_delivery.update({
                 str(shop.bd_ID): ( a, b, c, d, e )
             })
+            print("first response: ")
+            print(a," ; ", b," ; ", c," ; ", d," ; ", e)
 
         # bodegas_w_products_w_delivery CHANGES FROM TYPE DICT TO TYPE LIST AFTER SORTED
         # Cheapest on top
