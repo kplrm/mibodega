@@ -301,6 +301,7 @@
                                         {% for item, p_quantity, sub_total in result.1.1.3 %}
                                             <tr>
                                                 <td style="width:70%;text-align:Left">
+                                                    {% if item.peb_discount_status == True %}<img src="https://img.icons8.com/color/48/000000/discount--v1.png"/>{% endif %}
                                                     {{ item.peb_product.pa_product }}
                                                 </td>
                                                 <td style="width:10%;text-align:center">
