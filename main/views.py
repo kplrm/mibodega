@@ -1048,11 +1048,11 @@ def remove_cart_item(request):
             print("item_pa_ID", item_pa_ID)
             print("cart_obj_ID", cart_obj_ID)
             print("Laika")
-            item_pa_ID = json.loads(item_pa_ID)
-            cart_obj_ID = json.loads(cart_obj_ID)
+            #item_pa_ID = json.loads(item_pa_ID)
+            #cart_obj_ID = json.loads(cart_obj_ID)
             
-            print("item_pa_ID", item_pa_ID)
-            print("cart_obj_ID", cart_obj_ID)
+            #print("item_pa_ID", item_pa_ID)
+            #print("cart_obj_ID", cart_obj_ID)
             # Retrieve cart and cart object
             item_obj = CartItem.objects.all().filter(ci_cart_ID=cart_obj_ID,ci_product__peb_product__pa_ID=item_pa_ID).first()
             cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
