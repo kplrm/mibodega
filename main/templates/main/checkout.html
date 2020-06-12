@@ -315,7 +315,7 @@
                                                     {{sub_total|floatformat:2|intcomma}}
                                                 </td>
                                                 <td style="width:5%;text-align:right">
-                                                    <button value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false"><i class="material-icons">clear</i></button>
+                                                    <button value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false" style="background-color:#feb100;padding:0px 3px 0px 3px"><i class="material-icons">clear</i></button>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -388,7 +388,7 @@
                                                     {{sub_total|floatformat:2|intcomma}}
                                                 </td>
                                                 <td style="width:5%;text-align:right">
-                                                    <button value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false"><i class="material-icons">clear</i></button>
+                                                    <button value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false" style="background-color:#feb100;padding:0px 3px 0px 3px"><i class="material-icons">clear</i></button>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -450,7 +450,7 @@
                                                     {{sub_total|floatformat:2|intcomma}}
                                                 </td>
                                                 <td style="width:5%;text-align:right">
-                                                    <button value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false"><i class="material-icons">clear</i></button>
+                                                    <button value="{{item.peb_product.pa_ID}}" onclick="delete_item(this.value);return false" style="background-color:#feb100;padding:0px 3px 0px 3px"><i class="material-icons">clear</i></button>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -730,7 +730,6 @@
             data:   {
                         'item_pa_ID': item_pa_ID,
                         'cart_obj_ID': "{{cart_obj.crt_ID}}",
-//                        'url_to_redirect': window.location.href
                     },
             success: function(){
                 location.reload();
