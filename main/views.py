@@ -721,8 +721,8 @@ def checkout(request):
                   context={'introduction': introduction,
                            'user_location': user_location,
                            'result_list': result_list,
+                           'cart_obj': cart_obj,
 #                           'cliente': cliente,
-#                  'cart_obj': cart_obj,
 #                  'cart_list': cart_list,
 #                  'user_location': user_location,
 #                  'bodegas_en_cesta': bodegas_en_cesta,
@@ -1027,6 +1027,8 @@ def remove_cart_item(request):
     if request.method == "POST" and request.is_ajax():
         # Retrieve item_pk
         item_pk = request.POST.get('product_id',False)
+        item_pa_ID = request.POST.get('item_pa_ID',False)
+        cart_obj_ID = request.POST.get('cart_obj_ID',False)
         if item_pk != False:
             item_pk = json.loads(item_pk)
             
@@ -1042,6 +1044,22 @@ def remove_cart_item(request):
             # Update cart price
             update_price(cart_obj)
             return JsonResponse({"success": str(cart_obj.crt_total_price)}, status=200)
+        elif item_pa_ID != False:
+            item_pa_ID = json.loads(item_pa_ID)
+            cart_obj_ID = json.loads(cart_obj_ID)
+            
+            # Retrieve cart and cart object
+            item_obj = CartItem.objects.all().filter(ci_cart_ID=cart_obj_ID,ci_product__peb_product__pa_ID=item_pa_ID).first()
+            cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
+            
+            #Remove item
+            cart_obj.crt_product.remove(item_obj.ci_product)
+            cart_obj.crt_item.remove(item_obj)
+            item_obj.delete()
+
+            # Update cart price
+            update_price(cart_obj)
+            return JsonResponse({"success": "")}, status=200)
         else:
             return JsonResponse({"error": ""}, status=400)
     else:
