@@ -4,8 +4,18 @@
 
 {% block content %}
 <!-- Page Preloder -->
-<div class="progress">
-    <div class="indeterminate"></div>
+<div class="preloader-wrapper big active" id="loaderDiv">
+    <div class="spinner-layer spinner-green-only">
+        <div class="circle-clipper left">
+            <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+            <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+            <div class="circle"></div>
+        </div>
+    </div>
 </div>
 
 <!-- BOTTOM BAR -->
@@ -613,8 +623,11 @@
                     'usr_comments': usr_comments,
                     'products_to_buy': products_to_buy
                 },
+                beforeSend: function() {
+                    $("#loaderDiv").show();
+                },
                 success: function(response){
-                    console.log("In checkout success");
+                    $('#loaderDiv').hide();
                     var msg = "";
                     if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                         $("#popupModalLabel").html('');
@@ -634,7 +647,7 @@
                     }
                 },
                 error: function(response){ // This triggers in case all items in the basket get unavailable
-                    console.log("In checkout error");
+                    $('#loaderDiv').hide();
                     var msg = "";
                     for (i = 0; i < response.responseJSON.error.length; i++) {
                         msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
