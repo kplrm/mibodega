@@ -844,8 +844,6 @@ def submit_checkout(request):
             products_to_buy = json.loads(products_to_buy)
             print("products_to_buy: ",products_to_buy)
             print("products_to_buy[0]: ",products_to_buy[0])
-            print("products_to_buy[0][0]: ",products_to_buy[0][0])
-            print("products_to_buy[0][1]: ",products_to_buy[0][1])
         # Retrieves user information
         cart_obj_ID = request.POST['cart_obj_ID']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
@@ -861,7 +859,10 @@ def submit_checkout(request):
 #        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         shopping_list = []
         try:
-            for key, qty in products_to_buy:
+            for product in products_to_buy:
+                print(product)
+                key, qty = product
+                print(key, qty)
                 item = get_object_or_404(ProductosEnBodega,peb_ID=key)
                 shopping_list.append(item)
         except:
