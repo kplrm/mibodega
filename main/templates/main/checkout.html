@@ -784,9 +784,7 @@
             };
         }
         let products_to_buy = JSON.stringify(dict_changes);
-        console.log(products_to_buy);
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != 0 && usr_geolocation != "") {
-            console.log("in ajax submission");
             // submit with AJAX
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
