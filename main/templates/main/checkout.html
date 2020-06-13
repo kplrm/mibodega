@@ -537,9 +537,19 @@
 
 
 <script>
+    // Initialize dropdown button
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.dropdown-trigger');
         var instances = M.Dropdown.init(elems, {});
+    });
+    // Initialize modal box for messages
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.getElementById('popup_modal');
+        var instances = M.Modal.init(elems, {
+            onCloseEnd: function onCloseEnd() {
+                window.location.href = '../';
+            }
+        });
     });
     // Show only best result
     {% for result in result_list %}
