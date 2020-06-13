@@ -790,6 +790,8 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     # Envio de email al cliente
     send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
                                 recipient_list=[usr_email], html_message=html_content, fail_silently=False)
+    # Dummy mail for testing
+    #send_mail(subject="prueba", message="test1", from_email="hola@alimentos.pe",recipient_list=["hola@alimentos.pe"], fail_silently=False)
 
     # Send mail to bodegas
     for bodega_id in bodegas:
