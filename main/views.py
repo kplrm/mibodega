@@ -824,7 +824,6 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
-        print("in submit_checkout")
         # Saves user data if there is a user
         if request.user.is_authenticated:
             pass
@@ -837,9 +836,14 @@ def submit_checkout(request):
             pass
 #            print("Usuario no identificado")
 
-        # Stores variables in session
-        cart_obj_id = request.POST['cart_obj_id']
-        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
+        # Retrieves products to buy
+        products_to_buy = request.POST.get('products_to_buy',False)
+        if products_to_buy != False:
+            products_to_buy = json.loads(products_to_buy)
+        
+        # Retrieves user information
+        cart_obj_ID = request.POST['cart_obj_ID']
+        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
         usr_first = request.POST['usr_first']
         usr_last = request.POST['usr_last']
         usr_street = request.POST['usr_street']
@@ -848,12 +852,33 @@ def submit_checkout(request):
         usr_phone = request.POST['usr_phone']
         usr_comments = request.POST['usr_comments']
 
-        # Get items from the basket
+        # Get the shopping list
+        shopping_list = []
+        for product in products_to_buy:
+            item = get_object_or_404(ProductosEnBodega,peb_ID=str(product['key']))
+            shopping_list.append(item)
+        
+        # Update cart and cart items according to the shopping list
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        for item in cart_list:
+            for shopping_item in shopping_list:
+                if str(item.ci_product.peb_product.pa_ID) == str(shopping_item.peb_product.pa_ID):
+                    cart_obj.crt_product.remove(item.ci_product)
+                    cart_obj.crt_product.add(shopping_item)
+                    item.ci_product = shopping_item
+                    item.save()
+                    shopping_list.remove(shopping_item)
+                    break
+                else:
+                    continue
+        # Reload cart_list with the products updated
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        update_price(cart_obj)
+        
         # Check for not available items
         not_available_items = []
         for item in cart_list:
-            if item.ci_product.peb_status == False:
+            if item.ci_product.peb_status == False or item.ci_product.peb_product.pa_status == False:
                 not_available_items.append( str(item.ci_product.peb_product.pa_product) )
                 peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
                 cart_obj.crt_product.remove(peb) # remove crt_product
@@ -865,14 +890,11 @@ def submit_checkout(request):
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
         # SEND JSON RESPONSE!!!!!!!!!!!
-        if cart_obj.crt_total_price == 0:
-            print("in price = 0")
+        if cart_obj.crt_total_price == 0: # If cart price is zero
             response_data = {"error": not_available_items }
-            print(response_data)
             return JsonResponse(response_data, status=400)
         # In case shopping cart is not empty
-        elif cart_obj.crt_total_price > 0:
-            print("in price > 0")
+        elif cart_obj.crt_total_price > 0: # If cart price is larger than zero
             # Creates a new order
             orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
 
@@ -922,8 +944,7 @@ def submit_checkout(request):
             # Send JsonResponse
             response_data = {"success": not_available_items }
             return JsonResponse(response_data, status=200)
-        else:
-            print("in price < 0")
+        else: # If price is less than zero
             return JsonResponse({"error": "Invalid cart value"}, status=400)
     
     # In case is not post neither ajax
