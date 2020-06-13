@@ -134,11 +134,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 #EMAIL_PORT = 465
 
 EMAIL_HOST = 'smtp.zoho.eu'
+EMAIL_PORT = 465
 EMAIL_HOST_USER = 'hola@alimentos.pe'
 EMAIL_HOST_PASSWORD = 'C4mp30n123.'
-EMAIL_PORT = 465
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+EMAIL_TIMEOUT = 10 # seconds, default 30
+EMAIL_SSL_KEYFILE = None
+EMAIL_SSL_CERTFILE = None
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
