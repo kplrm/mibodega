@@ -934,7 +934,7 @@ def submit_checkout(request):
                 order_item.save()
 
             # Send email to client and bodegas
-            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+            #send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Delete current cart and its associated items before submitting
             cart_obj.delete()
