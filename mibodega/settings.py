@@ -133,12 +133,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 #EMAIL_HOST_PASSWORD = config['EMAIL_PASSWORD']
 #EMAIL_PORT = 465
 
-EMAIL_HOST = 'smtp.zoho.eu'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'hola@alimentos.pe'
-EMAIL_HOST_PASSWORD = 'C4mp30n123.'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+#EMAIL_HOST = 'smtp.zoho.eu'
+#EMAIL_PORT = 465
+#EMAIL_HOST_USER = 'hola@alimentos.pe'
+#EMAIL_HOST_PASSWORD = 'C4mp30n123.'
+#EMAIL_USE_TLS = False
+#EMAIL_USE_SSL = True
+
+EMAIL_HOST = 'outlook.office365.com'
+EMAIL_PORT = 993
+EMAIL_HOST_USER = 'guillen.diego@hotmail.es'
+EMAIL_HOST_PASSWORD = 'tuviejapr0'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 EMAIL_TIMEOUT = 10 # seconds, default 30
 EMAIL_SSL_KEYFILE = None
 EMAIL_SSL_CERTFILE = None
