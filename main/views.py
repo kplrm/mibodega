@@ -859,7 +859,7 @@ def submit_checkout(request):
         shopping_list = []
         try:
             for key, qty in products_to_buy:
-                item = get_object_or_404(ProductosEnBodega,peb_ID=key))
+                item = get_object_or_404(ProductosEnBodega,peb_ID=key)
                 shopping_list.append(item)
         except:
             print("problem loading bought items")
