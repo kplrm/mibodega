@@ -786,16 +786,10 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
     html_content = render_to_string('main/customer_order_confirmation.html', context)
     plain_message = strip_tags(html_content)
-#    email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
-#                                to=[usr_email], body="text_body")
-#    email.attach_alternative(html_content, "text/html")
-#    res = email.send()
-#    print("Email enviado a cliente")
 
+    # Envio de email al cliente
     send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
                                 recipient_list=[usr_email], html_message=html_content, fail_silently=False)
-    #email.attach_alternative(html_content, "text/html")
-    #res = email.send()
 
     # Send mail to bodegas
     for bodega_id in bodegas:
@@ -823,13 +817,11 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 
         # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
         html_content = render_to_string('main/bodega_order_confirmation.html', context)
-#        email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
-#                                    to=[usr_email], body="text_body")
-#        email.attach_alternative(html_content, "text/html")
-#        res = email.send()
-#        print("Email enviado a Bodega")
+        plain_message = strip_tags(html_content)
 
-#    return HttpResponse('%s'%res)
+        # Envio de email a bodegas
+        send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
+                                    recipient_list=[usr_email], html_message=html_content, fail_silently=False)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
