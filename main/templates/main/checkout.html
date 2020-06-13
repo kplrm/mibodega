@@ -298,7 +298,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <input type="text" id="product_list_{{forloop.counter}}" value=";">
+                                        <input type="text" id="product_list_{{forloop.counter}}" value="">
+                                        <input type="text" id="counter" value="{{forloop.counter}}">
                                         {% for item, p_quantity, sub_total in result.1.1.3 %}
                                             <tr>
                                                 <td style="width:70%;text-align:Left">
@@ -320,11 +321,12 @@
                                                 </td>
                                             </tr>
                                             <script>
-                                                val = document.getElementById("product_list_{{forloop.counter}}");
+                                                counter = document.getElementById("counter").value;
+                                                val = document.getElementById("product_list_"+counter);
                                                 try {
-                                                    value = val.value
+                                                    value = val.value;
                                                 } catch {
-                                                    value = ""
+                                                    value = "";
                                                 }
                                                 console.log("Laikita");
                                                 console.log(val);
