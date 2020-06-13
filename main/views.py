@@ -19,6 +19,7 @@ from django.core.mail import EmailMultiAlternatives #EmailMessage
 from django.template.loader import render_to_string
 
 from django.core.mail import send_mail
+from django.utils.html import strip_tags 
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
