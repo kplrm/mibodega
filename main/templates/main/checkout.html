@@ -785,7 +785,8 @@
         console.log($("#checkout_form").validate().form());
         console.log("{{cart_obj.crt_total_price}}");
         console.log(usr_geolocation);
-        if ($("#checkout_form").validate().form() && {{cart_obj.crt_total_price}} != 0 && usr_geolocation != "") {
+        if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != 0 && usr_geolocation != "") {
+            console.log("in ajax submission");
             // submit with AJAX
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
