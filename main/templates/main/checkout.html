@@ -267,6 +267,7 @@
                 </div>
             </div>
             <!-- Dropdown button end -->
+            <input type="text" id="counter" value=""> <!-- SUPPORT VARIABLE FOR BUYING -->
             {% for result in result_list %}
                 {% if result.2 == 1 %} <!-- IF ALL PRODUCTS ARE AT ONE BODEGA -->
                 <div id="result_list_{{ forloop.counter }}">
@@ -299,7 +300,9 @@
                                     </thead>
                                     <tbody>
                                         <input type="text" id="product_list_{{forloop.counter}}" value="">
-                                        <input type="text" id="counter" value="{{forloop.counter}}">
+                                        <script>
+                                            document.getElementById("counter").value = "{{forloop.counter}}";
+                                        </script>
                                         {% for item, p_quantity, sub_total in result.1.1.3 %}
                                             <tr>
                                                 <td style="width:70%;text-align:Left">
@@ -323,15 +326,7 @@
                                             <script>
                                                 counter = document.getElementById("counter").value;
                                                 val = document.getElementById("product_list_"+counter);
-                                                try {
-                                                    value = val.value;
-                                                } catch {
-                                                    value = "";
-                                                }
-                                                console.log("Laikita");
-                                                console.log(val);
-                                                console.log(value);
-                                                val.value = String(value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
+                                                val.value = String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
                                             </script>
                                         {% endfor %}
                                         <tr>
