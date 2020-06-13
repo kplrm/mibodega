@@ -825,6 +825,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
         print("in submit_checkout")
+        
         # Saves user data if there is a user
         if request.user.is_authenticated:
             pass
@@ -837,7 +838,12 @@ def submit_checkout(request):
             pass
 #            print("Usuario no identificado")
 
-        # Stores variables in session
+        # Retrieves products to buy
+        products_to_buy = request.POST.get('products_to_buy',False)
+        if products_to_buy != False:
+            products_to_buy = json.loads(products_to_buy)
+            print("products_to_buy: ",products_to_buy)
+        # Retrieves user information
         cart_obj_id = request.POST['cart_obj_id']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
         usr_first = request.POST['usr_first']
@@ -850,74 +856,84 @@ def submit_checkout(request):
 
         # Get items from the basket
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-        # Check for not available items
-        not_available_items = []
-        for item in cart_list:
-            if item.ci_product.peb_status == False:
-                not_available_items.append( str(item.ci_product.peb_product.pa_product) )
-                peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
-                cart_obj.crt_product.remove(peb) # remove crt_product
-                cart_obj.crt_item.remove(item) # remove crt_item
-                item.delete()
-                update_price(cart_obj)
-        not_available_items = tuple(not_available_items)
-        # Reload items from the basket after purging not available items
-        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-
-        # SEND JSON RESPONSE!!!!!!!!!!!
-        if cart_obj.crt_total_price == 0:
-            print("in price = 0")
-            response_data = {"error": not_available_items }
-            print(response_data)
-            return JsonResponse(response_data, status=400)
-        # In case shopping cart is not empty
-        elif cart_obj.crt_total_price > 0:
-            print("in price > 0")
-            # Creates a new order
-            orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
-
-            # Crate a new bodegaorder for every bodega in the basket
-            bodegas = dict()
-            for item in cart_list:
-                if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
-                    pass
-                else:
-                    bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
-                    bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
-            
-            # Create every order item
-            for item in cart_list:
-                order_item = OrderItem.objects.create(oi_ID=orders_obj)
-                order_item.oi_id_product = item.ci_product.peb_product.pa_ID
-                order_item.oi_product = item.ci_product.peb_product.pa_product
-                order_item.oi_quantity = item.ci_quantity
-                order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
-                order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
-                order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
-                order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
-                if item.ci_product.peb_discount_status:
-                    order_item.oi_price = item.ci_product.peb_discount_price
-                else:
-                    order_item.oi_price = item.ci_product.peb_regular_price
-                order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
-                # Adds bodegaorders_obj to order_item
-                for bodega in bodegas:
-                    if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
-                        order_item.oi_bo_ID = bodegas[str(bodega)]
-                        # Updates bodega order total price
-                        bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
-                        bodegas[str(bodega)].save()
-                        break
-                order_item.save()
-
-            # Send email to client and bodegas
-            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
-
-            # Delete current cart and its associated items before submitting
-            cart_obj.delete()
-            for item in cart_list:
-                print(type(item))
-                item.delete()
+        shopping_list = []
+        try:
+            for key, qty in products_to_buy:
+                item = get_object_or_404(ProductosEnBodega,peb_ID=key))
+                shopping_list.append(item)
+        except:
+            print("problem loading bought items")
+            pass
+        print("shopping_list: ",shopping_list)
+        
+#        # Check for not available items
+#        not_available_items = []
+#        for item in cart_list:
+#            if item.ci_product.peb_status == False:
+#                not_available_items.append( str(item.ci_product.peb_product.pa_product) )
+#                peb = ProductosEnBodega.objects.all().filter(peb_ID=item.ci_product.peb_ID).all().first()
+#                cart_obj.crt_product.remove(peb) # remove crt_product
+#                cart_obj.crt_item.remove(item) # remove crt_item
+#                item.delete()
+#                update_price(cart_obj)
+#        not_available_items = tuple(not_available_items)
+#        # Reload items from the basket after purging not available items
+#        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+#
+#        # SEND JSON RESPONSE!!!!!!!!!!!
+#        if cart_obj.crt_total_price == 0:
+#            print("in price = 0")
+#            response_data = {"error": not_available_items }
+#            print(response_data)
+#            return JsonResponse(response_data, status=400)
+#        # In case shopping cart is not empty
+#        elif cart_obj.crt_total_price > 0:
+#            print("in price > 0")
+#            # Creates a new order
+#            orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
+#
+#            # Crate a new bodegaorder for every bodega in the basket
+#            bodegas = dict()
+#            for item in cart_list:
+#                if str(item.ci_product.peb_bodega.bd_ID) in bodegas: # Check for key in dict
+#                    pass
+#                else:
+#                    bodegaorders_obj = BodegaOrders.objects.create(bo_order=orders_obj,bo_bodega=item.ci_product.peb_bodega)
+#                    bodegas.update({str(item.ci_product.peb_bodega.bd_ID): bodegaorders_obj})
+#            
+#            # Create every order item
+#            for item in cart_list:
+#                order_item = OrderItem.objects.create(oi_ID=orders_obj)
+#                order_item.oi_id_product = item.ci_product.peb_product.pa_ID
+#                order_item.oi_product = item.ci_product.peb_product.pa_product
+#                order_item.oi_quantity = item.ci_quantity
+#                order_item.oi_id_bodega = item.ci_product.peb_bodega.bd_ID
+#                order_item.oi_ruc_bodega = item.ci_product.peb_bodega.bd_ruc
+#                order_item.oi_bodega_name = item.ci_product.peb_bodega.bd_name
+#                order_item.oi_bodega_phone = item.ci_product.peb_bodega.bd_phone
+#                if item.ci_product.peb_discount_status:
+#                    order_item.oi_price = item.ci_product.peb_discount_price
+#                else:
+#                    order_item.oi_price = item.ci_product.peb_regular_price
+#                order_item.oi_prod_total = round(item.ci_quantity * order_item.oi_price, 2)
+#                # Adds bodegaorders_obj to order_item
+#                for bodega in bodegas:
+#                    if str(bodega) == str(item.ci_product.peb_bodega.bd_ID):
+#                        order_item.oi_bo_ID = bodegas[str(bodega)]
+#                        # Updates bodega order total price
+#                        bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
+#                        bodegas[str(bodega)].save()
+#                        break
+#                order_item.save()
+#
+#            # Send email to client and bodegas
+#            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+#
+#            # Delete current cart and its associated items before submitting
+#            cart_obj.delete()
+#            for item in cart_list:
+#                print(type(item))
+#                item.delete()
 
             # Send JsonResponse
             response_data = {"success": not_available_items }

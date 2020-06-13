@@ -772,10 +772,17 @@
         usr_phone = document.getElementById("phone").value;
         usr_comments = document.getElementById("comments").value;
         console.log("Laika");
-        console.log(result_list);
-        console.log(parse_result_list);
-        console.log(parse_result_list[0]);
-        /*
+        var dict_changes = [];
+        for (i = 0; i < parse_result_list.length; i++) {
+            data = {
+                key:    String(parse_result_list[i][0]),
+                qty:    String(parse_result_list[i][1]),
+            }
+            dict_changes.push(data);
+        }
+        let products_to_buy = JSON.stringify(dict_changes);
+        console.log(products_to_buy);
+        
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != "0" && usr_geolocation != "") {
             // submit with AJAX
             $.ajax({
@@ -793,7 +800,7 @@
                     'usr_email': usr_email,
                     'usr_phone': usr_phone,
                     'usr_comments': usr_comments,
-                    // spare line to send confirmation if user wants to update his preferences
+                    'products_to_buy': products_to_buy
                 },
                 success: function(response){
                     var msg = "";
@@ -832,7 +839,7 @@
             alert("Su cesta se encuentra vacía");
         } else {
             alert("Seleccione en el mapa su ubicación"); // In case missing to select position
-        }*/
+        }
     }
 </script>
 <!-- Js Plugins -->
