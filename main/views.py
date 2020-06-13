@@ -790,7 +790,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 #    res = email.send()
 #    print("Email enviado a cliente")
 
-    email = send_mail(subject=subject, from_email="hola@alimentos.pe",
+    email = send_mail(subject=subject, from_email="hola@alimentos.pe", message="Su pedido en Alimentos.pe",
                                 recipient_list=[usr_email], html_message=html_content, fail_silently=False)
     #email.attach_alternative(html_content, "text/html")
     res = email.send()
