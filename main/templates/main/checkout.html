@@ -596,6 +596,7 @@
         let products_to_buy = JSON.stringify(dict_changes);
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != 0 && usr_geolocation != "") {
             // submit with AJAX
+            console.log("In checkout Ajax");
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/submit_checkout",
