@@ -781,10 +781,6 @@
             dict_changes.push(data);
         }
         let products_to_buy = JSON.stringify(dict_changes);
-        console.log(products_to_buy);
-        console.log($("#checkout_form").validate().form());
-        console.log("{{cart_obj.crt_total_price}}");
-        console.log(usr_geolocation);
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != 0 && usr_geolocation != "") {
             console.log("in ajax submission");
             // submit with AJAX
@@ -794,7 +790,6 @@
                 type: "POST",
                 dataType: "json",
                 data: {
-                    'csrfmiddlewaretoken': csrftoken,
                     'cart_obj_ID': "{{cart_obj.crt_ID}}",
                     'usr_first': usr_first,
                     'usr_last': usr_last,
