@@ -861,10 +861,10 @@ def submit_checkout(request):
             shopping_list.append(item)
         
         # Get items from the basket and update them with checkout list
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         print("Before")
         print("cart_list: ",cart_list)
         print("shopping_list: ",shopping_list)
-        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         for item in cart_list:
             for shopping_item in shopping_list:
                 if item.ci_product.peb_ID == shopping_item.peb_ID:
