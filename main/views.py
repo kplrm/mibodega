@@ -890,12 +890,11 @@ def submit_checkout(request):
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
         # SEND JSON RESPONSE!!!!!!!!!!!
-        if cart_obj.crt_total_price == 0:
+        if cart_obj.crt_total_price == 0: # If cart price is zero
             response_data = {"error": not_available_items }
-            print(response_data)
             return JsonResponse(response_data, status=400)
         # In case shopping cart is not empty
-        elif cart_obj.crt_total_price > 0:
+        elif cart_obj.crt_total_price > 0: # If cart price is larger than zero
             # Creates a new order
             orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
 
@@ -945,8 +944,7 @@ def submit_checkout(request):
             # Send JsonResponse
             response_data = {"success": not_available_items }
             return JsonResponse(response_data, status=200)
-        else:
-            print("in price < 0")
+        else: # If price is less than zero
             return JsonResponse({"error": "Invalid cart value"}, status=400)
     
     # In case is not post neither ajax
