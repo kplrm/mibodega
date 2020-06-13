@@ -146,3 +146,7 @@ EMAIL_SSL_KEYFILE = None
 EMAIL_SSL_CERTFILE = None
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+#Client ID
+#1000.S6B8QF6CRA55ERXN75OYHIIJTWRTLR
+#Client Secret
+#ddb395376a25a267ca1160c8c104e745e7d455bd68
