@@ -854,36 +854,28 @@ def submit_checkout(request):
         usr_phone = request.POST['usr_phone']
         usr_comments = request.POST['usr_comments']
 
-        # Get items from the checkout list
+        # Get the shopping list
         shopping_list = []
         for product in products_to_buy:
             item = get_object_or_404(ProductosEnBodega,peb_ID=str(product['key']))
             shopping_list.append(item)
         
-        # Get items from the basket and update them with checkout list
+        # Update cart and cart items according to the shopping list
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-        print("Before")
-        print("cart_list: ",cart_list)
-        print("shopping_list: ",shopping_list)
         for item in cart_list:
-            print("item: ",item)
             for shopping_item in shopping_list:
                 if str(item.ci_product.peb_product.pa_ID) == str(shopping_item.peb_product.pa_ID):
-                    print("Laikita in")
-                    print("item.ci_product.peb_ID: ",item.ci_product.peb_ID)
-                    print("shopping_item.peb_ID: ",shopping_item.peb_ID)
+                    cart_obj.crt_product.remove(item.ci_product)
+                    cart_obj.crt_product.add(shopping_item)
                     item.ci_product = shopping_item
                     item.save()
                     shopping_list.remove(shopping_item)
-                    print("Laikita out")
                     break
                 else:
                     continue
-            
+        # Reload cart_list with the products updated
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
-        print("After")
-        print("cart_list: ",cart_list)
-        print("shopping_list: ",shopping_list)
+        update_price(cart_obj)
 
 
         
