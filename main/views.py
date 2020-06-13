@@ -856,19 +856,28 @@ def submit_checkout(request):
         usr_comments = request.POST['usr_comments']
 
         # Get items from the basket
-#        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         shopping_list = []
-        try:
-            for product in products_to_buy:
-                print(product)
-                print(product['key'])
-                print(product['qty'])
-                item = get_object_or_404(ProductosEnBodega,peb_ID=str(product['key']))
-                shopping_list.append(item)
-        except:
-            print("problem loading bought items")
-            pass
+        for product in products_to_buy:
+            item = get_object_or_404(ProductosEnBodega,peb_ID=str(product['key']))
+            shopping_list.append(item)
+        
+        # Replace current items in shopping cart with selection
+        print("Before")
+        print("cart_list: ",cart_list)
         print("shopping_list: ",shopping_list)
+        for item in cart_list:
+            for shopping_item in shopping_list:
+                if item.ci_product.peb_ID == shopping_item.peb_ID:
+                    item.ci_product = shopping_item
+                    item.save()
+                    shopping_list.remove(shopping_item)
+                    break
+        print("After")
+        print("cart_list: ",cart_list)
+        print("shopping_list: ",shopping_list)
+
+
         
 #        # Check for not available items
 #        not_available_items = []
