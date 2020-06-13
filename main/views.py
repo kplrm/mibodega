@@ -842,8 +842,7 @@ def submit_checkout(request):
         products_to_buy = request.POST.get('products_to_buy',False)
         if products_to_buy != False:
             products_to_buy = json.loads(products_to_buy)
-            print("products_to_buy: ",products_to_buy)
-            print("products_to_buy[0]: ",products_to_buy[0])
+        
         # Retrieves user information
         cart_obj_ID = request.POST['cart_obj_ID']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
