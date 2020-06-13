@@ -788,8 +788,8 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     plain_message = strip_tags(html_content)
 
     # Envio de email al cliente
-    send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
-                                recipient_list=[usr_email], html_message=html_content, fail_silently=False)
+#    send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
+#                                recipient_list=[usr_email], html_message=html_content, fail_silently=False)
 
     # Send mail to bodegas
     for bodega_id in bodegas:
@@ -820,8 +820,8 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         plain_message = strip_tags(html_content)
 
         # Envio de email a bodegas
-        send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
-                                    recipient_list=[usr_email], html_message=html_content, fail_silently=False)
+#        send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
+#                                    recipient_list=[usr_email], html_message=html_content, fail_silently=False)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
@@ -934,7 +934,7 @@ def submit_checkout(request):
                 order_item.save()
 
             # Send email to client and bodegas
-            #send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
+            send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Delete current cart and its associated items before submitting
             cart_obj.delete()
