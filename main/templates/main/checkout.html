@@ -267,7 +267,7 @@
                 </div>
             </div>
             <!-- Dropdown button end -->
-            <input type="text" id="counter" value=""> <!-- SUPPORT VARIABLE FOR BUYING -->
+            <input type="hidden" id="counter" value=""> <!-- SUPPORT VARIABLE FOR BUYING -->
             {% for result in result_list %}
                 {% if result.2 == 1 %} <!-- IF ALL PRODUCTS ARE AT ONE BODEGA -->
                 <div id="result_list_{{ forloop.counter }}">
@@ -347,7 +347,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="button" id="btn_comprar" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;" onclick="submit_checkout('{{ result.1.1.3 }}'); return false">Comprar</button>
+                            <button type="button" id="btn_comprar" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;" onclick="submit_checkout(document.getElementById('product_list_'+'{{forloop.counter}}').value); return false">Comprar</button>
                         </div>
                     </div>
                 {% else %} <!-- IF ALL PRODUCTS DIVIDED BETWEEN TWO BODEGAS -->
@@ -496,7 +496,7 @@
                             </ul>
                         </div>
                         <div class="order-btn">
-                            <button type="button" id="btn_comprar" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;" onclick="submit_checkout('{{ result.1.1.3 }}','{{ result.2.1.3 }}'); return false">Comprar</button>
+                            <button type="button" id="btn_comprar" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;" onclick="submit_checkout(document.getElementById('product_list_'+'{{forloop.counter}}').value); return false">Comprar</button>
                         </div>
                     </div>
                 {% endif %}
@@ -765,8 +765,7 @@
         });
     };
     // Submit checkout
-    function submit_checkout(result_1) {
-        //[item, p_quantity, sub_total] = result_1;
+    function submit_checkout(result_list) {
         usr_first = document.getElementById("fir").value;
         usr_last = document.getElementById("last").value;
         usr_street = document.getElementById("street").value;
@@ -774,6 +773,8 @@
         usr_email = document.getElementById("email").value;
         usr_phone = document.getElementById("phone").value;
         usr_comments = document.getElementById("comments").value;
+        console.log("Laika");
+        console.log(result_list);
         /*
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != "0" && usr_geolocation != "") {
             // submit with AJAX
