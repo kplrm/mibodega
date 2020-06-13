@@ -614,6 +614,7 @@
                     'products_to_buy': products_to_buy
                 },
                 success: function(response){
+                    console.log("In checkout success");
                     var msg = "";
                     if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                         $("#popupModalLabel").html('');
