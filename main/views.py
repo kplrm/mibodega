@@ -866,6 +866,7 @@ def submit_checkout(request):
         print("cart_list: ",cart_list)
         print("shopping_list: ",shopping_list)
         for item in cart_list:
+            print("item: ",item)
             for shopping_item in shopping_list:
                 print("item.ci_product.peb_ID: ",item.ci_product.peb_ID)
                 print("shopping_item.peb_ID: ",shopping_item.peb_ID)
@@ -873,7 +874,7 @@ def submit_checkout(request):
                     print("Laikita in")
                     item.ci_product = shopping_item
                     item.save()
-                    shopping_list.remove(shopping_item)
+#                    shopping_list.remove(shopping_item)
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         print("After")
         print("cart_list: ",cart_list)
