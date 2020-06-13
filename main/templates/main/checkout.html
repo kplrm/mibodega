@@ -551,6 +551,12 @@
             }
         });
     });
+    // Function to display modal
+    function show_modal() {
+        var elem = document.getElementById('popup_modal');
+        var instance = M.Modal.getInstance(elem);
+        instance.open();
+    }
     // Show only best result
     {% for result in result_list %}
         if ("{{ forloop.counter }}" != "1") {
@@ -631,7 +637,7 @@
                         $("#popupModalLabel").append('Su compra ha sido procesada');
                         $("#popupModalBody").html('');
                         $("#popupModalBody").append('Gracias por su compra');
-                        $('#popup_modal').open();
+                        show_modal();
                         //$('#popup_modal').modal({ show: true });
                         //$('#popup_modal').on('hidden.bs.modal', function (e) {
                         //    window.location.href = '../';
