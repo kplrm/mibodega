@@ -528,6 +528,11 @@
 </div>
 
 <script>
+    // Preloader
+    $(window).load(function() {
+		// Animate loader off screen
+        $("#loaderDiv").fadeOut("slow");;
+	});
     // Initialize dropdown button
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.dropdown-trigger');
