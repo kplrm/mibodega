@@ -320,7 +320,7 @@
                                                 </td>
                                             </tr>
                                             <script>
-                                                val = document.getElementById("product_list_{{forloop.counter}}");
+                                                val = document.getElementById("product_list_{{forloop.counter}}").value;
                                                 $('#product_list_{{forloop.counter}}').val( val + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];');
                                             </script>
                                         {% endfor %}
