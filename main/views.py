@@ -874,7 +874,6 @@ def submit_checkout(request):
                     item.ci_product = shopping_item
                     item.save()
                     shopping_list.remove(shopping_item)
-                    break
         cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         print("After")
         print("cart_list: ",cart_list)
