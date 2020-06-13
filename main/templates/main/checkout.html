@@ -774,6 +774,7 @@
         var dict_changes = [];
         for (i = 0; i < parse_result_list.length; i++) {
             var parse_key_qty = parse_result_list[i].split(',');
+            // If condition to protect against empty items
             if (parse_key_qty[0] != "") {
                 data = {
                 key:    String(parse_key_qty[0]),
