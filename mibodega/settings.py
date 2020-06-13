@@ -140,12 +140,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 #EMAIL_USE_TLS = False
 #EMAIL_USE_SSL = True
 
-EMAIL_HOST = 'outlook.office365.com'
-EMAIL_PORT = 993
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'guillen.diego@hotmail.es'
 EMAIL_HOST_PASSWORD = 'tuviejapr0'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 EMAIL_TIMEOUT = 10 # seconds, default 30
 EMAIL_SSL_KEYFILE = None
