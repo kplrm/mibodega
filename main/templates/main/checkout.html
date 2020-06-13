@@ -505,7 +505,7 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal" id="popup_modal">
+<div class="modal" id="popup_modal" style="height: auto;">
     <div class="modal-content">
         <h5 id="popupModalLabel">Trail</h5>
         <p id="popupModalBody" style="text-align:left;">
@@ -615,7 +615,7 @@
                     var msg = "";
                     if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                         $("#popupModalLabel").html('');
-                        $("#popupModalLabel").append('Su compra ha sido procesada');
+                        $("#popupModalLabel").append('Su pedido fue enviado');
                         $("#popupModalBody").html('');
                         $("#popupModalBody").append('Gracias por su compra');
                         show_modal();
@@ -624,7 +624,7 @@
                             msg += "<li>" + String(response.success[i]) + "</li>"
                         };
                         $("#popupModalLabel").html('');
-                        $("#popupModalLabel").append('Su compra ha sido procesada');
+                        $("#popupModalLabel").append('Su pedido due enviado');
                         $("#popupModalBody").html('');
                         $("#popupModalBody").append('Gracias por su compra.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                         show_modal();
