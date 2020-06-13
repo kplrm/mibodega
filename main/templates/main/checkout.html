@@ -321,7 +321,7 @@
                                             </tr>
                                             <script>
                                                 $('#product_list_{{forloop.counter}}').val(function(i,val) {
-                                                    return val + (val ? '; ' : '') + '{{ item.peb_ID }}' + '{{ p_quantity }}';
+                                                    return val + (val ? '; ' : '') + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}]';
                                                 });
                                             </script>
                                         {% endfor %}
