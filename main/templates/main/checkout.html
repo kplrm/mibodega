@@ -749,7 +749,7 @@
     };
     // Submit checkout
     function submit_checkout(result_1) {
-        [item, p_quantity, sub_total] = result_1;
+        //[item, p_quantity, sub_total] = result_1;
         usr_first = document.getElementById("fir").value;
         usr_last = document.getElementById("last").value;
         usr_street = document.getElementById("street").value;
@@ -757,11 +757,6 @@
         usr_email = document.getElementById("email").value;
         usr_phone = document.getElementById("phone").value;
         usr_comments = document.getElementById("comments").value;
-        console.log("Laika");
-        console.log(result_1);
-        console.log("{{result_1}}");
-        console.log("{{result_1.0}}");
-        console.log("{{result_1.1}}");
         /*
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != "0" && usr_geolocation != "") {
             // submit with AJAX
