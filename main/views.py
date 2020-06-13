@@ -868,10 +868,10 @@ def submit_checkout(request):
         for item in cart_list:
             print("item: ",item)
             for shopping_item in shopping_list:
-                print("item.ci_product.peb_ID: ",item.ci_product.peb_ID)
-                print("shopping_item.peb_ID: ",shopping_item.peb_ID)
                 if str(item.ci_product.peb_ID) == str(shopping_item.peb_ID):
                     print("Laikita in")
+                    print("item.ci_product.peb_ID: ",item.ci_product.peb_ID)
+                    print("shopping_item.peb_ID: ",shopping_item.peb_ID)
                     item.ci_product = shopping_item
                     item.save()
                     shopping_list.remove(shopping_item)
