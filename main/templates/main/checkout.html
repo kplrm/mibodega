@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- Page Preloder -->
-<div class="preloader-wrapper big active" id="loaderDiv">
+<div class="preloader-wrapper big active" id="preloader">
     <div class="spinner-layer spinner-green-only">
         <div class="circle-clipper left">
             <div class="circle"></div>
@@ -531,7 +531,7 @@
     // Preloader
     $(window).load(function() {
 		// Animate loader off screen
-        $("#loaderDiv").fadeOut();
+        $("#preloader").delay(1000).fadeOut("slow");
     });
     // Initialize dropdown button
     document.addEventListener('DOMContentLoaded', function() {
