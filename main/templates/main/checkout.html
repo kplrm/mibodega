@@ -299,7 +299,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <input type="text" id="product_list_{{forloop.counter}}" value="">
+                                        <input type="hidden" id="product_list_{{forloop.counter}}" value="">
                                         <script>
                                             document.getElementById("counter").value = "{{forloop.counter}}";
                                         </script>
@@ -381,7 +381,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <input type="text" id="product_list_{{forloop.counter}}" value="">
+                                        <input type="hidden" id="product_list_{{forloop.counter}}" value="">
                                         <script>
                                             document.getElementById("counter").value = "{{forloop.counter}}";
                                         </script>
@@ -501,9 +501,6 @@
                     </div>
                 {% endif %}
             {% endfor %}
-            
-            
-            
             
             
             
@@ -766,6 +763,7 @@
     };
     // Submit checkout
     function submit_checkout(result_list) {
+        var parse_result_list = result_list.split(';');
         usr_first = document.getElementById("fir").value;
         usr_last = document.getElementById("last").value;
         usr_street = document.getElementById("street").value;
@@ -775,6 +773,8 @@
         usr_comments = document.getElementById("comments").value;
         console.log("Laika");
         console.log(result_list);
+        console.log(parse_result_list);
+        console.log(parse_result_list[0]);
         /*
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != "0" && usr_geolocation != "") {
             // submit with AJAX
