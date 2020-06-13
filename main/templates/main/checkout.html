@@ -774,11 +774,13 @@
         var dict_changes = [];
         for (i = 0; i < parse_result_list.length; i++) {
             var parse_key_qty = parse_result_list[i].split(',');
-            data = {
+            if (parse_key_qty[0] != "") {
+                data = {
                 key:    String(parse_key_qty[0]),
                 qty:    String(parse_key_qty[1])
-            }
+            };
             dict_changes.push(data);
+            };
         }
         let products_to_buy = JSON.stringify(dict_changes);
         console.log(products_to_buy);
