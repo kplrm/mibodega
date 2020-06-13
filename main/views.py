@@ -934,13 +934,13 @@ def submit_checkout(request):
 #            for item in cart_list:
 #                print(type(item))
 #                item.delete()
-
-            # Send JsonResponse
-            response_data = {"success": not_available_items }
-            return JsonResponse(response_data, status=200)
-        else:
-            print("in price < 0")
-            return JsonResponse({"error": "Invalid cart value"}, status=400)
+#
+#            # Send JsonResponse
+#            response_data = {"success": not_available_items }
+#            return JsonResponse(response_data, status=200)
+#        else:
+#            print("in price < 0")
+#            return JsonResponse({"error": "Invalid cart value"}, status=400)
     
     # In case is not post neither ajax
     else:
