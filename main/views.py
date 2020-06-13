@@ -843,6 +843,7 @@ def submit_checkout(request):
         if products_to_buy != False:
             products_to_buy = json.loads(products_to_buy)
             print("products_to_buy: ",products_to_buy)
+            print("products_to_buy[0]: ",products_to_buy[0])
         # Retrieves user information
         cart_obj_ID = request.POST['cart_obj_ID']
         cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
@@ -855,7 +856,7 @@ def submit_checkout(request):
         usr_comments = request.POST['usr_comments']
 
         # Get items from the basket
-        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+#        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
         shopping_list = []
         try:
             for key, qty in products_to_buy:
