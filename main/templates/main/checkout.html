@@ -610,9 +610,9 @@
                         $("#popupModalBody").html('');
                         $("#popupModalBody").append('Gracias por su compra');
                         $('#popup_modal').modal({ show: true });
-                        $('#popup_modal').on('hidden.bs.modal', function (e) {
-                            window.location.href = '../';
-                        })
+                        //$('#popup_modal').on('hidden.bs.modal', function (e) {
+                        //    window.location.href = '../';
+                        //})
                         //location.reload();
                         //window.location.href = '../'
                     } else if (response.success.length > 0) {
