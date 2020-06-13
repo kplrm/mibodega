@@ -844,8 +844,8 @@ def submit_checkout(request):
             products_to_buy = json.loads(products_to_buy)
             print("products_to_buy: ",products_to_buy)
         # Retrieves user information
-        cart_obj_id = request.POST['cart_obj_id']
-        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_id).first()
+        cart_obj_ID = request.POST['cart_obj_ID']
+        cart_obj = Cart.objects.all().filter(crt_ID=cart_obj_ID).first()
         usr_first = request.POST['usr_first']
         usr_last = request.POST['usr_last']
         usr_street = request.POST['usr_street']
