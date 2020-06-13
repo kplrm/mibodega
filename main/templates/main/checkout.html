@@ -634,6 +634,7 @@
                     }
                 },
                 error: function(response){ // This triggers in case all items in the basket get unavailable
+                    console.log("In checkout error");
                     var msg = "";
                     for (i = 0; i < response.responseJSON.error.length; i++) {
                         msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
