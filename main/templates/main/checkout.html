@@ -323,8 +323,7 @@
                                                 val = document.getElementById("product_list_{{forloop.counter}}");
                                                 console.log("Laikita");
                                                 console.log(val);
-                                                console.log(val.value);
-                                                $('#product_list_{{forloop.counter}}').val( String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];');
+                                                val.value = String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
                                             </script>
                                         {% endfor %}
                                         <tr>
