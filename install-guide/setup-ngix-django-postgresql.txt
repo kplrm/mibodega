@@ -59,6 +59,7 @@ sudo ufw status
 sudo ufw enable
 sudo ufw allow out 465
 sudo ufw delete allow xxx
+service ufw restart
 
 
 // CERTIFICATE AND INSTALLATION
