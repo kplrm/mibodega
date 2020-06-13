@@ -867,6 +867,8 @@ def submit_checkout(request):
         print("shopping_list: ",shopping_list)
         for item in cart_list:
             for shopping_item in shopping_list:
+                print("item.ci_product.peb_ID: ",item.ci_product.peb_ID)
+                print("shopping_item.peb_ID: ",shopping_item.peb_ID)
                 if item.ci_product.peb_ID == shopping_item.peb_ID:
                     item.ci_product = shopping_item
                     item.save()
