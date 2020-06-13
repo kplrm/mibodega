@@ -631,7 +631,8 @@
                         $("#popupModalLabel").append('Su compra ha sido procesada');
                         $("#popupModalBody").html('');
                         $("#popupModalBody").append('Gracias por su compra');
-                        $('#popup_modal').modal({ show: true });
+                        $('#popup_modal').open();
+                        //$('#popup_modal').modal({ show: true });
                         //$('#popup_modal').on('hidden.bs.modal', function (e) {
                         //    window.location.href = '../';
                         //})
