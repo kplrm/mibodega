@@ -18,6 +18,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import EmailMultiAlternatives #EmailMessage
 from django.template.loader import render_to_string
 
+from django.core.mail import send_mail
+
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from ipregistry import IpregistryClient, NoCache
@@ -782,11 +784,16 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 
     # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
     html_content = render_to_string('main/customer_order_confirmation.html', context)
-    email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
-                                to=[usr_email], body="text_body")
-    email.attach_alternative(html_content, "text/html")
-    res = email.send()
+#    email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
+#                                to=[usr_email], body="text_body")
+#    email.attach_alternative(html_content, "text/html")
+#    res = email.send()
 #    print("Email enviado a cliente")
+
+    email = send_mail(subject=subject, from_email="hola@alimentos.pe",
+                                recipient_list=[usr_email], html_message=html_content, fail_silently=False)
+    #email.attach_alternative(html_content, "text/html")
+    res = email.send()
 
     # Send mail to bodegas
     for bodega_id in bodegas:
@@ -814,13 +821,13 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 
         # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
         html_content = render_to_string('main/bodega_order_confirmation.html', context)
-        email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
-                                    to=[usr_email], body="text_body")
-        email.attach_alternative(html_content, "text/html")
-        res = email.send()
+#        email = EmailMultiAlternatives(subject=subject, from_email="hola@alimentos.pe",
+#                                    to=[usr_email], body="text_body")
+#        email.attach_alternative(html_content, "text/html")
+#        res = email.send()
 #        print("Email enviado a Bodega")
 
-    return HttpResponse('%s'%res)
+#    return HttpResponse('%s'%res)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
@@ -933,7 +940,6 @@ def submit_checkout(request):
                 order_item.save()
 
             # Send email to client and bodegas
-            Laika = 1/0
             send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)
 
             # Delete current cart and its associated items before submitting
