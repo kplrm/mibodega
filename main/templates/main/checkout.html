@@ -770,9 +770,7 @@
         usr_email = document.getElementById("email").value;
         usr_phone = document.getElementById("phone").value;
         usr_comments = document.getElementById("comments").value;
-        console.log("Laika");
         var parse_result_list = result_list.split(';');
-        console.log(parse_result_list[0]);
         var dict_changes = [];
         for (i = 0; i < parse_result_list.length; i++) {
             var parse_key_qty = parse_result_list[i].split(',');
@@ -785,7 +783,7 @@
         let products_to_buy = JSON.stringify(dict_changes);
         console.log(products_to_buy);
         
-        if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != "0" && usr_geolocation != "") {
+        if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != 0 && usr_geolocation != "") {
             // submit with AJAX
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
