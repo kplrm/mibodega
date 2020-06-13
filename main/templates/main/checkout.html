@@ -321,9 +321,15 @@
                                             </tr>
                                             <script>
                                                 val = document.getElementById("product_list_{{forloop.counter}}");
+                                                try {
+                                                    value = val.value
+                                                } catch {
+                                                    value = ""
+                                                }
                                                 console.log("Laikita");
                                                 console.log(val);
-                                                val.value = String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
+                                                console.log(value);
+                                                val.value = String(value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
                                             </script>
                                         {% endfor %}
                                         <tr>
