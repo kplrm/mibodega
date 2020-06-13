@@ -326,7 +326,7 @@
                                             <script>
                                                 counter = document.getElementById("counter").value;
                                                 val = document.getElementById("product_list_"+counter);
-                                                val.value = String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
+                                                val.value = String(val.value) + '{{ item.peb_ID }}' + ',' + '{{ p_quantity }};';
                                             </script>
                                         {% endfor %}
                                         <tr>
@@ -408,7 +408,7 @@
                                             <script>
                                                 counter = document.getElementById("counter").value;
                                                 val = document.getElementById("product_list_"+counter);
-                                                val.value = String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
+                                                val.value = String(val.value) + '{{ item.peb_ID }}' + ',' + '{{ p_quantity }};';
                                             </script>
                                         {% endfor %}
                                         <tr>
@@ -475,7 +475,7 @@
                                             <script>
                                                 counter = document.getElementById("counter").value;
                                                 val = document.getElementById("product_list_"+counter);
-                                                val.value = String(val.value) + '[{{ item.peb_ID }}' + ',' + '{{ p_quantity }}];';
+                                                val.value = String(val.value) + '{{ item.peb_ID }}' + ',' + '{{ p_quantity }};';
                                             </script>
                                         {% endfor %}
                                         <tr>
@@ -763,7 +763,6 @@
     };
     // Submit checkout
     function submit_checkout(result_list) {
-        var parse_result_list = result_list.split(';');
         usr_first = document.getElementById("fir").value;
         usr_last = document.getElementById("last").value;
         usr_street = document.getElementById("street").value;
@@ -772,13 +771,14 @@
         usr_phone = document.getElementById("phone").value;
         usr_comments = document.getElementById("comments").value;
         console.log("Laika");
+        var parse_result_list = result_list.split(';');
         console.log(parse_result_list[0]);
-        console.log(parse_result_list[0][0]);
         var dict_changes = [];
         for (i = 0; i < parse_result_list.length; i++) {
+            var parse_key_qty = parse_result_list[i].split(',');
             data = {
-                key:    String(parse_result_list[i]),
-                qty:    String(parse_result_list[i]),
+                key:    String(parse_key_qty[0]),
+                qty:    String(parse_key_qty[1])
             }
             dict_changes.push(data);
         }
