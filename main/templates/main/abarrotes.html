@@ -1,173 +1,90 @@
 {% extends 'main/header.html' %}
 {% load static %}
 
-
 {% block content %}
 <!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
 
-<!-- Header Section Begin -->
-<header class="header-section">
-    <!-- MIDDLE BAR -->
-    <div class="container">
-        <div class="inner-header">
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
-                    <div class="logo">
-                        <!-- <a href="./index.html"> -->
-                            <img src="{% static 'main/img/logo.png' %}" alt="">
-                        <!-- </a> -->
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="advanced-search">
-                        <form action="#" class="input-group">
-                            <input type="text" placeholder="Producto">
-                            <button type="button"><i class="ti-search"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4 text-right col-md-4">
-                    <div class="row">
-                        <!-- SHOP SELECTION BEGIN -->
-                        {% include 'main/includes/shop_selection.html' %}
-                        <!-- SHOP SELECTION END -->
 
-                        <!-- SHOPPING CART -->
-                        {% include 'main/includes/shopping_cart.html' %}
-                        <!-- SHOPPING CART -->
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- BOTTOM BAR -->
+<nav class="nav-extended hide-on-med-and-down" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">
+    <div class="nav-wrapper">
+        <ul style="display:inline-flex;list-style-type:none;">
+            <li><a href="/" style="color:black;">Ofertas</a></li>
+            <li><a href="/embutidos" style="color:black;">Embutidos</a></li>
+            <li><a href="/vegetales" style="color:black;">Vegetales</a>
+            <li><a href="/lacteos" style="color:black;">Lácteos</a></li>
+            <li class="active"><a href="/abarrotes" style="color:black;">Abarrotes</a></li>
+            <li><a href="/limpieza" style="color:black;">Limpieza</a></li>
+            <li><a href="/licores" style="color:black;">Licores</a></li>
+          </ul>
     </div>
-    <!-- BOTTOM BAR-->
-    <div class="nav-item">
-        <div class="container">
-            <nav class="nav-menu mobile-menu">
-                <ul>
-                    <li><a href="/">Ofertas</a></li>
-                    <li><a href="/embutidos">Embutidos</a></li>
-                    <li><a href="/vegetales">Vegetales</a>
-                    <li><a href="/lacteos">Lácteos</a></li>
-                    <li class="active"><a href="/abarrotes">Abarrotes</a></li>
-                    <li><a href="/limpieza">Limpieza</a></li>
-                    <li><a href="/licores">Licores</a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- Mobile version-->
-           <div id="mobile-menu-wrap"></div>
-        </div>
-    </div>
-</header>
-<!-- Header End -->
+</nav>
+<!-- BOTTOM END -->
+<!-- SIDENAV -->
+<ul id="slide-out" class="sidenav" style="list-style-type:none;padding-left:0;">
+    <li><a href="/">Ofertas</a></li>
+    <li><a href="/embutidos">Embutidos</a></li>
+    <li><a href="/vegetales">Vegetales</a>
+    <li><a href="/lacteos">Lácteos</a></li>
+    <li class="active"><a href="/abarrotes">Abarrotes</a></li>
+    <li><a href="/limpieza">Limpieza</a></li>
+    <li><a href="/licores">Licores</a></li>
+</ul>
+<!-- SIDENAV END -->
 
-<!-- Product Shop Section Begin -->
-<section class="product-shop spad">
-    <div class="container">
-        <div class="row">
-            <!-- Brand filter section begin -->
-            <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
-                <div class="filter-widget">
-                    <h4 class="fw-title">Marca</h4>
-                    <div class="fw-brand-check">
-                        {% for brand in brands %}
-                        <div class="bc-item">
-                            <label for="bc-calvin">
-                                {{ brand }}
-                                <input type="checkbox" id="bc-calvin">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        {% endfor %}
+<!-- PRODUCTS --> <!-- Missing to add result count? -->
+<table>
+    <tr>
+        <td class="hide-on-med-and-down" style="width:20%;">
+            <div class="container">
+                <h4>Marca</h4>
+                <div>
+                    {% for brand in brands %}
+                    <div>
+                        <label for="{{ brand }}" style="font-size: 14px !important;">
+                            <input type="checkbox" id="{{ brand }}">
+                            &nbsp{{ brand }}
+                        </label>
                     </div>
-                </div>
-            </div>
-            <!-- Brand filter section end -->
-
-            <!-- Search result area begin -->
-            <div class="col-lg-9 order-1 order-lg-2">
-                <div class="product-show-option">
-                    <div class="row">
-                        <div class="col-lg-7 col-md-7">
-                            <div class="select-option">
-                                <select class="sorting">
-                                    <option value="">Orden</option>
-                                </select>
-                                <!--<select class="p-show">
-                                    <option value="">Show:</option>
-                                </select>-->
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-5 text-right">
-                            <p>{{result_count}} productos disponibles</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-list">
-                    <!-- First item-->
-                    {% load humanize %}
-                    <div class="infinite-container">
-                    <div class="row">
-                    {% for product in results %}
-                        <div class="col-lg-3 col-sm-4">
-                            <div class="product-item">
-                                <div class="pi-pic infinite-item">
-                                    {% if product.peb_product.pa_image %}
-                                        <img src="{{product.peb_product.pa_image.url}}" alt="IMG">
-                                    {% endif %}
-                                    {% if product.peb_discount_status == True %}
-                                        <div class="sale pp-sale">{{ product.peb_discount_rate|floatformat:0|intcomma }} %</div>
-                                    {% endif %}
-                                    <ul>
-                                        <form method='POST' action='{% url "main:cart_add" %}'> {% csrf_token %}
-                                            <input type="hidden" name='product_id' value='{{product.pk}}'>
-                                            <li class="quick-view"><input type='submit' value='Añadir a la cesta'></li>
-                                        </form>        
-                                    </ul>
-                                </div>
-                                <div class="pi-text">
-                                    <div class="catagory-name">{{product.peb_bodega.bd_name}}</div>
-                                    <a href="#">
-                                        <h5>{{product.peb_product.pa_product}}</h5>
-                                    </a>
-                                    {% if product.peb_discount_status == True %}
-                                    <div class="product-price">
-                                        S/.{{product.peb_discount_price|floatformat:2|intcomma}}
-                                        <span>S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
-                                    </div>
-                                    {% else %}
-                                    <div class="product-price">
-                                        S/.{{product.peb_regular_price|floatformat:2|intcomma}}
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
                     {% endfor %}
-                    </div>
-                    </div>
-                    {% if results.has_next %}
-                        <a class="infinite-more-link" href="?page={{ results.next_page_number }}">Siguiente</a>
-                    {% endif %}
-                </div>
-
-                <div class="loading-more">
-                    <!--<i class="icon_loading"></i>
-                    <a href="#">
-                        Loading More
-                    </a>-->
                 </div>
             </div>
-            <!-- Search result area end -->
-        </div>
-    </div>
-</section>
-<!-- Product Shop Section End -->
+        </td>
+        <td>
+            <div class="row">
+                {% load humanize %}
+                {% for product in result_list %}
+                    <div class="col s6 m4 l3 xl2">
+                        <div class="card" style="text-align:center;">
+                            <div class="card-image" style="align-self:center">
+                                {% if product.peb_product.pa_image %}
+                                    <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                                {% endif %}
+                                <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
+                                <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
+                                <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                            </div>
+                            <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
+                                <b>{{product.peb_bodega.bd_name}}</b><br>
+                                {{product.peb_product.pa_product}}
+                            </div>
+                            <div class="card-action">
+                                <a class="btn" name="cart_add" id="{{product.pk}}" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px">
+                                    <i class="material-icons">add_shopping_cart</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>    
+</table>
+<!-- PRODUCTS END-->
+
+<!-- SHOPPING CART -->
+{% include 'main/includes/shopping_cart.html' %}
+<!-- SHOPPING CART END -->
 
 <!-- BENEFICIOS -->
 <section class="latest-blog spad">
@@ -211,22 +128,62 @@
         </div>
     </div>
 </section>
-<!-- Latest Blog Section End -->
+
+<script>
+    // Workaroung bug on first slide
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {interval: 5000});
+        var instance = M.Slider.getInstance(elems[0]);
+        instance.next();
+    });
+    // Add product to cart
+    function cart_add(product) {
+        M.toast({html: 'Producto añadido'})
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/cart_add",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    if (new_values['new_added'] == "True") {
+                        // Create cart item
+                        $("#cart_tbody").append('<tr name="'+new_values['product_pk']+'" style="border-top: 1px solid rgba(0, 0, 0, 0.12);"><td rowspan="2" style="text-align:center;"><img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="'+new_values['pa_image_url']+'" alt="IMG"><img class="responsive-img hide-on-small-only" style="max-width:100px;" src="'+new_values['pa_image_url']+'" alt="IMG"></td><td colspan="1"><h6>'+new_values['product']+'</h6></td><td colspan="3" style="text-align:center;"><a class="btn" name="remove_item" id="'+new_values['product_pk']+'" onclick="remove_item_from_cart(this)" style="background-color:#feb100;padding:3px 0px 3px 0px">Borrar</a></td></tr><tr name="'+new_values['product_pk']+'"><td style="text-align:left;"><h6>P.U: S/.'+parseFloat(new_values['price']).toFixed(2)+'</h6></td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+new_values['product_pk']+'" onclick="reduce_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">remove</i></a></td><td name="product_qty" id="'+new_values['product_pk']+'" style="text-align:center;">'+new_values['quantity']+'</td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+new_values['product_pk']+'" onclick="increase_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">add</i></a></td></tr>');
+                        // Update cart total price
+                        $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                    }
+                    else {
+                        $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                        product_qty = document.getElementsByName("product_qty");
+                        for (i = 0; i < product_qty.length; i++) {
+                            if (String(product_qty[i].id) == String(new_values['product_pk'])) {
+                                $(product_qty[i]).html(String(new_values['quantity']));
+                            }
+                        }
+                    }
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+</script>
+
 <!-- Js Plugins -->
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'main/js/jquery-ui.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.countdown.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.nice-select.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.zoom.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.dd.min.js' %}"></script>
-<script src="{% static 'main/js/jquery.slicknav.js' %}"></script>
-<script src="{% static 'main/js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'main/js/main.js' %}"></script>
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
+<script src="{% static 'main/js/store-front.js' %}"></script>
+
 <!-- Infinite scroll -->
 <script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static 'main/js/infinite.min.js' %}"></script>
 <script>
+    /*
     var infinite = new Waypoint.Infinite({
       element: $('.infinite-container')[0],
       onBeforePageLoad: function () {
@@ -236,5 +193,6 @@
         $('.loading').hide();
       }
     });
+    */
 </script>
 {% endblock %}
