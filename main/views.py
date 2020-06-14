@@ -938,7 +938,7 @@ def submit_checkout(request):
                             if item.ci_product.peb_bodega.bd_delivery_type == False: # Always the same cost
                                 bodegas[str(bodega)].bo_delivery = item.ci_product.peb_bodega.bd_delivery_cost
                             else:
-                                if total_price_in_bodega >= item.ci_product.peb_bodega.bd_delivery_free_starting_on: # Free starting on
+                                if bodegas[str(bodega)].bo_total_price >= item.ci_product.peb_bodega.bd_delivery_free_starting_on: # Free starting on
                                     bodegas[str(bodega)].bo_delivery = 0
                                 else: # Minimum amount for free delivery not reached
                                     bodegas[str(bodega)].bo_delivery = item.ci_product.peb_bodega.bd_delivery_cost
