@@ -235,8 +235,8 @@ class Cart(models.Model):
 class Orders(models.Model):
     ord_ID = models.AutoField(primary_key=True,editable=False,verbose_name="ID Order")
     ord_user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Usuario") # blank=True,null=True for unauthenticated users
-    ord_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
-    ord_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True) # or using better .FloatField()?
+    ord_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="Impuestos") # or using better .FloatField()?
+    ord_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="Precio total") # or using better .FloatField()?
     ord_date_updated = models.DateTimeField(auto_now=True,verbose_name="Fecha de modificación")
 #    ord_date_created = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de creación")
     ord_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
@@ -251,8 +251,9 @@ class Orders(models.Model):
 class BodegaOrders(models.Model):
     bo_order = models.ForeignKey(Orders,blank=True,null=True,on_delete=models.CASCADE,verbose_name="ID Orden de Compra")
     bo_bodega = models.ForeignKey(Bodega,blank=True,null=True,on_delete=models.CASCADE,verbose_name="Bodega")
-    bo_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
-    bo_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True)
+    bo_taxes = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="Impuestos")
+    bo_delivery = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="Costo del delivery")
+    bo_total_price = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="Precio total")
     bo_date_updated = models.DateTimeField(auto_now=True,blank=True,null=True,verbose_name="Fecha de modificación")
 #    bo_date_created = models.DateTimeField(auto_now_add=True,blank=True,null=True,verbose_name="Fecha de creación")
     bo_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")

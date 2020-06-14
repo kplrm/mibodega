@@ -741,6 +741,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     bodegas_en_cesta = dict()
     bodega_names = dict()
     bodega_phones = dict()
+    bodega_delivery = dict()
     subtotal_bodegas = dict()
     for product in result_list:
         # Check if bodega is already in the dictionary
@@ -750,6 +751,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
             bodegas_en_cesta.update({str(product.oi_id_bodega):str(product.oi_ruc_bodega)})
             bodega_names.update({str(product.oi_id_bodega):str(product.oi_bodega_name)})
             bodega_phones.update({str(product.oi_id_bodega):str(product.oi_bodega_phone)})
+            bodega_delivery.update({str(product.oi_id_bodega):bodegas[str(product.oi_id_bodega)].bo_delivery })
             subtotal_bodegas.update({str(product.oi_id_bodega):bodegas[str(product.oi_id_bodega)].bo_total_price })
 
     # usr_geolocation with regex
@@ -769,6 +771,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         'bodegas_en_cesta': bodegas_en_cesta,
         'bodega_names': bodega_names,
         'bodega_phones': bodega_phones,
+        'bodega_delivery': bodega_delivery,
         'subtotal_bodegas': subtotal_bodegas,
         'usr_first': usr_first,
         'usr_last': usr_last,
@@ -897,7 +900,8 @@ def submit_checkout(request):
         # In case shopping cart is not empty
         elif cart_obj.crt_total_price > 0: # If cart price is larger than zero
             # Creates a new order
-            orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
+#            orders_obj = Orders.objects.create(ord_total_price=cart_obj.crt_total_price)
+            orders_obj = Orders.objects.create()
 
             # Crate a new bodegaorder for every bodega in the basket
             bodegas = dict()
@@ -929,9 +933,27 @@ def submit_checkout(request):
                         order_item.oi_bo_ID = bodegas[str(bodega)]
                         # Updates bodega order total price
                         bodegas[str(bodega)].bo_total_price += order_item.oi_prod_total
+                        # Updates bodega order delivery price
+                        if item.ci_product.peb_bodega.bd_delivery == True: # If delivery is offered
+                            if item.ci_product.peb_bodega.bd_delivery_type == False: # Always the same cost
+                                bodegas[str(bodega)].bo_delivery = item.ci_product.peb_bodega.bd_delivery_cost
+                            else:
+                                if total_price_in_bodega >= item.ci_product.peb_bodega.bd_delivery_free_starting_on: # Free starting on
+                                    bodegas[str(bodega)].bo_delivery = 0
+                                else: # Minimum amount for free delivery not reached
+                                    bodegas[str(bodega)].bo_delivery = item.ci_product.peb_bodega.bd_delivery_cost
                         bodegas[str(bodega)].save()
                         break
                 order_item.save()
+            # Update bodega orders total price including final delivery cost
+            total_price = Decimal(0.00)
+            for id, bodegaorders_obj in bodegas:
+                bodegaorders_obj.bo_total_price = bodegaorders_obj.bo_total_price + bodegaorders_obj.bo_delivery
+                total_price += bodegaorders_obj.bo_total_price
+                bodegaorders_obj.save()
+            # Update order including final delivery cost
+            orders_obj.ord_total_price = total_price
+            orders_obj.save()
 
             # Send email to client and bodegas
             send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geolocation,usr_email,usr_phone,usr_comments)

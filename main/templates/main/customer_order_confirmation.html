@@ -175,13 +175,13 @@
                             <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <!-- LEFT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Productos</td>
+                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Producto</td>
                                     <!-- MIDDLE-LEFT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Cantidad</td>
+                                    <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">P.U.(S/.)</td>
                                     <!-- MIDDLE-RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">P.u.</td>
+                                    <td valign="top" class="mobile-wrapper" align="center" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Cant.</td>
                                     <!-- RIGHT COLUMN -->
-                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Subtotal</td>
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S.T.(S/.)</td>
                                 </tr>
                             </table>
                         </td>
@@ -196,13 +196,25 @@
                                             <!-- LEFT COLUMN -->
                                             <td valign="top" class="mobile-wrapper" align="left" style="padding: 10px 0 10px 0; width: 49%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">{{ product.oi_product }}</td>
                                             <!-- MIDDLE-LEFT COLUMN -->
-                                            <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">{{ product.oi_quantity }}</td>
-                                            <!-- MIDDLE-RIGHT COLUMN -->
                                             <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_price|floatformat:2|intcomma }}</td>
+                                            <!-- MIDDLE-RIGHT COLUMN -->
+                                            <td valign="top" class="mobile-wrapper" align="center" style="padding: 10px 0 10px 0; width: 15%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">{{ product.oi_quantity }}</td>
                                             <!-- RIGHT COLUMN -->
                                             <td valign="top" class="mobile-wrapper" align="right" style="padding: 10px 0 10px 0; width: 18%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.{{ product.oi_prod_total|floatformat:2|intcomma }}</td>
                                         </tr>
                                     </table>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align:right">
+                            Delivery (S/.)
+                        </td>
+                        <td colspan="1" style="text-align:left">
+                            {% for key, value in bodega_delivery.items %}
+                                {% if key == bodega_id %}
+                                    {{ value|floatformat:2|intcomma }}
                                 {% endif %}
                             {% endfor %}
                         </td>
