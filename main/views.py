@@ -15,11 +15,9 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 
-from django.core.mail import EmailMultiAlternatives #EmailMessage
-from django.template.loader import render_to_string
-
 from django.core.mail import send_mail
-from django.utils.html import strip_tags 
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
@@ -854,7 +852,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
 
         # Envio de email a bodegas
         send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
-                                    recipient_list=[usr_email], html_message=html_content, fail_silently=False)
+                                    recipient_list=[bodega_obj.bd_email], html_message=html_content, fail_silently=False)
 
 def submit_checkout(request):
     if request.method== "POST" and request.is_ajax():
