@@ -188,6 +188,8 @@ def embutidos(request):
             pass
         else:
             brands.append(product.peb_product.pa_brand)
+    # Make alphabetical order
+    sorted(brands)
 
     return render(request=request,
                   template_name="main/embutidos.html",
