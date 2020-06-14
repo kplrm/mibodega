@@ -30,6 +30,8 @@ from dateutil.relativedelta import relativedelta
 
 import base64
 import requests
+from PIL import Image
+from io import BytesIO
 from decimal import *
 import re # regex
 
@@ -793,6 +795,10 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     response = requests.get(img_url)
     print("response: ",response.content)
     usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
+    
+    temp = base64.b64encode(response.content).decode("utf-8")
+    im = Image.open(BytesIO(base64.b64decode(data)))
+    im.save('image.png', 'PNG')
 
     context = {
         'orders_obj': orders_obj, 
