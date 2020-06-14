@@ -40,8 +40,8 @@
                 <h4>Marca</h4>
                 <div>
                     {% for brand in brands %}
-                    <div style="font-size: 14px !important;">
-                        <label for="{{ brand }}">
+                    <div>
+                        <label for="{{ brand }}" style="font-size: 14px !important;">
                             <input type="checkbox" id="{{ brand }}">
                             &nbsp{{ brand }}
                         </label>
