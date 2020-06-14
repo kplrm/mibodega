@@ -798,7 +798,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     
     temp = base64.b64encode(response.content).decode("utf-8")
     print("temp: ",temp)
-    im = Image.open(BytesIO(base64.b64decode(data)))
+    im = Image.open(BytesIO(base64.b64decode(temp)))
     im.save('image.png', 'PNG')
 
     context = {
