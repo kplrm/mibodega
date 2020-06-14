@@ -947,10 +947,10 @@ def submit_checkout(request):
                 order_item.save()
             # Update bodega orders total price including final delivery cost
             total_price = Decimal(0.00)
-            for id, bodegaorders_obj in bodegas:
-                bodegaorders_obj.bo_total_price = bodegaorders_obj.bo_total_price + bodegaorders_obj.bo_delivery
-                total_price += bodegaorders_obj.bo_total_price
-                bodegaorders_obj.save()
+            for bodega in bodegas:
+                bodegas[str(bodega)].bo_total_price = bodegas[str(bodega)].bo_total_price + bodegas[str(bodega)].bo_delivery
+                total_price += bodegas[str(bodega)].bo_total_price
+                bodegas[str(bodega)].save()
             # Update order including final delivery cost
             orders_obj.ord_total_price = total_price
             orders_obj.save()
