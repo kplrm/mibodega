@@ -204,27 +204,13 @@ def embutidos(request):
 #                            'result_count': result_count,
                            })
 
-
-
-#    return render(request=request, # to reference request
-#                  template_name="main/embutidos.html", # where to find the specifix template
-#                  context={'result_list': result_list,
-#                  'cart_obj': cart_obj,
-#                  'cart_list': cart_list,
-#                  'brands': brands,
-#                  'results': results,
-#                  'result_count': result_count,
-#                  'user_location': user_location,
-#                  'shops': shops,
-#                  'id_bodega_text': id_bodega_text,
-#                  'STATIC_URL': STATIC_URL})
-
 def lacteos(request):
    # Locate user and shops nearby.
     try:
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -232,42 +218,49 @@ def lacteos(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        #user_longitude, user_latitude = locate_user()
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-        
-    # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="lacteos",peb_status=True).all()
-    try:
-        if request.session['id_bodega'] == "Cercanas":
-            result_list = productos_en_bodegas.all()
-        elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
-        else:
-            pass
-    except:
-        request.session['id_bodega'] = "Cercanas"
-        request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="lacteos",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        for product in temp:
+            product_already_in_result_list = False
+            for item in result_list:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                    product_already_in_result_list = True
+                    if item.peb_discount_price > product.peb_discount_price:
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
+                    else:
+                        break
+            if product_already_in_result_list == False:
+                result_list.append(product) # Add new product to the list
+            else:
+                product_already_in_result_list = False
+    shuffle(result_list)
 
-    # Bodega name to display
-    if request.session['bodega_name'] == "Cercanas":
-        id_bodega_text = "Seleccione su bodega"
-    elif request.session['bodega_name'] != "Cercanas":
-        id_bodega_text = request.session['bodega_name']
-    else:
-        pass
+#    # Paginator
+#    page = request.GET.get('page', 1)
+#    paginator = Paginator(result_list, 12) # displayed products per page
+#    try:
+#        results = paginator.page(page)
+#    except PageNotAnInteger:
+#        results = paginator.page(1)
+#    except EmptyPage:
+#        results = paginator.page(paginator.num_pages)
+#    result_count = paginator.count
 
-    # Paginator
-    page = request.GET.get('page', 1)
-    paginator = Paginator(result_list, 12) # displayed products per page
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
-    result_count = paginator.count
     # Lookup for all the brands
     brands = []
     for product in result_list:
@@ -276,24 +269,21 @@ def lacteos(request):
             pass
         else:
             brands.append(product.peb_product.pa_brand)
-    
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    # Make alphabetical order
+    sorted(brands)
 
-    return render(request=request, # to reference request
-                  template_name="main/lacteos.html", # where to find the specifix template
-                  context={'result_list': result_list,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'brands': brands,
-                  'results': results,
-                  'result_count': result_count,
-                  'user_location': user_location,
-                  'shops': shops,
-                  'id_bodega_text': id_bodega_text,
-                  'STATIC_URL': STATIC_URL})
+    return render(request=request,
+                  template_name="main/lacteos.html",
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list,
+                           'brands': brands
+# For paginator
+#                            'results': results,
+#                            'result_count': result_count,
+                           })
 
 def abarrotes(request):
     # Locate user and shops nearby.
@@ -301,6 +291,7 @@ def abarrotes(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -308,42 +299,49 @@ def abarrotes(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        #user_longitude, user_latitude = locate_user()
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-        
-    # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="abarrotes",peb_status=True).all()
-    try:
-        if request.session['id_bodega'] == "Cercanas":
-            result_list = productos_en_bodegas.all()
-        elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
-        else:
-            pass
-    except:
-        request.session['id_bodega'] = "Cercanas"
-        request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="abarrotes",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        for product in temp:
+            product_already_in_result_list = False
+            for item in result_list:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                    product_already_in_result_list = True
+                    if item.peb_discount_price > product.peb_discount_price:
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
+                    else:
+                        break
+            if product_already_in_result_list == False:
+                result_list.append(product) # Add new product to the list
+            else:
+                product_already_in_result_list = False
+    shuffle(result_list)
 
-    # Bodega name to display
-    if request.session['bodega_name'] == "Cercanas":
-        id_bodega_text = "Seleccione su bodega"
-    elif request.session['bodega_name'] != "Cercanas":
-        id_bodega_text = request.session['bodega_name']
-    else:
-        pass
+#    # Paginator
+#    page = request.GET.get('page', 1)
+#    paginator = Paginator(result_list, 12) # displayed products per page
+#    try:
+#        results = paginator.page(page)
+#    except PageNotAnInteger:
+#        results = paginator.page(1)
+#    except EmptyPage:
+#        results = paginator.page(paginator.num_pages)
+#    result_count = paginator.count
 
-    # Paginator
-    page = request.GET.get('page', 1)
-    paginator = Paginator(result_list, 12) # displayed products per page
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
-    result_count = paginator.count
     # Lookup for all the brands
     brands = []
     for product in result_list:
@@ -352,24 +350,21 @@ def abarrotes(request):
             pass
         else:
             brands.append(product.peb_product.pa_brand)
-    
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    # Make alphabetical order
+    sorted(brands)
 
-    return render(request=request, # to reference request
-                  template_name="main/abarrotes.html", # where to find the specifix template
-                  context={'result_list': result_list,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'brands': brands,
-                  'results': results,
-                  'result_count': result_count,
-                  'user_location': user_location,
-                  'shops': shops,
-                  'id_bodega_text': id_bodega_text,
-                  'STATIC_URL': STATIC_URL})
+    return render(request=request,
+                  template_name="main/abarrotes.html",
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list,
+                           'brands': brands
+# For paginator
+#                            'results': results,
+#                            'result_count': result_count,
+                           })
 
 def limpieza(request):
     # Locate user and shops nearby.
@@ -377,6 +372,7 @@ def limpieza(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -384,42 +380,49 @@ def limpieza(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
-
-    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-        
-    # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="limpieza",peb_status=True).all()
-    try:
-        if request.session['id_bodega'] == "Cercanas":
-            result_list = productos_en_bodegas.all()
-        elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
-        else:
-            pass
-    except:
-        request.session['id_bodega'] = "Cercanas"
-        request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
-
-    # Bodega name to display
-    if request.session['bodega_name'] == "Cercanas":
-        id_bodega_text = "Seleccione su bodega"
-    elif request.session['bodega_name'] != "Cercanas":
-        id_bodega_text = request.session['bodega_name']
-    else:
-        pass
+        #user_longitude, user_latitude = locate_user()
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
-    # Paginator
-    page = request.GET.get('page', 1)
-    paginator = Paginator(result_list, 12) # displayed products per page
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
-    result_count = paginator.count
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="limpieza",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        for product in temp:
+            product_already_in_result_list = False
+            for item in result_list:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                    product_already_in_result_list = True
+                    if item.peb_discount_price > product.peb_discount_price:
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
+                    else:
+                        break
+            if product_already_in_result_list == False:
+                result_list.append(product) # Add new product to the list
+            else:
+                product_already_in_result_list = False
+    shuffle(result_list)
+
+#    # Paginator
+#    page = request.GET.get('page', 1)
+#    paginator = Paginator(result_list, 12) # displayed products per page
+#    try:
+#        results = paginator.page(page)
+#    except PageNotAnInteger:
+#        results = paginator.page(1)
+#    except EmptyPage:
+#        results = paginator.page(paginator.num_pages)
+#    result_count = paginator.count
+
     # Lookup for all the brands
     brands = []
     for product in result_list:
@@ -428,24 +431,21 @@ def limpieza(request):
             pass
         else:
             brands.append(product.peb_product.pa_brand)
-    
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    # Make alphabetical order
+    sorted(brands)
 
-    return render(request=request, # to reference request
-                  template_name="main/limpieza.html", # where to find the specifix template
-                  context={'result_list': result_list,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'brands': brands,
-                  'results': results,
-                  'result_count': result_count,
-                  'user_location': user_location,
-                  'shops': shops,
-                  'id_bodega_text': id_bodega_text,
-                  'STATIC_URL': STATIC_URL})
+    return render(request=request,
+                  template_name="main/limpieza.html",
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list,
+                           'brands': brands
+# For paginator
+#                            'results': results,
+#                            'result_count': result_count,
+                           })
 
 def licores(request):
     # Locate user and shops nearby.
@@ -453,6 +453,7 @@ def licores(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -460,42 +461,49 @@ def licores(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        #user_longitude, user_latitude = locate_user()
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-        
-    # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="licores",peb_status=True).all()
-    try:
-        if request.session['id_bodega'] == "Cercanas":
-            result_list = productos_en_bodegas.all()
-        elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
-        else:
-            pass
-    except:
-        request.session['id_bodega'] = "Cercanas"
-        request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="licores",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        for product in temp:
+            product_already_in_result_list = False
+            for item in result_list:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                    product_already_in_result_list = True
+                    if item.peb_discount_price > product.peb_discount_price:
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
+                    else:
+                        break
+            if product_already_in_result_list == False:
+                result_list.append(product) # Add new product to the list
+            else:
+                product_already_in_result_list = False
+    shuffle(result_list)
 
-    # Bodega name to display
-    if request.session['bodega_name'] == "Cercanas":
-        id_bodega_text = "Seleccione su bodega"
-    elif request.session['bodega_name'] != "Cercanas":
-        id_bodega_text = request.session['bodega_name']
-    else:
-        pass
+#    # Paginator
+#    page = request.GET.get('page', 1)
+#    paginator = Paginator(result_list, 12) # displayed products per page
+#    try:
+#        results = paginator.page(page)
+#    except PageNotAnInteger:
+#        results = paginator.page(1)
+#    except EmptyPage:
+#        results = paginator.page(paginator.num_pages)
+#    result_count = paginator.count
 
-    # Paginator
-    page = request.GET.get('page', 1)
-    paginator = Paginator(result_list, 12) # displayed products per page
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
-    result_count = paginator.count
     # Lookup for all the brands
     brands = []
     for product in result_list:
@@ -504,24 +512,21 @@ def licores(request):
             pass
         else:
             brands.append(product.peb_product.pa_brand)
-    
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    # Make alphabetical order
+    sorted(brands)
 
-    return render(request=request, # to reference request
-                  template_name="main/licores.html", # where to find the specifix template
-                  context={'result_list': result_list,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'brands': brands,
-                  'results': results,
-                  'result_count': result_count,
-                  'user_location': user_location,
-                  'shops': shops,
-                  'id_bodega_text': id_bodega_text,
-                  'STATIC_URL': STATIC_URL})
+    return render(request=request,
+                  template_name="main/licores.html",
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list,
+                           'brands': brands
+# For paginator
+#                            'results': results,
+#                            'result_count': result_count,
+                           })
 
 def vegetales(request):
     # Locate user and shops nearby.
@@ -529,6 +534,7 @@ def vegetales(request):
         user_longitude = request.session['user_longitude']
         user_latitude = request.session['user_latitude']
         introduction = False
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     except:
         # Add guidance if it is the first time in the site
         request.session['introduction'] = True
@@ -536,42 +542,49 @@ def vegetales(request):
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
         user_longitude = 0
         user_latitude = 0
-    user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        #user_longitude, user_latitude = locate_user()
+        user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+    
+    # Load or create cart
+    cart_obj, new_obj = session_cart_load_or_create(request)
+    # Load item list
+    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
 
-    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).order_by("distance")[0:10]
-        
-    # Looks for products in the selected bodega
-    productos_en_bodegas = ProductosEnBodega.objects.all().filter(peb_product__pa_category="vegetales",peb_status=True).all()
-    try:
-        if request.session['id_bodega'] == "Cercanas":
-            result_list = productos_en_bodegas.all()
-        elif request.session['id_bodega'] != "Cercanas":
-            result_list = productos_en_bodegas.filter(peb_bodega__bd_ID=request.session['id_bodega']).all()
-        else:
-            pass
-    except:
-        request.session['id_bodega'] = "Cercanas"
-        request.session['bodega_name'] = "Cercanas"
-        result_list = productos_en_bodegas.filter(peb_discount_rate__lt=0)[:20]
+    # Find shops nearby the user
+    shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+    
+    # Retrieve all products with discount from nearby shops
+    productos_en_bodegas = ProductosEnBodega.objects.all()
+    result_list = []
+    for shop in shops:
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="vegetales",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        for product in temp:
+            product_already_in_result_list = False
+            for item in result_list:
+                if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                    product_already_in_result_list = True
+                    if item.peb_discount_price > product.peb_discount_price:
+                        result_list.remove(item) # Removes existing more expensive item
+                        result_list.append(product) # Adds new cheaper product
+                    else:
+                        break
+            if product_already_in_result_list == False:
+                result_list.append(product) # Add new product to the list
+            else:
+                product_already_in_result_list = False
+    shuffle(result_list)
 
-    # Bodega name to display
-    if request.session['bodega_name'] == "Cercanas":
-        id_bodega_text = "Seleccione su bodega"
-    elif request.session['bodega_name'] != "Cercanas":
-        id_bodega_text = request.session['bodega_name']
-    else:
-        pass
+#    # Paginator
+#    page = request.GET.get('page', 1)
+#    paginator = Paginator(result_list, 12) # displayed products per page
+#    try:
+#        results = paginator.page(page)
+#    except PageNotAnInteger:
+#        results = paginator.page(1)
+#    except EmptyPage:
+#        results = paginator.page(paginator.num_pages)
+#    result_count = paginator.count
 
-    # Paginator
-    page = request.GET.get('page', 1)
-    paginator = Paginator(result_list, 12) # displayed products per page
-    try:
-        results = paginator.page(page)
-    except PageNotAnInteger:
-        results = paginator.page(1)
-    except EmptyPage:
-        results = paginator.page(paginator.num_pages)
-    result_count = paginator.count
     # Lookup for all the brands
     brands = []
     for product in result_list:
@@ -580,24 +593,21 @@ def vegetales(request):
             pass
         else:
             brands.append(product.peb_product.pa_brand)
-    
-    # Load or create cart
-    cart_obj, new_obj = session_cart_load_or_create(request)
-    # Load item list
-    cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+    # Make alphabetical order
+    sorted(brands)
 
-    return render(request=request, # to reference request
-                  template_name="main/vegetales.html", # where to find the specifix template
-                  context={'result_list': result_list,
-                  'cart_obj': cart_obj,
-                  'cart_list': cart_list,
-                  'brands': brands,
-                  'results': results,
-                  'result_count': result_count,
-                  'user_location': user_location,
-                  'shops': shops,
-                  'id_bodega_text': id_bodega_text,
-                  'STATIC_URL': STATIC_URL})
+    return render(request=request,
+                  template_name="main/vegetales.html",
+                  context={'introduction': introduction,
+                           'user_location': user_location,
+                           'result_list': result_list,
+                           'cart_obj': cart_obj,
+                           'cart_list': cart_list,
+                           'brands': brands
+# For paginator
+#                            'results': results,
+#                            'result_count': result_count,
+                           })
 
 def search_cart_items_in_bodegas(shop,cart_list):
     items_in_bodega = []
