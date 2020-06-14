@@ -1,9 +1,9 @@
 {% extends 'main/header.html' %}
 {% load static %}
 
-
 {% block content %}
 <!-- Page Preloder -->
+
 
 <!-- BOTTOM BAR -->
 <nav class="nav-extended hide-on-med-and-down" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">
@@ -81,6 +81,10 @@
     </tr>    
 </table>
 <!-- PRODUCTS END-->
+
+<!-- SHOPPING CART -->
+{% include 'main/includes/shopping_cart.html' %}
+<!-- SHOPPING CART END -->
 
 <!-- BENEFICIOS -->
 <section class="latest-blog spad">
@@ -174,6 +178,7 @@
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'main/js/materialize.min.js' %}"></script>
 <script src="{% static 'main/js/store-front.js' %}"></script>
+
 <!-- Infinite scroll -->
 <script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
 <script src="{% static 'main/js/infinite.min.js' %}"></script>
