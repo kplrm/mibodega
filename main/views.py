@@ -793,13 +793,12 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     # Get map image
     img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(%s,%s)/%s,%s,15/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ" % (lng,lat,lng,lat)
     response = requests.get(img_url)
-#    print("response: ",response.content)
-    usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
-    
+    usr_map = img_url
+    #usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
+    # Img to PNG (potential improvement to save it directly to PNG without making it first base64)
     temp = base64.b64encode(response.content).decode("utf-8")
-    print("temp: ",temp)
-    im = Image.open(BytesIO(base64.b64decode(temp)))
-    im.save('image.png', 'PNG')
+    im_png = Image.open(BytesIO(base64.b64decode(temp)))
+    im_png.save('image.png', 'PNG')
 
     context = {
         'orders_obj': orders_obj, 
