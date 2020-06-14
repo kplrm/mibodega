@@ -79,14 +79,18 @@
 {{ result_list }}
 {% if result_list|length == 0 %}
     <div class="row">
-        <h4>Seleccione su ubicación.</h4>
-        <!-- Pin icon -->
-        <a class="btn modal-trigger" id="remider_user_location_btn" data-target="user_location_modal" onclick="getLocation()" style="padding:0px 0px 0px 0px;background-color:#ffffff;color:#212529 !important;
-        box-shadow:none;">
-            <i class="material-icons" style="Margin:-10px 0px 0px 0px;">place</i>
-        </a>
-        <h5>No hay ofertas disponibles en su zona.</h5>
-        <h3>Avísele a la bodega que puede ser la primera vendiendo por internet</h3>
+        <div class="col s12">
+            <h4>Seleccione su ubicación.</h4>
+            <!-- Pin icon -->
+            <a class="btn modal-trigger" id="remider_user_location_btn" data-target="user_location_modal" onclick="getLocation()" style="padding:0px 0px 0px 0px;background-color:#ffffff;color:#212529 !important;
+            box-shadow:none;">
+                <i class="material-icons" style="Margin:-10px 0px 0px 0px;">place</i>
+            </a>
+        </div>
+        <div class="s12">
+            <h4>No hay ofertas disponibles en su zona.</h4>
+            <h4>Avísele a la bodega que puede ser la primera vendiendo por internet</h4>
+        </div>
     </div>
 {% endif %}
 
