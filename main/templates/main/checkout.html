@@ -643,7 +643,7 @@
                         $("#popupModalLabel").html('');
                         $("#popupModalLabel").append('Su pedido fue enviado');
                         $("#popupModalBody").html('');
-                        $("#popupModalBody").append('Gracias por su compra');
+                        $("#popupModalBody").append('Gracias por su compra.\r\n'+'Revise su correo para ver su pedido.');
                         show_modal();
                     } else if (response.success.length > 0) {
                         for (i = 0; i < response.success.length; i++) {
@@ -652,7 +652,7 @@
                         $("#popupModalLabel").html('');
                         $("#popupModalLabel").append('Su pedido due enviado');
                         $("#popupModalBody").html('');
-                        $("#popupModalBody").append('Gracias por su compra.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                        $("#popupModalBody").append('Gracias por su compra.\r\n'+'Revise su correo para ver su pedido.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                         show_modal();
                     }
                 },
