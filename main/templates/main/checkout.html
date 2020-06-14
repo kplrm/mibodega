@@ -9,6 +9,20 @@
         <div class="loader"></div>
     </div>
 </div>
+<script>
+    // Initialize modal box for messages
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.getElementById('preloader');
+        var instances = M.Modal.init(elems, {});
+    });
+    // Function to display modal
+    function show_modal() {
+        var elem = document.getElementById('preloader');
+        var instance = M.Modal.getInstance(elem);
+        instance.open();
+    }
+    show_modal();
+</script>
 
 <!-- BOTTOM BAR -->
 <nav class="nav-extended hide-on-med-and-down" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">
@@ -520,8 +534,6 @@
 </div>
 
 <script>
-    // Preloader
-    document.getElementById("preloader").style.display = "none";
     // Initialize dropdown button
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.dropdown-trigger');
