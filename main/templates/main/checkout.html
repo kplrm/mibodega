@@ -16,12 +16,16 @@
         var instances = M.Modal.init(elems, {});
     });
     // Function to display modal
-    function show_modal() {
+    function show_preloader() {
         var elem = document.getElementById('preloader');
         var instance = M.Modal.getInstance(elem);
         instance.open();
     }
-    window.onload = show_modal();
+    function close_preloader() {
+        var elem = document.getElementById('preloader');
+        var instance = M.Modal.getInstance(elem);
+        instance.close();
+    }
 </script>
 
 <!-- BOTTOM BAR -->
@@ -630,10 +634,10 @@
                     'products_to_buy': products_to_buy
                 },
                 beforeSend: function() {
-                    document.getElementById("preloader").style.display = "block";
+                    show_preloader();
                 },
                 success: function(response){
-                    document.getElementById("preloader").style.display = "none";
+                    close_preloader();
                     var msg = "";
                     if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                         $("#popupModalLabel").html('');
@@ -653,7 +657,7 @@
                     }
                 },
                 error: function(response){ // This triggers in case all items in the basket get unavailable
-                    document.getElementById("preloader").style.display = "none";
+                    close_preloader();
                     var msg = "";
                     for (i = 0; i < response.responseJSON.error.length; i++) {
                         msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
