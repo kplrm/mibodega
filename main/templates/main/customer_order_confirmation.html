@@ -207,18 +207,29 @@
                             {% endfor %}
                         </td>
                     </tr>
+                    <!-- DELIVERY COST -->
                     <tr>
-                        <td colspan="3" style="text-align:right">
-                            Delivery (S/.)
-                        </td>
-                        <td colspan="1" style="text-align:left">
-                            {% for key, value in bodega_delivery.items %}
-                                {% if key == bodega_id %}
-                                    {{ value|floatformat:2|intcomma }}
-                                {% endif %}
-                            {% endfor %}
+                        <td style="padding: 10px 0 0px 0; border-top: 1px solid #eaeaea; border-bottom: 1px dashed #aaaaaa;">
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <!-- LEFT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="left" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;"></td>
+                                    <!-- MIDDLE-RIGHT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 40%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">Delivery</td>
+                                    <!-- RIGHT COLUMN -->
+                                    <td valign="top" class="mobile-wrapper" align="right" style="padding: 0 0 10px 0; width: 20%; font-family: Arial, sans-serif; color: #333333; font-size: 16px;">S/.
+                                        {% for key, value in bodega_delivery.items %}
+                                            {% if key == bodega_id %}
+                                                {{ value|floatformat:2|intcomma }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
+                    <!-- SUBTOTAL -->
                     <tr>
                         <td style="padding: 10px 0 0px 0; border-top: 1px solid #eaeaea; border-bottom: 1px dashed #aaaaaa;">
                             <!-- TWO COLUMNS -->
