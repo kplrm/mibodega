@@ -616,10 +616,10 @@
                     'products_to_buy': products_to_buy
                 },
                 beforeSend: function() {
-                    $("#loaderDiv").show();
+                    document.getElementById("preloader").style.display = "block";
                 },
                 success: function(response){
-                    $('#loaderDiv').hide();
+                    document.getElementById("preloader").style.display = "none";
                     var msg = "";
                     if (response.success.length == 0) { // This triggers when at least there is one item in the basket
                         $("#popupModalLabel").html('');
@@ -639,7 +639,7 @@
                     }
                 },
                 error: function(response){ // This triggers in case all items in the basket get unavailable
-                    $('#loaderDiv').hide();
+                    document.getElementById("preloader").style.display = "none";
                     var msg = "";
                     for (i = 0; i < response.responseJSON.error.length; i++) {
                         msg += "<li>" + String(response.responseJSON.error[i]) + "</li>"
