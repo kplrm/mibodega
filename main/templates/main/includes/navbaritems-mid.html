@@ -21,6 +21,10 @@
                     <div id="search-preloader" style="height:auto;display:none;z-index:10;position:fixed;left:0;right:0;box-sizing:border-box;">
                         <div style="background-color:#ffffff;width:100%;text-align: -webkit-center;">
                             <div class="loader" id="loader_circle"></div>
+                            <div>
+                                <table id="result_table">
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!--<div class="input-field col s12">
@@ -67,8 +71,14 @@
                     console.log('El exitoooo');
                     var result_dict = JSON.parse(response.success);
                     console.log(result_dict);
+                    $('#result_table').html('');
+                    for (i = 0; i < result_dict.length; i++) {
+                        console.log(result_dict[i][1][0])
+                        console.log(result_dict[i][1][1])
+                        console.log(result_dict[i][1][2])
+                        $('#result_table').append('<tr><td><img src="" alt="img"></td></tr>');
+                    };
                     //product_row = document.getElementsByName(String(product.id));
-                    //$(product_row).html('');
                     //$("#total_cart_price").html('S/.'+parseFloat(new_total_price).toFixed(2));
                 },
                 error: function(){
