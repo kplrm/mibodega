@@ -1771,7 +1771,8 @@ def search_query(request):
 
         def comparator_price( tupleElem ):
             print("tupleElem 0: ", tupleElem)
-            print("tupleElem 1: ", tupleElem.values[0])
+            print("tupleElem 1: ", tupleElem.values())
+            print("tupleElem 1: ", tupleElem.values()[0])
             print("tupleElem 2: ", tupleElem.values[0]['score'])
             #print("tupleElem[1][4]: ", tupleElem[1][4])
             return tupleElem.values()[0]['score']
