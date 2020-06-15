@@ -1753,7 +1753,7 @@ def search_query(request):
                 search_w = unidecode.unidecode(search_w)
                 # Look for matching word
                 # usr_geolocation with regex
-                patterns = '^(.*?(' + search_w + ')[^$]*)$'#, i'
+                patterns = '^(.*?(' + search_w + ')[^$]*)$, i'
                 print("string_producto: ",string_producto)
                 print("patterns: ",patterns)
                 match = re.findall(patterns, string_producto) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
