@@ -37,7 +37,6 @@
         </div>
     </div>
     <script>
-        //
 
     // Initialize modal box for messages
     document.addEventListener('DOMContentLoaded', function() {
@@ -66,17 +65,17 @@
             data: {
                 search_text: search_text
             },
-            beforeSend: function() {
-                show_search_preloader();
-            },
+//            beforeSend: function() {
+//                show_search_preloader();
+//            },
             success: function(){
-                close_search_preloader();
+//                close_search_preloader();
                 console.log('El exitoooo');
                 //location.reload();
                 ;
             },
             error: function(){
-                close_search_preloader();
+//                close_search_preloader();
                 console.log('Siguie intentando');
                 //location.reload();
                 ;
