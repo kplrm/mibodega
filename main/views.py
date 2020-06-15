@@ -1691,3 +1691,81 @@ def update_user_location(request):
         return JsonResponse({"success": ""}, status=200)
     else:
         return JsonResponse({"error": ""}, status=400)
+
+def search_query(request):
+    if request.method == "POST" and request.is_ajax():
+        # Locate user and shops nearby.
+        try:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+            introduction = False
+            user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        except:
+            # Add guidance if it is the first time in the site
+            request.session['introduction'] = True
+            introduction = True
+            # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+            user_longitude = 0
+            user_latitude = 0
+            #user_longitude, user_latitude = locate_user()
+            user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
+        # Retrieves search_text        
+        search_text = request.POST.get('search_text',False)
+        # Get search words
+        search_words = search_text.split(" ")
+
+        # Find shops nearby the user
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        
+        # Retrieve all products from nearby shops
+        productos_en_bodegas = ProductosEnBodega.objects.all()
+        result_list = []
+        for shop in shops:
+            temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+            for product in temp:
+                product_already_in_result_list = False
+                for item in result_list:
+                    if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                        product_already_in_result_list = True
+                        if item.peb_discount_price > product.peb_discount_price:
+                            result_list.remove(item) # Removes existing more expensive item
+                            result_list.append(product) # Adds new cheaper product
+                        else:
+                            break
+                if product_already_in_result_list == False:
+                    result_list.append(product) # Add new product to the list
+                else:
+                    product_already_in_result_list = False
+        
+        # Search for the best results
+        result_dict = dict()
+        var best_products = []
+        for product in result_list:
+            search_score = 0
+            for i in range(0,len(search_words)):
+                # Normalize string (eliminates accents)
+                string_producto = str(product.pa_product)
+                string_producto = unicodedata.normalize('NFD', u'\u00e1')
+                search_w = search_words[i]
+                search_w = unicodedata.normalize('NFD', u'\u00e1')
+                
+                # Look for matching word
+                # usr_geolocation with regex
+                patterns = "^(.*?(' + search_w + ')[^$]*)$', 'i"
+                match = re.findall(patterns, string_producto) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
+                print("match", match)
+                search_score += len(match)
+                print("search_score", search_score)
+
+#            if (search_score == 0) {
+#                result_dict = {
+#                    id: "{{ product.pa_ID }}",
+#                    product: "{{ product.pa_product }}",
+#                    img: "{{ product.pa_image.url }}",
+#                    brand: "{{ product.pa_brand }}",
+#                    score: search_score
+#                };
+#                product.push(result_dict);
+#            }
+        return JsonResponse({"success": ""}, status=200)
