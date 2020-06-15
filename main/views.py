@@ -1755,9 +1755,9 @@ def search_query(request):
                 # usr_geolocation with regex
                 patterns = '^(.*?(' + search_w + ')[^$]*)$'
                 print("string_producto: ",string_producto)
-                print("patterns: ",patterns)
+                #print("patterns: ",patterns)
                 match = re.findall(patterns, string_producto) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
-                print("match", match)
+                #print("match", match)
                 search_score += len(match)
                 print("search_score", search_score)
 
