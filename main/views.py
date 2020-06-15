@@ -1742,8 +1742,6 @@ def search_query(request):
         
         # Search for the best results
         result_dict = dict()
-#        best_products = dict()
-#        print("result_list: ", result_list)
         for product in result_list:
             search_score = 0
             for i in range(0,len(search_words)):
@@ -1755,37 +1753,17 @@ def search_query(request):
                 # Look for matching word
                 # usr_geolocation with regex
                 patterns = '^(.*?(' + search_w + ')[^$]*)$'
-#                print("string_producto: ",string_producto)
-                #print("patterns: ",patterns)
                 match = re.findall(patterns, string_producto, re.IGNORECASE) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
-                #print("match", match)
                 search_score += len(match)
-#                print("search_score", search_score)
 
             if (search_score != 0):
                 result_dict.update({
                     str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_product.pa_brand), search_score)
                 })
-#            best_products.append(result_dict)
-        #print("best_products: ",best_products)
 
-#        def comparator_price( tupleElem ):
-#            print("tupleElem 0: ", tupleElem)
-#            print("tupleElem 1: ", tupleElem.values())
-#            print("tupleElem 1: ", tupleElem.values()[0])
-#            print("tupleElem 2: ", tupleElem.values[0]['score'])
-#            #print("tupleElem[1][4]: ", tupleElem[1][4])
-#            return tupleElem.values()[0]['score']
-#        best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
-        
-        print("result_dict: ", result_dict)
         def comparator_price( tupleElem ):
-            print("tupleElem[1][3]: ", tupleElem[1][3])
+            #print("tupleElem[1][3]: ", tupleElem[1][3])
             return tupleElem[1][3]
-        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
-        print("result_dict: ", result_dict)
-
-#        sorted(best_products, key = lambda i: i['score']) 
-#        print("best_products: ",best_products)
+        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True) # reverse=False -> highest to lowest
 
         return JsonResponse({"success": ""}, status=200)
