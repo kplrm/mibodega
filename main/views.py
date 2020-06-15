@@ -793,6 +793,8 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     # Get map image
     img_url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-l+e7ab3c(%s,%s)/%s,%s,15/500x500?access_token=pk.eyJ1Ijoia3Bscm0iLCJhIjoiY2s4eGcybDhzMTAzbTNvb2trMzl4NGw1eSJ9.Jf4YQcLIbhHBWbpd7RPZaQ" % (lng,lat,lng,lat)
     usr_map = img_url
+    # Get google search location
+    map_url = "https://maps.google.com/maps?q=loc:%s,%s" % (lat,lng)
 #    response = requests.get(img_url)
 #    usr_map = ("data:" + response.headers['Content-Type'] + ";" + "base64," + str(base64.b64encode(response.content).decode("utf-8")))
 #    # Img to PNG (potential improvement to save it directly to PNG without making it first base64)
@@ -814,6 +816,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         'usr_street': usr_street,
         'usr_geolocation': usr_geolocation,
         'usr_map': usr_map,
+        'map_url': map_url,
         'usr_email': usr_email,
         'usr_phone': usr_phone,
         'usr_comments': usr_comments
@@ -847,6 +850,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
             'usr_street': usr_street,
             'usr_geolocation': usr_geolocation,
             'usr_map': usr_map,
+            'map_url': map_url,
             'usr_email': usr_email,
             'usr_phone': usr_phone,
             'usr_comments': usr_comments
