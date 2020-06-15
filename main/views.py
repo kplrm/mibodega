@@ -1769,16 +1769,21 @@ def search_query(request):
             best_products.append(result_dict)
         #print("best_products: ",best_products)
 
-        def comparator_price( tupleElem ):
-            print("tupleElem 0: ", tupleElem)
-            print("tupleElem 1: ", tupleElem.values())
-            print("tupleElem 1: ", tupleElem.values()[0])
-            print("tupleElem 2: ", tupleElem.values[0]['score'])
-            #print("tupleElem[1][4]: ", tupleElem[1][4])
-            return tupleElem.values()[0]['score']
+#        def comparator_price( tupleElem ):
+#            print("tupleElem 0: ", tupleElem)
+#            print("tupleElem 1: ", tupleElem.values())
+#            print("tupleElem 1: ", tupleElem.values()[0])
+#            print("tupleElem 2: ", tupleElem.values[0]['score'])
+#            #print("tupleElem[1][4]: ", tupleElem[1][4])
+#            return tupleElem.values()[0]['score']
 #        best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        
+        def comparator_price( tupleElem ):
+            #print("tupleElem[1][0]: ", tupleElem[1][0])
+            return tupleElem[1][0]
+        best_products = sorted(best_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
 
-        sorted(best_products, key = lambda i: i.values()[0]['score']) 
-        print("best_products: ",best_products)
+#        sorted(best_products, key = lambda i: i['score']) 
+#        print("best_products: ",best_products)
 
         return JsonResponse({"success": ""}, status=200)
