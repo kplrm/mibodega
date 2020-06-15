@@ -1778,7 +1778,7 @@ def search_query(request):
             return tupleElem.values()[0]['score']
 #        best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
 
-        sorted(best_products, key = lambda i: i['score']) 
+        sorted(best_products, key = lambda i: i.values()[0]['score']) 
         print("best_products: ",best_products)
 
         return JsonResponse({"success": ""}, status=200)
