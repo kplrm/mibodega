@@ -41,16 +41,6 @@
     </div>
 
     <script>
-    // Workaroung bug on first slide
-    //$("#search-product").on('input', function() {
-    //    console.log("input event")
-    //});
-    $(document).ready(function(){
-        $("search-product").on('input', function() {
-            console.log("input event")
-        });
-        
-    });
     // Function to show search-preloader
     function show_search_preloader() {
         $("#search-preloader").css("display", "block");
@@ -64,6 +54,7 @@
     }
     // Triggered when clicked enter or the x
     function onSearchMethod(value) {
+        console.log("onSearchMethod");
         console.log(value);
         if (value = ""){
             close_search_preloader();
