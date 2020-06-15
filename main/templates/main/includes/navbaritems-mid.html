@@ -43,14 +43,14 @@
         var elems = document.getElementById('search-preloader');
         var instances = M.Modal.init(elems, {});
     });
+    */
     // Function to show search-preloader
     function show_search_preloader() {
-        var elem = document.getElementById('search-preloader');
-        var instance = M.Modal.getInstance(elem);
-        instance.open();
-        $('#search-preloader').parent().css('z-index', 2);
-        $('#search-product').focus();
+        $("#search-preloader").css("display", "block");
+        console.log("showing")
+        //$('#search-product').focus();
     }
+    /*
     // Function to hide search-preloader
     function close_search_preloader() {
         var elem = document.getElementById('search-preloader');
@@ -69,9 +69,9 @@
                 data: {
                     search_text: search_text
                 },
-//                beforeSend: function() {
-//                    show_search_preloader();
-//                },
+                beforeSend: function() {
+                    show_search_preloader();
+                },
                 success: function(){
                     //close_search_preloader();
                     console.log('El exitoooo');
