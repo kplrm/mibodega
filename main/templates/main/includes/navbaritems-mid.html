@@ -18,8 +18,8 @@
                         <label class="label-icon hide-on-small-only" for="search-product"><i class="material-icons" style="Margin: -7px 0px 0px 0px;">search</i></label>
                         <i class="material-icons hide-on-small-only" style="Margin: -7px 0px 0px 0px;">close</i>
                     </div>
-                    <div class="modal" id="search-preloader" style="height: auto;">
-                        <div class="modal-content">
+                    <div id="search-preloader" style="height: auto;display: none;z-index: 2;">
+                        <div>
                             <div class="loader"></div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
     </div>
 
     <script>
-
+    /*
     // Initialize modal box for messages
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.getElementById('search-preloader');
@@ -57,6 +57,7 @@
         var instance = M.Modal.getInstance(elem);
         instance.close();
     }
+    */
     // Perform search-product query
     function search_product(search_text) {
         if (search_text != "" && search_text.length > 2) {
@@ -68,9 +69,9 @@
                 data: {
                     search_text: search_text
                 },
-                beforeSend: function() {
-                    show_search_preloader();
-                },
+//                beforeSend: function() {
+//                    show_search_preloader();
+//                },
                 success: function(){
                     //close_search_preloader();
                     console.log('El exitoooo');
