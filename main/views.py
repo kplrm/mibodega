@@ -1743,7 +1743,7 @@ def search_query(request):
         # Search for the best results
         result_dict = dict()
         best_products = []
-        print("result_list: ", result_list)
+#        print("result_list: ", result_list)
         for product in result_list:
             search_score = 0
             for i in range(0,len(search_words)):
@@ -1771,8 +1771,8 @@ def search_query(request):
 
         def comparator_price( tupleElem ):
             print("tupleElem", tupleElem)
-            print("tupleElem", tupleElem[1])
-            print("tupleElem", tupleElem[1]['score'])
+            print("tupleElem", tupleElem.values()[0])
+            print("tupleElem", tupleElem.values().['score'])
             #print("tupleElem[1][4]: ", tupleElem[1][4])
             return tupleElem[1][4]
         best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
