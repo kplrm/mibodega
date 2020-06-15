@@ -1745,7 +1745,7 @@ def search_query(request):
             search_score = 0
             for i in range(0,len(search_words)):
                 # Normalize string (eliminates accents)
-                string_producto = str(product.pa_product)
+                string_producto = str(product.peb_product.pa_product)
                 string_producto = unicodedata.normalize('NFD', u'\u00e1')
                 search_w = search_words[i]
                 search_w = unicodedata.normalize('NFD', u'\u00e1')
