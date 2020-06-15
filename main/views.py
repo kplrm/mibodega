@@ -35,7 +35,7 @@ from io import BytesIO
 from decimal import *
 import re # regex
 import unicodedata
-from unidecode import unidecode
+import unidecode
 
 import json
 from django.http import JsonResponse
