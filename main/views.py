@@ -1770,11 +1770,11 @@ def search_query(request):
                     "score": search_score
                 })
             best_products.append(result_dict)
-        print("best_products: ",best_products)
+        #print("best_products: ",best_products)
 
         def comparator_price( dictElem ):
             temp = dictElem.items()
-            print("dictElem.items(): ", dictElem.items())
+            #print("dictElem.items(): ", dictElem.items())
             print("temp[4]: ", temp[4])
             #print("dictElem[0][4]: ", dictElem.items()[0][4])
             return dictElem[0][4]
