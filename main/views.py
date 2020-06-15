@@ -1742,7 +1742,7 @@ def search_query(request):
         
         # Search for the best results
         result_dict = dict()
-        best_products = []
+#        best_products = dict()
 #        print("result_list: ", result_list)
         for product in result_list:
             search_score = 0
@@ -1766,7 +1766,7 @@ def search_query(request):
                 result_dict.update({
                     str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_product.pa_brand), search_score)
                 })
-            best_products.append(result_dict)
+#            best_products.append(result_dict)
         #print("best_products: ",best_products)
 
 #        def comparator_price( tupleElem ):
@@ -1779,9 +1779,9 @@ def search_query(request):
 #        best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
         
         def comparator_price( tupleElem ):
-            #print("tupleElem[1][0]: ", tupleElem[1][0])
-            return tupleElem[1][0]
-        best_products = sorted(best_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+            #print("tupleElem[4][0]: ", tupleElem[4][0])
+            return tupleElem[4][0]
+        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
 
 #        sorted(best_products, key = lambda i: i['score']) 
 #        print("best_products: ",best_products)
