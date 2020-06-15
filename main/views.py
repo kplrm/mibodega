@@ -1749,13 +1749,13 @@ def search_query(request):
                 string_producto = str(product.peb_product.pa_product)
                 print("b string_producto: ", string_producto)
                 string_producto = unicodedata.normalize('NFKD', string_producto)
-                string_producto = string_producto.replace('u\u00B4', '') 
+                string_producto = string_producto.replace(u"\u00B4", '') 
                 print("a string_producto: ", string_producto)
                 
                 search_w = search_words[i]
                 print("b search_w: ", search_w)
                 search_w = unicodedata.normalize('NFKD', search_w)
-                search_w = search_w.replace('u\u00B4', '') 
+                search_w = search_w.replace(u"\u00B4", '') 
                 print("a search_w: ", search_w)
                 
                 # Look for matching word
