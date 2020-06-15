@@ -1759,7 +1759,7 @@ def search_query(request):
                 search_score += len(match)
                 print("search_score", search_score)
 
-            if (search_score == 0) {
+            if (search_score == 0):
                 result_dict.update({
                     "id": str(product.peb_ID),
                     "product": str(product.peb_product.pa_product),
@@ -1767,8 +1767,7 @@ def search_query(request):
                     "brand": str(product.peb_product.pa_brand),
                     "score": search_score
                 })
-                best_products.append(result_dict);
-            }
+                best_products.append(result_dict)
         print(best_products)
         return JsonResponse({"success": ""}, status=200)
 
