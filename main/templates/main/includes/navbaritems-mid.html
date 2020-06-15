@@ -20,7 +20,7 @@
                     </div>
                     <div id="search-preloader" style="height:auto;display:none;z-index:10;position:fixed;left:0;right:0;box-sizing:border-box;">
                         <div style="background-color:#ffffff;width:100%;text-align: -webkit-center;">
-                            <div class="loader"></div>
+                            <div class="loader" id="loader_circle"></div>
                         </div>
                     </div>
                     <!--<div class="input-field col s12">
@@ -37,24 +37,15 @@
     </div>
 
     <script>
-    /*
-    // Initialize modal box for messages
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.getElementById('search-preloader');
-        var instances = M.Modal.init(elems, {});
-    });
-    */
     // Function to show search-preloader
     function show_search_preloader() {
         $("#search-preloader").css("display", "block");
         $("#search-preloader").css("opacity", 1);
-        console.log("showing")
     }
     // Function to hide search-preloader
     function close_search_preloader() {
         $("#search-preloader").css("display", "none");
         $("#search-preloader").css("opacity", 0);
-        console.log("hiding")
     }
     // Perform search-product query
     function search_product(search_text) {
@@ -71,13 +62,13 @@
                     show_search_preloader();
                 },
                 success: function(){
-                    //close_search_preloader();
+                    $("#loader_circle").hide();
                     console.log('El exitoooo');
                     //location.reload();
                     ;
                 },
                 error: function(){
-                    //close_search_preloader();
+                    $("#loader_circle").hide();
                     console.log('Siguie intentando');
                     //location.reload();
                     ;
