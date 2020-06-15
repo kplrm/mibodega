@@ -1739,6 +1739,7 @@ def search_query(request):
                     result_list.append(product) # Add new product to the list
                 else:
                     product_already_in_result_list = False
+        shuffle(result_list)
         
         # Search for the best results
         result_dict = dict()
