@@ -1773,12 +1773,13 @@ def search_query(request):
         #print("best_products: ",best_products)
 
         def comparator_price( dictElem ):
-            temp = dictElem.items()
+            print("dictElem: ", dictElem)
+            #temp = dictElem.items()
             #print("dictElem.items(): ", dictElem.items())
-            print("temp[4]: ", temp[4])
+            #print("temp[4]: ", temp[4])
             #print("dictElem[0][4]: ", dictElem.items()[0][4])
             return dictElem[0][4]
-        best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        best_products = sorted(best_products, key=comparator_price.items(), reverse=False) # reverse=False -> Lowest to highest
         print("best_products: ",best_products)
 
         return JsonResponse({"success": ""}, status=200)
