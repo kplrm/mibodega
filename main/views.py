@@ -1724,7 +1724,7 @@ def search_query(request):
         productos_en_bodegas = ProductosEnBodega.objects.all()
         result_list = []
         for shop in shops:
-            temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+            temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_regular_price__gt=0)
             for product in temp:
                 product_already_in_result_list = False
                 for item in result_list:
@@ -1758,12 +1758,20 @@ def search_query(request):
                 search_score += len(match)
 
             if (search_score != 0):
-                result_dict.update({
-                    str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_product.pa_brand), search_score)
-                })
-
+                if product.peb_discount_status = True and product.peb_discount_price > 0: # If is in discount and has a valid discount price
+                    result_dict.update({
+                        str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_discount_price), search_score)
+                    })
+                elif product.peb_discount_status = False: # If is not in discount (but has a valid regular price)
+                    result_dict.update({
+                        str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_regular_price), search_score)
+                    })
+                else: # If has an invalid discount price (0 or less than 0)
+                    pass
+        
+        # Sort items according to most suitable case
         def comparator_price( tupleElem ):
             #print("tupleElem[1][3]: ", tupleElem[1][3])
             return tupleElem[1][3]
-        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True) # reverse=False -> highest to lowest
+        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True)
         return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
