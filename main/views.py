@@ -1772,7 +1772,7 @@ def search_query(request):
         def comparator_price( tupleElem ):
             print("tupleElem[4][0]: ", tupleElem[4][0])
             return tupleElem[4][0]
-        bodegas_w_products_w_delivery = sorted(bodegas_w_products_w_delivery.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        best_products = sorted(best_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
 
 #        sorted(best_products, key = lambda i: i['score']) 
 #        print("best_products: ",best_products)
