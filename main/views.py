@@ -1758,11 +1758,11 @@ def search_query(request):
                 search_score += len(match)
 
             if (search_score != 0):
-                if product.peb_discount_status = True and product.peb_discount_price > 0: # If is in discount and has a valid discount price
+                if product.peb_discount_status == True and product.peb_discount_price > 0: # If is in discount and has a valid discount price
                     result_dict.update({
                         str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_discount_price), search_score)
                     })
-                elif product.peb_discount_status = False: # If is not in discount (but has a valid regular price)
+                elif product.peb_discount_status == False: # If is not in discount (but has a valid regular price)
                     result_dict.update({
                         str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_regular_price), search_score)
                     })
