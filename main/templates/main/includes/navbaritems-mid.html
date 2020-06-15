@@ -62,7 +62,7 @@
                 beforeSend: function() {
                     show_search_preloader();
                 },
-                success: function(){
+                success: function(response){
                     $("#loader_circle").hide();
                     console.log('El exitoooo');
                     var result_dict = JSON.parse(response.success);
