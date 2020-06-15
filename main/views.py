@@ -1766,4 +1766,6 @@ def search_query(request):
             return tupleElem[1][3]
         result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True) # reverse=False -> highest to lowest
 
+        print("result_dict: ,"result_dict)
+
         return JsonResponse({"success": ""}, status=200)
