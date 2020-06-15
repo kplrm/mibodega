@@ -18,7 +18,7 @@
                         <label class="label-icon hide-on-small-only" for="search-product"><i class="material-icons" style="Margin: -7px 0px 0px 0px;">search</i></label>
                         <i class="material-icons hide-on-small-only" style="Margin: -7px 0px 0px 0px;">close</i>
                     </div>
-                    <div id="search-preloader" style="height:auto;display:none;z-index:10;position:fixed;left:0;right:0;">
+                    <div id="search-preloader" style="height:auto;display:none;z-index:10;position:fixed;left:0;right:0;box-sizing:border-box;">
                         <div style="background-color:#ffffff;width:100%;text-align: -webkit-center;">
                             <div class="loader"></div>
                         </div>
@@ -48,18 +48,14 @@
     function show_search_preloader() {
         $("#search-preloader").css("display", "block");
         $("#search-preloader").css("opacity", 1);
-        $("#search-preloader").css("box-sizing", "border-box");
         console.log("showing")
-        //$('#search-product').focus();
     }
-    /*
     // Function to hide search-preloader
     function close_search_preloader() {
-        var elem = document.getElementById('search-preloader');
-        var instance = M.Modal.getInstance(elem);
-        instance.close();
+        $("#search-preloader").css("display", "none");
+        $("#search-preloader").css("opacity", 0);
+        console.log("hiding")
     }
-    */
     // Perform search-product query
     function search_product(search_text) {
         if (search_text != "" && search_text.length > 2) {
@@ -87,6 +83,8 @@
                     ;
                 }
             });
+        } else {
+            close_search_preloader();
         }
     /*
         // Print remove current results and add new search results
