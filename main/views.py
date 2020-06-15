@@ -1780,8 +1780,8 @@ def search_query(request):
         
         print("result_dict: ", result_dict)
         def comparator_price( tupleElem ):
-            print("tupleElem[1][0]: ", tupleElem[1][0])
-            return tupleElem[1][0]
+            print("tupleElem[1][3]: ", tupleElem[1][3])
+            return tupleElem[1][3]
         result_dict = sorted(result_dict.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
         print("result_dict: ", result_dict)
 
