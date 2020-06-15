@@ -1748,8 +1748,10 @@ def search_query(request):
                 # Normalize string (eliminates accents)
                 string_producto = str(product.peb_product.pa_product)
                 string_producto = unicodedata.normalize('NFD', u'\u00e1')
+                print("string_producto: ", string_producto)
                 search_w = search_words[i]
                 search_w = unicodedata.normalize('NFD', u'\u00e1')
+                print("search_w: ", search_w)
                 
                 # Look for matching word
                 # usr_geolocation with regex
