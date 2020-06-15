@@ -1764,16 +1764,17 @@ def search_query(request):
 
             if (search_score != 0):
                 result_dict.update({
-                    "id": str(product.peb_ID),
-                    "product": str(product.peb_product.pa_product),
-#                    "img": str(product.peb_product.pa_image.url),
-#                    "brand": str(product.peb_product.pa_brand),
-                    "score": search_score
+                    str(product.peb_ID) : (str(product.peb_product.pa_product), str(product.peb_product.pa_image.url), str(product.peb_product.pa_brand), search_score)
                 })
             best_products.append(result_dict)
         print("best_products: ",best_products)
 
-        sorted(best_products, key = lambda i: i['score']) 
-        print("best_products: ",best_products)
+        def comparator_price( tupleElem ):
+            print("tupleElem[4][0]: ", tupleElem[4][0])
+            return tupleElem[4][0]
+        bodegas_w_products_w_delivery = sorted(bodegas_w_products_w_delivery.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+
+#        sorted(best_products, key = lambda i: i['score']) 
+#        print("best_products: ",best_products)
 
         return JsonResponse({"success": ""}, status=200)
