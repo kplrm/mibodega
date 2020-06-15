@@ -42,13 +42,13 @@
 
     <script>
     // Workaroung bug on first slide
-    $("#search-product").on('input', function() {
-        console.log("input event")
-    });
+    //$("#search-product").on('input', function() {
+    //    console.log("input event")
+    //});
     $(document).ready(function(){
-        //$("search-product").input(function(){
-        //    $("p").slideToggle();
-        //});
+        $("search-product").input(function(){
+            console.log("input event")
+        });
         
     });
     // Function to show search-preloader
