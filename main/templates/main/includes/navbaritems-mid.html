@@ -57,31 +57,32 @@
     }
     // Perform search query
     function search_product(search_text) {
-        $.ajax({
-            headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            url: "/search_query",
-            type: "POST",
-            dataType: "json",
-            data: {
-                search_text: search_text
-            },
-//            beforeSend: function() {
-//                show_search_preloader();
-//            },
-            success: function(){
-//                close_search_preloader();
-                console.log('El exitoooo');
-                //location.reload();
-                ;
-            },
-            error: function(){
-//                close_search_preloader();
-                console.log('Siguie intentando');
-                //location.reload();
-                ;
-            }
-        });
-
+        if (search_text != "") {
+            $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/search_query",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    search_text: search_text
+                },
+    //            beforeSend: function() {
+    //                show_search_preloader();
+    //            },
+                success: function(){
+    //                close_search_preloader();
+                    console.log('El exitoooo');
+                    //location.reload();
+                    ;
+                },
+                error: function(){
+    //                close_search_preloader();
+                    console.log('Siguie intentando');
+                    //location.reload();
+                    ;
+                }
+            });
+        }
     /*
         // Look for those words in current object
         var product_faltante = [];

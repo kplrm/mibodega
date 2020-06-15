@@ -1770,8 +1770,12 @@ def search_query(request):
                     "score": search_score
                 })
             best_products.append(result_dict)
-        print(best_products)
+        print("best_products: ",best_products)
+
+        def comparator_price( tupleElem ):
+            print("tupleElem[0][4]: ", tupleElem[0][4])
+            return tupleElem[0][4]
+        best_products = sorted(best_products.items(), key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        print("best_products: ",best_products)
+
         return JsonResponse({"success": ""}, status=200)
-
-
-            #    
