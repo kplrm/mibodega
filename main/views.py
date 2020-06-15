@@ -1740,7 +1740,7 @@ def search_query(request):
         
         # Search for the best results
         result_dict = dict()
-        var best_products = []
+        best_products = []
         for product in result_list:
             search_score = 0
             for i in range(0,len(search_words)):
