@@ -1772,14 +1772,15 @@ def search_query(request):
             best_products.append(result_dict)
         #print("best_products: ",best_products)
 
-        def comparator_price( dictElem ):
-            print("dictElem: ", dictElem)
+        #def comparator_price( dictElem ):
+            #print("dictElem: ", dictElem)
             #temp = dictElem.items()
             #print("dictElem.items(): ", dictElem.items())
             #print("temp[4]: ", temp[4])
             #print("dictElem[0][4]: ", dictElem.items()[0][4])
-            return dictElem[0][4]
-        best_products = sorted(best_products, key=comparator_price.items(), reverse=False) # reverse=False -> Lowest to highest
+            #return dictElem[0][4]
+        #best_products = sorted(best_products, key=comparator_price, reverse=False) # reverse=False -> Lowest to highest
+        sorted(best_products, key = lambda i: i['score']) 
         print("best_products: ",best_products)
 
         return JsonResponse({"success": ""}, status=200)
