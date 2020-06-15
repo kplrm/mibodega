@@ -1748,11 +1748,13 @@ def search_query(request):
                 # Normalize string (eliminates accents)
                 string_producto = str(product.peb_product.pa_product)
                 print("b string_producto: ", string_producto)
-                string_producto = unicodedata.normalize('NFD', u'\u00e1')
+                #string_producto = unicodedata.normalize('NFD', u'\u00C7')
+                string_producto = unidecode.unidecode(string_producto)
                 print("a string_producto: ", string_producto)
                 search_w = search_words[i]
                 print("b search_w: ", search_w)
-                search_w = unicodedata.normalize('NFD', u'\u00e1')
+                #search_w = unicodedata.normalize('NFD', u'\u00C7')
+                search_w = unidecode.unidecode(search_w)
                 print("a search_w: ", search_w)
                 
                 # Look for matching word
