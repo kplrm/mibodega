@@ -1754,23 +1754,23 @@ def search_query(request):
                 # Look for matching word
                 # usr_geolocation with regex
                 patterns = '^(.*?(' + search_w + ')[^$]*)$'
-                print("string_producto: ",string_producto)
+#                print("string_producto: ",string_producto)
                 #print("patterns: ",patterns)
                 match = re.findall(patterns, string_producto, re.IGNORECASE) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
                 #print("match", match)
                 search_score += len(match)
-                print("search_score", search_score)
+#                print("search_score", search_score)
 
-            #if (search_score == 0):
-            result_dict.update({
-                "id": str(product.peb_ID),
-                "product": str(product.peb_product.pa_product),
-                "img": str(product.peb_product.pa_image.url),
-                "brand": str(product.peb_product.pa_brand),
-                "score": search_score
-            })
+            if (search_score != 0):
+                result_dict.update({
+                    "id": str(product.peb_ID),
+                    "product": str(product.peb_product.pa_product),
+                    "img": str(product.peb_product.pa_image.url),
+                    "brand": str(product.peb_product.pa_brand),
+                    "score": search_score
+                })
             best_products.append(result_dict)
-        #print(best_products)
+        print(best_products)
         return JsonResponse({"success": ""}, status=200)
 
 
