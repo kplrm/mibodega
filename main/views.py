@@ -1759,14 +1759,18 @@ def search_query(request):
                 search_score += len(match)
                 print("search_score", search_score)
 
-#            if (search_score == 0) {
-#                result_dict = {
-#                    id: "{{ product.pa_ID }}",
-#                    product: "{{ product.pa_product }}",
-#                    img: "{{ product.pa_image.url }}",
-#                    brand: "{{ product.pa_brand }}",
-#                    score: search_score
-#                };
-#                product.push(result_dict);
-#            }
+            if (search_score == 0) {
+                result_dict.update({
+                    "id": str(product.peb_ID),
+                    "product": str(product.peb_product.pa_product),
+                    "img": str(product.peb_product.pa_image.url),
+                    "brand": str(product.peb_product.pa_brand),
+                    "score": search_score
+                })
+                best_products.append(result_dict);
+            }
+        print(best_products)
         return JsonResponse({"success": ""}, status=200)
+
+
+            #    
