@@ -41,6 +41,7 @@
     function show_search_preloader() {
         $("#search-preloader").css("display", "block");
         $("#search-preloader").css("opacity", 1);
+        $("#loader_circle").show();
     }
     // Function to hide search-preloader
     function close_search_preloader() {
@@ -64,8 +65,11 @@
                 success: function(){
                     $("#loader_circle").hide();
                     console.log('El exitoooo');
-                    //location.reload();
-                    ;
+                    var result_dict = JSON.parse(response.success);
+                    console.log(result_dict);
+                    //product_row = document.getElementsByName(String(product.id));
+                    //$(product_row).html('');
+                    //$("#total_cart_price").html('S/.'+parseFloat(new_total_price).toFixed(2));
                 },
                 error: function(){
                     $("#loader_circle").hide();
