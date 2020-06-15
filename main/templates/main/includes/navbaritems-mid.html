@@ -13,10 +13,15 @@
                 <form style="Margin: 10px 0px 0px 0px;">
                     <div class="input-field">
                         <!--<input class="hide-on-small-only" id="search" type="search" required placeholder="What are you looking for?" style="max-width:100%;height:40px;width:calc(100% - 7rem);">-->
-                        <input class="hide-on-small-only" id="search" type="search" onkeyup="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:calc(100% - 7rem);">
-                        <input class="hide-on-med-and-up" id="search" type="search" onkeyup="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:100%;padding:0px 0px 0px 0px;">
-                        <label class="label-icon hide-on-small-only" for="search"><i class="material-icons" style="Margin: -7px 0px 0px 0px;">search</i></label>
+                        <input class="hide-on-small-only" id="search-product" type="search" onkeyup="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:calc(100% - 7rem);">
+                        <input class="hide-on-med-and-up" id="search-product" type="search" onkeyup="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:100%;padding:0px 0px 0px 0px;">
+                        <label class="label-icon hide-on-small-only" for="search-product"><i class="material-icons" style="Margin: -7px 0px 0px 0px;">search</i></label>
                         <i class="material-icons hide-on-small-only" style="Margin: -7px 0px 0px 0px;">close</i>
+                    </div>
+                    <div class="modal" id="search-preloader" style="height: auto;">
+                        <div class="modal-content">
+                            <div class="loader"></div>
+                        </div>
                     </div>
                     <!--<div class="input-field col s12">
                         <i class="material-icons prefix">search</i>
@@ -31,11 +36,6 @@
         </div>
     </div>
 
-    <div class="modal" id="search-preloader" style="height: auto;">
-        <div class="modal-content">
-            <div class="loader"></div>
-        </div>
-    </div>
     <script>
 
     // Initialize modal box for messages
@@ -48,6 +48,7 @@
         var elem = document.getElementById('search-preloader');
         var instance = M.Modal.getInstance(elem);
         instance.open();
+        $('#search-product').focus();
     }
     // Function to hide search-preloader
     function close_search_preloader() {
@@ -55,7 +56,7 @@
         var instance = M.Modal.getInstance(elem);
         instance.close();
     }
-    // Perform search query
+    // Perform search-product query
     function search_product(search_text) {
         if (search_text != "" && search_text.length > 2) {
             $.ajax({
@@ -66,10 +67,9 @@
                 data: {
                     search_text: search_text
                 },
-//                beforeSend: function() {
-//                    show_search_preloader();
-//                    $('#search').focus();
-//                },
+                beforeSend: function() {
+                    show_search_preloader();
+                },
                 success: function(){
                     //close_search_preloader();
                     console.log('El exitoooo');
