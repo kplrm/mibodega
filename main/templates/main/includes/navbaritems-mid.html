@@ -41,6 +41,16 @@
     </div>
 
     <script>
+    // Workaroung bug on first slide
+    $("#search-product").on('input', function() {
+        console.log("input event")
+    });
+    $(document).ready(function(){
+        //$("search-product").input(function(){
+        //    $("p").slideToggle();
+        //});
+        
+    });
     // Function to show search-preloader
     function show_search_preloader() {
         $("#search-preloader").css("display", "block");
