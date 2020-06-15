@@ -1756,7 +1756,7 @@ def search_query(request):
                 patterns = '^(.*?(' + search_w + ')[^$]*)$'
                 print("string_producto: ",string_producto)
                 #print("patterns: ",patterns)
-                match = re.findall(patterns, string_producto) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
+                match = re.findall(patterns, string_producto, re.IGNORECASE) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
                 #print("match", match)
                 search_score += len(match)
                 print("search_score", search_score)
