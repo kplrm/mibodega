@@ -1748,22 +1748,12 @@ def search_query(request):
             for i in range(0,len(search_words)):
                 # Normalize string (eliminates accents)
                 string_producto = str(product.peb_product.pa_product)
-                print("b string_producto: ", string_producto)
                 string_producto = unidecode.unidecode(string_producto)
-#                string_producto = unicodedata.normalize('NFKD', string_producto)
-#                string_producto = string_producto.replace(u"\u00B4", '') 
-                print("a string_producto: ", string_producto)
-                
                 search_w = search_words[i]
-                print("b search_w: ", search_w)
                 search_w = unidecode.unidecode(search_w)
-#                search_w = unicodedata.normalize('NFKD', search_w)
-#                search_w = search_w.replace(u"\u00B4", '') 
-                print("a search_w: ", search_w)
-                
                 # Look for matching word
                 # usr_geolocation with regex
-                patterns = '^(.*?(' + search_w + ')[^$]*)$'#, 'i'
+                patterns = '^(.*?(' + search_w + ')[^$]*)$, i'
                 match = re.findall(patterns, string_producto) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
                 print("match", match)
                 search_score += len(match)
