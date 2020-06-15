@@ -34,6 +34,7 @@ from PIL import Image
 from io import BytesIO
 from decimal import *
 import re # regex
+import unicodedata
 
 import json
 from django.http import JsonResponse
