@@ -66,17 +66,20 @@
                 data: {
                     search_text: search_text
                 },
-    //            beforeSend: function() {
-    //                show_search_preloader();
-    //            },
+                beforeSend: function() {
+                    show_search_preloader();
+                    $('#search').focus();
+                },
                 success: function(){
-    //                close_search_preloader();
+                    close_search_preloader();
+                    $('#search').focus();
                     console.log('El exitoooo');
                     //location.reload();
                     ;
                 },
                 error: function(){
-    //                close_search_preloader();
+                    close_search_preloader();
+                    $('#search').focus();
                     console.log('Siguie intentando');
                     //location.reload();
                     ;
@@ -84,35 +87,6 @@
             });
         }
     /*
-        // Look for those words in current object
-        var product_faltante = [];
-        var dict = {};
-        {% for product_faltante in ProductosAprobados_missing %}
-            search_score = 0;
-            for (i = 0; i < search_words.length; i++) {
-                // Normalize string (eliminates accents)
-                string_producto = String("{{ product_faltante.pa_product }}");
-                string_producto = string_producto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                search_w = search_words[i];
-                search_w = search_w.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                
-                // Look for matching word
-                reg_ex = new RegExp('^(.*?(' + search_w + ')[^$]*)$', 'i');
-                n = string_producto.search(reg_ex);
-                search_score += n;
-            };
-            if (search_score == 0) {
-                dict = {
-                    id: "{{ product_faltante.pa_ID }}",
-                    product: "{{ product_faltante.pa_product }}",
-                    img: "{{ product_faltante.pa_image.url }}",
-                    brand: "{{ product_faltante.pa_brand }}",
-                    score: search_score
-                };
-                product_faltante.push(dict);
-            }
-        {% endfor %}
-
         // Print remove current results and add new search results
         $("tr").remove(".c_products_to_add");
         {% for product_faltante in ProductosAprobados_missing %}
