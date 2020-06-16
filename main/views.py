@@ -1800,7 +1800,8 @@ def see_search_results(request):
             user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
         # Retrieves search_text
-        search_text = request.GET.get('search-product',False)
+        #search_text = request.GET.get('search-product',False)
+        search_text = request.GET.get['search-product']
         print("search_text: ",search_text)
         # Get search words
         search_words = search_text.split(" ")
