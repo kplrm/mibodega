@@ -1799,7 +1799,9 @@ def see_search_results(request):
         if search_text == False or search_text == "" or len(search_text) < 3: # If no valid search word
             return redirect('main:homepage')
         # Get search words
+        print("search_words: ",search_words)
         search_words = search_text.split(" ")
+        print("search_words: ",search_words)
     
         # Load or create cart
         cart_obj, new_obj = session_cart_load_or_create(request)
