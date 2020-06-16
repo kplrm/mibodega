@@ -95,13 +95,13 @@
     // Redirect to search results
     function see_search_results(search_text) {
         if (search_text != "" && search_text.length > 2) {
-            console.log(search_text);
+            /*console.log(search_text);
             console.log(document.getElementById("search-product"));
             console.log(document.getElementById("search-product").value);
             console.log(document.getElementById("search_query_form"));
             console.log(document.getElementById("search_query_form").value);
             document.getElementById("search_query_form").value = 'search_text='+search_text
-            console.log(document.getElementById("search_query_form").value);
+            console.log(document.getElementById("search_query_form").value);*/
             document.getElementById("search_query_form").submit();
         } else {
             close_search_preloader();
