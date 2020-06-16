@@ -82,9 +82,9 @@
                     $('#result_table').html('');
                     for (i = 0; i < result_dict.length; i++) {
                         console.log(result_dict[i][1])
-                        $('#result_table').append('<tr><td><img class="responsive-img" style="max-width:50px;" src="'+result_dict[i][1][1]+'" alt="img"></td><td><p style="line-height:1.4;">'+result_dict[i][1][0]+'</p></td><td><b style="font-size:18px;color:#feb100"> S/.'+result_dict[i][1][2]+'</b></td><td><a class="btn" name="cart_add" id="'+result_dict[i][0]+'" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px;"><i class="material-icons" style="margin-top:-9px;">add_shopping_cart</i></a></td></tr>');
+                        $('#result_table').append('<tr><td><img class="responsive-img" style="max-width:50px;" src="'+result_dict[i][1][1]+'" alt="img"></td><td><p style="line-height:1.4;">'+result_dict[i][1][0]+'</p></td><td><b style="font-size:18px;color:#feb100"> S/.'+parseFloat(result_dict[i][1][2]).toFixed(2)+'</b></td><td><a class="btn" name="cart_add" id="'+result_dict[i][0]+'" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px;"><i class="material-icons" style="margin-top:-9px;">add_shopping_cart</i></a></td></tr>');
                     };
-                    $('#result_table').append('<tr><td colspan="3" style="text-align:center;"><a href="#" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Ver más resultados</a></td><td colspan="1" style="text-align:center;"><a onclick="close_search_preloader()" class="btn waves-effect waves-light red lighten-5">Cerrar</a></td></tr>');
+                    $('#result_table').append('<tr><td colspan="3" style="text-align:center;"><a href="#" class="btn waves-effect waves-light" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">Ver más resultados</a></td><td colspan="1" style="text-align:center;"><a onclick="close_search_preloader()" class="btn waves-effect waves-light red lighten-5"><i class="material-icons" style="margin-top:-9px;">close</i></a></td></tr>');
                     //product_row = document.getElementsByName(String(product.id));
                     //$("#total_cart_price").html('S/.'+parseFloat(new_total_price).toFixed(2));
                 },
