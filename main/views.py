@@ -1803,6 +1803,7 @@ def see_search_results(request):
         search_words = search_text.split(" ")
         print("search_words: ",search_words)
         search_words = search_words.remove("")
+        print("search_words: ",search_words)
     
         # Load or create cart
         cart_obj, new_obj = session_cart_load_or_create(request)
