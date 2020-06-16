@@ -27,7 +27,7 @@
                         <input class="search_bar" name="search-product" id="search-product" type="search" oninput="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;z-index:10;">
                     </form>
                 </div>
-                <div id="search-preloader" style="height:auto;display:none;z-index:10;position:fixed;left:0;right:0;box-sizing:border-box;">
+                <div id="search-preloader" style="height:auto;display:none;z-index:10;position:fixed;left:0;right:0;box-sizing:border-box;box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);">
                     <div style="background-color:#ffffff;width:100%;text-align: -webkit-center;">
                         <div class="loader" id="loader_circle"></div>
                         <div>
@@ -95,13 +95,6 @@
     // Redirect to search results
     function see_search_results(search_text) {
         if (search_text != "" && search_text.length > 2) {
-            /*console.log(search_text);
-            console.log(document.getElementById("search-product"));
-            console.log(document.getElementById("search-product").value);
-            console.log(document.getElementById("search_query_form"));
-            console.log(document.getElementById("search_query_form").value);
-            document.getElementById("search_query_form").value = 'search_text='+search_text
-            console.log(document.getElementById("search_query_form").value);*/
             document.getElementById("search_query_form").submit();
         } else {
             close_search_preloader();
