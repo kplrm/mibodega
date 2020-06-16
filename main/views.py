@@ -1796,7 +1796,7 @@ def see_search_results(request):
 
         # Retrieves search_text
         search_text = request.GET.get('search-product',False)
-        if search_text == False: # If no valid search word
+        if search_text == False or search_text == "" or len(search_text) < 3: # If no valid search word
             return redirect('main:homepage')
         # Get search words
         search_words = search_text.split(" ")
