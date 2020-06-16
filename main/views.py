@@ -1781,6 +1781,8 @@ def see_search_results(request):
     print(request)
     if request.method == "GET":
         print("in ajax")
+        print(request)
+        print(request.GET)
         # Locate user and shops nearby.
         try:
             user_longitude = request.session['user_longitude']
