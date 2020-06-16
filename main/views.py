@@ -1777,14 +1777,7 @@ def search_query(request):
         return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
 
 def see_search_results(request):
-    print("in see_search_results")
-    print(request)
     if request.method == "GET":
-        print("in ajax")
-        print(request)
-        print("Laika 1")
-        print(request.GET)
-        print("Laika 2")
         # Locate user and shops nearby.
         try:
             user_longitude = request.session['user_longitude']
@@ -1803,9 +1796,6 @@ def see_search_results(request):
 
         # Retrieves search_text
         search_text = request.GET.get('search-product',False)
-        #search_text = request.GET.get('search_text',False)
-        #search_text = request.GET.get['search_text']
-        print("search_text: ",search_text)
         # Get search words
         search_words = search_text.split(" ")
     
@@ -1837,6 +1827,35 @@ def see_search_results(request):
                 else:
                     product_already_in_result_list = False
         shuffle(result_list)
+
+        # Search for the best results
+        result_dict = []
+        for product in result_list:
+            search_score = 0
+            for i in range(0,len(search_words)):
+                # Normalize string (eliminates accents)
+                string_producto = str(product.peb_product.pa_product)
+                string_producto = unidecode.unidecode(string_producto)
+                search_w = search_words[i]
+                search_w = unidecode.unidecode(search_w)
+                # Look for matching word
+                # usr_geolocation with regex
+                patterns = '^(.*?(' + search_w + ')[^$]*)$'
+                match = re.findall(patterns, string_producto, re.IGNORECASE) # Full match 0 is SRID, Full match 1 is Lng, Full match 2 is Lat
+                search_score += len(match)
+
+            if (search_score != 0):
+                result_dict.append(product)
+        result_list = result_dict
+        # Sort items according to most suitable case
+#        def comparator_price( tupleElem ):
+#            #print("tupleElem[1][3]: ", tupleElem[1][3])
+#            return tupleElem[1][3]
+#        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True)
+#        return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
+
+
+
 
     #    # Paginator
     #    page = request.GET.get('page', 1)
