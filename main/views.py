@@ -1797,8 +1797,9 @@ def see_search_results(request):
             #user_longitude, user_latitude = locate_user()
             user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
-        # Retrieves search_text        
+        # Retrieves search_text
         search_text = request.POST.get('search_text',False)
+        print("search_text: ",search_text)
         # Get search words
         search_words = search_text.split(" ")
     
