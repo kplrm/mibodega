@@ -98,7 +98,7 @@
                 var data = request.responseText;
             }
             request.open(method, url, shouldBeAsync);
-            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.setRequestHeader({'X-CSRFToken': '{{ csrf_token }}'});
             request.send(postData);
 
             /*
