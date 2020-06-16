@@ -1059,9 +1059,10 @@ def registroBodega(request):
             cl_form.save(commit=True)
             bodega = bd_form.save(commit=False)
             bodega.bd_user = client
-            bodega.bd_is_active = False
+            bodega.bd_is_active = True # Active from beginning
             bodega.bd_email = client.cl_email
             bodega.bd_phone = client.cl_phone
+            bodega.bd_delivery = True
             bodega = bd_form.save(commit=True)
             client.cl_default_bodega = str(bodega.bd_ID)
             cl_form.save(commit=True)
