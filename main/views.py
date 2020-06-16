@@ -1778,7 +1778,7 @@ def search_query(request):
 
 def see_search_results(request):
     print("in see_search_results")
-    if request.method == "POST" and request.is_ajax():
+    if request.method == "POST":
         print("in ajax")
         # Locate user and shops nearby.
         try:
