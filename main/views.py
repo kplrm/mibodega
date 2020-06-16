@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, render_to_response # to redirect the user
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404 # to redirect the user
+from django.shortcuts import render_to_response
 from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, BodegaOrders, OrderItem, BodegaDashboard, ProductosAprobados
 from django.urls import reverse
 
