@@ -1803,7 +1803,8 @@ def see_search_results(request):
 
         # Retrieves search_text
         #search_text = request.GET.get('search-product',False)
-        search_text = request.GET.get['search-product']
+        search_text = request.GET.get('search_text',False)
+        #search_text = request.GET.get['search_text']
         print("search_text: ",search_text)
         # Get search words
         search_words = search_text.split(" ")
