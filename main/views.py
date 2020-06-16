@@ -1851,7 +1851,7 @@ def see_search_results(request):
                 brands.append(product.peb_product.pa_brand)
         # Make alphabetical order
         sorted(brands)
-
+        print("exit ajax")
         return render(request=request,
                     template_name="main/search_results.html",
                     context={'introduction': introduction,
