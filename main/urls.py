@@ -30,6 +30,7 @@ urlpatterns = [
     path("get_nearby_shops", views.get_nearby_shops, name="get_nearby_shops"),
     path("update_user_location", views.update_user_location, name="update_user_location"),
     path("search_query", views.search_query, name="search_query"),
+    path("see_search_results", views.see_search_results, name="see_search_results"),
 
     # Dashboard
     path("dashboard/", views.dashboard, name="dashboard"),

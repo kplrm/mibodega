@@ -1772,7 +1772,93 @@ def search_query(request):
         # Sort items according to most suitable case
         def comparator_price( tupleElem ):
             #print("tupleElem[1][3]: ", tupleElem[1][3])
-            print("tupleElem[1][2]: ", tupleElem[1][2])
             return tupleElem[1][3]
         result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True)
         return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
+
+def see_search_results(request):
+    if request.method == "POST" and request.is_ajax():
+        # Locate user and shops nearby.
+        try:
+            user_longitude = request.session['user_longitude']
+            user_latitude = request.session['user_latitude']
+            introduction = False
+            user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+        except:
+            # Add guidance if it is the first time in the site
+            request.session['introduction'] = True
+            introduction = True
+            # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
+            user_longitude = 0
+            user_latitude = 0
+            #user_longitude, user_latitude = locate_user()
+            user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
+
+        # Retrieves search_text        
+        search_text = request.POST.get('search_text',False)
+        # Get search words
+        search_words = search_text.split(" ")
+    
+        # Load or create cart
+        cart_obj, new_obj = session_cart_load_or_create(request)
+        # Load item list
+        cart_list = CartItem.objects.all().filter(ci_cart_ID=cart_obj.crt_ID).all()
+
+        # Find shops nearby the user
+        shops = Bodega.objects.annotate(distance=Distance("bd_geolocation",user_location)).filter(distance__lt=1500).order_by("distance")[0:10]
+        
+        # Retrieve all products from nearby shops
+        productos_en_bodegas = ProductosEnBodega.objects.all()
+        result_list = []
+        for shop in shops:
+            temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_regular_price__gt=0)
+            for product in temp:
+                product_already_in_result_list = False
+                for item in result_list:
+                    if item.peb_product.pa_ID == product.peb_product.pa_ID:
+                        product_already_in_result_list = True
+                        if item.peb_discount_price > product.peb_discount_price:
+                            result_list.remove(item) # Removes existing more expensive item
+                            result_list.append(product) # Adds new cheaper product
+                        else:
+                            break
+                if product_already_in_result_list == False:
+                    result_list.append(product) # Add new product to the list
+                else:
+                    product_already_in_result_list = False
+        shuffle(result_list)
+
+    #    # Paginator
+    #    page = request.GET.get('page', 1)
+    #    paginator = Paginator(result_list, 12) # displayed products per page
+    #    try:
+    #        results = paginator.page(page)
+    #    except PageNotAnInteger:
+    #        results = paginator.page(1)
+    #    except EmptyPage:
+    #        results = paginator.page(paginator.num_pages)
+    #    result_count = paginator.count
+
+        # Lookup for all the brands
+        brands = []
+        for product in result_list:
+            # Check if brand already in the list
+            if product.peb_product.pa_brand in brands:
+                pass
+            else:
+                brands.append(product.peb_product.pa_brand)
+        # Make alphabetical order
+        sorted(brands)
+
+        return render(request=request,
+                    template_name="main/search_results.html",
+                    context={'introduction': introduction,
+                            'user_location': user_location,
+                            'result_list': result_list,
+                            'cart_obj': cart_obj,
+                            'cart_list': cart_list,
+                            'brands': brands
+    # For paginator
+    #                            'results': results,
+    #                            'result_count': result_count,
+                            })

@@ -1,0 +1,234 @@
+{% extends 'main/header.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Page Preloder -->
+
+
+<!-- BOTTOM BAR -->
+<nav class="nav-extended hide-on-med-and-down" style="background-color:#feb100 !important;color:#000000;font-weight:bold;">
+    <div class="nav-wrapper">
+        <ul style="display:inline-flex;list-style-type:none;">
+            <li><a href="/" style="color:black;">Ofertas</a></li>
+            <li><a href="/embutidos" style="color:black;">Embutidos</a></li>
+            <li><a href="/vegetales" style="color:black;">Vegetales</a>
+            <li><a href="/lacteos" style="color:black;">Lácteos</a></li>
+            <li><a href="/abarrotes" style="color:black;">Abarrotes</a></li>
+            <li><a href="/limpieza" style="color:black;">Limpieza</a></li>
+            <li><a href="/licores" style="color:black;">Licores</a></li>
+          </ul>
+    </div>
+</nav>
+<!-- BOTTOM END -->
+<!-- SIDENAV -->
+<ul id="slide-out" class="sidenav" style="list-style-type:none;padding-left:0;">
+    <li><a href="/">Ofertas</a></li>
+    <li><a href="/embutidos">Embutidos</a></li>
+    <li><a href="/vegetales">Vegetales</a>
+    <li><a href="/lacteos">Lácteos</a></li>
+    <li><a href="/abarrotes">Abarrotes</a></li>
+    <li><a href="/limpieza">Limpieza</a></li>
+    <li><a href="/licores">Licores</a></li>
+</ul>
+<!-- SIDENAV END -->
+
+<!-- IF NO PRODUCTS AVAILABLE -->
+{% if result_list|length == 0 %}
+    <div class="row">
+        <div class="col s12">
+            <h4 style="color:#ff2322;">No hay resultados de búsqueda</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5>Actualice su ubicación por favor</h5>
+            <!-- Pin icon -->
+            <a class="btn modal-trigger" id="remider_user_location_btn" data-target="user_location_modal" onclick="getLocation()" style="background-color:#feb100;color:#212529 !important;box-shadow:none;margin-top: 10px;">
+                <i class="material-icons">place</i>
+            </a>
+        </div>
+    </div>
+    <div>
+        <div class="row"></div>
+            <h5>o seleccione otra categoría</h5>
+            <a href="/" class="waves-effect waves-light btn"  style="background-color: #feb100;color:#212529 !important; margin: 10px; width: 120px;">Ofertas</a>
+            <a href="/vegetales" class="waves-effect waves-light btn"  style="background-color: #feb100;color:#212529 !important; margin: 10px; width: 120px">Vegetales</a>
+            <a href="/lacteos" class="waves-effect waves-light btn"  style="background-color: #feb100;color:#212529 !important; margin: 10px; width: 120px">Lácteos</a>
+            <a href="/abarrotes" class="waves-effect waves-light btn"  style="background-color: #feb100;color:#212529 !important; margin: 10px; width: 120px">Abarrotes</a>
+            <a href="/limpieza" class="waves-effect waves-light btn"  style="background-color: #feb100;color:#212529 !important; margin: 10px; width: 120px">Limpieza</a>
+            <a href="/licores" class="waves-effect waves-light btn"  style="background-color: #feb100;color:#212529 !important; margin: 10px; width: 120px">Licores</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <br>
+            <h5>Avísele a la bodega de su zona que ahora puede por internet</h5>
+        </div>
+    </div>
+{% endif %}
+<!-- END NO PRODUCTS AVAILABLE -->
+
+<!-- PRODUCTS --> <!-- Missing to add result count? -->
+<table>
+    <tr>
+        <td class="hide-on-med-and-down" style="width:20%;">
+            <div class="container">
+                <h4>Marca</h4>
+                <div>
+                    {% for brand in brands %}
+                    <div>
+                        <label for="{{ brand }}" style="font-size: 14px !important;">
+                            <input type="checkbox" id="{{ brand }}">
+                            &nbsp{{ brand }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="row">
+                {% load humanize %}
+                {% for product in result_list %}
+                    <div class="col s6 m4 l3 xl2">
+                        <div class="card" style="text-align:center;">
+                            <div class="card-image" style="align-self:center">
+                                {% if product.peb_product.pa_image %}
+                                    <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                                {% endif %}
+                                <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
+                                <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
+                                <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                            </div>
+                            <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
+                                <b>{{product.peb_bodega.bd_name}}</b><br>
+                                {{product.peb_product.pa_product}}
+                            </div>
+                            <div class="card-action">
+                                <a class="btn" name="cart_add" id="{{product.pk}}" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px">
+                                    <i class="material-icons">add_shopping_cart</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>    
+</table>
+<!-- PRODUCTS END-->
+
+<!-- SHOPPING CART -->
+{% include 'main/includes/shopping_cart.html' %}
+<!-- SHOPPING CART END -->
+
+<!-- BENEFICIOS -->
+<section class="latest-blog spad">
+    <div class="container">
+        <div class="benefit-items">
+            <div class="row">
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-1.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>Envío económico</h6>
+                            <p>Es la bodega de la cuadra.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-2.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>Rápido envío</h6>
+                            <p>El bodeguero es tu vecino.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" align="center">
+                    <div class="single-benefit">
+                        <div class="sb-icon">
+                            <img src="{% static 'main/img/icon-3.png' %}" alt="">
+                        </div>
+                        <div class="sb-text">
+                            <h6>100% pago seguro</h6>
+                            <p>En efectivo a <b>contraentrega.</b><br>Próximamente con tarjeta via web.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Workaroung bug on first slide
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {interval: 5000});
+        var instance = M.Slider.getInstance(elems[0]);
+        instance.next();
+    });
+    // Add product to cart
+    function cart_add(product) {
+        M.toast({html: 'Producto añadido'})
+        $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/cart_add",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    product_id: String(product.id)
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    if (new_values['new_added'] == "True") {
+                        // Create cart item
+                        $("#cart_tbody").append('<tr name="'+new_values['product_pk']+'" style="border-top: 1px solid rgba(0, 0, 0, 0.12);"><td rowspan="2" style="text-align:center;"><img class="responsive-img hide-on-med-and-up" style="max-width:50px;" src="'+new_values['pa_image_url']+'" alt="IMG"><img class="responsive-img hide-on-small-only" style="max-width:100px;" src="'+new_values['pa_image_url']+'" alt="IMG"></td><td colspan="1"><h6>'+new_values['product']+'</h6></td><td colspan="3" style="text-align:center;"><a class="btn" name="remove_item" id="'+new_values['product_pk']+'" onclick="remove_item_from_cart(this)" style="background-color:#feb100;padding:3px 0px 3px 0px">Borrar</a></td></tr><tr name="'+new_values['product_pk']+'"><td style="text-align:left;"><h6>P.U: S/.'+parseFloat(new_values['price']).toFixed(2)+'</h6></td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+new_values['product_pk']+'" onclick="reduce_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">remove</i></a></td><td name="product_qty" id="'+new_values['product_pk']+'" style="text-align:center;">'+new_values['quantity']+'</td><td style="text-align:center;"><a class="btn" name="add_pk" id="'+new_values['product_pk']+'" onclick="increase_quantity_cart_item(this)" style="background-color:#feb100;padding:3px 0px 3px 0px"><i class="material-icons">add</i></a></td></tr>');
+                        // Update cart total price
+                        $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                    }
+                    else {
+                        $("#total_cart_price").html('S/.'+parseFloat(new_values['total_price']).toFixed(2));
+                        product_qty = document.getElementsByName("product_qty");
+                        for (i = 0; i < product_qty.length; i++) {
+                            if (String(product_qty[i].id) == String(new_values['product_pk'])) {
+                                $(product_qty[i]).html(String(new_values['quantity']));
+                            }
+                        }
+                    }
+                },
+                error: function(){
+                    location.reload();
+                }
+            }
+        );
+    };
+</script>
+
+<!-- Js Plugins -->
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
+<script src="{% static 'main/js/store-front.js' %}"></script>
+
+<!-- Infinite scroll -->
+<script src="{% static 'main/js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'main/js/infinite.min.js' %}"></script>
+<script>
+    /*
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+    */
+</script>
+{% endblock %}
