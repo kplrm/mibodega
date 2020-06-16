@@ -1802,9 +1802,8 @@ def see_search_results(request):
         print("search_text: ",search_text)
         search_words = search_text.split(" ")
         print("search_words: ",search_words)
-        for word in search_words:
-            if word == "":
-                search_words = search_words.remove(word)
+        while('' in search_words):
+            test_list.remove('')
         print("search_words: ",search_words)
     
         # Load or create cart
