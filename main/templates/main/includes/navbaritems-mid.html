@@ -89,8 +89,8 @@
     function see_search_results(search_text) {
         if (search_text != "" && search_text.length > 2) {
             console.log(search_text);
-            console.log(document.getElementById("search_query_form"));
-            document.getElementById("search_query_form").submit();
+            console.log(document.getElementById("search-product"));
+            document.getElementById("search-product").parent().submit();
             
             //window.location.href = '../see_search_results?search_text='+search_text;
             /*
