@@ -88,7 +88,8 @@
     // Redirect to search results
     function see_search_results(search_text) {
         if (search_text != "" && search_text.length > 2) {
-            document.getElementById('search_form').value = search_text;
+            console.log(search_text);
+            //document.getElementById('search_form').value = search_text;
             document.getElementById('search_form').submit(); 
             /*
             // Source: https://stackoverflow.com/questions/14873443/sending-an-http-post-using-javascript-triggered-event
