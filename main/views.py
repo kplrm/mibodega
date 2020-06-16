@@ -1803,7 +1803,7 @@ def see_search_results(request):
         search_words = search_text.split(" ")
         print("search_words: ",search_words)
         while('' in search_words):
-            test_list.remove('')
+            search_words.remove('')
         print("search_words: ",search_words)
     
         # Load or create cart
