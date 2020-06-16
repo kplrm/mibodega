@@ -1803,7 +1803,7 @@ def see_search_results(request):
         search_words = search_text.split(" ")
         print("search_words: ",search_words)
         for word in search_words:
-            if word = "":
+            if word == "":
                 search_words = search_words.remove(word)
         print("search_words: ",search_words)
     
