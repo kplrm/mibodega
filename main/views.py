@@ -1799,10 +1799,8 @@ def see_search_results(request):
 
         # Retrieves search_text        
         search_text = request.POST.get('search_text',False)
-        print(search_text)
         # Get search words
         search_words = search_text.split(" ")
-        print(search_text)
     
         # Load or create cart
         cart_obj, new_obj = session_cart_load_or_create(request)
@@ -1854,6 +1852,7 @@ def see_search_results(request):
                 brands.append(product.peb_product.pa_brand)
         # Make alphabetical order
         sorted(brands)
+        print(brands)
         print("exit ajax")
         return render(request=request,
                     template_name="main/search_results.html",
