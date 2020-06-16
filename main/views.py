@@ -1847,15 +1847,17 @@ def see_search_results(request):
             if (search_score != 0):
                 result_dict.append(product)
         result_list = result_dict
+
         # Sort items according to most suitable case
 #        def comparator_price( tupleElem ):
 #            #print("tupleElem[1][3]: ", tupleElem[1][3])
 #            return tupleElem[1][3]
 #        result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True)
-#        return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
 
-
-
+#        def comparator_len( tupleElem ):
+#            print("tupleElem[1][1]: ", tupleElem[1][1])
+#            return tupleElem[1][1]
+#        bodegas_w_products_w_delivery.sort(key=comparator_len, reverse=True)
 
     #    # Paginator
     #    page = request.GET.get('page', 1)
@@ -1878,8 +1880,6 @@ def see_search_results(request):
                 brands.append(product.peb_product.pa_brand)
         # Make alphabetical order
         sorted(brands)
-        print(brands)
-        print("exit ajax")
         return render(request=request,
                     template_name="main/search_results.html",
                     context={'introduction': introduction,
