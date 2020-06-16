@@ -52,14 +52,6 @@
         $("#search-preloader").css("display", "none");
         $("#search-preloader").css("opacity", 0);
     }
-    // Triggered when clicked enter or the x
-    function onSearchMethod(value) {
-        console.log("onSearchMethod");
-        console.log(value);
-        if (value = ""){
-            close_search_preloader();
-        }
-    }
     // Perform search-product query
     function search_product(search_text) {
         if (search_text != "" && search_text.length > 2) {
@@ -94,9 +86,7 @@
     };
     // Redirect to search results
     function see_search_results(search_text) {
-        console.log("in see_search_results");
-        console.log(search_text);
-        /*if (search_text != "" && search_text.length > 2) {
+        if (search_text != "" && search_text.length > 2) {
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/see_search_results",
@@ -114,6 +104,6 @@
             });
         } else {
             close_search_preloader();
-        }*/
+        }
     };
     </script>
