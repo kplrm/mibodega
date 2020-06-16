@@ -145,7 +145,7 @@
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0" style="text-align:right;">¿Cuánto cuesta el delivery?</th>
+                                                        <th class="border-0" style="text-align:right;">¿Cuánto cuesta el delivery?(S/.)</th>
                                                         <th class="border-0" style="text-align:left;">
                                                             <input type="number" step="0.01" id="bd_delivery_cost" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ bodega.bd_delivery_cost|floatformat:2|intcomma }}" required>
                                                         </th>
@@ -175,13 +175,13 @@
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0" style="text-align:right;">¿A partir de qué monto el delivery es gratis?</th>
+                                                        <th class="border-0" style="text-align:right;">¿A partir de qué monto el delivery es gratis?(S/.)</th>
                                                         <th class="border-0" style="text-align:left;">
                                                             <input type="number" step="0.01" id="bd_delivery_free_starting_on" class="form-control" min="0" pattern="^[0-9\.]{1,}$" value="{{ bodega.bd_delivery_free_starting_on|floatformat:2|intcomma }}" required>
                                                         </th>
                                                     </tr>
                                                     <tr class="border-0">
-                                                        <th class="border-0" style="text-align:right;">Condiciones de delivery</th>
+                                                        <th class="border-0" style="text-align:right;">Tiempo de entrega</th>
                                                         <th class="border-0" style="text-align:left;">
                                                             <input type="text" class="form-control" id="bd_delivery_conditions" value="{{ bodega.bd_delivery_conditions }}" placeholder="¿Qué debe saber el cliente antes de comprarte?" required>
                                                         </th>
