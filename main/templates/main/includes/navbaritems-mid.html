@@ -91,7 +91,7 @@
             var url = "/see_search_results";
             var method = "POST";
             var postData = new FormData();
-            postData.append('search_text', 'search_text');
+            postData.append('search_text', search_text);
             var shouldBeAsync = true;
             var request = new XMLHttpRequest();
             request.onload = function () {
