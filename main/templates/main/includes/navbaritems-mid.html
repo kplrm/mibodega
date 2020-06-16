@@ -103,42 +103,6 @@
             document.getElementById("search_query_form").value = 'search_text='+search_text
             console.log(document.getElementById("search_query_form").value);
             document.getElementById("search_query_form").submit();
-            
-            //window.location.href = '../see_search_results?search_text='+search_text;
-            /*
-            // Source: https://stackoverflow.com/questions/14873443/sending-an-http-post-using-javascript-triggered-event
-            var url = "/see_search_results";
-            var method = "GET";
-            var postData = new FormData();
-            postData.append('search_text', search_text);
-            var shouldBeAsync = true;
-            var request = new XMLHttpRequest();
-            request.onload = function () {
-                var status = request.status;
-                var data = request.responseText;
-            }
-            request.open(method, url, shouldBeAsync);
-            request.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
-            request.send(postData);
-            */
-            /*
-            $.ajax({
-                headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                url: "/see_search_results",
-                type: "GET",
-                dataType: "json",
-                data: {
-                    search_text: search_text
-                },
-                
-                success: function(){
-                    ;
-                },
-                error: function(){
-                    location.reload();
-                }
-                
-            });*/
         } else {
             close_search_preloader();
         }
