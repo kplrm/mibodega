@@ -156,12 +156,6 @@
                     </div>
                 </div>
                 <div class="row" style="text-align:Left">
-                    <div class="col s12">
-                        <label for="street" style="font-size: 1.2rem;">Dirección (Seleccione en el mapa y luego corrija el texto)<span>*</span></label>
-                        <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
-                    </div>
-                </div>
-                <div class="row" style="text-align:Left">
                     <div class="col s6">
                         <label for="email" style="font-size: 1.2rem;">Email<span>*</span></label>
                         <input type="email" id="email" class="form-control" value="{% if cliente.cl_email != None %}{{cliente.cl_email}}{% endif %}" required>
@@ -186,7 +180,13 @@
                 <div class="row" style="text-align:Left">
                     <div class="col s12">
                         <label for="comments" style="font-size: 1.2rem;">Comentarios para la bodega</label>
-                        <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte por productos adicionales que no encontró en la tienda, o escriba alguna nota sobre su pedido."></textarea>
+                        <textarea id="comments" class="form-control" rows="3" placeholder="Pregunte aquí por productos adicionales, o escriba alguna nota sobre su pedido."></textarea>
+                    </div>
+                </div>
+                <div class="row" style="text-align:Left">
+                    <div class="col s12">
+                        <label for="street" style="font-size: 1.2rem;">Dirección (Seleccione en el mapa y luego corrija el texto)<span>*</span></label>
+                        <input type="text" id="street" class="form-control" class="street-first" value="{% if cliente.cl_address != None %}{{cliente.cl_address}}{% endif %}" oninput="validate_street(this)" required>
                     </div>
                 </div>
                 <div class="row" style="text-align:center">
