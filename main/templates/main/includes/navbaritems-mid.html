@@ -12,9 +12,10 @@
             <div class="col xl8 l7 m7 s8" style="flex-basis:auto;">
                 <form style="Margin: 10px 0px 0px 0px;">
                     <div class="input-field">
-                        <!--<input class="hide-on-small-only" id="search" type="search" required placeholder="What are you looking for?" style="max-width:100%;height:40px;width:calc(100% - 7rem);">-->
-                        <input class="hide-on-small-only" id="search-product" type="search" oninput="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:calc(100% - 7rem);z-index:10;">
-                        <input class="hide-on-med-and-up" id="search-product" type="search" oninput="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:100%;padding:0px 0px 0px 0px;z-index:10;">
+                        <form id="search_form" action="/see_search_results" method="GET" value="">
+                            <input class="hide-on-small-only" id="search-product" type="search" oninput="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:calc(100% - 7rem);z-index:10;">
+                            <input class="hide-on-med-and-up" id="search-product" type="search" oninput="search_product(this.value)" placeholder="¿Qué estás buscando?" style="max-width:100%;height:40px;width:100%;padding:0px 0px 0px 0px;z-index:10;">
+                        </form>
                         <!--<label class="label-icon hide-on-small-only" for="search-product"><i class="material-icons" style="Margin: -7px 0px 0px 0px;">search</i></label>
                         <i class="material-icons hide-on-small-only" style="Margin:-7px 0px 0px 0px;">close</i>-->
                     </div>
@@ -87,6 +88,9 @@
     // Redirect to search results
     function see_search_results(search_text) {
         if (search_text != "" && search_text.length > 2) {
+            document.getElementById('search_form').value = search_text;
+            document.getElementById('search_form').submit(); 
+            /*
             // Source: https://stackoverflow.com/questions/14873443/sending-an-http-post-using-javascript-triggered-event
             var url = "/see_search_results";
             var method = "GET";
@@ -101,6 +105,7 @@
             request.open(method, url, shouldBeAsync);
             request.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
             request.send(postData);
+            */
 
             /*
             $.ajax({

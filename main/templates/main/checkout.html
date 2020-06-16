@@ -592,7 +592,6 @@
     };
     // Submit checkout
     function submit_checkout(result_list) {
-        console.log("In submit_checkout");
         usr_first = document.getElementById("fir").value;
         usr_last = document.getElementById("last").value;
         usr_street = document.getElementById("street").value;
@@ -616,7 +615,6 @@
         let products_to_buy = JSON.stringify(dict_changes);
         if ($("#checkout_form").validate().form() && "{{cart_obj.crt_total_price}}" != 0 && usr_geolocation != "") {
             // submit with AJAX
-            console.log("In checkout Ajax");
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/submit_checkout",
