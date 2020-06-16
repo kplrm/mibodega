@@ -1799,7 +1799,7 @@ def see_search_results(request):
         if search_text == False or search_text == "" or len(search_text) < 3: # If no valid search word
             return redirect('main:homepage')
         # Get search words
-        print("search_words: ",search_words)
+        print("search_text: ",search_text)
         search_words = search_text.split(" ")
         print("search_words: ",search_words)
     
