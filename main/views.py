@@ -1777,7 +1777,9 @@ def search_query(request):
         return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
 
 def see_search_results(request):
+    print("in see_search_results")
     if request.method == "POST" and request.is_ajax():
+        print("in ajax")
         # Locate user and shops nearby.
         try:
             user_longitude = request.session['user_longitude']
