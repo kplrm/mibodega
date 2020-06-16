@@ -1854,7 +1854,7 @@ def see_search_results(request):
         sorted(brands)
         print(brands)
         print("exit ajax")
-        return render(request=request,
+        return render_to_response(request=request,
                     template_name="main/search_results.html",
                     context={'introduction': introduction,
                             'user_location': user_location,
