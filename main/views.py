@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404 # to redirect the user
-from django.shortcuts import render_to_response
 from .models import ProductosEnBodega, Cart, CartItem, Cliente, Bodega, Orders, BodegaOrders, OrderItem, BodegaDashboard, ProductosAprobados
 from django.urls import reverse
 
@@ -1780,7 +1779,7 @@ def search_query(request):
 def see_search_results(request):
     print("in see_search_results")
     print(request)
-    if request.method == "POST":
+    if request.method == "GET":
         print("in ajax")
         # Locate user and shops nearby.
         try:
@@ -1855,7 +1854,7 @@ def see_search_results(request):
         sorted(brands)
         print(brands)
         print("exit ajax")
-        return render_to_response(request=request,
+        return render(request=request,
                     template_name="main/search_results.html",
                     context={'introduction': introduction,
                             'user_location': user_location,
