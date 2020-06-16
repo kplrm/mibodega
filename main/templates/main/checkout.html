@@ -289,7 +289,7 @@
             <!-- Dropdown button start -->
             <div class="row" style="text-align:center">
                 <div class="col s12">
-                    <a class='dropdown-trigger btn' href='#' data-target='results_options' style="background-color:#ff6f6f !important;color:#000000;font-weight:bold;">Comparar</a>
+                    <a class='dropdown-trigger btn' href='#' data-target='results_options' style="background-color:#ff6f6f !important;color:#000000;font-weight:bold;">Comprar precios</a>
                     <ul id='results_options' class='dropdown-content' style="padding: 5px;">
                         {% for result in result_list %}
                             <li><a onclick="change_option('{{forloop.counter}}')">Opción {{ forloop.counter }}: S/.{{result.0|floatformat:2|intcomma}}</a></li>
