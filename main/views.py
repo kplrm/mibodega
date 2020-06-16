@@ -1772,6 +1772,7 @@ def search_query(request):
         # Sort items according to most suitable case
         def comparator_price( tupleElem ):
             #print("tupleElem[1][3]: ", tupleElem[1][3])
+            print("tupleElem[1][2]: ", tupleElem[1][2])
             return tupleElem[1][3]
         result_dict = sorted(result_dict.items(), key=comparator_price, reverse=True)
         return JsonResponse({"success": json.dumps(result_dict[0:4])}, status=200)
