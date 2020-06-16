@@ -1892,3 +1892,6 @@ def see_search_results(request):
     #                            'results': results,
     #                            'result_count': result_count,
                             })
+    
+    else: # if not GET method
+        return redirect('main:homepage')
