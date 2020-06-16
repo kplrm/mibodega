@@ -90,7 +90,8 @@
             // Source: https://stackoverflow.com/questions/14873443/sending-an-http-post-using-javascript-triggered-event
             var url = "/see_search_results";
             var method = "POST";
-            var postData = search_text;
+            var postData = new FormData();
+            postData.append('search_text', 'search_text');
             var shouldBeAsync = true;
             var request = new XMLHttpRequest();
             request.onload = function () {
