@@ -243,6 +243,7 @@
         if (password_1 != password_2) {
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_mismatch").toast('show');
+            input.setAttribute("isvalid", "false")
             input.setCustomValidity('Las contraseñas no coinciden');
             input.reportValidity();
         }
