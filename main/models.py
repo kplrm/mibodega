@@ -88,7 +88,7 @@ class Bodega(models.Model):
     bd_delivery_cost = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="¿Cuánto cuesta el delivery?")
     bd_delivery_type = models.BooleanField(default=False,verbose_name="¿A partir de qué monto el delivery es gratis?") # False = delivery has always the same price, True = free_starting_on
     bd_delivery_free_starting_on = models.DecimalField(default=0.00,max_digits=6,decimal_places=2,blank=True,null=True,verbose_name="¿A partir de qué monto de compra el delivery es gratis?")
-    bd_delivery_conditions = models.CharField(default=" ",max_length=250,blank=True,null=True,verbose_name="Tiempo de entrega")
+    bd_delivery_conditions = models.CharField(default="48 horas",max_length=250,blank=True,null=True,verbose_name="Tiempo de entrega")
 
     def __str__(self):
         return str(self.bd_name)
