@@ -101,8 +101,7 @@
                                         <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{product.peb_discount_rate|floatformat:0|intcomma}}%</span>
                                         <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
                                         <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
-                                    {% else %}
-                                        aaaa
+                                    {% elif product.peb_discount_rate >= 0 %}
                                         <b style="font-size:20px;color:#feb100"> S/.{{product.peb_regular_price|floatformat:2|intcomma}}</b>
                                     {% endif %}
                                 {% endif %}
