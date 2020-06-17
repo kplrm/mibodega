@@ -30,7 +30,7 @@
                             color: black !important;
                         }
                     </style>
-                    <form method="POST">
+                    <form method="POST" id="bodega_registration_form">
                         {% csrf_token %}
                         {% load widget_tweaks %}
                         <h4>
@@ -287,6 +287,7 @@
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
+        if (valid == true){document.getElementById("bodega_registration_form").submit();}
     };
 </script>
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
