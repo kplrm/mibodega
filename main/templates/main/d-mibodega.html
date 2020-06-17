@@ -340,6 +340,11 @@
     }
     function bd_delivery_type_f(input) {
         console.log(input);
+        if (input.id == "bd_delivery_type_1") {
+            $('#free_shipping').hide();
+        } else if (input.id == "bd_delivery_type_2") {
+            $('#free_shipping').show();
+        }
         save_mibodega_changes();
     }
 </script>
