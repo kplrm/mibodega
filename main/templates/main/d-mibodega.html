@@ -386,6 +386,7 @@
             bd_delivery_conditions = document.getElementById("bd_delivery_conditions").value;
             bd_geolocation_lat = document.getElementById("bd_geolocation_lat").value;
             bd_geolocation_lng = document.getElementById("bd_geolocation_lng").value;
+            console.log("bd_delivery_type: "+String(bd_delivery_type))
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 url: "/dashboard/mibodega",
