@@ -267,7 +267,7 @@
             $("#wrong_username").toast('show');
             $("input[name=username]").css('border-color', 'red');
         }
-        if (password_1.value != password_2.value) {
+        if (password_1.value != password_2.value || password_1.value.length == 0 ) {
             valid = false;
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_mismatch").toast('show');
