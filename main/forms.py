@@ -21,7 +21,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 
 # in validators.py 
 # in class UnicodeUsernameValidator()
-# change:       message = _(...)        to:     'Alguien más ya tiene este usuario.'
+# change:       message = _(...)        to:     'Alguien más ya está usando este usuario.'
 ################################################# IMPORTANT COMMENT #################################################
 
 ######################## FROM django.contrib.auth ########################
