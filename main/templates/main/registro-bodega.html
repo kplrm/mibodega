@@ -234,7 +234,8 @@
     };
     function submit_register() {
         // Verify that password1 and password2 are the same
-        console.log(document.getElementsByName('password1')[0]);
+        input = document.getElementsByName('password1')[0];
+        console.log(input);
         password_1 = document.getElementsByName('password1')[0].value;
         console.log(password_1);
         password_2 = document.getElementsByName('password2')[0].value;
@@ -242,6 +243,8 @@
         if (password_1 != password_2) {
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_mismatch").toast('show');
+            input.setCustomValidity('Las contraseñas no coinciden');
+            input.reportValidity();
         }
         if (password_1.length < 8) {
             $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
