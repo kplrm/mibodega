@@ -241,7 +241,7 @@
             valid = false;
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_mismatch").toast('show');
-            $("input[name=password1]").css('border-color', 'red');
+            $("input[name=password1]").css('border-color', 'red !important');
             $("input[name=password2]").css('border-color', 'red');
             password_1.setCustomValidity('Las contraseñas no coinciden');
             password_1.reportValidity();
