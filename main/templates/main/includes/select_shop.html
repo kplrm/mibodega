@@ -21,8 +21,8 @@
     // Initializes map
     var marker;
     var shops_markers = [];
-    var map = L.map('map', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0, maxZoom: 10}).setView([ -12.046374, -77.0427934 ], 14);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { noWrap: true,
+    var map = L.map('map', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0}).setView([ -12.046374, -77.0427934 ], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { noWrap: true, maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
     const customMarkerIcon = L.AwesomeMarkers.icon({
