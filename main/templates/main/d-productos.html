@@ -362,6 +362,8 @@
                     additions: product_additions
                 },
                 success: function(){
+                    console.log("new product added");
+                    $("#myToast").toast({ autohide: true, animation: true, delay: 3000 });
                     $("#myToast").toast('show');
                     //location.reload();
                 },
