@@ -86,7 +86,7 @@
                                                     <!--<div class="container" id="products_to_add_container">-->
                                                         {% for product_faltante in ProductosAprobados_missing %}
                                                             <tr name="missing_products" class="c_products_to_add">
-                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input" onchange="add_new_products()"></td>
+                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input show-toast" onchange="add_new_products()"></td>
                                                                 <td>
                                                                     <div class="m-r-10">
                                                                         {% if product_faltante.pa_image %}
@@ -445,7 +445,7 @@
 <!-- TOAST -->
 <div>
     <button type="button" class="btn btn-primary show-toast">Show Toast</button>
-    <div class="toast" id="myToast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast" id="myToast" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1100;">
         <div class="toast-header">
             <strong class="mr-auto">Producto añadido</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
