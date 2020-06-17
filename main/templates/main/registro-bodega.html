@@ -246,7 +246,7 @@
             //password_1.setCustomValidity('Las contraseñas no coinciden');
             //password_1.reportValidity();
         }
-        if (password_1.length < 8) {
+        if (password_1.value.length < 8) {
             valid = false;
             $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_too_short").toast('show');
