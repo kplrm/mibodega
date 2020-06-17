@@ -1047,32 +1047,40 @@ def registroBodega(request):
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
         bd_form = BodegaForm(request.POST)
-        if form.is_valid() and cl_form.is_valid and bd_form.is_valid:
-            user = form.save()
-            client = cl_form.save(commit=False)
-            client.cl_user = user
-            client.cl_first_name = user.first_name
-            client.cl_last_name = user.last_name
-            client.cl_email = user.email
-            client.cl_is_bodega = True
-            client.cl_terms = True
-            cl_form.save(commit=True)
-            bodega = bd_form.save(commit=False)
-            bodega.bd_user = client
-            bodega.bd_is_active = True # Active from beginning
-            bodega.bd_email = client.cl_email
-            bodega.bd_phone = client.cl_phone
-            bodega.bd_delivery = True
-            bodega = bd_form.save(commit=True)
-            client.cl_default_bodega = str(bodega.bd_ID)
-            cl_form.save(commit=True)
-            username = user.username # normalize to a standard format
-            # Messages are stored only once. When they are delivered, they also are deleted.
-            messages.success(request,f"Cuenta creada exitosamente") # (request, exact message)
-            auth_login(request, user)
-            messages.info(request,f"Bienvenido: {username}")
-            return redirect('main:homepage')
+        print("Laikita 0")
+        if form.is_valid():
+            print("form is valid")
+            if cl_form.is_valid and bd_form.is_valid:
+                user = form.save()
+                client = cl_form.save(commit=False)
+                client.cl_user = user
+                client.cl_first_name = user.first_name
+                client.cl_last_name = user.last_name
+                client.cl_email = user.email
+                client.cl_is_bodega = True
+                client.cl_terms = True
+                cl_form.save(commit=True)
+                bodega = bd_form.save(commit=False)
+                bodega.bd_user = client
+                bodega.bd_is_active = True # Active from beginning
+                bodega.bd_email = client.cl_email
+                bodega.bd_phone = client.cl_phone
+                bodega.bd_delivery = True
+                bodega = bd_form.save(commit=True)
+                client.cl_default_bodega = str(bodega.bd_ID)
+                cl_form.save(commit=True)
+                username = user.username # normalize to a standard format
+                # Messages are stored only once. When they are delivered, they also are deleted.
+                messages.success(request,f"Cuenta creada exitosamente") # (request, exact message)
+                auth_login(request, user)
+                messages.info(request,f"Bienvenido: {username}")
+                return redirect('main:homepage')
+            else:
+                for msg in form.error_messages:
+                    messages.error(request, f"{msg}: {form.error_messages[msg]}")
         else:
+            print("form is INvalid")
+            print("form.error_messages: ", form.error_messages)
             for msg in form.error_messages:
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
             
