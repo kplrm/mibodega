@@ -234,9 +234,9 @@
     };
     function submit_register() {
         // Verify that password1 and password2 are the same
-        password_1 = document.getElementsByName('password1');
+        password_1 = document.getElementsByName('password1')[0].value;
         console.log(password_1);
-        password_2 = document.getElementsByName('password2');
+        password_2 = document.getElementsByName('password2')[0].value;
         console.log(password_1);
         if (password_1 != password_2) {
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
