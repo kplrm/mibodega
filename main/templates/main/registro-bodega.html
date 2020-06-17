@@ -257,8 +257,10 @@
         password_2 = document.getElementsByName('password2')[0];
         reg_ex = new RegExp('^[a-zA-Z0-9]{5,}$');
         m = username.value.search(reg_ex);
+        console.log(m);
         reg_ex = new RegExp('^[A-Za-z0-9+_.-]+@(.+)$');
         n = username.value.search(reg_ex);
+        console.log(n);
         if (m == 0) {
             valid = false;
             $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
