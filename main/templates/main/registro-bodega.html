@@ -243,8 +243,8 @@
             $("#password_mismatch").toast('show');
             $("input[name=password1]").css('border-color', 'red !important');
             $("input[name=password2]").css('border-color', 'red');
-            password_1.setCustomValidity('Las contraseñas no coinciden');
-            password_1.reportValidity();
+            //password_1.setCustomValidity('Las contraseñas no coinciden');
+            //password_1.reportValidity();
         }
         if (password_1.length < 8) {
             valid = false;
