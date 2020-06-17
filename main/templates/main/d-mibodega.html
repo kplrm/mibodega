@@ -224,7 +224,7 @@
     // Initializes map
     var marker;
     if (("{{ bodega.bd_geolocation.x }}" != "") && ("{{ bodega.bd_geolocation.y }}" != "")) {
-        var map = L.map('mapid').setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
+        var map = L.map('mapid', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0}).setView([ "{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}" ], 14);
         marker = new L.marker(["{{ bodega.bd_geolocation.y }}", "{{ bodega.bd_geolocation.x }}"], {draggable:'true'})
         .on('dragend', function(event){
                 document.getElementById("bd_geolocation_lat").value = event.target._latlng.lat;
@@ -233,11 +233,11 @@
             });
         map.addLayer(marker);
     } else {
-        var map = L.map('mapid').setView([ -12.046374, -77.0427934 ], 14);
+        var map = L.map('mapid', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0}).setView([ -12.046374, -77.0427934 ], 14);
         getLocation();
     }
     
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { noWrap: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
