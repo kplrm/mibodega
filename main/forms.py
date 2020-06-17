@@ -18,6 +18,10 @@ from django.utils.translation import gettext, gettext_lazy as _
 # change:       _('username'),          to:     _('Usuario*'),
 # change:       help_text=_( ... ),     to:     help_text=_('Sólo se permite letras y números.'),
 # change:       'unique': _( ... ),     to:     'unique': _("Este usuario ya lo está usando."),
+
+# in validators.py 
+# in class UnicodeUsernameValidator()
+# change:       message = _(...)        to:     'Alguien más ya tiene este usuario.'
 ################################################# IMPORTANT COMMENT #################################################
 
 ######################## FROM django.contrib.auth ########################
