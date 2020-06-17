@@ -154,7 +154,7 @@ def embutidos(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="embutidos",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="embutidos",peb_regular_price__gt=0)
         for product in temp:
             product_already_in_result_list = False
             for item in result_list:
@@ -235,7 +235,7 @@ def lacteos(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="lacteos",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="lacteos",peb_regular_price__gt=0)
         for product in temp:
             product_already_in_result_list = False
             for item in result_list:
@@ -316,7 +316,7 @@ def abarrotes(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="abarrotes",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="abarrotes",peb_regular_price__gt=0)
         for product in temp:
             product_already_in_result_list = False
             for item in result_list:
@@ -397,7 +397,7 @@ def limpieza(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="limpieza",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="limpieza",peb_regular_price__gt=0)
         for product in temp:
             product_already_in_result_list = False
             for item in result_list:
@@ -478,7 +478,7 @@ def licores(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="licores",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="licores",peb_regular_price__gt=0)
         for product in temp:
             product_already_in_result_list = False
             for item in result_list:
@@ -559,7 +559,7 @@ def vegetales(request):
     productos_en_bodegas = ProductosEnBodega.objects.all()
     result_list = []
     for shop in shops:
-        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="vegetales",peb_discount_price__gt=0,peb_regular_price__gt=0)
+        temp = productos_en_bodegas.filter(peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_product__pa_category="vegetales",peb_regular_price__gt=0)
         for product in temp:
             product_already_in_result_list = False
             for item in result_list:
@@ -619,7 +619,7 @@ def search_cart_items_in_bodegas(shop,cart_list):
     for cart_item in cart_list:
         # Retrieve item if available
         try:
-            item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_discount_price__gt=0,peb_regular_price__gt=0)
+            item = get_object_or_404(ProductosEnBodega,peb_product__pa_ID=cart_item.ci_product.peb_product.pa_ID,peb_product__pa_status=True,peb_bodega=shop,peb_bodega__bd_is_active=True,peb_status=True,peb_regular_price__gt=0)
             if item.peb_discount_status == True:
                 total_price_in_bodega += item.peb_discount_price * cart_item.ci_quantity
                 items_in_bodega.append([item, cart_item.ci_quantity, item.peb_discount_price*cart_item.ci_quantity])
