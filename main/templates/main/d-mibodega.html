@@ -367,6 +367,7 @@
     });
     // Save changes function
     function save_mibodega_changes() {
+        console.log("in save_mibodega_changes")
         if ($("#mibodega_update").validate().form()) {
             cl_first_name = document.getElementById("cl_first_name").value;
             cl_last_name = document.getElementById("cl_last_name").value;
