@@ -148,7 +148,6 @@
                             <span>Al registrarme acepto en su totalidad los <a class="modal-trigger" data-target="user_agreement" style="color: blue;font-weight: bold;text-decoration: underline;" >Términos y condiciones de uso</a>.</span><!--onclick="open_modal()"-->
                         </div>
                         <!-- TERMS AND CONDITIONS -->
-                        <!--<button type="submit" class="btn" style="background-color:#feb100;color:black;font-weight:bold;">Registrar</button>-->
                         <button type="button" class="btn waves-effect waves-light" style="background-color:#feb100;color:#000000;font-weight:bold;" onclick="submit_register(); return false">Registrar</button>
                     </form>
                     <div class="switch-login">
@@ -217,6 +216,14 @@
             </button>
         </div>
     </div>
+    <div class="toast" id="terms_n_cond" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 9999 !important;background-color: red;position: fixed; top:28%; right: 5%;">
+        <div class="toast-header">
+            <strong class="mr-auto">Lea y acepte los términos y condiciones</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
 </div>
 <!-- END TOAST -->
 
@@ -257,10 +264,9 @@
         password_2 = document.getElementsByName('password2')[0];
         reg_ex = new RegExp('^[a-zA-Z0-9]{5,}$');
         m = username.value.search(reg_ex);
-        console.log(m);
         reg_ex = new RegExp('^[A-Za-z0-9+_.-]+@(.+)$');
         n = email.value.search(reg_ex);
-        console.log(n);
+        terms_n_conditions = document.getElementsByName('checkbox')[0];
         if (m < 0) {
             valid = false;
             $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
@@ -287,6 +293,13 @@
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
+        if (terms_n_conditions.checked == false) {
+            valid = false;
+            $("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
+            $("#terms_n_cond").toast('show');
+            $("input[name=checkbox]").css('border-color', 'red');
+            $("input[name=checkbox]").css('border-color', 'red');
+        } else {$("input[name=checkbox]").css('border-color', '#ced4da');};
         if (valid == true){document.getElementById("bodega_registration_form").submit();}
     };
 </script>
