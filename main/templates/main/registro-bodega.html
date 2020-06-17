@@ -146,10 +146,10 @@
                                 <input type="checkbox" class="filled-in" required/>
                             </label>
                             <span>Al registrarme acepto en su totalidad los <a class="modal-trigger" data-target="user_agreement" style="color: blue;font-weight: bold;text-decoration: underline;" >Términos y condiciones de uso</a>.</span><!--onclick="open_modal()"-->
-                            
                         </div>
                         <!-- TERMS AND CONDITIONS -->
-                        <button type="submit" class="btn" style="background-color:#feb100;color:black;font-weight:bold;">Registrar</button>
+                        <!--<button type="submit" class="btn" style="background-color:#feb100;color:black;font-weight:bold;">Registrar</button>-->
+                        <button type="button" class="btn waves-effect waves-light" style="background-color:#feb100;color:#000000;font-weight:bold;" onclick="submit_register(); return false">Registrar</button>
                     </form>
                     <div class="switch-login">
                         <a href="/login" class="or-login">o inicie sesión</a>
@@ -183,6 +183,27 @@
 </div>
 <!-- MODAL END -->
 
+<!-- START TOAST -->
+<div>
+    <div class="toast" id="password_mismatch" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 9999 !important;background-color: red;position: fixed; top:10%; right: 5%;">
+        <div class="toast-header">
+            <strong class="mr-auto">Las contraseñas no coinciden</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="toast" id="password_too_short" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 9999 !important;background-color: red;position: fixed; top:10%; right: 5%;">
+        <div class="toast-header">
+            <strong class="mr-auto">La contraseña es muy corta</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- END TOAST -->
+
 <script>
     // Modal initialization
     document.addEventListener('DOMContentLoaded', function() {
@@ -194,13 +215,13 @@
         var elem = document.getElementById('user_agreement');
         var instance = M.Modal.getInstance(elem);
         instance.open();
-    }
+    };
     // Function to hide modal
     function close_modal() {
         var elem = document.getElementById('user_agreement');
         var instance = M.Modal.getInstance(elem);
         instance.close();
-    }
+    };
     // Switch between account creation forms
     function change_account_type(btn_cliente) {
         if (btn_cliente.id == "Bodega") {
@@ -210,8 +231,23 @@
         } else {
             window.location = "https://www.alimentos.pe";
         }
-    }
+    };
+    function submit_register() {
+        // Verify that password1 and password2 are the same
+        password_1 = document.getElementsByName('password1').value;
+        password_2 = document.getElementsByName('password2').value;
+        console.log(password_1);
+        if (password_1 != password_2) {
+            $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
+            $("#password_mismatch").toast('show');
+        }
+        if (password_1.length < 8) {
+            $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
+            $("#password_too_short").toast('show');
+        }
+    };
 </script>
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'main/js/materialize.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
 {% endblock %}
