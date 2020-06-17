@@ -239,13 +239,11 @@
         password_2 = document.getElementsByName('password2')[0].value;
         console.log(password_1);
         if (password_1 != password_2) {
-            //$("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#password_mismatch").toast({ autohide: false, animation: true });
+            $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_mismatch").toast('show');
         }
         if (password_1.length < 8) {
-            //$("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#password_too_short").toast({ autohide: false, animation: true });
+            $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_too_short").toast('show');
         }
     };
