@@ -470,7 +470,7 @@
         })
         // Initialize toast
         $(".show-toast").click(function(){
-            $("#myToast").toast({ autohide: false });
+            $("#myToast").toast({ autohide: true, animation: true, delay: 2000 });
             $("#myToast").toast('show');
         });
     });
