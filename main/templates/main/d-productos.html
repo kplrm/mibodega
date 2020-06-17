@@ -90,38 +90,44 @@
                                                 border-bottom-width: 0;
                                             }
                                         </style>-->
-                                        <table class="table table-fixed">
-                                            <thead class="bg-light">
-                                                <tr class="border-0">
-                                                    <th class="border-0">Añadir</th>
-                                                    <th class="border-0">Imagen</th>
-                                                    <th class="border-0">Producto</th>
-                                                    <!--<th class="border-0">Categoría</th>-->
-                                                    <th class="border-0">Marca</th>
-                                                </tr>
-                                            </thead>
-                                            <form id="products_to_add" action="">
-                                                <tbody id="products_to_add_container">
-                                                    <!--<div class="container" id="products_to_add_container">-->
-                                                        {% for product_faltante in ProductosAprobados_missing %}
-                                                            <tr name="missing_products" class="c_products_to_add">
-                                                                <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input show-toast" onchange="add_new_products()"></td>
-                                                                <td>
-                                                                    <div class="m-r-10">
-                                                                        {% if product_faltante.pa_image %}
-                                                                            <img src="{{product_faltante.pa_image.url}}" alt="IMG" class="rounded" width="45">
-                                                                        {% endif %}
-                                                                    </div>
-                                                                </td>
-                                                                <td>{{ product_faltante.pa_product }}</td>
-                                                                <!--<td>{{ product_faltante.pa_category }}</td>-->
-                                                                <td>{{ product_faltante.pa_brand }}</td>
-                                                            </tr>
-                                                        {% endfor %}
-                                                    <!--</div>-->
-                                                </tbody>
-                                            </form>
-                                        </table>
+                                        <style>
+                                            .tableFixHead          { overflow-y: auto; height: 100px; }
+                                            .tableFixHead thead th { position: sticky; top: 0; }
+                                        </style>
+                                        <div class="tableFixHead">
+                                            <table class="table table-fixed">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                        <th class="border-0">Añadir</th>
+                                                        <th class="border-0">Imagen</th>
+                                                        <th class="border-0">Producto</th>
+                                                        <!--<th class="border-0">Categoría</th>-->
+                                                        <th class="border-0">Marca</th>
+                                                    </tr>
+                                                </thead>
+                                                <form id="products_to_add" action="">
+                                                    <tbody id="products_to_add_container">
+                                                        <!--<div class="container" id="products_to_add_container">-->
+                                                            {% for product_faltante in ProductosAprobados_missing %}
+                                                                <tr name="missing_products" class="c_products_to_add">
+                                                                    <td><input type="checkbox" name="item_to_add" id="{{ product_faltante.pa_ID }}" class="form-check-input show-toast" onchange="add_new_products()"></td>
+                                                                    <td>
+                                                                        <div class="m-r-10">
+                                                                            {% if product_faltante.pa_image %}
+                                                                                <img src="{{product_faltante.pa_image.url}}" alt="IMG" class="rounded" width="45">
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>{{ product_faltante.pa_product }}</td>
+                                                                    <!--<td>{{ product_faltante.pa_category }}</td>-->
+                                                                    <td>{{ product_faltante.pa_brand }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                        <!--</div>-->
+                                                    </tbody>
+                                                </form>
+                                            </table>
+                                        </div>
                                     </div>
                                     <!--<div class="modal-footer">
                                         <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_products(); return false;">+Añadir producto</button>
