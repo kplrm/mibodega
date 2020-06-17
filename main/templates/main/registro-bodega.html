@@ -259,7 +259,7 @@
         m = username.value.search(reg_ex);
         console.log(m);
         reg_ex = new RegExp('^[A-Za-z0-9+_.-]+@(.+)$');
-        n = username.value.search(reg_ex);
+        n = email.value.search(reg_ex);
         console.log(n);
         if (m < 0) {
             valid = false;
@@ -267,7 +267,7 @@
             $("#wrong_username").toast('show');
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
-        if (n == 0) {
+        if (n < 0) {
             valid = false;
             $("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("#wrong_email").toast('show');
