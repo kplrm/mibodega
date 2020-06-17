@@ -250,11 +250,10 @@
             valid = false;
             $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
             $("#password_too_short").toast('show');
-            password_1.setCustomValidity('La es muy corta');
-            password_1.reportValidity();
+            
             $("input[name=password1]").css('border-color', 'red');
-            $("input[name=password1]").css('color', 'red');
             $("input[name=password2]").css('border-color', 'red');
+            password_1.setCustomValidity('La contraseña es muy corta');
         }
     };
 </script>
