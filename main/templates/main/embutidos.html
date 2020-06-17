@@ -97,7 +97,8 @@
                                     <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
                                 {% endif %}
                                 {% if product.peb_discount_status == True %}
-                                    <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{product.peb_discount_rate|floatformat:0|intcomma if product.peb_discount_rate < 0 }}%</span>
+                                    {% if product.peb_discount_rate is less than 0 %}
+                                    <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{product.peb_discount_rate|floatformat:0|intcomma}}%</span>
                                 {% endif %}
                                 
                                 <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
