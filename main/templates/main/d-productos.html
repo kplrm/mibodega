@@ -71,31 +71,7 @@
                                         <div class="input-field" style="position: relative; box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);border-bottom: 2px solid #00bbec;">
                                             <input id="search-box" type="text" onkeyup="search_missing_product()" placeholder="Escriba aquí el producto que quiere buscar" style="width: 100%; box-sizing: border-box;"/>
                                         </div>
-                                        <style>
-                                            .table-fixed tbody {
-                                                height: 25rem;
-                                                overflow-y: auto;
-                                                overflow-x: auto;
-                                            }
-                                            .table-fixed thead,
-                                            .table-fixed tbody,
-                                            .table-fixed tr,
-                                            .table-fixed td,
-                                            .table-fixed th {
-                                                display: block;
-                                            }
-                                            .table-fixed tr:after {
-                                                content: "";
-                                                /*display: block;*/
-                                                visibility: hidden;
-                                                clear: both;
-                                            }
-                                            .table-fixed tbody td,
-                                            .table-fixed thead > tr > th {
-                                                float: left;
-                                            }
-                                        </style>
-                                        <table class="table table-fixed">
+                                        <table class="table">
                                             <thead class="bg-light">
                                                 <tr class="border-0">
                                                     <th class="border-0">Añadir</th>
@@ -483,6 +459,7 @@
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
 <script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'main/js/jquery.floatThead.min.js' %}"></script>
 <script>
     $(document).ready(function(){
         // Reload after closing add new products modal
@@ -493,6 +470,10 @@
         $(".show-toast").click(function(){
             $("#myToast").toast({ autohide: true, animation: true, delay: 2000 });
             $("#myToast").toast('show');
+        });
+        $('table').floatThead({
+            position: 'absolute',
+            scrollContainer: true
         });
     });
 </script>
