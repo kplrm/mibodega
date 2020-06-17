@@ -99,11 +99,14 @@
                                 {% if product.peb_discount_status == True %}
                                     {% if product.peb_discount_rate < 0 %}
                                         <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{product.peb_discount_rate|floatformat:0|intcomma}}%</span>
+                                        <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
+                                        <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                                    {% else %}
+                                        <b style="font-size:20px;color:#feb100"> S/.{{product.peb_regular_price|floatformat:2|intcomma}}</b>
                                     {% endif %}
                                 {% endif %}
                                 
-                                <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
-                                <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                                
                             </div>
                             <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
                                 <b>{{product.peb_bodega.bd_name}}</b><br>
