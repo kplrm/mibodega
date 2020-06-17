@@ -231,7 +231,7 @@
                             var marker_client;
                             var mapcart = L.map('map_cart', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0});
                             mapcart.invalidateSize();
-                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { noWrap: true,
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { noWrap: true, bounds: [[-90, -180],[90, 180]], maxZoom: "18", minZoom:"5", maxNativeZoom: "18",
                                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             }).addTo(mapcart);
 
