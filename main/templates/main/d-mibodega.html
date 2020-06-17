@@ -347,10 +347,6 @@
         } else {};
         save_mibodega_changes();
     }
-    // On load hide or show delivery type
-    bd_delivery_type_1 = document.getElementById("bd_delivery_type_1").checked;
-    bd_delivery_type_2 = document.getElementById("bd_delivery_type_2").checked;
-    if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = false;$('#free_shipping').hide();} else {bd_delivery_type = true;$('#free_shipping').show();}
 </script>
 <script type="text/javascript">
     // Listener of input type text chages
@@ -425,4 +421,11 @@
 <script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script> <!-- NEEDED FOR JQUERY -->
 <script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+
+<script>
+    // On load hide or show delivery type (free shipping on)
+    bd_delivery_type_1 = document.getElementById("bd_delivery_type_1").checked;
+    bd_delivery_type_2 = document.getElementById("bd_delivery_type_2").checked;
+    if (bd_delivery_type_1 == true && bd_delivery_type_2 == false) {bd_delivery_type = false;$('#free_shipping').hide();} else {bd_delivery_type = true;$('#free_shipping').show();}
+</script>
 {% endblock %}
