@@ -444,16 +444,15 @@
     <button type="button" class="btn btn-primary show-toast">Show Toast</button>
     <div class="toast" id="myToast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-            <img src="..." class="rounded mr-2" alt="...">
-            <strong class="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
+            <strong class="mr-auto">Producto añadido</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+        <!--
         <div class="toast-body">
             Hello, world! This is a toast message.
-        </div>
+        </div>-->
     </div>
 </div>
 
@@ -470,7 +469,7 @@
         })
         // Initialize toast
         $(".show-toast").click(function(){
-            $("#myToast").toast({ autohide: true, animation: true, delay: 2000 });
+            $("#myToast").toast({ autohide: true, animation: true, delay: 3000 });
             $("#myToast").toast('show');
         });
     });
