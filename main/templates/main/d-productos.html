@@ -350,6 +350,7 @@
         };
     };
     function add_new_products() {
+        console.log("adding new product...");
         if ($("#products_to_add").validate().form()) {
             item_to_add = document.getElementsByName("item_to_add");
             var dict_to_add = [];
