@@ -383,8 +383,11 @@
                     $("#myToast").toast('show');
                     //location.reload();
                 },
-                error: function(){
+                error: function(response){
                     console.log("keep trying...");
+                    console.log("el exito...");
+                    var details = JSON.parse(response.success);
+                    console.log(details);
                     //location.reload();
                 }
             });
