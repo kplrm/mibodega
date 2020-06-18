@@ -110,9 +110,9 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
+                                    <!--<div class="modal-footer">
                                         <button type="button" class="btn btn-outline-primary float-right" data-dismiss="modal" onclick="add_new_products(); return false;">+Añadir producto</button>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
@@ -350,9 +350,7 @@
         };
     };
     function add_new_products() {
-        console.log("adding new product...");
         if ($("#products_to_add").validate().form()) {
-            console.log("validating new product...");
             item_to_add = document.getElementsByName("item_to_add");
             var dict_to_add = [];
             for (i = 0; i < item_to_add.length; i++) {
