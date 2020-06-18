@@ -1618,13 +1618,15 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 producto.peb_discount_rate = product_changes['n_discount_rate']
                 producto.save()
                 break
-    return redirect('main:productos')
+    #return redirect('main:productos')
+    return JsonResponse({"success": ""}, status=200)
 
 def save_additions(additions, bodega, ProductosAprobados_all):
     for product_to_add in additions:
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
         new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
-    return redirect('main:productos')
+    #return redirect('main:productos')
+    return JsonResponse({"success": ""}, status=200)
 
 def remove_product(request):
     if request.method == "POST" and request.is_ajax():
