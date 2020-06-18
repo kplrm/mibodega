@@ -366,6 +366,10 @@
             };
             let product_additions = JSON.stringify(dict_to_add);
 
+            // This should be placed on success, but for some reason it always receives error as response
+            $("#myToast").toast({ autohide: true, animation: true, delay: 3000 });
+            $("#myToast").toast('show');
+
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
                 //url: "/dashboard/save_product_changes",
@@ -375,19 +379,10 @@
                 data: {
                     additions: product_additions
                 },
-                success: function(response){
-                    console.log("el exito...");
-                    var details = JSON.parse(response.success);
-                    console.log(details);
-                    $("#myToast").toast({ autohide: true, animation: true, delay: 3000 });
-                    $("#myToast").toast('show');
+                success: function(){
                     //location.reload();
                 },
-                error: function(response){
-                    console.log("keep trying...");
-                    console.log("el exito...");
-                    var details = JSON.parse(response.success);
-                    console.log(details);
+                error: function(){
                     //location.reload();
                 }
             });
