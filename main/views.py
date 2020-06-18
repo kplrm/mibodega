@@ -1626,7 +1626,7 @@ def save_additions(additions, bodega, ProductosAprobados_all):
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
         new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
     #return redirect('main:productos')
-    return JsonResponse({"success": "done"}, status=200)
+    return JsonResponse({"success": ""}, status=200)
 
 def remove_product(request):
     if request.method == "POST" and request.is_ajax():
