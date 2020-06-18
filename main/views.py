@@ -1619,7 +1619,7 @@ def save_product_changes(changes, ProductosEnBodega_list):
                 producto.save()
                 break
     #return redirect('main:productos')
-    return JsonResponse({"success": ""}, status=200)
+    return JsonResponse({"success": "done"}, status=200)
 
 def save_additions(additions, bodega, ProductosAprobados_all):
     for product_to_add in additions:
