@@ -300,6 +300,7 @@
     };
     function save_product_changes() {
         if ($("#products_to_update").validate().form()) {
+            console.log("inside save_product_changes");
             regular_price = document.getElementsByName("regular_price");
             discount_price = document.getElementsByName("discount_price");
             discount_status = document.getElementsByName("discount_status");
@@ -337,10 +338,12 @@
                     changes: product_changes
                 },
                 success: function(){
+                    console.log("Laikita siiii");
                     //location.reload();
                     ;
                 },
                 error: function(){
+                    console.log("Laikita nooo");
                     //location.reload();
                     ;
                 }
