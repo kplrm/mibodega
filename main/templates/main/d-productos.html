@@ -377,6 +377,8 @@
                 },
                 success: function(response){
                     console.log("el exito...");
+                    var details = JSON.parse(response.success);
+                    console.log(details);
                     $("#myToast").toast({ autohide: true, animation: true, delay: 3000 });
                     $("#myToast").toast('show');
                     //location.reload();
