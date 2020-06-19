@@ -242,7 +242,7 @@
         var instances = M.Modal.init(elems, {});
     });
     // Hide toasts on page load
-    function hide_modals() {
+    function hide_toasts() {
         $("#wrong_username").css('z-index', '0');
         $("#wrong_email").css('z-index', '0');
         $("#password_mismatch").css('z-index', '0');
@@ -257,7 +257,9 @@
         $("#wrong_ruc").toast('hide');
         $("#terms_n_cond").toast('hide');
     };
-    hide_modals();
+    window.onload = function() {
+        hide_toasts();
+    };
 
     // Function to show modal
     function open_modal() {
