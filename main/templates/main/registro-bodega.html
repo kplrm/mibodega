@@ -293,39 +293,33 @@
         terms_n_conditions = document.getElementById('terms_n_conditions');
         if (m < 0) {
             valid = false;
-            $("#wrong_username").css('display', 'flex');
             $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
         if (n < 0) {
             valid = false;
-            $("#wrong_email").css('display', 'flex');
             $("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=email]").css('border-color', 'red');
         } else {$("input[name=email]").css('border-color', '#ced4da');};
         if (password_1.value != password_2.value) {
             valid = false;
-            $("#password_mismatch").css('display', 'flex');
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
         if (password_1.value.length < 8) {
             valid = false;
-            $("#password_too_short").css('display', 'flex');
             $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
         if (o < 0) {
             valid = false;
-            $("#wrong_ruc").css('display', 'flex');
             $("#wrong_ruc").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=bd_ruc]").css('border-color', 'red');
         } else {$("input[name=bd_ruc]").css('border-color', '#ced4da');};
         if (terms_n_conditions.checked == false) {
             valid = false;
-            $("#terms_n_cond").css('display', 'flex');
             $("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
             $("#terms_n_conditions").css('outline', '2px solid red');
         } else {$("#terms_n_conditions").css('outline', 'none');};
