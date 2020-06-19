@@ -243,12 +243,12 @@
     });
     // Hide toasts on page load
     function hide_modals() {
-        $("#wrong_username").css('display', 'none');
-        $("#wrong_email").css('display', 'none');
-        $("#password_mismatch").css('display', 'none');
-        $("#password_too_short").css('display', 'none');
-        $("#wrong_ruc").css('display', 'none');
-        $("#terms_n_cond").css('display', 'none');
+        $("#wrong_username").css('z-index', '0');
+        $("#wrong_email").css('z-index', '0');
+        $("#password_mismatch").css('z-index', '0');
+        $("#password_too_short").css('z-index', '0');
+        $("#wrong_ruc").css('z-index', '0');
+        $("#terms_n_cond").css('z-index', '0');
     };
     hide_modals();
 
@@ -292,39 +292,39 @@
         if (m < 0) {
             valid = false;
             $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#wrong_username").css('display', 'flex');
+            $("#wrong_username").css('z-index', '9999');
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
         if (n < 0) {
             valid = false;
             $("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#wrong_email").css('display', 'flex');
+            $("#wrong_email").css('z-index', '9999');
             $("input[name=email]").css('border-color', 'red');
         } else {$("input[name=email]").css('border-color', '#ced4da');};
         if (password_1.value != password_2.value) {
             valid = false;
             $("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#password_mismatch").css('display', 'flex');
+            $("#password_mismatch").css('z-index', '9999');
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
         if (password_1.value.length < 8) {
             valid = false;
             $("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#password_too_short").css('display', 'flex');
+            $("#password_too_short").css('z-index', '9999');
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
         if (o < 0) {
             valid = false;
             $("#wrong_ruc").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#wrong_ruc").css('display', 'flex');
+            $("#wrong_ruc").css('z-index', '9999');
             $("input[name=bd_ruc]").css('border-color', 'red');
         } else {$("input[name=bd_ruc]").css('border-color', '#ced4da');};
         if (terms_n_conditions.checked == false) {
             valid = false;
-            $("#terms_n_cond").css('display', 'flex');
             $("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
+            $("#terms_n_cond").css('z-index', '9999');
             $("#terms_n_conditions").css('outline', '2px solid red');
         } else {$("#terms_n_conditions").css('outline', 'none');};
         // If all previous validations are true, submit form
