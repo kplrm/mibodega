@@ -241,16 +241,16 @@
         var elems = document.getElementById('user_agreement');
         var instances = M.Modal.init(elems, {});
     });
-    // Hide toasts on oage load
-    /*
-    window.onload = function() {
+    // Hide toasts on page load
+    function hide_modals() {
         $("#wrong_username").toast('hide');
         $("#wrong_email").toast('hide');
         $("#password_mismatch").toast('hide');
         $("#password_too_short").toast('hide');
         $("#wrong_ruc").toast('hide');
         $("#terms_n_cond").toast('hide');
-    };*/
+    };
+    hide_modals();
 
     // Function to show modal
     function open_modal() {
