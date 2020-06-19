@@ -323,8 +323,8 @@
         } else {$("input[name=bd_ruc]").css('border-color', '#ced4da');};
         if (terms_n_conditions.checked == false) {
             valid = false;
-            $("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
             $("#terms_n_cond").css('display', 'flex');
+            $("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
             $("#terms_n_conditions").css('outline', '2px solid red');
         } else {$("#terms_n_conditions").css('outline', 'none');};
         // If all previous validations are true, submit form
