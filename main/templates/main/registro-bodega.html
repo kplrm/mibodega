@@ -434,7 +434,9 @@
                     }
                 });
             } else {
-                $("#id_bd_ruc").parent().children()[2].remove();
+                try {
+                    $("#id_bd_ruc").parent().children()[2].remove();
+                } catch {};
                 $("#id_bd_ruc").parent().append('<small> </small>');
                 $("#id_bd_ruc").parent().children(2).css('color', '#495057');
                 $("input[name=username]").css('border-color', '#495057');
