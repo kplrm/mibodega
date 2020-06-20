@@ -313,7 +313,6 @@
             $('#wrong_username').show();
             $('#wrong_username').toast({delay: 3000});
             $('#wrong_username').toast('show');
-            //$("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
         if (n < 0) {
@@ -321,7 +320,6 @@
             $("#wrong_email").show();
             $('#wrong_email').toast({delay: 3000});
             $('#wrong_email').toast('show');
-            //$("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=email]").css('border-color', 'red');
         } else {$("input[name=email]").css('border-color', '#ced4da');};
         if (password_1.value != password_2.value) {
@@ -329,7 +327,6 @@
             $("#password_mismatch").show();
             $('#password_mismatch').toast({delay: 3000});
             $('#password_mismatch').toast('show');
-            //$("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
@@ -338,7 +335,6 @@
             $("#password_too_short").show();
             $('#password_too_short').toast({delay: 3000});
             $('#password_too_short').toast('show');
-            //$("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
@@ -347,7 +343,6 @@
             $("#wrong_ruc").show();
             $('#wrong_ruc').toast({delay: 3000})
             $('#wrong_ruc').toast('show');
-            //$("#wrong_ruc").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=bd_ruc]").css('border-color', 'red');
         } else {$("input[name=bd_ruc]").css('border-color', '#ced4da');};
         if (terms_n_conditions.checked == false) {
@@ -355,7 +350,6 @@
             $("#terms_n_cond").show();
             $('#terms_n_cond').toast({delay: 3000});
             $('#terms_n_cond').toast('show');
-            //$("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
             $("#terms_n_conditions").css('outline', '2px solid red');
         } else {$("#terms_n_conditions").css('outline', 'none');};
         // If all previous validations are true, submit form
@@ -412,28 +406,6 @@
                 $("#id_username").parent().children(2).css('color', '#495057');
                 $("input[name=username]").css('border-color', '#495057');
             };
-        });
-        $('#wrong_username').on('hide.bs.toast', function () {
-            //$('#wrong_username').hide();
-        });
-        $('#wrong_email').on('hide.bs.toast', function () {
-            //$('#wrong_email').hide();
-        });
-        $('#password_mismatch').on('shown.bs.toast', function () {
-            console.log("Laika show");
-            //$('#password_mismatch').hide();
-        });
-        $('#password_too_short').on('shown.bs.toast', function () {
-            console.log("Laika shown");
-            //$('#password_too_short').hide();
-        });
-        $('#wrong_ruc').on('hide.bs.toast', function () {
-            console.log("Laika hide");
-            //$('#wrong_ruc').hide();
-        });
-        $('#terms_n_cond').on('hidden.bs.toast', function () {
-            console.log("Laika hidden");
-            //$('#terms_n_cond').hide();
         });
     });
 </script>
