@@ -350,14 +350,14 @@
                     success: function(response) {
                         new_values = response.success;
                         console.log(new_values);
-                        console.log($("#id_username").parent().children()[2]);
+                        console.log($("#id_username").parent().children());
                         $("#id_username").parent().children()[2].remove();
-                        $("#id_username").parent().append('Mínimo 5 letras y/o números sin espacios.');
+                        $("#id_username").parent().append('<small>Mínimo 5 letras y/o números sin espacios.</small>');
                     },
                     error: function(response){
                         new_values = response.responseJSON.error;
                         console.log(new_values);
-                        console.log($("#id_username").parent().children()[2]);
+                        console.log($("#id_username").parent().children());
                         $("#id_username").parent().children()[2].remove();
                         $("#id_username").parent().append('<small>'+new_values+'</small>');
                     }
