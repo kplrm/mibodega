@@ -353,6 +353,7 @@
                         console.log($("#id_username").parent().children());
                         $("#id_username").parent().children()[2].remove();
                         $("#id_username").parent().append('<small>Mínimo 5 letras y/o números sin espacios.</small>');
+                        $("input[name=username]").css('border-color', '#ced4da');
                     },
                     error: function(response){
                         new_values = response.responseJSON.error;
@@ -360,6 +361,7 @@
                         console.log($("#id_username").parent().children());
                         $("#id_username").parent().children()[2].remove();
                         $("#id_username").parent().append('<small>'+new_values+'</small>');
+                        $("input[name=username]").css('border-color', 'red');
                     }
                 });
             };
