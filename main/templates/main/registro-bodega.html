@@ -323,12 +323,22 @@
         if (valid == true){document.getElementById("bodega_registration_form").submit();}
     };
 </script>
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+
+<script>
+    // Hide toasts on page load
+    function on_pageload() {
+        console.log($("input[name=username]")[0]);
+    };
+    on_pageload();
+</script>
 <script>
     $(document).ready(function(){
         $("input[name=username]")[0].on("input", function() {
             console.log($("input[name=username]")[0].value);
         });
-
         $('#wrong_username').on('hide.bs.toast', function () {
             $("#wrong_username").css('display', 'none');
         });
@@ -348,16 +358,5 @@
             $("#terms_n_cond").css('display', 'none');
         });
     });
-</script>
-<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'main/js/materialize.min.js' %}"></script>
-<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
-
-<script>
-    // Hide toasts on page load
-    function on_pageload() {
-        console.log($("input[name=username]"));
-    };
-    on_pageload();
 </script>
 {% endblock %}
