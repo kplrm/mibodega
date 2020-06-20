@@ -329,7 +329,7 @@
 </script>
 <script>
     $(document).ready(function(){
-        $("input[name=username]").on("input", function() {
+        $("input[name=username]")[0].on("input", function() {
             console.log($("input[name=username]")[0].value);;
         });
 
