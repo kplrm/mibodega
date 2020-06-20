@@ -407,16 +407,20 @@
         $('#wrong_email').on('hide.bs.toast', function () {
             //$('#wrong_email').hide();
         });
-        $('#password_mismatch').on('hide.bs.toast', function () {
+        $('#password_mismatch').on('show.bs.toast', function () {
+            console.log("Laika show");
             //$('#password_mismatch').hide();
         });
-        $('#password_too_short').on('hide.bs.toast', function () {
+        $('#password_too_short').on('shown.bs.toast', function () {
+            console.log("Laika shown");
             //$('#password_too_short').hide();
         });
         $('#wrong_ruc').on('hide.bs.toast', function () {
+            console.log("Laika hide");
             $('#wrong_ruc').hide();
         });
-        $('#terms_n_cond').on('hide.bs.toast', function () {
+        $('#terms_n_cond').on('hidden.bs.toast', function () {
+            console.log("Laika hidden");
             $('#terms_n_cond').hide();
         });
     });
