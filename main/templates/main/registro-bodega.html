@@ -337,7 +337,27 @@
 <script>
     $(document).ready(function(){
         $("#id_username").on("input", function() {
-            console.log($("input[name=username]")[0].value);
+            // Check if username is already in use
+            if ($("#id_username").value.length > 4) {
+                console.log("input");
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/search_username",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "username": $("#id_username").value
+                    },
+                    success: function(response) {
+                        new_values = response.success;
+                        console.log(new_values);
+                    },
+                    error: function(response){
+                        new_values = response.error;
+                        console.log(new_values);
+                    }
+                });
+            };
         });
         $('#wrong_username').on('hide.bs.toast', function () {
             $("#wrong_username").css('display', 'none');
