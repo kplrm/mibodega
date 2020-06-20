@@ -311,7 +311,7 @@
         if (m < 0) {
             valid = false;
             $('#wrong_username').show();
-            //$('#wrong_username').toast('show');
+            $('#wrong_username').toast('show');
             $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
