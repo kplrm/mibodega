@@ -338,9 +338,9 @@
     $(document).ready(function(){
         $("#id_username").on("input", function() {
             // Check if username is already in use
-            console.log($("#id_username").value);
+            console.log($("#id_username")[0].value);
             console.log("Laika");
-            input_value = String($("#id_username").value);
+            input_value = String($("#id_username")[0].value);
             console.log(input_value);
             console.log(input_value.length);
             if (input_value.length > 4) {
@@ -351,7 +351,7 @@
                     type: "POST",
                     dataType: "json",
                     data: {
-                        "username": $("#id_username").value
+                        "username": $("#id_username")[0].value
                     },
                     success: function(response) {
                         new_values = response.success;
