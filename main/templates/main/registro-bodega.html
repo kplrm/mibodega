@@ -409,7 +409,7 @@
         });
         $("#id_bd_ruc").on("input", function() {
             // Check if username is already in use
-            if ($("#id_bd_ruc")[0].value.length > 8) {
+            if ($("#id_bd_ruc")[0].value.length > 7) {
                 $.ajax({
                     headers: {'X-CSRFToken': '{{ csrf_token }}'},
                     url: "/search_ruc",
