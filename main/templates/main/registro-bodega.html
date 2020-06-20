@@ -357,7 +357,7 @@
                         new_values = response.responseJSON.error;
                         console.log(new_values);
                         console.log($("#id_username").parent().children()[2]);
-                        $("#id_username").parent().children()[2].innerText(new_values);
+                        $("#id_username").parent().children()[2].remove();
                     }
                 });
             };
