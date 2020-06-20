@@ -362,7 +362,32 @@
 <script>
     // Hide toasts on page load
     function on_pageload() {
-        console.log($("#id_username").parent());
+        $('#wrong_username').toast('hide');
+        $('#password_mismatch').toast('hide');
+        $('#password_too_short').toast('hide');
+        $('#wrong_ruc').toast('hide');
+        $('#terms_n_cond').toast('hide');
+        
+        /*
+        $('#wrong_username').on('hide.bs.toast', function () {
+            $("#wrong_username").css('display', 'none');
+        });
+        $('#wrong_email').on('hide.bs.toast', function () {
+            $("#wrong_email").css('display', 'none');
+        });
+        $('#password_mismatch').on('hide.bs.toast', function () {
+            $("#password_mismatch").css('display', 'none');
+        });
+        $('#password_too_short').on('hide.bs.toast', function () {
+            $("#password_too_short").css('display', 'none');
+        });
+        $('#wrong_ruc').on('hide.bs.toast', function () {
+            $("#wrong_ruc").css('display', 'none');
+        });
+        $('#terms_n_cond').on('hide.bs.toast', function () {
+            $("#terms_n_cond").css('display', 'none');
+        });
+        */
     };
     on_pageload();
 </script>
@@ -400,24 +425,6 @@
                 $("#id_username").parent().children(2).css('color', '#495057');
                 $("input[name=username]").css('border-color', '#495057');
             };
-        });
-        $('#wrong_username').on('hide.bs.toast', function () {
-            $("#wrong_username").css('display', 'none');
-        });
-        $('#wrong_email').on('hide.bs.toast', function () {
-            $("#wrong_email").css('display', 'none');
-        });
-        $('#password_mismatch').on('hide.bs.toast', function () {
-            $("#password_mismatch").css('display', 'none');
-        });
-        $('#password_too_short').on('hide.bs.toast', function () {
-            $("#password_too_short").css('display', 'none');
-        });
-        $('#wrong_ruc').on('hide.bs.toast', function () {
-            $("#wrong_ruc").css('display', 'none');
-        });
-        $('#terms_n_cond').on('hide.bs.toast', function () {
-            $("#terms_n_cond").css('display', 'none');
         });
     });
 </script>
