@@ -57,7 +57,25 @@
             <h4>Recomendamos usar de navegador Chrome, Firefox, o Edge.</h4>
         </div>
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <h3>Recomendamos usar de navegador Chrome, Firefox, o Edge.</h4>
+            <style>
+                .youtube-responsive-container {
+                    position:relative;
+                    padding-bottom:56.25%;
+                    padding-top:30px;
+                    height:0;
+                    overflow:hidden;
+                }
+                .youtube-responsive-container iframe, .youtube-responsive-container object, .youtube-responsive-container embed {
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    width:100%;
+                    height:100%;
+                }
+            </style>
+            <div class="youtube-responsive-container">
+                <iframe width="560" height="315" style="min-width: 30vw; min-height: 30vh;" src="https://www.youtube.com/embed/n_6QUSjSOCs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div> <!-- header hero image -->
         </div>
     </div>
 </div>
