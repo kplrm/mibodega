@@ -351,13 +351,15 @@
                         new_values = response.success;
                         console.log(new_values);
                         console.log($("#id_username").parent().children()[2]);
-                        $("#id_username").parent().children()[2].innerText('Mínimo 5 letras y/o números sin espacios.');
+                        $("#id_username").parent().children()[2].remove();
+                        $("#id_username").parent().append('Mínimo 5 letras y/o números sin espacios.');
                     },
                     error: function(response){
                         new_values = response.responseJSON.error;
                         console.log(new_values);
                         console.log($("#id_username").parent().children()[2]);
                         $("#id_username").parent().children()[2].remove();
+                        $("#id_username").parent().append('<small>'+new_values+'</small>');
                     }
                 });
             };
