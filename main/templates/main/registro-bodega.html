@@ -312,14 +312,14 @@
             valid = false;
             $('#wrong_username').show();
             $('#wrong_username').toast('show');
-            $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
+            //$("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
         if (n < 0) {
             valid = false;
             $("#wrong_email").show();
-            $('#wrong_username').toast('show');
-            $("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
+            $('#wrong_email').toast('show');
+            //$("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=email]").css('border-color', 'red');
         } else {$("input[name=email]").css('border-color', '#ced4da');};
         if (password_1.value != password_2.value) {
