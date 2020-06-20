@@ -350,7 +350,7 @@
                     success: function(response) {
                         new_values = response.success;
                         console.log(new_values);
-                        $("#id_username").parent().children[2].text('Mínimo 5 letras y/o números sin espacios.');
+                        $("#id_username").parent().children()[2].text('Mínimo 5 letras y/o números sin espacios.');
                     },
                     error: function(response){
                         new_values = response.responseJSON.error;
