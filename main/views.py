@@ -1017,6 +1017,8 @@ def submit_checkout(request):
         return JsonResponse({"error": "something went wrong"}, status=400)
 
 def registro(request):
+    if request.user.is_authenticated:
+        return redirect('main:homepage')
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
@@ -1043,6 +1045,8 @@ def registro(request):
     return render(request, 'main/registro-cliente.html', context={"form":form,"cl_form":cl_form})
 
 def registroBodega(request):
+    if request.user.is_authenticated:
+        return redirect('main:homepage')
     if request.method =='POST':
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)

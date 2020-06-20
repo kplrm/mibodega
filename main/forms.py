@@ -16,7 +16,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 # in class AbstractUser(AbstractBaseUser, PermissionsMixin)
 # in username = models.CharField()
 # change:       _('username'),          to:     _('Usuario*'),
-# change:       help_text=_( ... ),     to:     help_text=_('Mínimo 5 letras y/o números.'),
+# change:       help_text=_( ... ),     to:     help_text=_('Mínimo 5 letras y/o números sin espacios.'),
 # change:       'unique': _( ... ),     to:     'unique': _("Este usuario ya lo está usando."),
 
 # in validators.py 
