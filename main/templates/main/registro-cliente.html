@@ -241,36 +241,34 @@
         reg_ex = new RegExp('^[A-Za-z0-9+_.-]+@(.+)$');
         n = email.value.search(reg_ex);
         terms_n_conditions = document.getElementById('terms_n_conditions');
-        $("#id_username").on("input", function() {
-            // Check if username is already in use
-            if ($("#id_username")[0].value.length > 4) {
-                $.ajax({
-                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                    url: "/search_username",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        "username": $("#id_username")[0].value
-                    },
-                    success: function(response) {
-                        valid = true;
-                        new_values = response.success;
-                        $("#id_username").parent().children()[2].remove();
-                        $("#id_username").parent().append('<small>Mínimo 5 letras y/o números sin espacios.</small>');
-                        $("#id_username").parent().children(2).css('color', '#495057');
-                        $("input[name=username]").css('border-color', '#495057');
-                    },
-                    error: function(response){
-                        valid = false;
-                        new_values = response.responseJSON.error;
-                        $("#id_username").parent().children()[2].remove();
-                        $("#id_username").parent().append('<small>'+new_values+'</small>');
-                        $("#id_username").parent().children(2).css('color', 'red');
-                        $("input[name=username]").css('border-color', 'red');
-                    }
-                });
-            };
-        });
+        // Check if username is already in use
+        if ($("#id_username")[0].value.length > 4) {
+            $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/search_username",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "username": $("#id_username")[0].value
+                },
+                success: function(response) {
+                    valid = true;
+                    new_values = response.success;
+                    $("#id_username").parent().children()[2].remove();
+                    $("#id_username").parent().append('<small>Mínimo 5 letras y/o números sin espacios.</small>');
+                    $("#id_username").parent().children(2).css('color', '#495057');
+                    $("input[name=username]").css('border-color', '#495057');
+                },
+                error: function(response){
+                    valid = false;
+                    new_values = response.responseJSON.error;
+                    $("#id_username").parent().children()[2].remove();
+                    $("#id_username").parent().append('<small>'+new_values+'</small>');
+                    $("#id_username").parent().children(2).css('color', 'red');
+                    $("input[name=username]").css('border-color', 'red');
+                }
+            });
+        };
         if (m < 0) {
             valid = false;
             $('#wrong_username').show();
