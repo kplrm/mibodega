@@ -1963,3 +1963,18 @@ def search_username(request):
             return JsonResponse({"error": "error desconocido"}, status=400)
     else:
         return redirect('main:homepage')
+
+def search_ruc(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieves username
+        username = request.POST.get('ruc',False)
+        if username != False:
+            try:
+                ruc= Bodega.objects.get(bd_ruc=ruc)
+                return JsonResponse({"error": "Este ruc ya está registrado."}, status=400)
+            except Bodega.DoesNotExist:
+                return JsonResponse({"success": "Este ruc aún no está registrado"}, status=200)
+        else:
+            return JsonResponse({"error": "error desconocido"}, status=400)
+    else:
+        return redirect('main:homepage')
