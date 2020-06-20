@@ -186,7 +186,7 @@
 <div>
     <div class="toast" id="wrong_username" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 2;background-color: red;position: fixed; top:4%; right: 5%;">
         <div class="toast-header">
-            <strong class="mr-auto">El usuario debe ser mínimo 5 letras y/o números</strong>
+            <strong class="mr-auto">El usuario debe ser mínimo 5 letras y/o números sin espacios</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -319,11 +319,13 @@
         });
         if (m < 0) {
             valid = false;
+            $("#wrong_username").css('display', 'flex');
             $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
         if (n < 0) {
             valid = false;
+            $("#wrong_email").css('display', 'flex');
             $("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=email]").css('border-color', 'red');
         } else {$("input[name=email]").css('border-color', '#ced4da');};
