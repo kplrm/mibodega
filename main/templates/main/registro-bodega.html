@@ -362,7 +362,7 @@
                         console.log($("#id_username").parent().children());
                         $("#id_username").parent().children()[2].remove();
                         $("#id_username").parent().append('<small>'+new_values+'</small>');
-                        $("#id_username").parent().children()[2].css('color', 'red');
+                        $("#id_username").parent().children(2).css('color', 'red');
                         $("input[name=username]").css('border-color', 'red');
                     }
                 });
