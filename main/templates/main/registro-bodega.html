@@ -242,9 +242,10 @@
         var instances = M.Modal.init(elems, {});
     });
     // Hide toasts on page load
-    function hide_toasts() {
-        
+    function on_pageload() {
+        console.log($("input[name=username]"));
     };
+    on_pageload();
     window.onload = function() {
         $("#wrong_username").css('display', 'none');
         $("#wrong_email").css('display', 'none');
@@ -252,7 +253,6 @@
         $("#password_too_short").css('display', 'none');
         $("#wrong_ruc").css('display', 'none');
         $("#terms_n_cond").css('display', 'none');
-        console.log($("input[name=username]"));
     };
 
     // Function to show modal
