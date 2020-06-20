@@ -352,7 +352,7 @@
                         console.log(new_values);
                     },
                     error: function(response){
-                        new_values = response;
+                        new_values = response.responseJSON.error;
                         console.log(new_values);
                     }
                 });
