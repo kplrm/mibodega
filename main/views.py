@@ -1966,9 +1966,9 @@ def search_username(request):
 
 def search_ruc(request):
     if request.method == "POST" and request.is_ajax():
-        # Retrieves username
-        username = request.POST.get('ruc',False)
-        if username != False:
+        # Retrieves ruc or dni
+        ruc = request.POST.get('ruc',False)
+        if ruc != False:
             try:
                 ruc= Bodega.objects.get(bd_ruc=ruc)
                 return JsonResponse({"error": "Este ruc ya está registrado."}, status=400)
