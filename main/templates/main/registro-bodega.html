@@ -310,9 +310,10 @@
         });
         if (m < 0) {
             valid = false;
-            $('#wrong_username').show();
+            //$('#wrong_username').show();
+            $('#wrong_username').toast({delay: 3000})
             $('#wrong_username').toast('show');
-            $("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
+            //$("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
         } else {$("input[name=username]").css('border-color', '#ced4da');};
         if (n < 0) {
@@ -325,6 +326,7 @@
         } else {$("input[name=email]").css('border-color', '#ced4da');};
         if (password_1.value != password_2.value) {
             valid = false;
+            $('#wrong_username').toast({delay: 3000})
             $("#password_mismatch").show();
             $('#password_mismatch').toast('show');
             //$("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
