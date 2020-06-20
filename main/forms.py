@@ -128,7 +128,7 @@ class ClientForm(forms.ModelForm):
             'cl_phone',
         )
 
-    cl_phone = forms.CharField(label=_("Celular*"),strip=False,max_length=9,required = True)
+    cl_phone = forms.CharField(label=_("Celular"),strip=False,max_length=9,required = True)
 
     def save(self, commit): #commit saves data to database
         client = super(ClientForm, self).save(commit=False) # when finish edition, it will store the data
@@ -146,7 +146,7 @@ class BodegaForm(forms.ModelForm):
             'bd_ruc',
         )
 
-    bd_name = forms.CharField(label=_("Nombre de su bodega*"),strip=False,max_length=100,required=True)
+    bd_name = forms.CharField(label=_("Nombre de su bodega"),strip=False,max_length=100,required=True)
     bd_ruc = forms.CharField(label=_("RUC o DNI*"),strip=False,max_length=100,required=True)
 
     def save(self, commit): #commit saves data to database
