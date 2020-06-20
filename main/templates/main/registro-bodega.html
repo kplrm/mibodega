@@ -329,6 +329,10 @@
 </script>
 <script>
     $(document).ready(function(){
+        $("input[name=username]").on("input", function() {
+            console.log($("input[name=username]").value);
+        });
+
         $('#wrong_username').on('hide.bs.toast', function () {
             $("#wrong_username").css('display', 'none');
         });
