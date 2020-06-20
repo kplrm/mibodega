@@ -318,6 +318,7 @@
         if (n < 0) {
             valid = false;
             $("#wrong_email").show();
+            $('#wrong_email').toast({delay: 3000})
             $('#wrong_email').toast('show');
             //$("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=email]").css('border-color', 'red');
@@ -413,7 +414,7 @@
         $('#wrong_email').on('hide.bs.toast', function () {
             //$('#wrong_email').hide();
         });
-        $('#password_mismatch').on('show.bs.toast', function () {
+        $('#password_mismatch').on('shown.bs.toast', function () {
             console.log("Laika show");
             //$('#password_mismatch').hide();
         });
@@ -423,11 +424,11 @@
         });
         $('#wrong_ruc').on('hide.bs.toast', function () {
             console.log("Laika hide");
-            $('#wrong_ruc').hide();
+            //$('#wrong_ruc').hide();
         });
         $('#terms_n_cond').on('hidden.bs.toast', function () {
             console.log("Laika hidden");
-            $('#terms_n_cond').hide();
+            //$('#terms_n_cond').hide();
         });
     });
 </script>
