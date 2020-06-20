@@ -310,8 +310,8 @@
         });
         if (m < 0) {
             valid = false;
-            //$('#wrong_username').show();
-            $('#wrong_username').toast({delay: 3000})
+            $('#wrong_username').show();
+            $('#wrong_username').toast({delay: 3000});
             $('#wrong_username').toast('show');
             //$("#wrong_username").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=username]").css('border-color', 'red');
@@ -319,15 +319,15 @@
         if (n < 0) {
             valid = false;
             $("#wrong_email").show();
-            $('#wrong_email').toast({delay: 3000})
+            $('#wrong_email').toast({delay: 3000});
             $('#wrong_email').toast('show');
             //$("#wrong_email").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=email]").css('border-color', 'red');
         } else {$("input[name=email]").css('border-color', '#ced4da');};
         if (password_1.value != password_2.value) {
             valid = false;
-            $('#wrong_username').toast({delay: 3000})
             $("#password_mismatch").show();
+            $('#password_mismatch').toast({delay: 3000});
             $('#password_mismatch').toast('show');
             //$("#password_mismatch").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=password1]").css('border-color', 'red');
@@ -336,6 +336,7 @@
         if (password_1.value.length < 8) {
             valid = false;
             $("#password_too_short").show();
+            $('#password_too_short').toast({delay: 3000});
             $('#password_too_short').toast('show');
             //$("#password_too_short").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=password1]").css('border-color', 'red');
@@ -344,6 +345,7 @@
         if (o < 0) {
             valid = false;
             $("#wrong_ruc").show();
+            $('#wrong_ruc').toast({delay: 3000})
             $('#wrong_ruc').toast('show');
             //$("#wrong_ruc").toast({ autohide: true, animation: true, delay: 3000 });
             $("input[name=bd_ruc]").css('border-color', 'red');
@@ -351,6 +353,7 @@
         if (terms_n_conditions.checked == false) {
             valid = false;
             $("#terms_n_cond").show();
+            $('#terms_n_cond').toast({delay: 3000});
             $('#terms_n_cond').toast('show');
             //$("#terms_n_cond").toast({ autohide: true, animation: true, delay: 3000 });
             $("#terms_n_conditions").css('outline', '2px solid red');
