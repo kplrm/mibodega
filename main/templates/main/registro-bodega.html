@@ -339,9 +339,7 @@
         $("#id_username").on("input", function() {
             // Check if username is already in use
             console.log($("#id_username")[0].value);
-            input_value = String($("#id_username")[0].value);
-            console.log(input_value);
-            console.log(input_value.length);
+            console.log($("#id_username")[0].value.length);
             if ($("#id_username")[0].value.length > 4) {
                 console.log("input");
                 $.ajax({
