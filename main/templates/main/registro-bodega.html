@@ -355,7 +355,7 @@
                     error: function(response){
                         new_values = response.responseJSON.error;
                         console.log(new_values);
-                        $("#id_username")[0].parent().append('<p>'+new_values+'</p>');
+                        $("#id_username")[0].parent().children()[2].text(new_values);
                     }
                 });
             };
