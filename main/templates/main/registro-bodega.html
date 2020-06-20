@@ -338,8 +338,8 @@
     $(document).ready(function(){
         $("#id_username").on("input", function() {
             // Check if username is already in use
-            input_value = String($("#id_username").value);
             console.log($("#id_username").value);
+            input_value = String($("#id_username").value);
             console.log(input_value);
             console.log(input_value.length);
             if (input_value.length > 4) {
