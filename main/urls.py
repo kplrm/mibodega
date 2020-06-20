@@ -32,6 +32,7 @@ urlpatterns = [
     path("search_query", views.search_query, name="search_query"),
     path("see_search_results", views.see_search_results, name="see_search_results"),
     path("search_username", views.search_username, name="search_username"),
+    path("search_ruc", views.search_ruc, name="search_ruc"),
 
     # Dashboard
     path("dashboard/", views.dashboard, name="dashboard"),
