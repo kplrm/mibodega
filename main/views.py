@@ -1955,7 +1955,7 @@ def search_username(request):
         username = request.POST.get('username',False)
         if username != False:
             try:
-                user= User.objects.get_object_or_404(username=username)
+                user= User.objects.get(username=username)
                 return JsonResponse({"error": "Este usuario ya está en uso. Por favor, escriba otro."}, status=400)
             except User.DoesNotExist:
                 return JsonResponse({"success": "Este usuario disponible"}, status=200)
