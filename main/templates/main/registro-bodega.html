@@ -350,10 +350,12 @@
                     success: function(response) {
                         new_values = response.success;
                         console.log(new_values);
+                        $("#id_username")[0].html('');
                     },
                     error: function(response){
                         new_values = response.responseJSON.error;
                         console.log(new_values);
+                        $("#id_username")[0].append('<p>'+new_values+'</p>');
                     }
                 });
             };
