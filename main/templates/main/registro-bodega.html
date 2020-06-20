@@ -278,36 +278,33 @@
         reg_ex = new RegExp('^[0-9]{8,11}$');
         o = bd_ruc.value.search(reg_ex);
         terms_n_conditions = document.getElementById('terms_n_conditions');
-        $("#id_username").on("input", function() {
-            // Check if username is already in use
-            if ($("#id_username")[0].value.length > 4) {
-                $.ajax({
-                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                    url: "/search_username",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        "username": $("#id_username")[0].value
-                    },
-                    success: function(response) {
-                        valid = true;
-                        new_values = response.success;
-                        $("#id_username").parent().children()[2].remove();
-                        $("#id_username").parent().append('<small>Mínimo 5 letras y/o números sin espacios.</small>');
-                        $("#id_username").parent().children(2).css('color', '#495057');
-                        $("input[name=username]").css('border-color', '#495057');
-                    },
-                    error: function(response){
-                        valid = false;
-                        new_values = response.responseJSON.error;
-                        $("#id_username").parent().children()[2].remove();
-                        $("#id_username").parent().append('<small>'+new_values+'</small>');
-                        $("#id_username").parent().children(2).css('color', 'red');
-                        $("input[name=username]").css('border-color', 'red');
-                    }
-                });
-            };
-        });
+        // Check if username is already in use
+        if ($("#id_username")[0].value.length > 4) {
+            $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/search_username",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "username": $("#id_username")[0].value
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    $("#id_username").parent().children()[2].remove();
+                    $("#id_username").parent().append('<small>Mínimo 5 letras y/o números sin espacios.</small>');
+                    $("#id_username").parent().children(2).css('color', '#495057');
+                    $("input[name=username]").css('border-color', '#495057');
+                },
+                error: function(response){
+                    valid = false;
+                    new_values = response.responseJSON.error;
+                    $("#id_username").parent().children()[2].remove();
+                    $("#id_username").parent().append('<small>'+new_values+'</small>');
+                    $("#id_username").parent().children(2).css('color', 'red');
+                    $("input[name=username]").css('border-color', 'red');
+                }
+            });
+        };
         if (m < 0) {
             valid = false;
             $('#wrong_username').show();
@@ -338,6 +335,43 @@
             $("input[name=password1]").css('border-color', 'red');
             $("input[name=password2]").css('border-color', 'red');
         } else {$("input[name=password1]").css('border-color', '#ced4da');$("input[name=password2]").css('border-color', '#ced4da');};
+        if ($("#id_bd_ruc")[0].value.length > 7) {
+            $.ajax({
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url: "/search_ruc",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "ruc": $("#id_bd_ruc")[0].value
+                },
+                success: function(response) {
+                    new_values = response.success;
+                    try {
+                        $("#id_bd_ruc").parent().children()[2].remove();
+                    } catch {};
+                    $("#id_bd_ruc").parent().append('<small>Este ruc puede ser registrado</small>');
+                    $("#id_bd_ruc").parent().children(2).css('color', '#495057');
+                    $("input[name=username]").css('border-color', '#495057');
+                },
+                error: function(response){
+                    valid = false;
+                    new_values = response.responseJSON.error;
+                    try {
+                        $("#id_bd_ruc").parent().children()[2].remove();
+                    } catch {};
+                    $("#id_bd_ruc").parent().append('<small>'+new_values+'</small>');
+                    $("#id_bd_ruc").parent().children(2).css('color', 'red');
+                    $("input[name=username]").css('border-color', 'red');
+                }
+            });
+        } else {
+            try {
+                $("#id_bd_ruc").parent().children()[2].remove();
+            } catch {};
+            $("#id_bd_ruc").parent().append('<small> </small>');
+            $("#id_bd_ruc").parent().children(2).css('color', '#495057');
+            $("input[name=username]").css('border-color', '#495057');
+        };
         if (o < 0) {
             valid = false;
             $("#wrong_ruc").show();
@@ -420,14 +454,18 @@
                     },
                     success: function(response) {
                         new_values = response.success;
-                        $("#id_bd_ruc").parent().children()[2].remove();
+                        try {
+                            $("#id_bd_ruc").parent().children()[2].remove();
+                        } catch {};
                         $("#id_bd_ruc").parent().append('<small>Este ruc puede ser registrado</small>');
                         $("#id_bd_ruc").parent().children(2).css('color', '#495057');
                         $("input[name=username]").css('border-color', '#495057');
                     },
                     error: function(response){
                         new_values = response.responseJSON.error;
-                        $("#id_bd_ruc").parent().children()[2].remove();
+                        try {
+                            $("#id_bd_ruc").parent().children()[2].remove();
+                        } catch {};
                         $("#id_bd_ruc").parent().append('<small>'+new_values+'</small>');
                         $("#id_bd_ruc").parent().children(2).css('color', 'red');
                         $("input[name=username]").css('border-color', 'red');
