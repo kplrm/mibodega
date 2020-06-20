@@ -407,6 +407,39 @@
                 $("input[name=username]").css('border-color', '#495057');
             };
         });
+        $("#id_bd_ruc").on("input", function() {
+            // Check if username is already in use
+            if ($("#id_bd_ruc")[0].value.length > 8) {
+                $.ajax({
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                    url: "/search_ruc",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "ruc": $("#id_bd_ruc")[0].value
+                    },
+                    success: function(response) {
+                        new_values = response.success;
+                        $("#id_bd_ruc").parent().children()[2].remove();
+                        $("#id_bd_ruc").parent().append('<small>Este ruc puede ser registrado</small>');
+                        $("#id_bd_ruc").parent().children(2).css('color', '#495057');
+                        $("input[name=username]").css('border-color', '#495057');
+                    },
+                    error: function(response){
+                        new_values = response.responseJSON.error;
+                        $("#id_bd_ruc").parent().children()[2].remove();
+                        $("#id_bd_ruc").parent().append('<small>'+new_values+'</small>');
+                        $("#id_bd_ruc").parent().children(2).css('color', 'red');
+                        $("input[name=username]").css('border-color', 'red');
+                    }
+                });
+            } else {
+                $("#id_bd_ruc").parent().children()[2].remove();
+                $("#id_bd_ruc").parent().append('<small> </small>');
+                $("#id_bd_ruc").parent().children(2).css('color', '#495057');
+                $("input[name=username]").css('border-color', '#495057');
+            };
+        });
     });
 </script>
 {% endblock %}
