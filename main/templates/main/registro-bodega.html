@@ -330,13 +330,13 @@
 <script>
     // Hide toasts on page load
     function on_pageload() {
-        console.log($("input[name=username]")[0]);
+        console.log($("#id_username"));
     };
     on_pageload();
 </script>
 <script>
     $(document).ready(function(){
-        $("input[name=username]")[0].on("input", function() {
+        $("#id_username").on("input", function() {
             console.log($("input[name=username]")[0].value);
         });
         $('#wrong_username').on('hide.bs.toast', function () {
