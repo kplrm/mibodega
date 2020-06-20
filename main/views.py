@@ -1956,6 +1956,7 @@ def search_username(request):
         if username != False:
             try:
                 user= User.objects.get(username=username)
+                print("user exists: ",user)
                 return JsonResponse({"error": "Este usuario ya está en uso. Por favor, escriba otro."}, status=400)
             except User.DoesNotExist:
                 return JsonResponse({"success": "Este usuario disponible"}, status=200)

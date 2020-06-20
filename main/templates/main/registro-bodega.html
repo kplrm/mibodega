@@ -338,10 +338,7 @@
     $(document).ready(function(){
         $("#id_username").on("input", function() {
             // Check if username is already in use
-            console.log($("#id_username")[0].value);
-            console.log($("#id_username")[0].value.length);
             if ($("#id_username")[0].value.length > 4) {
-                console.log("input");
                 $.ajax({
                     headers: {'X-CSRFToken': '{{ csrf_token }}'},
                     url: "/search_username",
