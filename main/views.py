@@ -1246,11 +1246,17 @@ def logout_request(request):
 def change_password_request(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            auth_logout(request)
-            messages.info(request, "Contraseña cambiada.")
-            return redirect("main:homepage")
+            pc_form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('change_password')
+            else:
+                messages.error(request, 'Please correct the error below.')
+                #return redirect("main:homepage")
         else:
-            pc_form = PasswordChangeForm()
+            pc_form = PasswordChangeForm(request.user)
             return render(request, 'main/password-change.html', context={"pc_form":pc_form})
     else: # if user is not authenticated
         return redirect("main:homepage")
