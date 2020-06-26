@@ -1220,6 +1220,7 @@ def registroBodega(request):
 
                 # Envio de email al cliente
                 email = EmailMessage(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"])
+                email.content_subtype = "html"
                 email.send(fail_silently=False)
 
                 return redirect('main:homepage')
