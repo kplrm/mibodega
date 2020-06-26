@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm, BodegaForm
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib import messages # to send unique messages to the users
 
 from itertools import chain
@@ -1214,12 +1214,11 @@ def registroBodega(request):
                 # Add email subject
                 subject = "Te damos la bienvenida "+str(client.cl_first_name)
 
-                # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
+                # HTML content
                 html_content = render_to_string('main/bodega_welcome.html', context)
                 plain_message = strip_tags(html_content)
 
-                # Envio de email al cliente
-                #email = EmailMessage(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"])
+                # Envio de email de bienvenida al cliente
                 email = EmailMultiAlternatives(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"])
                 email.attach_alternative(html_content, "text/html")
                 email.send(fail_silently=False)
@@ -1243,6 +1242,18 @@ def logout_request(request):
     auth_logout(request)
     messages.info(request, "Sessión cerrada. Vuelve pronto.")
     return redirect("main:homepage")
+
+def change_password_request(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            auth_logout(request)
+            messages.info(request, "Contraseña cambiada.")
+            return redirect("main:homepage")
+        else:
+            pc_form = PasswordChangeForm()
+            return render(request, 'main/password-change.html', context={"pc_form":pc_form})
+    else: # if user is not authenticated
+        return redirect("main:homepage")
 
 def login_request(request):
     if request.method == "POST":
