@@ -13,6 +13,7 @@ urlpatterns = [
     path("bodega", views.registroBodega, name="registroBodega"),
     path("login/", views.login_request, name="login_request"),
     path("logout/", views.logout_request, name="logout_request"),
+    path("change_password/", views.change_password_request, name="change_password_request"),
     path("embutidos", views.embutidos, name="embutidos"),
     path("vegetales", views.vegetales, name="vegetales"),
     path("lacteos", views.lacteos, name="lacteos"),
