@@ -1204,6 +1204,23 @@ def registroBodega(request):
                 messages.success(request,f"Cuenta creada exitosamente") # (request, exact message)
                 auth_login(request, user)
                 messages.info(request,f"Bienvenido: {username}")
+
+                # Send welcome message
+                context = {
+                    'client': client
+                }
+
+                # Add email subject
+                subject = "Te damos la bienvenida "+str(client.cl_first_name)
+
+                # Image (logo) needs to be encoded before sending https://www.base64encode.net/base64-image-encoder
+                html_content = render_to_string('main/bodega_welcome.html', context)
+                plain_message = strip_tags(html_content)
+
+                # Envio de email al cliente
+                send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
+                            recipient_list=[client.cl_email], bcc=["hola@alimentos.pe"], html_message=html_content, fail_silently=False)
+
                 return redirect('main:homepage')
             else:
                 for msg in form.error_messages:
