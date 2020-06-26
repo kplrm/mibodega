@@ -1219,8 +1219,9 @@ def registroBodega(request):
                 plain_message = strip_tags(html_content)
 
                 # Envio de email al cliente
-                email_message = EmailMultiAlternatives(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
-                            recipient_list=[client.cl_email], bcc=["hola@alimentos.pe"], html_message=html_content, fail_silently=False)
+                email_message = EmailMultiAlternatives(subject=subject, text_content="Es hora de aumentar tus ventas online.", 
+                                                        from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"])
+                email_message.attach_alternative(text_content=plain_message, "text/html")
                 email_message.send()
 
                 return redirect('main:homepage')
