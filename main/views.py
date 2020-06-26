@@ -17,7 +17,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 
 from django.core.mail import send_mail # simple email
-from django.core.mail import EmailMultiAlternatives # email with bcc
+from django.core.mail import EmailMessage # email with bcc
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 
@@ -1219,10 +1219,8 @@ def registroBodega(request):
                 plain_message = strip_tags(html_content)
 
                 # Envio de email al cliente
-                email_message = EmailMultiAlternatives(subject=subject, text_content="Es hora de aumentar tus ventas online.", 
-                                                        from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"])
-                email_message.attach_alternative(html_content, "text/html")
-                email_message.send()
+                email = EmailMessage(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[usr_email], bcc=["hola@alimentos.pe"], fail_silently=False)
+                email.send()
 
                 return redirect('main:homepage')
             else:
