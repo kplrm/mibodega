@@ -1219,7 +1219,7 @@ def registroBodega(request):
                 plain_message = strip_tags(html_content)
 
                 # Envio de email al cliente
-                email = EmailMessage(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[usr_email], bcc=["hola@alimentos.pe"], fail_silently=False)
+                email = EmailMessage(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"], fail_silently=False)
                 email.send()
 
                 return redirect('main:homepage')
