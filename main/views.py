@@ -1254,7 +1254,7 @@ def change_password_request(request):
                 messages.success(request, 'Su contraseña fue actualizada!')
                 return redirect("main:homepage")
             else:
-                messages.error(request, 'Error.')
+                messages.error(request, 'Error: contraseña antigua incorrecta.')
                 return redirect("main:change_password_request")
         else:
             pc_form = PasswordChangeForm(request.user)
