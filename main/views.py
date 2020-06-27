@@ -6,10 +6,12 @@ from django.urls import reverse
 from .forms import RegistrationForm, ClientForm, BodegaForm
 from django.contrib.auth import update_session_auth_hash # to avoid the need to login again
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
-# In django/contrib/auth/forms.py change labels to spanish
+# In django/contrib/auth/forms.py, in PasswordChangeForm change labels to spanish
 # Old password -> Contraseña actual
+# In django/contrib/auth/forms.py, in SetPasswordForm change labels to spanish
 # New password -> Nueva contraseña
 # New password confirmation -> Repita la nueva contraseña
+# help_text=password_validation.password_validators_help_text_html(), -> Debe tener mínimo 8 caracteres entre números y letras.
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib import messages # to send unique messages to the users
 
