@@ -1250,10 +1250,10 @@ def change_password_request(request):
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)  # Important!
-                messages.success(request, 'Your password was successfully updated!')
-                return redirect('change_password')
+                messages.success(request, 'Su contraseña fue actualizada!')
+                return redirect("main:homepage")
             else:
-                messages.error(request, 'Please correct the error below.')
+                messages.error(request, 'Error.')
                 #return redirect("main:homepage")
         else:
             pc_form = PasswordChangeForm(request.user)
