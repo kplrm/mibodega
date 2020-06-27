@@ -1255,7 +1255,7 @@ def change_password_request(request):
                 return redirect("main:homepage")
             else:
                 messages.error(request, 'Error.')
-                #return redirect("main:homepage")
+                return redirect("main:change_password_request")
         else:
             pc_form = PasswordChangeForm(request.user)
             return render(request, 'main/password-change.html', context={"pc_form":pc_form})
