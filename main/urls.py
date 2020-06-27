@@ -1,6 +1,7 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
+from django.contrib.auth import views as auth_views
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -8,12 +9,23 @@ from django.conf.urls.static import static
 app_name = 'main'  # here for namespacing of urls.
 
 urlpatterns = [
+    # Index page
     path("", views.homepage, name="homepage"),
+
+    # User accounts manage view
     path("registro/", views.registro, name="registro"),
     path("bodega", views.registroBodega, name="registroBodega"),
     path("login/", views.login_request, name="login_request"),
     path("logout/", views.logout_request, name="logout_request"),
     path("change_password/", views.change_password_request, name="change_password_request"),
+    # Password Reset View
+    path("password_reset/", auth_views.PasswordResetView.as_view(template_name="password_reset.html", name="password_reset"), name='password_reset'),
+    path("password_reset/done/", auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"), name='password_reset_done'),
+
+    #url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
+    #url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+
+    # Store front views and functions
     path("embutidos", views.embutidos, name="embutidos"),
     path("vegetales", views.vegetales, name="vegetales"),
     path("lacteos", views.lacteos, name="lacteos"),
