@@ -6,6 +6,10 @@ from django.urls import reverse
 from .forms import RegistrationForm, ClientForm, BodegaForm
 from django.contrib.auth import update_session_auth_hash # to avoid the need to login again
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
+# In django/contrib/auth/forms.py change labels to spanish
+# Old password -> Contraseña actual
+# New password -> Nueva contraseña
+# New password confirmation -> Repita la nueva contraseña
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib import messages # to send unique messages to the users
 
@@ -858,7 +862,7 @@ def checkout(request):
                 result_list.append([Decimal(result[1][0])+second_bodega_w_products_w_delivery[0][1][0],result,second_bodega_w_products_w_delivery[0]])
 
     except:
-        print("There are no stores in your surounding")
+#        print("There are no stores in your surounding")
         pass
 
     # Look up for all stores with items in the shopping cart
@@ -1131,7 +1135,6 @@ def submit_checkout(request):
             # Delete current cart and its associated items before submitting
             cart_obj.delete()
             for item in cart_list:
-                print(type(item))
                 item.delete()
 
             # Send JsonResponse
@@ -1179,9 +1182,7 @@ def registroBodega(request):
         form = RegistrationForm(request.POST)
         cl_form = ClientForm(request.POST)
         bd_form = BodegaForm(request.POST)
-        print("Laikita 0")
         if form.is_valid():
-            print("form is valid")
             if cl_form.is_valid and bd_form.is_valid:
                 user = form.save()
                 client = cl_form.save(commit=False)
@@ -1229,8 +1230,6 @@ def registroBodega(request):
                 for msg in form.error_messages:
                     messages.error(request, f"{msg}: {form.error_messages[msg]}")
         else:
-            print("form is INvalid")
-            print("form.error_messages: ", form.error_messages)
             for msg in form.error_messages:
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
             
@@ -1254,7 +1253,7 @@ def change_password_request(request):
                 messages.success(request, 'Su contraseña fue actualizada!')
                 return redirect("main:homepage")
             else:
-                messages.error(request, 'Error: contraseña antigua incorrecta.')
+                messages.error(request, 'Error: contraseña actual incorrecta.')
                 return redirect("main:change_password_request")
         else:
             pc_form = PasswordChangeForm(request.user)
