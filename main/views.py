@@ -1247,8 +1247,8 @@ def change_password_request(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             pc_form = PasswordChangeForm(request.user, request.POST)
-            if form.is_valid():
-                user = form.save()
+            if pc_form.is_valid():
+                user = pc_form.save()
                 update_session_auth_hash(request, user)  # Important!
                 messages.success(request, 'Su contraseña fue actualizada!')
                 return redirect("main:homepage")
