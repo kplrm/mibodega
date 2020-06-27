@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 #
 
-reset_subject = "Reestablece tu contraseña de Alimentos.pe"
+reset_subject = "main/password_reset_subject.txt"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
