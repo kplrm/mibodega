@@ -17,7 +17,6 @@ urlpatterns = [
     path("login/", views.login_request, name="login_request"),
     path("logout/", views.logout_request, name="logout_request"),
     path("change_password/", views.change_password_request, name="change_password_request"),
-    
 
     #path("password_reset_confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/", auth_views.PasswordResetConfirmView.as_view(template_name="main/password_reset_confirm.html"), name='password_reset_confirm'),
     #url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
