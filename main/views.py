@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from .forms import RegistrationForm, ClientForm, BodegaForm
+from django.contrib.auth import update_session_auth_hash # to avoid the need to login again
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.contrib import messages # to send unique messages to the users
