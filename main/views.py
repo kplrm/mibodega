@@ -1822,7 +1822,7 @@ def save_product_changes(changes, ProductosEnBodega_list):
 def save_additions(additions, bodega, ProductosAprobados_all):
     for product_to_add in additions:
         producto_aprobado = ProductosAprobados_all.filter(pa_ID=str(product_to_add['key'])).first()
-        new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado)
+        new_item_obj, created = ProductosEnBodega.objects.get_or_create(peb_bodega=bodega,peb_product=producto_aprobado,peb_regular_price=producto_aprobado.pa_suggested_price)
     #return redirect('main:productos')
     return JsonResponse({"success": ""}, status=200)
 

@@ -40,6 +40,7 @@ class ProductosAprobados(models.Model):
     pa_product = models.CharField(max_length=100,default="",verbose_name="Producto")
     pa_category = models.CharField(max_length=10,choices=CATEGORY_CHOICES,default=OTROS,verbose_name="Categoría")
     pa_brand = models.CharField(max_length=100,default="",verbose_name="Marca")
+    pa_suggested_price = models.FloatField(default=0.00,blank=True,null=True,verbose_name="Precio sugerido (S/.)")
     pa_introduced = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de introducción")
     pa_description = models.TextField(default='sinDsescripción',verbose_name="Descripción")
     pa_rating = models.IntegerField(default='0',verbose_name="Calificación (0-5)") # 1 low 5 top
