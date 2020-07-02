@@ -329,8 +329,9 @@
             let product_changes = JSON.stringify(dict_changes);
 
             // This should be placed on success, but for some reason it always receives error as response
-            $("#saved_changes_toast").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#saved_changes_toast").toast('show');
+            $("#saved_changes_toast").show();
+            $('#saved_changes_toast').toast({delay: 3000});
+            $('#saved_changes_toast').toast('show');
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -370,8 +371,9 @@
             let product_additions = JSON.stringify(dict_to_add);
 
             // This should be placed on success, but for some reason it always receives error as response
-            $("#myToast").toast({ autohide: true, animation: true, delay: 3000 });
-            $("#myToast").toast('show');
+            $("#myToast").show();
+            $('#myToast').toast({delay: 3000});
+            $('#myToast').toast('show');
 
             $.ajax({
                 headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -488,6 +490,15 @@
 <script src="{% static 'main/js/jquery.validate.min.js' %}"></script> <!-- NEEDED FOR VALIDATING FORMS -->
 <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
 <script>
+    // Hide toasts on page load
+    function on_pageload() {
+        $('#myToast').hide();
+        $('#saved_changes_toast').hide();
+    };
+    on_pageload();
+</script>
+
+<script>
     $(document).ready(function(){
         // Reload after closing add new products modal
         $('#add_product_modal').on('hidden.bs.modal', function () {
@@ -495,8 +506,9 @@
         })
         // Initialize toast on click display
         $(".show-toast").click(function(){
-            $("#myToast").toast({ autohide: true, animation: true, delay: 2000 });
-            $("#myToast").toast('show');
+            $("#myToast").show();
+            $('#myToast').toast({delay: 3000});
+            $('#myToast').toast('show');
         });
     });
 </script>
