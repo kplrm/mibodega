@@ -112,9 +112,15 @@
     function errorHandler(err) {
         //// NEW
         if (parseFloat("{{user_location.x}}") == 0 && parseFloat("{{user_location.y}}") == 0) {
+            console.log("if true");
+            console.log("{{user_location.y}}");
+            console.log("{{user_location.x}}");
             var latitude = -12.046374;
             var longitude = -77.0427934;
         } else {
+            console.log("if false");
+            console.log("{{user_location.y}}");
+            console.log("{{user_location.x}}");
             var latitude = parseFloat("{{user_location.y}}");
             var longitude = parseFloat("{{user_location.x}}");
         }
