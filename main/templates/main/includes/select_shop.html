@@ -110,10 +110,21 @@
     }
     // Permision denied
     function errorHandler(err) {
+        //// NEW
+        if (parseFloat("{{user_location.x}}") == 0 && parseFloat("{{user_location.y}}") == 0) {
+            var latitude = -12.046374;
+            var longitude = -77.0427934;
+        } else {
+            var latitude = parseFloat("{{user_location.y}}");
+            var longitude = parseFloat("{{user_location.x}}");
+        }
+        //// NEW
         map.invalidateSize();
         // Default location
-        update_user_location(-12.046374, -77.0427934);
-        get_nearby_shops(-12.046374, -77.0427934);
+        update_user_location(latitude,longitude);
+        get_nearby_shops(latitude,longitude);
+        //update_user_location(-12.046374, -77.0427934);
+        //get_nearby_shops(-12.046374, -77.0427934);
         if(err.code == 1) {
             alert("Haz click en el mapa para ubicar tu ubicación actual.");
         } else if( err.code == 2) {
