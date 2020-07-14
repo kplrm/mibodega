@@ -110,7 +110,6 @@
     }
     // Permision denied
     function errorHandler(err) {
-        //// NEW
         if (parseFloat("{{user_location.x}}") == 0 && parseFloat("{{user_location.y}}") == 0) {
             console.log("if true");
             console.log("{{user_location.y}}");
@@ -124,8 +123,21 @@
             var latitude = parseFloat("{{user_location.y}}");
             var longitude = parseFloat("{{user_location.x}}");
         }
-        //// NEW
+        document.getElementById("usr_lat").value = latitude;
+        document.getElementById("usr_lng").value = longitude;
         map.invalidateSize();
+        map.panTo(new L.LatLng(latitude, longitude));
+        // Make a marker in current user's location
+        if (marker != undefined) {
+            map.removeLayer(marker);
+        };
+        marker = new L.marker([ latitude, longitude ], {draggable:'true'})
+            .on('dragend', function(event){
+                update_user_location(event.target._latlng.lat,event.target._latlng.lng);
+                onMapMoveEnd();
+            }).addTo(map);
+            //console.log(event.target._latlng.lat);//console.log(event.target._latlng.lng);
+        map.addLayer(marker);
         // Default location
         update_user_location(latitude,longitude);
         get_nearby_shops(latitude,longitude);
