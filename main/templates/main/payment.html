@@ -1,0 +1,26 @@
+{% extends 'main/header.html' %}
+{% load static %}
+
+{% block content %}
+<!-- We are gonna accept information from the users (POST)-->
+
+<!-- BREADCRUMB -->
+<div class="breacrumb-section">
+    <div class="container" style="margin-top: 10px;">
+        <div class="breadcrumb-text">
+            <a href="/"><i class="material-icons" style="margin-top: 10px;">home</i><span>Inicio</span></a>
+            <span> / Pedido #{{ order_obj.ord_ID|stringformat:"08d" }}</span>            
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB END -->
+
+<!-- Payment confirmation Begin -->
+{% load humanize %}
+<h1>Pago exitoso</h1>
+<h3>Gracias por su compra. La boleta electrónica será enviada a su email.</h3>
+<!-- Payment confirmation End -->
+
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
+{% endblock %}

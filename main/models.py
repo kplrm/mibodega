@@ -242,6 +242,7 @@ class Orders(models.Model):
 #    ord_date_created = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de creación")
     ord_date_anulado = models.DateTimeField(default=None,blank=True,null=True,verbose_name="Fecha de anulación")
     ord_is_anulado = models.BooleanField(default=False,null=False,verbose_name="¿Anulado?")
+    ord_paid = models.BooleanField(default=False,null=False,verbose_name="¿Pagado?")
 
     # only for debugging
     ord_date_created = models.DateTimeField(default=timezone.now(),blank=True,null=True,verbose_name="Fecha de creación")

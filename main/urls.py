@@ -18,9 +18,6 @@ urlpatterns = [
     path("logout/", views.logout_request, name="logout_request"),
     path("change_password/", views.change_password_request, name="change_password_request"),
 
-    #path("password_reset_confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/", auth_views.PasswordResetConfirmView.as_view(template_name="main/password_reset_confirm.html"), name='password_reset_confirm'),
-    #url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm, name='password_reset_confirm'),
-
     # Store front views and functions
     path("embutidos", views.embutidos, name="embutidos"),
     path("vegetales", views.vegetales, name="vegetales"),
@@ -42,6 +39,9 @@ urlpatterns = [
     path("see_search_results", views.see_search_results, name="see_search_results"),
     path("search_username", views.search_username, name="search_username"),
     path("search_ruc", views.search_ruc, name="search_ruc"),
+    path("pagar/<int:order_id>", views.pay, name="pay"),
+    path("payment/<int:order_id>", views.payment, name="payment"),
+    path("validate_payment", views.validate_payment, name="validate_payment"),
 
     # Dashboard
     path("dashboard/", views.dashboard, name="dashboard"),
