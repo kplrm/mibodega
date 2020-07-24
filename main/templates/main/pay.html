@@ -1,0 +1,67 @@
+{% extends 'main/header.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Check if order has already been paid -->
+<script>
+    console.log("{{ order_obj.ord_paid }}");
+    if ("{{ order_obj.ord_paid }}" == "True") {
+        window.location.href = '/payment/'+"{{ order_obj.ord_ID }}";
+    }
+</script>
+
+<!-- BREADCRUMB -->
+<div class="breacrumb-section">
+    <div class="container" style="margin-top: 10px;">
+        <div class="breadcrumb-text">
+            <a href="/"><i class="material-icons" style="margin-top: 10px;">home</i><span>Inicio</span></a>
+            <span> / Pedido #{{ order_obj.ord_ID|stringformat:"08d" }}</span>            
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB END -->
+
+<!-- Pay Section Begin -->
+{% load humanize %}
+<form id="maximo-widget" action="" method="POST" publicKey="R8gpF0xMu8uV3w9ZGTa75NNEOsvQ6HAPNSaS" amount="{{ order_obj.ord_total_price|floatformat:2|intcomma }}" currency="PEN">{% csrf_token %}
+</form>
+<script src="https://maximo-widget.s3.amazonaws.com/widget.js"></script>
+
+<a onclick="run()" class="waves-effect waves-green btn-flat" style="background-color: #feb100;">Pagar con tarjeta</a>
+<script>
+    function run() {
+        window.Maximo.run({callbackMethod:(ev)=>{
+            if (ev.event == "maximo-finish"){
+                //console.log('Laika_event: ' + ev.event);
+                //console.log('Laika_token: ' + ev.token);
+                validate_payment(ev.token);
+            }
+        }})
+    };
+    function validate_payment(token) {
+        $.ajax({
+            headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            url: "/validate_payment",
+            type: "POST",
+            dataType: "json",
+            data:   {
+                        'token': token,
+                        'order_id': "{{ order_obj.ord_ID }}"
+                    },
+            success: function(){
+                console.log("El exito!");
+                window.location.href = '/payment/'+"{{ order_obj.ord_ID }}";
+            },
+            error: function(){
+                console.log("Keep trying");
+            }
+        });
+    };
+</script>
+
+
+<!-- Pay Form Section End -->
+
+<script src="{% static 'main/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'main/js/materialize.min.js' %}"></script>
+{% endblock %}

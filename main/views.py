@@ -1140,7 +1140,7 @@ def submit_checkout(request):
                 item.delete()
 
             # Send JsonResponse
-            response_data = {"success": not_available_items }
+            response_data = {"success": not_available_items, "buy_order": orders_obj.ord_ID }
             return JsonResponse(response_data, status=200)
         else: # If price is less than zero
             return JsonResponse({"error": "Invalid cart value"}, status=400)
@@ -1148,6 +1148,47 @@ def submit_checkout(request):
     # In case is not post neither ajax
     else:
         return JsonResponse({"error": "something went wrong"}, status=400)
+
+def pay(request, order_id=0):
+    if order_id != 0:
+        order_obj = get_object_or_404(Orders,ord_ID=order_id)
+        context = {
+            'order_obj': order_obj,
+        }
+
+    return render(request=request,template_name="main/pay.html",context=context)
+
+def validate_payment(request):
+    print("in validate_payment...")
+    if request.method == "POST" and request.is_ajax():
+        # Retrieve token
+        token = request.POST.get('token',False)
+        order_id = request.POST.get('order_id',False)
+        if token != False and order_id != False:
+            private_key = 'cRaqvrhQgq4tntnSNNmpum8K88jC1nfQR46c'
+            API_url = "http://maximo-api.herokuapp.com/api/v1/guest-payment/generate-payment"
+            response = requests.post(API_url, data = {"private_key": private_key, "guest_payment_token": token})
+            print("response.status_code: ", response.status_code)
+            if response.status_code == 201:
+                print ('OK!')
+                order_obj = get_object_or_404(Orders,ord_ID=order_id)
+                order_obj.ord_paid = True
+                order_obj.save()
+                return JsonResponse({"success": "Laika"}, status=200)
+            else:
+                print ('NOT OK!')
+                return JsonResponse({"error": "Missing token"}, status=400)
+        else:
+            return JsonResponse({"error": "Missing token"}, status=400)
+    return JsonResponse({"error": "Something went wrong"}, status=400)
+
+def payment(request, order_id=0):
+    if order_id != 0:
+        order_obj = get_object_or_404(Orders,ord_ID=order_id)
+        context = {
+            'order_obj': order_obj
+        }
+    return render(request=request,template_name="main/payment.html",context=context)
 
 def registro(request):
     if request.user.is_authenticated:
