@@ -117,7 +117,7 @@
     {% load humanize %}
     {% for product in result_list %}
         <div class="col s6 m4 l3 xl2">
-            <div class="card" style="text-align:center;">
+            <div class="card" style="text-align:center;max-width:160px;min-width:160px;">
                 <div class="card-image" style="align-self:center">
                     {% if product.peb_product.pa_image %}
                         <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
