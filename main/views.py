@@ -46,6 +46,9 @@ import re # regex
 import unicodedata
 import unidecode
 
+# Encoding for digital invoice
+import urllib.parse
+
 import json
 from django.http import JsonResponse
 
@@ -1158,22 +1161,42 @@ def pay(request, order_id=0):
 
     return render(request=request,template_name="main/pay.html",context=context)
 
+def payment_method(request):
+    if request.method == "POST" and request.is_ajax():
+        # Retrieves payment method. 0:Error,1:Cash,2:Yape
+        payment_method = request.POST.get('payment_method',False)
+        order_id = request.POST.get('order_id',False)
+        if payment_method != False and order_id != False:
+            orders_obj = get_object_or_404(Orders,ord_ID=order_id)
+            if payment_method == 1:
+                orders_obj.ord_payment_method = 1
+            elif payment_method == 2:
+                orders_obj.ord_payment_method = 2
+            else:
+                orders_obj.ord_payment_method = 0
+            orders_obj.save()
+            return JsonResponse({"success": "Laika"}, status=200)
+        return JsonResponse({"error": "Something went wrong"}, status=400)
+    return JsonResponse({"error": "Something went wrong"}, status=400)
+
 def validate_payment(request):
     print("in validate_payment...")
     if request.method == "POST" and request.is_ajax():
         # Retrieve token
         token = request.POST.get('token',False)
         order_id = request.POST.get('order_id',False)
-        if token != False and order_id != False:
-            private_key = 'cRaqvrhQgq4tntnSNNmpum8K88jC1nfQR46c'
+        if token != False and order_id != False: # Compares public and private tokens
+            private_key = 'N1FqhVa4eppK6Wfps89NiR1O55IVLjtVE7FZ'
             API_url = "http://maximo-api.herokuapp.com/api/v1/guest-payment/generate-payment"
             response = requests.post(API_url, data = {"private_key": private_key, "guest_payment_token": token})
             print("response.status_code: ", response.status_code)
+            print("response.status_code: ", response)
             if response.status_code == 201:
                 print ('OK!')
-                order_obj = get_object_or_404(Orders,ord_ID=order_id)
-                order_obj.ord_paid = True
-                order_obj.save()
+                orders_obj = get_object_or_404(Orders,ord_ID=order_id)
+                #send_invoice(orders_obj) # Generates invoice for SUNAT
+                orders_obj.ord_paid = True
+                orders_obj.save()
                 return JsonResponse({"success": "Laika"}, status=200)
             else:
                 print ('NOT OK!')
@@ -1181,6 +1204,106 @@ def validate_payment(request):
         else:
             return JsonResponse({"error": "Missing token"}, status=400)
     return JsonResponse({"error": "Something went wrong"}, status=400)
+
+def send_invoice(orders_obj):
+    # client_id needs to be change from SOL Menu
+    dia = date.today().year
+    mes = date.today().month
+    anio = date.today().day
+    orders_obj.ord_taxes = orders_obj.ord_total_price * 0.18
+    orders_obj.save()
+    #OrderItem = get_object_or_404(OrderItem,oi_ID=orders_obj)
+    settings =  {
+                    "async": "true",
+                    "crossDomain": "true",
+                    "url": "http://demo.mifact.net.pe/api/invoiceService.svc/SendInvoice",
+                    "method": "POST",
+                    "headers":  {
+                        "content-type": "application/json",
+                        "cache-control": "no-cache",
+                        "postman-token": "05d67f93-91db-85ae-fc06-c565a92c4181"
+                    },
+                    "processData": "false",
+                    "data": {
+                        "TOKEN":"gN8zNRBV+/FVxTLwdaZx0w==",
+                        "COD_TIP_NIF_EMIS": "6",
+                        "NUM_NIF_EMIS": "20600035674",
+                        "NOM_RZN_SOC_EMIS": "CR INMOBILIARIA NETWORKER S.A.C.",
+                        "NOM_COMER_EMIS": "ALIMENTOS PUNTO PE",
+                        "COD_UBI_EMIS": "150114",
+                        "TXT_DMCL_FISC_EMIS": "CAL.BADAJOZ MZA. E LOTE. 11 URB. LA CAPILLA (SUPER MANZANA U3) LIMA - LIMA - LA MOLINA",
+                        "COD_TIP_NIF_RECP": "0",
+                        "NUM_NIF_RECP": "00000000",
+                        "NOM_RZN_SOC_RECP": "CLIENTE SIN NOMBRE",
+                        "TXT_DMCL_FISC_RECEP": "SIN DIRECCION",
+                        "FEC_EMIS": str(anio)+"-"+str(mes)+"-"+str(dia),
+                        "FEC_VENCIMIENTO": str(anio)+"-"+str(mes)+"-"+str(dia),
+                        "COD_TIP_CPE": "03",
+                        "NUM_SERIE_CPE": "B002",
+                        "NUM_CORRE_CPE": str(orders_obj.ord_ID).zfill(8),
+                        "COD_MND": "PEN",
+                        "MailEnvio": "hola@alimentos.pe",
+                        "COD_PRCD_CARGA": "001",
+                        "MNT_TOT_GRAVADO": str(orders_obj.ord_total_price - orders_obj.ord_taxes), 
+                        "MNT_TOT_TRIB_IGV": str(orders_obj.ord_taxes), 
+                        "MNT_TOT": str(orders_obj.ord_total_price), 
+                        "ENVIAR_A_SUNAT": "true",
+                        "RETORNA_XML_ENVIO": "true",
+                        "RETORNA_XML_CDR": "false",
+                        "RETORNA_PDF": "false",
+                        "COD_FORM_IMPR":"001",
+                        "TXT_VERS_UBL":"2.1",
+                        "TXT_VERS_ESTRUCT_UBL":"2.0",
+                        "COD_ANEXO_EMIS":"0000",
+                        "COD_TIP_OPE_SUNAT": "0101",
+                        "items": [{
+                            "COD_ITEM": "BCF-RR01",
+                            "COD_UNID_ITEM": "NIU",
+                            "CANT_UNID_ITEM": "1",
+                            "VAL_UNIT_ITEM": "500",      
+                            "PRC_VTA_UNIT_ITEM": "590",
+                            "VAL_VTA_ITEM": "500",
+                            "MNT_BRUTO": "500.00",
+                            "MNT_PV_ITEM": "590",
+                            "COD_TIP_PRC_VTA": "01",
+                            "COD_TIP_AFECT_IGV_ITEM":"10",
+                            "COD_TRIB_IGV_ITEM": "1000",
+                            "POR_IGV_ITEM": "18",
+                            "MNT_IGV_ITEM": "90",      
+                            "TXT_DESC_ITEM": "AUTO TOYOTA YARIS 2018",                  
+                            "DET_VAL_ADIC01": "dato adiciona al item: AÑO DE FABRICACION 2018  ",
+                            "DET_VAL_ADIC02": "VERSION FULLL",
+                            "DET_VAL_ADIC03": "COLOR:GRIS",
+                            "DET_VAL_ADIC04": "NRO. MOTOR: JP8383838HYHYJJDD"
+                        },
+                        {
+                            "COD_ITEM": "BCF-RR02",
+                            "COD_UNID_ITEM": "NIU",
+                            "CANT_UNID_ITEM": "1",
+                            "VAL_UNIT_ITEM": "500",      
+                            "PRC_VTA_UNIT_ITEM": "590",
+                            "VAL_VTA_ITEM": "500",
+                            "MNT_BRUTO": "500.00",
+                            "MNT_PV_ITEM": "590",
+                            "COD_TIP_PRC_VTA": "01",
+                            "COD_TIP_AFECT_IGV_ITEM":"10",
+                            "COD_TRIB_IGV_ITEM": "1000",
+                            "POR_IGV_ITEM": "18",
+                            "MNT_IGV_ITEM": "90",  
+                            "TXT_DESC_ITEM": "DETALLE DEL PRODUCTO 2"
+                        }]
+                    }
+                }
+    API_url = "http://demo.mifact.net.pe/api/invoiceService.svc/SendInvoice"
+    response = requests.post(API_url, data = settings)
+    print("response.status_code: ", response.status_code)
+#    data = {'grant_type': 'client_credentials','scope': 'https://api.sunat.gob.pe/v1/contribuyente/contribuyentes','client_id': 'client_id','client_secret': 'client_secret'}
+#    response = requests.post(url = "https://api-seguridad.sunat.gob.pe/v1/clientesextranet/client_id/oauth2/token/",
+#                                headers={'Content-Type': 'application/x-www-form-urlencoded'},
+#                                data=data)
+#    print("access_token: ", response.access_token)
+#    print("token_type: ", response.token_type)
+#    print("expires_in: ", response.expires_in)
 
 def payment(request, order_id=0):
     if order_id != 0:

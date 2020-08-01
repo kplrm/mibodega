@@ -42,6 +42,7 @@ urlpatterns = [
     path("pagar/<int:order_id>", views.pay, name="pay"),
     path("payment/<int:order_id>", views.payment, name="payment"),
     path("validate_payment", views.validate_payment, name="validate_payment"),
+    path("payment_method", views.payment_method, name="payment_method"),
 
     # Dashboard
     path("dashboard/", views.dashboard, name="dashboard"),

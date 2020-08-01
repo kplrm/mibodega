@@ -293,7 +293,8 @@
         {% load humanize %}
         <div class="col xl6 l6 m12 s12">
             <h4>Su pedido</h4>
-            <!-- Dropdown button start -->
+            <!-- Dropdown comparar start -->
+            <!--
             <div class="row" style="text-align:center">
                 <div class="col s12">
                     <a class='dropdown-trigger btn' href='#' data-target='results_options' style="background-color:#ff6f6f !important;color:#000000;font-weight:bold;">Comparar precios</a>
@@ -304,7 +305,8 @@
                     </ul>
                 </div>
             </div>
-            <!-- Dropdown button end -->
+            -->
+            <!-- Dropdown comparar end -->
             <input type="hidden" id="counter" value=""> <!-- SUPPORT VARIABLE FOR BUYING -->
             <input type="hidden" id="order_id" value="0"> <!-- SUPPORT VARIABLE FOR BUYING -->
             {% for result in result_list %}
@@ -552,11 +554,12 @@
         </p>
     </div>
     <div class="modal-footer">
-        <a onclick="pay();" class="modal-close waves-effect waves-green btn-flat" style="background-color: #feb100;">Pagar</a>
+        <a onclick="pay();" class="modal-close waves-effect waves-green btn-flat" style="background-color: #feb100;">Cerrar</a>
     </div>
     <script>
         function pay(){
-            window.location.href = '/pagar/'+document.getElementById("order_id").value;
+            //window.location.href = '/pagar/'+document.getElementById("order_id").value;
+            window.location.href = '../' // Send back to start site
         }
     </script>
 </div>
@@ -666,7 +669,7 @@
                         $("#popupModalLabel").html('');
                         $("#popupModalLabel").append('Su pedido fue generado');
                         $("#popupModalBody").html('');
-                        $("#popupModalBody").append('Proceda a realizar el pago para que su producto sea enviado.');
+                        $("#popupModalBody").append('Nos pondremos en contacto con usted para coordinar la entrega del pedido.<br>Puede pagar con Yape o Efectivo.');
                         show_modal();
                     } else if (response.success.length > 0) {
                         for (i = 0; i < response.success.length; i++) {
@@ -675,7 +678,7 @@
                         $("#popupModalLabel").html('');
                         $("#popupModalLabel").append('Su pedido fue generado');
                         $("#popupModalBody").html('');
-                        $("#popupModalBody").append('Proceda a realizar el pago para que su producto sea enviado.\r\n'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
+                        $("#popupModalBody").append('Nos pondremos en contacto con usted para coordinar la entrega del pedido.<br>Puede pagar con Yape o Efectivo.<br>'+'Los siguientes productos no han sido incluidos por ya no encontrarse disponibles:<br>'+msg);
                         show_modal();
                     }
                 },
