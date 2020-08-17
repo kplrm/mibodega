@@ -969,7 +969,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
     plain_message = strip_tags(html_content)
 
     # Envio de email al cliente
-    send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
+    send_mail(subject=subject, message=plain_message, from_email="Alimentos.pe <hola@alimentos.pe>",
                 recipient_list=[usr_email], html_message=html_content, fail_silently=False)
 
     # Send mail to bodegas
@@ -1002,7 +1002,7 @@ def send_order_mail(orders_obj,bodegas,usr_first,usr_last,usr_street,usr_geoloca
         plain_message = strip_tags(html_content)
 
         # Envio de email a bodegas
-        send_mail(subject=subject, message=plain_message, from_email="hola@alimentos.pe",
+        send_mail(subject=subject, message=plain_message, from_email="Alimentos.pe <hola@alimentos.pe>",
                     recipient_list=[bodega_obj.bd_email], html_message=html_content, fail_silently=False)
 
 def submit_checkout(request):
@@ -1387,7 +1387,7 @@ def registroBodega(request):
                 plain_message = strip_tags(html_content)
 
                 # Envio de email de bienvenida al cliente
-                email = EmailMultiAlternatives(subject=subject, body=plain_message, from_email="hola@alimentos.pe", to=[client.cl_email], bcc=["hola@alimentos.pe"])
+                email = EmailMultiAlternatives(subject=subject, body=plain_message, from_email="Alimentos.pe <hola@alimentos.pe>", to=[client.cl_email], bcc=["hola@alimentos.pe"])
                 email.attach_alternative(html_content, "text/html")
                 email.send(fail_silently=False)
 
