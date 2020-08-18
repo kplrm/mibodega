@@ -1,7 +1,7 @@
 
 <!-- Data fields -->
-<input type="hidden" class="form-control" id="usr_lat" value="-12.046374" disabled>
-<input type="hidden" class="form-control" id="usr_lng" value="-77.0427934" disabled>
+<input type="hidden" class="form-control" id="usr_lat" value="-12.109987" disabled>
+<input type="hidden" class="form-control" id="usr_lng" value="-76.944204" disabled>
 
 <!-- Map -->
 <div id="map" style="height:inherit;"></div>
@@ -21,7 +21,7 @@
     // Initializes map
     var marker;
     var shops_markers = [];
-    var map = L.map('map', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0}).setView([ -12.046374, -77.0427934 ], 14);
+    var map = L.map('map', {maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0}).setView([ -12.109987, -76.944204 ], 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { noWrap: true, bounds: [[-90, -180],[90, 180]], maxZoom: "18", minZoom:"5", maxNativeZoom: "18",
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -114,8 +114,8 @@
             console.log("if true");
             console.log("{{user_location.y}}");
             console.log("{{user_location.x}}");
-            var latitude = -12.046374;
-            var longitude = -77.0427934;
+            var latitude = -12.109987;
+            var longitude = -76.944204;
         } else {
             console.log("if false");
             console.log("{{user_location.y}}");
@@ -141,8 +141,8 @@
         // Default location
         update_user_location(latitude,longitude);
         get_nearby_shops(latitude,longitude);
-        //update_user_location(-12.046374, -77.0427934);
-        //get_nearby_shops(-12.046374, -77.0427934);
+        //update_user_location(-12.109987, -76.944204);
+        //get_nearby_shops(-12.109987, -76.944204);
         if(err.code == 1) {
             alert("Haz click en el mapa para ubicar tu ubicación actual.");
         } else if( err.code == 2) {
