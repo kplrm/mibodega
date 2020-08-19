@@ -78,12 +78,12 @@
 {% if result_list|length == 0 %}
     <div class="row">
         <div class="col s12">
-            <h4 style="color:#ff2322;">No hay ofertas disponibles en su zona.</h4>
+            <h5>Aún no tenemos ofertas disponibles en su zona.</h5>
         </div>
     </div>
     <div class="row">
         <div class="col s12">
-            <h5>Actualice su ubicación por favor</h5>
+            <h4 style="color:#ff2322;">Actualice su ubicación por favor</h4>
             <!-- Pin icon -->
             <a class="btn modal-trigger" id="remider_user_location_btn" data-target="user_location_modal" onclick="getLocation()" style="background-color:#3fcc01;color:#212529 !important;box-shadow:none;margin-top: 10px;">
                 <i class="material-icons">place</i>
@@ -112,32 +112,34 @@
 <!-- END NO PRODUCTS AVAILABLE -->
 
 <!-- PRODUCTS -->
-<div class="row">
-    {% load humanize %}
-    {% for product in result_list %}
-        <div class="col s6 m4 l3 xl2">
-            <div class="card" style="text-align:center;max-width:160px;min-width:160px;">
-                <div class="card-image" style="align-self:center">
-                    {% if product.peb_product.pa_image %}
-                        <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
-                    {% endif %}
-                    <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
-                    <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
-                    <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
-                </div>
-                <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
-                    <b>{{product.peb_bodega.bd_name}}</b><br>
-                    {{product.peb_product.pa_product}}
-                </div>
-                <div class="card-action">
-                    <a class="btn" name="cart_add" id="{{product.pk}}" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px">
-                        <i class="material-icons">add_shopping_cart</i>
-                    </a>
+<div class="container">
+    <div class="row">
+        {% load humanize %}
+        {% for product in result_list %}
+            <div class="col s6 m4 l3 xl2">
+                <div class="card" style="text-align:center;max-width:160px;min-width:160px;">
+                    <div class="card-image" style="align-self:center">
+                        {% if product.peb_product.pa_image %}
+                            <img class="responsive-img" style="max-width:150px;" src="{{product.peb_product.pa_image.url}}" alt="IMG">
+                        {% endif %}
+                        <span style="background-color:#ff2322;font-weight:bold;padding:5px;font-size:16px;color:#fff;position:absolute;top:0px;left:0px;">{{ product.peb_discount_rate|floatformat:0|intcomma }}%</span>
+                        <b style="font-size:20px;color:#feb100"> S/.{{product.peb_discount_price|floatformat:2|intcomma}}</b>
+                        <span style="text-decoration:line-through;">S/.{{product.peb_regular_price|floatformat:2|intcomma}}</span>
+                    </div>
+                    <div class="card-content" style="color:#000000;padding:0px 0px 0px 0px;">
+                        <b>{{product.peb_bodega.bd_name}}</b><br>
+                        {{product.peb_product.pa_product}}
+                    </div>
+                    <div class="card-action">
+                        <a class="btn" name="cart_add" id="{{product.pk}}" onclick="cart_add(this)" style="background-color:#feb100;padding:0px 10px 0px 10px">
+                            <i class="material-icons">add_shopping_cart</i>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-  </div>
+        {% endfor %}
+      </div>
+</div>
 <!-- PRODUCTS END-->
 
 <!-- SHOPPING CART -->
