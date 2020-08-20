@@ -94,8 +94,8 @@ def homepage(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -149,8 +149,8 @@ def embutidos(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -230,8 +230,8 @@ def lacteos(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -311,8 +311,8 @@ def abarrotes(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -392,8 +392,8 @@ def limpieza(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -473,8 +473,8 @@ def licores(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -554,8 +554,8 @@ def vegetales(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         #user_longitude, user_latitude = locate_user()
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
     
@@ -636,8 +636,8 @@ def see_search_results(request):
             request.session['introduction'] = True
             introduction = True
             # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-            user_longitude = 0
-            user_latitude = 0
+            user_longitude = -76.944204
+            user_latitude = -12.109987
             #user_longitude, user_latitude = locate_user()
             user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
@@ -798,8 +798,8 @@ def checkout(request):
         request.session['introduction'] = True
         introduction = True
         # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-        user_longitude = 0
-        user_latitude = 0
+        user_longitude = -76.944204
+        user_latitude = -12.109987
         user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
     # Check if user is logged in
@@ -2083,8 +2083,8 @@ def search_query(request):
             request.session['introduction'] = True
             introduction = True
             # Using IpregistryClient to get user aprox location or user_longitude = 0 user_latitude = 0
-            user_longitude = 0
-            user_latitude = 0
+            user_longitude = -76.944204
+            user_latitude = -12.109987
             #user_longitude, user_latitude = locate_user()
             user_location = Point(float(user_longitude),float(user_latitude),srid=4326)
 
