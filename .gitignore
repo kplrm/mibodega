@@ -4,3 +4,4 @@ main/migrations/*/*
 mibodega/settings.py
 mibodega/__pycache__/*
 resources/*
+*.png
